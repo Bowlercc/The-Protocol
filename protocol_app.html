@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE PROTOCOL — Matterhood Archive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --void: #0a0a0a;
+            --charcoal: #1a1a1a;
+            --bone: #E8E4DF;
+            --cream: #F5F2ED;
+            --bone-dim: rgba(232, 228, 223, 0.6);
+            --bone-faint: rgba(232, 228, 223, 0.15);
+            --bone-ghost: rgba(232, 228, 223, 0.06);
+            --alert: #C41E1E;
+            --gold: #B8956A;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; }
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--void);
+            color: var(--bone);
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        .film-grain {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            animation: grain 0.4s steps(1) infinite;
+        }
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            20% { transform: translate(-2%, -2%); }
+            40% { transform: translate(2%, 2%); }
+            60% { transform: translate(-2%, 2%); }
+            80% { transform: translate(2%, -2%); }
+        }
+        .container { min-height: 100vh; display: flex; flex-direction: column; }
+        header {
+            border-bottom: 1px solid var(--bone-faint);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+        .header-left { display: flex; align-items: center; gap: 1.5rem; }
+        .logo { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; }
+        .logo-sub { font-size: 0.55rem; letter-spacing: 0.2em; opacity: 0.4; margin-left: 1rem; font-weight: 400; }
+        .setup-btn {
+            background: transparent;
+            color: var(--bone);
+            border: 1px solid var(--bone-faint);
+            padding: 0.5rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .setup-btn:hover, .setup-btn.active { background: var(--bone); color: var(--void); }
+        .rec-indicator { display: flex; align-items: center; gap: 0.5rem; font-size: 0.6rem; letter-spacing: 0.15em; }
+        .rec-dot {
+            width: 8px; height: 8px;
+            background: var(--alert);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .setup-panel {
+            max-height: 0;
+            overflow: hidden;
+            border-bottom: 1px solid transparent;
+            padding: 0 1.5rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            transition: all 0.4s ease;
+            background: var(--charcoal);
+        }
+        .setup-panel.active { max-height: 100px; padding: 1.25rem 1.5rem; border-bottom-color: var(--bone-faint); }
+        .setup-control { display: flex; flex-direction: column; gap: 0.5rem; }
+        .setup-label { font-size: 0.55rem; letter-spacing: 0.2em; opacity: 0.4; text-transform: uppercase; }
+        .setup-select {
+            background: transparent;
+            color: var(--bone);
+            border: 1px solid var(--bone-faint);
+            padding: 0.6rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            min-width: 180px;
+        }
+        .setup-select option { background: var(--void); color: var(--bone); }
+        .main-content { flex: 1; display: flex; }
+        .control-panel {
+            width: 340px;
+            min-width: 340px;
+            border-right: 1px solid var(--bone-faint);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            background: rgba(10, 10, 10, 0.5);
+        }
+        .input-section { display: flex; flex-direction: column; gap: 0.6rem; }
+        .input-label { font-size: 0.55rem; letter-spacing: 0.2em; opacity: 0.4; text-transform: uppercase; }
+        .trigger-input {
+            background: transparent;
+            color: var(--bone);
+            border: none;
+            border-bottom: 1px solid var(--bone-faint);
+            padding: 0.75rem 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .trigger-input::placeholder { color: rgba(232, 228, 223, 0.2); font-style: italic; }
+        .trigger-input:focus { border-bottom-color: var(--bone-dim); }
+        .tone-section { display: flex; flex-direction: column; gap: 1rem; }
+        .tone-label { font-size: 0.55rem; letter-spacing: 0.2em; opacity: 0.4; text-transform: uppercase; }
+        .tone-buttons { display: flex; flex-direction: column; gap: 0.5rem; }
+        .tone-btn {
+            background: transparent;
+            color: var(--bone);
+            border: 1px solid var(--bone-faint);
+            padding: 1rem 1.25rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: left;
+            position: relative;
+        }
+        .tone-btn::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0;
+            width: 2px; height: 100%;
+            background: var(--gold);
+            transform: scaleY(0);
+            transition: transform 0.25s ease;
+        }
+        .tone-btn:hover { background: var(--bone-ghost); padding-left: 1.5rem; }
+        .tone-btn:hover::before { transform: scaleY(1); }
+        .tone-btn.active { background: var(--bone); color: var(--void); }
+        .tone-btn.active::before { background: var(--void); transform: scaleY(1); }
+        .display-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Cinematic Background System - CSS Patterns as Fallback */
+        .scene-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        .scene-bg.active { opacity: 1; }
+        .scene-bg::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.85) 100%);
+        }
+
+        /* CSS Pattern Backgrounds by Tone */
+        .scene-bg.diplomat-bg {
+            background: 
+                linear-gradient(135deg, #1a1a1a 25%, transparent 25%),
+                linear-gradient(225deg, #1a1a1a 25%, transparent 25%),
+                linear-gradient(45deg, #1a1a1a 25%, transparent 25%),
+                linear-gradient(315deg, #1a1a1a 25%, #0a0a0a 25%);
+            background-size: 60px 60px;
+            background-color: #0f0f0f;
+        }
+        .scene-bg.critic-bg {
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    #0a0a0a,
+                    #0a0a0a 2px,
+                    #151515 2px,
+                    #151515 4px
+                );
+        }
+        .scene-bg.absurdist-bg {
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(184, 149, 106, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(184, 149, 106, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 30%),
+                linear-gradient(180deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%);
+        }
+        .scene-bg.realist-bg {
+            background: 
+                linear-gradient(180deg, 
+                    #0a0a0a 0%, 
+                    #121212 20%,
+                    #181818 40%,
+                    #141414 60%,
+                    #101010 80%,
+                    #0a0a0a 100%
+                );
+        }
+
+        .script-display { max-width: 700px; width: 100%; position: relative; z-index: 10; }
+        .placeholder-card { text-align: center; padding: 4rem 2rem; }
+        .placeholder-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            font-style: italic;
+            opacity: 0.2;
+            line-height: 1.8;
+        }
+        .placeholder-text span { display: block; }
+        .script-card {
+            display: none;
+            padding: 2.5rem;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+            border: 1px solid var(--bone-faint);
+            position: relative;
+        }
+        .script-card.active { display: block; animation: cardReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes cardReveal { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        .script-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 60px; height: 2px;
+            background: var(--gold);
+        }
+        .script-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--bone-faint);
+        }
+        .script-category { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.5; }
+        .script-tone { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+        .script-trigger {
+            font-size: 0.75rem;
+            color: #666;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            text-transform: uppercase;
+        }
+        .script-trigger-label { display: block; font-size: 0.55rem; opacity: 0.4; margin-bottom: 0.5rem; letter-spacing: 0.2em; }
+        .script-response { margin-bottom: 2rem; }
+        .script-response-label { font-size: 0.55rem; color: var(--gold); margin-bottom: 1rem; letter-spacing: 0.2em; text-transform: uppercase; }
+        .script-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 400;
+            line-height: 1.35;
+            color: var(--cream);
+        }
+        .script-footer {
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            opacity: 0.3;
+            text-transform: uppercase;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--bone-faint);
+            display: flex;
+            justify-content: space-between;
+        }
+        .controls { display: flex; gap: 0.5rem; justify-content: center; margin-top: 2rem; }
+        .control-btn {
+            background: transparent;
+            color: var(--bone);
+            border: 1px solid var(--bone-faint);
+            padding: 0.75rem 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .control-btn:hover:not(:disabled) { background: var(--bone-ghost); border-color: var(--bone-dim); }
+        .control-btn:disabled { opacity: 0.15; cursor: not-allowed; }
+        .control-btn.primary { background: var(--bone); color: var(--void); border-color: var(--bone); }
+        .control-btn.primary:hover:not(:disabled) { background: var(--cream); }
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(150%);
+            background: var(--void);
+            border: 1px solid var(--gold);
+            color: var(--bone);
+            padding: 1.25rem 1.75rem;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 1000;
+            transition: transform 0.4s ease;
+            text-align: center;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast a { color: var(--gold); text-decoration: none; margin-left: 0.5rem; }
+        .toast a:hover { text-decoration: underline; }
+        footer {
+            border-top: 1px solid var(--bone-faint);
+            padding: 1rem 1.5rem;
+            text-align: center;
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+        footer a { color: var(--gold); text-decoration: none; }
+        @media (max-width: 900px) {
+            .logo-sub { display: none; }
+            .main-content { flex-direction: column; }
+            .control-panel { width: 100%; min-width: 0; border-right: none; border-bottom: 1px solid var(--bone-faint); padding: 1.5rem; }
+            .control-panel.hidden { display: none; }
+            .tone-buttons { flex-direction: row; flex-wrap: wrap; }
+            .tone-btn { flex: 1 1 calc(50% - 0.25rem); text-align: center; padding: 0.85rem; font-size: 0.6rem; }
+            .display-panel { padding: 1.5rem; min-height: 70vh; }
+            .display-panel.hidden { display: none; }
+            .script-card { padding: 1.75rem 1.5rem; }
+            .back-btn { position: absolute; top: 1rem; left: 1rem; z-index: 20; }
+            .controls { flex-direction: column; width: 100%; }
+            .control-btn { width: 100%; }
+        }
+        @media (min-width: 901px) { .mobile-only { display: none !important; } }
+        .script-card:not(.active) { display: none; }
+
+        /* Export Canvas Styles (hidden) */
+        .export-canvas {
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: 1200px;
+            height: 675px;
+            background: #0a0a0a;
+        }
+    </style>
+</head>
+<body>
+    <div class="film-grain"></div>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <div class="logo">THE PROTOCOL<span class="logo-sub">MATTERHOOD ARCHIVE</span></div>
+                <button class="setup-btn" id="setupBtn">SETUP</button>
+            </div>
+            <div class="rec-indicator"><div class="rec-dot"></div><span>REC</span></div>
+        </header>
+        <div class="setup-panel" id="setupPanel">
+            <div class="setup-control">
+                <label class="setup-label">PERSPECTIVE:</label>
+                <select class="setup-select" id="genderSelect">
+                    <option value="neutral">NEUTRAL</option>
+                    <option value="male">MALE FACTOR</option>
+                    <option value="female">FEMALE FACTOR</option>
+                </select>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="control-panel" id="controlPanel">
+                <div class="input-section">
+                    <label class="input-label">THEY SAID:</label>
+                    <input type="text" class="trigger-input" id="triggerInput" placeholder="Just relax and it will happen...">
+                </div>
+                <div class="tone-section">
+                    <div class="tone-label">SELECT VOICE:</div>
+                    <div class="tone-buttons">
+                        <button class="tone-btn" data-tone="diplomat">DIPLOMAT</button>
+                        <button class="tone-btn" data-tone="critic">CRITIC</button>
+                        <button class="tone-btn" data-tone="absurdist">ABSURDIST</button>
+                        <button class="tone-btn" data-tone="realist">REALIST</button>
+                    </div>
+                </div>
+            </div>
+            <div class="display-panel" id="displayPanel">
+                <div class="scene-bg" id="sceneBg"></div>
+                <button class="control-btn mobile-only back-btn" id="backBtn" style="display: none;">← BACK</button>
+                <div class="script-display">
+                    <div class="placeholder-card" id="placeholderCard">
+                        <div class="placeholder-text">
+                            <span>Enter the trigger.</span>
+                            <span>Select your voice.</span>
+                            <span>Rewrite the scene.</span>
+                        </div>
+                    </div>
+                    <div class="script-card" id="scriptCard">
+                        <div class="script-meta">
+                            <span class="script-category" id="categoryTag">REDIRECT</span>
+                            <span class="script-tone" id="toneTag">THE DIPLOMAT</span>
+                        </div>
+                        <div class="script-trigger">
+                            <span class="script-trigger-label">THEY SAID:</span>
+                            <div id="triggerDisplay"></div>
+                        </div>
+                        <div class="script-response">
+                            <div class="script-response-label">YOU SAY:</div>
+                            <div class="script-text" id="scriptText"></div>
+                        </div>
+                        <div class="script-footer">
+                            <span>THE PROTOCOL</span>
+                            <span>MATTERHOOD.ARCHIVE</span>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="control-btn" id="newTakeBtn" disabled>NEW TAKE</button>
+                        <button class="control-btn" id="copyBtn" disabled>COPY</button>
+                        <button class="control-btn primary" id="exportBtn" disabled>EXPORT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>CRAIG & COURTNEY — <a href="#">BUY US A CHIP</a></footer>
+        <div class="toast" id="toast">SCENE EXPORTED — <a href="#">BUY US A CHIP</a></div>
+    </div>
+
+    <script>
+// ═══════════════════════════════════════════════════════════════
+// THE PROTOCOL — Matterhood Archive
+// ═══════════════════════════════════════════════════════════════
+
+// Cinematic Images (will load when network available)
+const SCENE_IMAGES = {
+    diplomat: [
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&q=80',
+        'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=1600&q=80',
+        'https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=1600&q=80'
+    ],
+    critic: [
+        'https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=1600&q=80',
+        'https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=1600&q=80',
+        'https://images.unsplash.com/photo-1544194215-541c2d3561a4?w=1600&q=80'
+    ],
+    absurdist: [
+        'https://images.unsplash.com/photo-1534312527009-56c7016453e6?w=1600&q=80',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80',
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80'
+    ],
+    realist: [
+        'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1600&q=80',
+        'https://images.unsplash.com/photo-1501436513145-30f24e19fcc8?w=1600&q=80',
+        'https://images.unsplash.com/photo-1488034976201-ffbaa99cbf5c?w=1600&q=80'
+    ]
+};
+
+// CSS fallback classes for when images don't load
+const CSS_BACKGROUNDS = {
+    diplomat: 'diplomat-bg',
+    critic: 'critic-bg',
+    absurdist: 'absurdist-bg',
+    realist: 'realist-bg'
+};
+
+const SCRIPTS = [
+    { text: "Adoption is a parenting path, not a cure for infertility.", tone: 'critic', category: 'solutions', gender: 'neutral' },
+    { text: "Unless you are a reproductive endocrinologist, we are sticking to the experts.", tone: 'critic', category: 'solutions', gender: 'neutral' },
+    { text: "Relaxing is great for a spa day. Statistically irrelevant for biology.", tone: 'critic', category: 'solutions', gender: 'neutral' },
+    { text: "IVF is expensive, invasive, and nobody's backup plan.", tone: 'critic', category: 'solutions', gender: 'neutral' },
+    { text: "We tried mining. Turns out my body requires deep-earth excavation just to find a single swimmer.", tone: 'absurdist', category: 'solutions', gender: 'male' },
+    { text: "We've consulted with every specialist. Your Google search doesn't qualify.", tone: 'critic', category: 'solutions', gender: 'neutral' },
+    { text: "Thank you. We'll add that to our file of unsolicited medical advice.", tone: 'diplomat', category: 'solutions', gender: 'neutral' },
+    { text: "If yoga could fix this, I'd be a pretzel by now.", tone: 'absurdist', category: 'solutions', gender: 'neutral' },
+    { text: "We've followed the protocol. The protocol failed.", tone: 'realist', category: 'solutions', gender: 'neutral' },
+    { text: "I appreciate the suggestion. We're taking a different road now.", tone: 'diplomat', category: 'solutions', gender: 'neutral' },
+    { text: "We aren't waiting for a miracle. We're building a life.", tone: 'realist', category: 'religion', gender: 'neutral' },
+    { text: "Asking 'Why?' implies there is a simple answer. There isn't.", tone: 'critic', category: 'religion', gender: 'neutral' },
+    { text: "If prayers worked, every cemetery would be empty.", tone: 'critic', category: 'religion', gender: 'neutral' },
+    { text: "The universe isn't plotting against us. It just doesn't care.", tone: 'realist', category: 'religion', gender: 'neutral' },
+    { text: "If it was meant to be, it would be. It's not. So we adapt.", tone: 'realist', category: 'religion', gender: 'neutral' },
+    { text: "We've outsourced our destiny to science, not faith.", tone: 'absurdist', category: 'religion', gender: 'neutral' },
+    { text: "I believe in a lot of things. None of them involve my ovaries cooperating.", tone: 'absurdist', category: 'religion', gender: 'female' },
+    { text: "Thank you for your prayers. We're focusing on what we can control.", tone: 'diplomat', category: 'religion', gender: 'neutral' },
+    { text: "We decided to skip the 'Parenting' DLC and focus on the main campaign.", tone: 'absurdist', category: 'selfish', gender: 'neutral' },
+    { text: "We looked at the subscription fees for children and decided to stick to the free trial.", tone: 'absurdist', category: 'selfish', gender: 'neutral' },
+    { text: "We are currently focusing on being the world's greatest Aunt and Uncle.", tone: 'diplomat', category: 'selfish', gender: 'neutral' },
+    { text: "Not right now. But we have a very aggressive travel schedule.", tone: 'diplomat', category: 'selfish', gender: 'neutral' },
+    { text: "We ran the numbers. Turns out freedom isn't free, but it's cheaper than diapers.", tone: 'absurdist', category: 'selfish', gender: 'neutral' },
+    { text: "Our career choices didn't make this decision. Biology did.", tone: 'realist', category: 'selfish', gender: 'neutral' },
+    { text: "We didn't choose this lifestyle. We're making the best of it.", tone: 'realist', category: 'selfish', gender: 'neutral' },
+    { text: "Selfish would be pretending we're fine. We're being honest.", tone: 'critic', category: 'selfish', gender: 'neutral' },
+    { text: "It takes two to tango, but only one to stumble. I stumbled.", tone: 'realist', category: 'blame', gender: 'male' },
+    { text: "It's a labor dispute. One of my testicles went on strike.", tone: 'absurdist', category: 'blame', gender: 'male' },
+    { text: "It's a hardware issue. The factory has been decommissioned.", tone: 'absurdist', category: 'blame', gender: 'male' },
+    { text: "My swimmers are more like sinkers.", tone: 'absurdist', category: 'blame', gender: 'male' },
+    { text: "My ovaries entered the witness protection program.", tone: 'absurdist', category: 'blame', gender: 'female' },
+    { text: "My internal organs are fighting a civil war. We stopped funding the conflict.", tone: 'absurdist', category: 'blame', gender: 'female' },
+    { text: "My uterus has a very strict 'No Vacancy' policy.", tone: 'absurdist', category: 'blame', gender: 'female' },
+    { text: "Please don't tell me to 'breathe.' Oxygen doesn't fix ovarian failure.", tone: 'critic', category: 'blame', gender: 'female' },
+    { text: "There is no blame. Only biology and bad luck.", tone: 'realist', category: 'blame', gender: 'neutral' },
+    { text: "Assigning fault doesn't fix anything. We've moved on.", tone: 'diplomat', category: 'blame', gender: 'neutral' },
+    { text: "Bodies fail. Ours did. That's the whole story.", tone: 'realist', category: 'blame', gender: 'neutral' },
+    { text: "Legacy is what you leave behind, not who you leave behind.", tone: 'realist', category: 'legacy', gender: 'neutral' },
+    { text: "We plan to be the eccentric elders who bribe the orderlies with expensive whiskey.", tone: 'absurdist', category: 'legacy', gender: 'neutral' },
+    { text: "If you ask who will look after us when we're old, I'm assuming you're offering to pay.", tone: 'critic', category: 'legacy', gender: 'neutral' },
+    { text: "Our bloodline ends with us. We are the series finale. It's going to be a great episode.", tone: 'absurdist', category: 'legacy', gender: 'neutral' },
+    { text: "Children aren't retirement plans. We've made other arrangements.", tone: 'critic', category: 'legacy', gender: 'neutral' },
+    { text: "The family tree ends here. We're planting a different garden.", tone: 'realist', category: 'legacy', gender: 'neutral' },
+    { text: "We're leaving behind ideas, not DNA. Some would argue that's more durable.", tone: 'realist', category: 'legacy', gender: 'neutral' },
+    { text: "Legacy is a story, not a bloodline. We're writing ours differently.", tone: 'diplomat', category: 'legacy', gender: 'neutral' },
+    { text: "That's a private map. We aren't sharing the coordinates right now.", tone: 'diplomat', category: 'generic', gender: 'neutral' },
+    { text: "The blueprint didn't work. We burned it. Now we are building a different house.", tone: 'realist', category: 'generic', gender: 'neutral' },
+    { text: "We aren't 'child-free' by choice, but we are 'child-free' by acceptance.", tone: 'realist', category: 'generic', gender: 'neutral' },
+    { text: "We've got severe supply chain issues. Global shortages.", tone: 'absurdist', category: 'generic', gender: 'neutral' },
+    { text: "That topic is currently behind a paywall. And the subscription fees are astronomical.", tone: 'critic', category: 'generic', gender: 'neutral' },
+    { text: "If we talk about my biology, I'm going to start talking about your taxes. Let's keep it polite.", tone: 'absurdist', category: 'generic', gender: 'neutral' },
+    { text: "Some questions don't deserve answers. This is one of them.", tone: 'critic', category: 'generic', gender: 'neutral' },
+    { text: "We've made peace with the outcome. Perhaps you could too.", tone: 'diplomat', category: 'generic', gender: 'neutral' },
+    { text: "That's a chapter we've closed. We're writing new ones now.", tone: 'realist', category: 'generic', gender: 'neutral' },
+    { text: "I appreciate your curiosity, but that door is locked.", tone: 'diplomat', category: 'generic', gender: 'neutral' },
+    { text: "This isn't a conversation. It's a boundary.", tone: 'critic', category: 'generic', gender: 'neutral' },
+    { text: "We're still here. We're still us. Just a different version of the plan.", tone: 'realist', category: 'generic', gender: 'neutral' }
+];
+
+const REGEX_CATEGORIES = {
+    solutions: /\b(adopt|ivf|surrogate|doctor|science|relax|stress|diet|yoga|vacation|try\s*again|treatment|fertile|fertility|egg|sperm|clinic|therapy|specialist|herbal|acupuncture|vitamin|supplement|natural|organic|detox|cleanse|holistic|alternative|medicine|cure|fix|help|work|tried|have\s*you\s*tried)\b/i,
+    religion: /\b(god|pray|miracle|meant\s*to\s*be|believe|faith|nature|universe|plan|happen|destiny|blessing|blessed|heaven|spirit|soul|karma|fate|divine|lord|church|religious|spiritual|sign|purpose|reason|will|meant)\b/i,
+    selfish: /\b(selfish|money|career|job|easy|freedom|regret|time|rich|travel|lifestyle|choice|choose|chose|decided|decision|want|materialistic|afford|expensive|convenient|lazy|work|busy|priorities|lucky|fun)\b/i,
+    blame: /\b(fault|cause|issue|broken|problem|whose|wrong|body|work|fail|failed|failing|defect|damaged|issues|reason|why\s*(can't|couldn't|won't|not)|something\s*wrong|your\s*fault|his\s*fault|her\s*fault|what's\s*wrong)\b/i,
+    legacy: /\b(old|die|alone|name|grandkid|grandchild|grandchildren|family\s*tree|legacy|blood|bloodline|lineage|heir|inherit|pass\s*(on|down)|carry\s*on|continue|generation|descendant|lonely|elder|nursing\s*home|care|who\s*will)\b/i
+};
+
+const CATEGORY_LABELS = { solutions: 'FILE: ADVICE', religion: 'FILE: FATE', selfish: 'FILE: LIFESTYLE', blame: 'FILE: BODY', legacy: 'FILE: LEGACY', generic: 'FILE: REDIRECT' };
+const TONE_LABELS = { diplomat: 'THE DIPLOMAT', critic: 'THE CRITIC', absurdist: 'THE ABSURDIST', realist: 'THE REALIST' };
+
+let currentTone = null, currentScript = null, currentGender = 'neutral', currentCategory = null;
+let currentImageIndex = { diplomat: 0, critic: 0, absurdist: 0, realist: 0 };
+let usedScripts = new Set();
+let imagesAvailable = false;
+
+// DOM Elements
+const setupBtn = document.getElementById('setupBtn');
+const setupPanel = document.getElementById('setupPanel');
+const genderSelect = document.getElementById('genderSelect');
+const triggerInput = document.getElementById('triggerInput');
+const controlPanel = document.getElementById('controlPanel');
+const displayPanel = document.getElementById('displayPanel');
+const sceneBg = document.getElementById('sceneBg');
+const placeholderCard = document.getElementById('placeholderCard');
+const scriptCard = document.getElementById('scriptCard');
+const triggerDisplay = document.getElementById('triggerDisplay');
+const scriptText = document.getElementById('scriptText');
+const categoryTag = document.getElementById('categoryTag');
+const toneTag = document.getElementById('toneTag');
+const newTakeBtn = document.getElementById('newTakeBtn');
+const copyBtn = document.getElementById('copyBtn');
+const exportBtn = document.getElementById('exportBtn');
+const backBtn = document.getElementById('backBtn');
+const toast = document.getElementById('toast');
+const toneBtns = document.querySelectorAll('.tone-btn');
+
+// Check if images are available
+function checkImageAvailability() {
+    const testImg = new Image();
+    testImg.onload = () => { imagesAvailable = true; console.log('External images available'); };
+    testImg.onerror = () => { imagesAvailable = false; console.log('Using CSS fallback backgrounds'); };
+    testImg.src = SCENE_IMAGES.diplomat[0];
+}
+checkImageAvailability();
+
+function detectCategory(input) {
+    const lower = input.toLowerCase().trim();
+    if (!lower) return 'generic';
+    const matches = [];
+    for (const [category, regex] of Object.entries(REGEX_CATEGORIES)) {
+        if (regex.test(lower)) matches.push(category);
+    }
+    const priority = ['blame', 'solutions', 'religion', 'legacy', 'selfish'];
+    for (const p of priority) { if (matches.includes(p)) return p; }
+    return matches.length > 0 ? matches[0] : 'generic';
+}
+
+function getFilteredScripts(tone, category) {
+    let filtered = SCRIPTS.filter(s => {
+        if (s.tone !== tone) return false;
+        if (s.category !== category) return false;
+        return s.gender === 'neutral' || s.gender === currentGender;
+    });
+    if (filtered.length === 0) {
+        filtered = SCRIPTS.filter(s => s.tone === tone && s.category === 'generic' && s.gender === 'neutral');
+    }
+    return filtered;
+}
+
+function getRandomScript(tone, category) {
+    const filtered = getFilteredScripts(tone, category);
+    if (filtered.length === 0) return null;
+    const unused = filtered.filter(s => !usedScripts.has(s.text));
+    const pool = unused.length > 0 ? unused : filtered;
+    const selected = pool[Math.floor(Math.random() * pool.length)];
+    usedScripts.add(selected.text);
+    if (usedScripts.size > 5) { usedScripts.delete(usedScripts.values().next().value); }
+    return selected;
+}
+
+function setSceneBackground(tone) {
+    // Remove all background classes
+    sceneBg.classList.remove('active', 'diplomat-bg', 'critic-bg', 'absurdist-bg', 'realist-bg');
+    sceneBg.style.backgroundImage = '';
+    
+    setTimeout(() => {
+        if (imagesAvailable) {
+            // Use real images
+            const images = SCENE_IMAGES[tone];
+            const index = currentImageIndex[tone];
+            currentImageIndex[tone] = (index + 1) % images.length;
+            sceneBg.style.backgroundImage = `url('${images[index]}')`;
+            sceneBg.style.filter = 'grayscale(100%) contrast(1.05)';
+        } else {
+            // Use CSS fallback
+            sceneBg.classList.add(CSS_BACKGROUNDS[tone]);
+            sceneBg.style.filter = 'none';
+        }
+        sceneBg.classList.add('active');
+    }, 100);
+}
+
+function generateScene(tone) {
+    currentTone = tone;
+    const triggerText = triggerInput.value.trim() || "THEY ASKED THE QUESTION";
+    currentCategory = detectCategory(triggerText);
+    const script = getRandomScript(tone, currentCategory);
+    
+    if (script) {
+        currentScript = script.text;
+        setSceneBackground(tone);
+        triggerDisplay.textContent = triggerText.toUpperCase();
+        scriptText.textContent = currentScript;
+        categoryTag.textContent = CATEGORY_LABELS[currentCategory] || 'FILE: REDIRECT';
+        toneTag.textContent = TONE_LABELS[tone] || tone.toUpperCase();
+        placeholderCard.style.display = 'none';
+        scriptCard.classList.remove('active');
+        void scriptCard.offsetWidth;
+        scriptCard.classList.add('active');
+        newTakeBtn.disabled = false;
+        copyBtn.disabled = false;
+        exportBtn.disabled = false;
+        
+        if (window.innerWidth <= 900) {
+            controlPanel.classList.add('hidden');
+            displayPanel.classList.remove('hidden');
+            backBtn.style.display = 'block';
+        }
+    }
+}
+
+// Event Listeners
+setupBtn.addEventListener('click', () => { setupPanel.classList.toggle('active'); setupBtn.classList.toggle('active'); });
+genderSelect.addEventListener('change', (e) => { currentGender = e.target.value; if (currentTone) generateScene(currentTone); });
+
+toneBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        toneBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        generateScene(btn.dataset.tone);
+    });
+});
+
+triggerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter' && currentTone) generateScene(currentTone); });
+newTakeBtn.addEventListener('click', () => { if (currentTone) generateScene(currentTone); });
+
+copyBtn.addEventListener('click', async () => {
+    if (currentScript) {
+        try {
+            await navigator.clipboard.writeText(currentScript);
+            const original = copyBtn.textContent;
+            copyBtn.textContent = 'COPIED';
+            setTimeout(() => copyBtn.textContent = original, 1500);
+        } catch (e) { 
+            // Fallback for older browsers
+            const ta = document.createElement('textarea');
+            ta.value = currentScript;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            const original = copyBtn.textContent;
+            copyBtn.textContent = 'COPIED';
+            setTimeout(() => copyBtn.textContent = original, 1500);
+        }
+    }
+});
+
+// Simple Export - just capture the card
+exportBtn.addEventListener('click', async () => {
+    if (!currentScript) return;
+    
+    exportBtn.textContent = 'EXPORTING...';
+    exportBtn.disabled = true;
+    
+    try {
+        // Create a standalone export element
+        const exportEl = document.createElement('div');
+        exportEl.style.cssText = `
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: 1200px;
+            padding: 80px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            font-family: 'Space Mono', monospace;
+        `;
+        
+        exportEl.innerHTML = `
+            <div style="
+                background: rgba(10,10,10,0.95);
+                border: 1px solid rgba(232,228,223,0.15);
+                padding: 50px;
+                position: relative;
+            ">
+                <div style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 60px;
+                    height: 2px;
+                    background: #B8956A;
+                "></div>
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 30px;
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid rgba(232,228,223,0.15);
+                ">
+                    <span style="font-size: 12px; letter-spacing: 0.2em; color: rgba(232,228,223,0.5);">${categoryTag.textContent}</span>
+                    <span style="font-size: 12px; letter-spacing: 0.15em; color: #B8956A;">${toneTag.textContent}</span>
+                </div>
+                <div style="
+                    font-size: 14px;
+                    color: #666;
+                    letter-spacing: 0.05em;
+                    margin-bottom: 30px;
+                    line-height: 1.6;
+                    text-transform: uppercase;
+                ">
+                    <span style="display: block; font-size: 11px; opacity: 0.4; margin-bottom: 10px; letter-spacing: 0.2em;">THEY SAID:</span>
+                    ${triggerDisplay.textContent}
+                </div>
+                <div style="margin-bottom: 40px;">
+                    <div style="font-size: 11px; color: #B8956A; margin-bottom: 20px; letter-spacing: 0.2em;">YOU SAY:</div>
+                    <div style="
+                        font-family: 'Playfair Display', serif;
+                        font-size: 42px;
+                        font-weight: 400;
+                        line-height: 1.35;
+                        color: #F5F2ED;
+                    ">${currentScript}</div>
+                </div>
+                <div style="
+                    font-size: 11px;
+                    letter-spacing: 0.15em;
+                    opacity: 0.3;
+                    padding-top: 30px;
+                    border-top: 1px solid rgba(232,228,223,0.15);
+                    display: flex;
+                    justify-content: space-between;
+                    color: #E8E4DF;
+                ">
+                    <span>THE PROTOCOL</span>
+                    <span>MATTERHOOD.ARCHIVE</span>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(exportEl);
+        
+        const canvas = await html2canvas(exportEl, {
+            backgroundColor: '#0a0a0a',
+            scale: 2,
+            logging: false,
+            useCORS: true
+        });
+        
+        document.body.removeChild(exportEl);
+        
+        // Download
+        const link = document.createElement('a');
+        link.download = 'the-protocol-' + Date.now() + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+        showToast();
+        
+    } catch (e) {
+        console.error('Export failed:', e);
+        alert('Export failed. Please try again.');
+    } finally {
+        exportBtn.textContent = 'EXPORT';
+        exportBtn.disabled = false;
+    }
+});
+
+backBtn.addEventListener('click', () => { 
+    controlPanel.classList.remove('hidden'); 
+    displayPanel.classList.add('hidden'); 
+    backBtn.style.display = 'none'; 
+});
+
+function showToast() { 
+    toast.classList.add('show'); 
+    setTimeout(() => toast.classList.remove('show'), 3500); 
+}
+
+window.addEventListener('resize', () => { 
+    if (window.innerWidth > 900) { 
+        controlPanel.classList.remove('hidden'); 
+        displayPanel.classList.remove('hidden'); 
+        backBtn.style.display = 'none'; 
+    } 
+});
+    </script>
+</body>
+</html>
