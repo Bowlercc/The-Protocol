@@ -450,29 +450,35 @@ const includeDual=document.getElementById('toggleDual').checked;
 const bgColor=isLight?'#FAFAF8':'#080808';
 const frameBg=isLight?'#F0EDE8':'#121212';
 const textColor=isLight?'#0A0A0A':'#F5F2ED';
-const triggerColor=isLight?'#444444':'#888888';
-const labelColor=isLight?'rgba(10,10,10,0.5)':'rgba(232,228,223,0.5)';
-const borderColor=isLight?'rgba(10,10,10,0.18)':'rgba(232,228,223,0.15)';
+const textDim=isLight?'rgba(10,10,10,0.7)':'rgba(232,228,223,0.7)';
+const labelColor=isLight?'rgba(10,10,10,0.4)':'rgba(232,228,223,0.4)';
+const borderColor=isLight?'rgba(10,10,10,0.15)':'rgba(232,228,223,0.15)';
 const goldColor=isLight?'#7A6545':'#B8956A';
 const alertColor='#C41E1E';
 
-// Font sizes based on format
-const scale=format==='story'?w/1080:format==='square'?w/1080:w/1200;
-const labelSize=Math.round(12*scale);
-const subtextSize=Math.round(13*scale);
-const triggerSize=Math.round(15*scale);
-const responseSize=Math.round(format==='wide'?36:42*scale);
-const padding=Math.round(45*scale);
-const qrSize=Math.round(90*scale); // Larger QR
-const textW=Math.round(format==='wide'?w*0.72:w*0.76);
+// Scale factor for different formats
+const baseScale=format==='story'?1:format==='square'?1:1.1;
+const scale=w/1080*baseScale;
+
+// Sizes matching website (converted from rem, ~16px base)
+const metaSize=Math.round(11*scale);      // .46rem = ~7.4px, scaled up for export
+const subtextSize=Math.round(12*scale);   // .5rem
+const triggerLabelSize=Math.round(11*scale);
+const triggerSize=Math.round(14*scale);   // .6rem
+const responseLabelSize=Math.round(11*scale);
+const responseSize=Math.round(format==='wide'?32*scale:38*scale);
+const footerSize=Math.round(11*scale);
+const padding=Math.round(50*scale);
+const qrSize=Math.round(80*scale);
+const textW=Math.round(format==='wide'?w*0.65:w*0.72);
 
 // Generate QR code if needed
 let qrDataUrl=null;
 if(includeQR){
   const qrDiv=document.createElement('div');
   document.body.appendChild(qrDiv);
-  const qr=new QRCode(qrDiv,{text:window.location.origin,width:qrSize*3,height:qrSize*3,colorDark:isLight?'#0A0A0A':'#E8E4DF',colorLight:'transparent',correctLevel:QRCode.CorrectLevel.M});
-  await new Promise(r=>setTimeout(r,100));
+  new QRCode(qrDiv,{text:window.location.origin,width:qrSize*3,height:qrSize*3,colorDark:isLight?'#0A0A0A':'#E8E4DF',colorLight:'transparent',correctLevel:QRCode.CorrectLevel.M});
+  await new Promise(r=>setTimeout(r,150));
   const qrCanvas=qrDiv.querySelector('canvas');
   if(qrCanvas)qrDataUrl=qrCanvas.toDataURL();
   document.body.removeChild(qrDiv);
@@ -490,7 +496,7 @@ async function createBaseCanvas(){
       await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=currentImageUrl;});
       const imgScale=Math.max(w/img.width,h/img.height);
       const sw=img.width*imgScale,sh=img.height*imgScale;
-      ctx.globalAlpha=isLight?0.15:0.3;
+      ctx.globalAlpha=isLight?0.12:0.25;
       ctx.filter='grayscale(100%) contrast(1.1)';
       ctx.drawImage(img,(w-sw)/2,(h-sh)/2,sw,sh);
       ctx.globalAlpha=1;ctx.filter='none';
@@ -499,72 +505,141 @@ async function createBaseCanvas(){
   return {canvas,ctx};
 }
 
-// Helper to draw response card
+// Helper to draw response card (matching website exactly)
 async function drawResponseCard(ctx,areaW,areaH){
-  ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  // Calculate content height first
   let contentH=0;
-  contentH+=labelSize+padding*0.4;
+  
+  // Meta row + border
+  contentH+=metaSize+padding*0.5+padding*0.4; // meta + padding-bottom + margin-bottom equivalent
+  
+  // Subtext
   ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
-  contentH+=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).length*(subtextSize*1.5)+padding*0.5;
-  contentH+=labelSize+padding*0.3;
+  const subtextLines=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW);
+  contentH+=subtextLines.length*subtextSize*1.6+padding*0.6;
+  
+  // They said label + trigger
+  contentH+=triggerLabelSize+padding*0.15;
   ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-  contentH+=wrapText(ctx,currentTrigger,textW).length*(triggerSize*1.6)+padding*0.5;
-  contentH+=labelSize+padding*0.8;
+  const triggerLines=wrapText(ctx,currentTrigger,textW);
+  contentH+=triggerLines.length*triggerSize*1.6+padding*0.5;
+  
+  // You say label + response
+  contentH+=responseLabelSize+padding*0.35;
   ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
-  contentH+=wrapText(ctx,currentResponse,textW).length*(responseSize*1.4)+padding*0.6;
-  contentH+=labelSize+padding*0.5;
-  if(includeQR)contentH+=qrSize+padding*0.3;
+  const responseLines=wrapText(ctx,currentResponse,textW);
+  contentH+=responseLines.length*responseSize*1.35+padding*0.7;
+  
+  // QR code space (above footer line)
+  if(includeQR)contentH+=qrSize+padding*0.4;
+  
+  // Footer (border-top + text)
+  contentH+=padding*0.5+footerSize;
 
   const frameW=textW+padding*2;
   const frameH=contentH+padding*2;
   const frameX=(areaW-frameW)/2;
   const frameY=(areaH-frameH)/2;
 
-  ctx.fillStyle=frameBg;ctx.fillRect(frameX,frameY,frameW,frameH);
-  ctx.strokeStyle=borderColor;ctx.lineWidth=1;ctx.strokeRect(frameX,frameY,frameW,frameH);
-  ctx.fillStyle=goldColor;ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
+  // Frame background
+  ctx.fillStyle=frameBg;
+  ctx.fillRect(frameX,frameY,frameW,frameH);
+  
+  // Frame border
+  ctx.strokeStyle=borderColor;
+  ctx.lineWidth=1;
+  ctx.strokeRect(frameX,frameY,frameW,frameH);
+  
+  // Gold accent bar
+  ctx.fillStyle=goldColor;
+  ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
 
   const contentX=frameX+padding;
   const contentRight=frameX+frameW-padding;
   let y=frameY+padding;
 
-  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;ctx.textAlign='left';
-  ctx.fillText(CONTEXT_LABELS[context],contentX,y);
-  ctx.fillStyle=spice==='hot'?alertColor:goldColor;ctx.textAlign='right';
-  ctx.fillText(SPICE_LABELS[spice],contentRight,y);ctx.textAlign='left';
-  y+=labelSize+padding*0.4;
+  // === META ROW ===
+  ctx.font=`${metaSize}px 'Space Mono', monospace`;
+  ctx.textAlign='left';
+  ctx.fillStyle=labelColor;
+  ctx.fillText(CONTEXT_LABELS[context],contentX,y+metaSize);
+  ctx.textAlign='right';
+  ctx.fillStyle=spice==='hot'?alertColor:goldColor;
+  ctx.fillText(SPICE_LABELS[spice],contentRight,y+metaSize);
+  y+=metaSize+padding*0.5;
+  
+  // Meta border-bottom
+  ctx.strokeStyle=borderColor;
+  ctx.beginPath();
+  ctx.moveTo(contentX,y);
+  ctx.lineTo(contentRight,y);
+  ctx.stroke();
+  y+=padding*0.4;
 
-  ctx.fillStyle=goldColor;ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
-  wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=subtextSize*1.5;});
+  // === SUBTEXT ===
+  ctx.textAlign='left';
+  ctx.fillStyle=goldColor;
+  ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
+  subtextLines.forEach((line,i)=>{
+    // First line gets "SUBTEXT: " prefix styling
+    ctx.fillText(line,contentX,y+subtextSize);
+    y+=subtextSize*1.6;
+  });
+  y+=padding*0.6;
+
+  // === THEY SAID ===
+  ctx.fillStyle=labelColor;
+  ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
+  ctx.fillText('THEY SAID:',contentX,y+triggerLabelSize);
+  y+=triggerLabelSize+padding*0.15;
+  
+  ctx.fillStyle=textDim;
+  ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+  triggerLines.forEach(line=>{
+    ctx.fillText(line,contentX,y+triggerSize);
+    y+=triggerSize*1.6;
+  });
   y+=padding*0.5;
 
-  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
-  ctx.fillText('THEY SAID:',contentX,y);y+=labelSize+padding*0.3;
+  // === YOU SAY ===
+  ctx.fillStyle=goldColor;
+  ctx.font=`${responseLabelSize}px 'Space Mono', monospace`;
+  ctx.fillText('YOU SAY:',contentX,y+responseLabelSize);
+  y+=responseLabelSize+padding*0.35;
+  
+  ctx.fillStyle=textColor;
+  ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
+  responseLines.forEach(line=>{
+    ctx.fillText(line,contentX,y+responseSize*0.85);
+    y+=responseSize*1.35;
+  });
+  y+=padding*0.7;
 
-  ctx.fillStyle=triggerColor;ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-  wrapText(ctx,currentTrigger,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=triggerSize*1.6;});
-  y+=padding*0.5;
-
-  ctx.fillStyle=goldColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
-  ctx.fillText('YOU SAY:',contentX,y);y+=labelSize+padding*0.8;
-
-  ctx.fillStyle=textColor;ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
-  wrapText(ctx,currentResponse,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=responseSize*1.4;});
-
-  // Footer
-  const footerY=frameY+frameH-padding-(includeQR?qrSize+padding*0.5:0);
-  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;ctx.textAlign='left';
-  ctx.fillText('THE PROTOCOL',contentX,footerY);ctx.textAlign='right';
-  ctx.fillText('MATTERHOOD',contentRight,footerY);
-
-  // QR code - bottom right, larger
+  // === QR CODE (above footer line) ===
   if(includeQR&&qrDataUrl){
     const qrImg=new Image();
     await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
-    const qrX=frameX+frameW-padding-qrSize;
-    const qrY=frameY+frameH-padding-qrSize;
-    ctx.drawImage(qrImg,qrX,qrY,qrSize,qrSize);
+    const qrX=contentRight-qrSize;
+    ctx.drawImage(qrImg,qrX,y,qrSize,qrSize);
+    y+=qrSize+padding*0.4;
   }
+
+  // === FOOTER ===
+  // Border-top
+  ctx.strokeStyle=borderColor;
+  ctx.beginPath();
+  ctx.moveTo(contentX,y);
+  ctx.lineTo(contentRight,y);
+  ctx.stroke();
+  y+=padding*0.5;
+  
+  // Footer text
+  ctx.fillStyle=labelColor;
+  ctx.font=`${footerSize}px 'Space Mono', monospace`;
+  ctx.textAlign='left';
+  ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
+  ctx.textAlign='right';
+  ctx.fillText('MATTERHOOD',contentRight,y+footerSize);
 }
 
 // Helper to draw education card
@@ -572,70 +647,115 @@ async function drawEducationCard(ctx,areaW,areaH){
   const whyText=currentMatchedTrigger?.why_it_hurts||"This comment, though well-meaning, can minimize the deep emotional weight of infertility and childlessness. It suggests a simple solution exists when the reality is far more complex.";
   const whatText=currentMatchedTrigger?.what_to_know||"People navigating fertility challenges often hear dozens of these comments. Each one, even from a place of love, can feel like their pain is being dismissed or misunderstood.";
   
-  ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  // Calculate content height
   let contentH=0;
-  contentH+=responseSize*0.7+padding*0.6; // title
-  contentH+=labelSize+padding*0.2; // when they say label
-  contentH+=triggerSize+padding*0.5; // trigger
-  contentH+=labelSize+padding*0.3; // impact label
+  
+  // Title
+  const titleSize=Math.round(responseSize*0.75);
+  contentH+=titleSize+padding*0.5;
+  
+  // When they say
+  contentH+=triggerLabelSize+padding*0.15;
+  contentH+=triggerSize+padding*0.4;
+  
+  // The impact
+  contentH+=triggerLabelSize+padding*0.15;
   ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-  contentH+=wrapText(ctx,whyText,textW).length*(triggerSize*1.6)+padding*0.5;
-  contentH+=labelSize+padding*0.3; // helps label
-  contentH+=wrapText(ctx,whatText,textW).length*(triggerSize*1.6)+padding*0.5;
-  contentH+=labelSize+padding*0.5;
-  if(includeQR)contentH+=qrSize+padding*0.3;
+  const whyLines=wrapText(ctx,whyText,textW);
+  contentH+=whyLines.length*triggerSize*1.6+padding*0.4;
+  
+  // What helps
+  contentH+=triggerLabelSize+padding*0.15;
+  const whatLines=wrapText(ctx,whatText,textW);
+  contentH+=whatLines.length*triggerSize*1.6+padding*0.7;
+  
+  // QR
+  if(includeQR)contentH+=qrSize+padding*0.4;
+  
+  // Footer
+  contentH+=padding*0.5+footerSize;
 
   const frameW=textW+padding*2;
   const frameH=contentH+padding*2;
   const frameX=(areaW-frameW)/2;
   const frameY=(areaH-frameH)/2;
 
-  ctx.fillStyle=frameBg;ctx.fillRect(frameX,frameY,frameW,frameH);
-  ctx.strokeStyle=borderColor;ctx.lineWidth=1;ctx.strokeRect(frameX,frameY,frameW,frameH);
-  ctx.fillStyle=alertColor;ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
+  ctx.fillStyle=frameBg;
+  ctx.fillRect(frameX,frameY,frameW,frameH);
+  ctx.strokeStyle=borderColor;
+  ctx.lineWidth=1;
+  ctx.strokeRect(frameX,frameY,frameW,frameH);
+  ctx.fillStyle=alertColor;
+  ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
 
   const contentX=frameX+padding;
   const contentRight=frameX+frameW-padding;
   let y=frameY+padding;
 
   // Title
-  ctx.fillStyle=textColor;ctx.font=`400 ${Math.round(responseSize*0.7)}px 'Playfair Display', serif`;
-  ctx.textAlign='left';ctx.fillText('Why this hurts.',contentX,y);
-  y+=responseSize*0.7+padding*0.6;
+  ctx.fillStyle=textColor;
+  ctx.font=`400 ${titleSize}px 'Playfair Display', serif`;
+  ctx.textAlign='left';
+  ctx.fillText('Why this hurts.',contentX,y+titleSize*0.85);
+  y+=titleSize+padding*0.5;
 
-  // Trigger reminder
-  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
-  ctx.fillText('WHEN THEY SAY:',contentX,y);y+=labelSize+padding*0.2;
-  ctx.fillStyle=triggerColor;ctx.font=`italic ${triggerSize}px 'Space Mono', monospace`;
-  ctx.fillText('"'+currentTrigger+'"',contentX,y);y+=triggerSize+padding*0.5;
+  // When they say
+  ctx.fillStyle=labelColor;
+  ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
+  ctx.fillText('WHEN THEY SAY:',contentX,y+triggerLabelSize);
+  y+=triggerLabelSize+padding*0.15;
+  ctx.fillStyle=textDim;
+  ctx.font=`italic ${triggerSize}px 'Space Mono', monospace`;
+  ctx.fillText('"'+currentTrigger+'"',contentX,y+triggerSize);
+  y+=triggerSize+padding*0.4;
 
-  // Why it hurts
-  ctx.fillStyle=goldColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
-  ctx.fillText('THE IMPACT:',contentX,y);y+=labelSize+padding*0.3;
-  ctx.fillStyle=triggerColor;ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-  wrapText(ctx,whyText,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=triggerSize*1.6;});
-  y+=padding*0.5;
+  // The impact
+  ctx.fillStyle=goldColor;
+  ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
+  ctx.fillText('THE IMPACT:',contentX,y+triggerLabelSize);
+  y+=triggerLabelSize+padding*0.15;
+  ctx.fillStyle=textDim;
+  ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+  whyLines.forEach(line=>{
+    ctx.fillText(line,contentX,y+triggerSize);
+    y+=triggerSize*1.6;
+  });
+  y+=padding*0.4;
 
   // What helps
-  ctx.fillStyle=goldColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
-  ctx.fillText('WHAT HELPS INSTEAD:',contentX,y);y+=labelSize+padding*0.3;
-  ctx.fillStyle=triggerColor;ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-  wrapText(ctx,whatText,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=triggerSize*1.6;});
+  ctx.fillStyle=goldColor;
+  ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
+  ctx.fillText('WHAT HELPS INSTEAD:',contentX,y+triggerLabelSize);
+  y+=triggerLabelSize+padding*0.15;
+  ctx.fillStyle=textDim;
+  ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+  whatLines.forEach(line=>{
+    ctx.fillText(line,contentX,y+triggerSize);
+    y+=triggerSize*1.6;
+  });
+  y+=padding*0.7;
 
-  // Footer
-  const footerY=frameY+frameH-padding-(includeQR?qrSize+padding*0.5:0);
-  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;ctx.textAlign='left';
-  ctx.fillText('THE PROTOCOL',contentX,footerY);ctx.textAlign='right';
-  ctx.fillText('MATTERHOOD',contentRight,footerY);
-
-  // QR code
+  // QR
   if(includeQR&&qrDataUrl){
     const qrImg=new Image();
     await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
-    const qrX=frameX+frameW-padding-qrSize;
-    const qrY=frameY+frameH-padding-qrSize;
-    ctx.drawImage(qrImg,qrX,qrY,qrSize,qrSize);
+    ctx.drawImage(qrImg,contentRight-qrSize,y,qrSize,qrSize);
+    y+=qrSize+padding*0.4;
   }
+
+  // Footer
+  ctx.strokeStyle=borderColor;
+  ctx.beginPath();
+  ctx.moveTo(contentX,y);
+  ctx.lineTo(contentRight,y);
+  ctx.stroke();
+  y+=padding*0.5;
+  ctx.fillStyle=labelColor;
+  ctx.font=`${footerSize}px 'Space Mono', monospace`;
+  ctx.textAlign='left';
+  ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
+  ctx.textAlign='right';
+  ctx.fillText('MATTERHOOD',contentRight,y+footerSize);
 }
 
 // Export response card
@@ -648,16 +768,16 @@ link1.click();
 
 // Export education card if dual mode
 if(includeDual){
-  await new Promise(r=>setTimeout(r,300)); // Small delay between downloads
+  await new Promise(r=>setTimeout(r,500)); // Delay between downloads
   const {canvas:canvas2,ctx:ctx2}=await createBaseCanvas();
   await drawEducationCard(ctx2,w,h);
   const link2=document.createElement('a');
   link2.download=`protocol-${format}-why-${Date.now()}.png`;
   link2.href=canvas2.toDataURL('image/png');
   link2.click();
-  showToast('EXPORTED 2 IMAGES — SHARE YOUR TRUTH');
+  showToast('EXPORTED 2 IMAGES');
 }else{
-  showToast('EXPORTED — SHARE YOUR TRUTH');
+  showToast('EXPORTED');
 }
 }
 
