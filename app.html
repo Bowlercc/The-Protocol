@@ -447,19 +447,6 @@ const isLight=document.documentElement.dataset.theme==='light';
 const includeQR=document.getElementById('toggleQR').checked;
 const includeDual=document.getElementById('toggleDual').checked;
 
-// For dual card, we create two images side by side (or stacked for story)
-const isDualStory=includeDual&&format==='story';
-const isDualWide=includeDual&&(format==='wide'||format==='square');
-
-// Adjust canvas size for dual
-let canvasW=w,canvasH=h;
-if(isDualStory)canvasH=h; // Stack vertically, same height (cards smaller)
-if(isDualWide)canvasW=w*2; // Side by side
-
-const canvas=document.createElement('canvas');
-canvas.width=canvasW;canvas.height=canvasH;
-const ctx=canvas.getContext('2d');
-
 const bgColor=isLight?'#FAFAF8':'#080808';
 const frameBg=isLight?'#F0EDE8':'#121212';
 const textColor=isLight?'#0A0A0A':'#F5F2ED';
@@ -469,12 +456,6 @@ const borderColor=isLight?'rgba(10,10,10,0.18)':'rgba(232,228,223,0.15)';
 const goldColor=isLight?'#7A6545':'#B8956A';
 const alertColor='#C41E1E';
 
-// Background
-ctx.fillStyle=bgColor;ctx.fillRect(0,0,canvasW,canvasH);
-
-// Background image
-if(currentImageUrl){try{const img=new Image();img.crossOrigin='anonymous';await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=currentImageUrl;});const imgScale=Math.max(canvasW/img.width,canvasH/img.height);const sw=img.width*imgScale,sh=img.height*imgScale;ctx.globalAlpha=isLight?0.15:0.3;ctx.filter='grayscale(100%) contrast(1.1)';ctx.drawImage(img,(canvasW-sw)/2,(canvasH-sh)/2,sw,sh);ctx.globalAlpha=1;ctx.filter='none';}catch(e){}}
-
 // Font sizes based on format
 const scale=format==='story'?w/1080:format==='square'?w/1080:w/1200;
 const labelSize=Math.round(12*scale);
@@ -482,27 +463,44 @@ const subtextSize=Math.round(13*scale);
 const triggerSize=Math.round(15*scale);
 const responseSize=Math.round(format==='wide'?36:42*scale);
 const padding=Math.round(45*scale);
-const qrSize=Math.round(60*scale);
-
-// Calculate card width based on mode
-let cardAreaW=isDualWide?w:w;
-let textW=Math.round((isDualWide?cardAreaW*0.72:format==='wide'?w*0.72:w*0.76));
-if(includeDual&&format==='story')textW=Math.round(w*0.8);
+const qrSize=Math.round(90*scale); // Larger QR
+const textW=Math.round(format==='wide'?w*0.72:w*0.76);
 
 // Generate QR code if needed
 let qrDataUrl=null;
 if(includeQR){
   const qrDiv=document.createElement('div');
   document.body.appendChild(qrDiv);
-  const qr=new QRCode(qrDiv,{text:window.location.origin,width:qrSize*2,height:qrSize*2,colorDark:isLight?'#0A0A0A':'#E8E4DF',colorLight:'transparent',correctLevel:QRCode.CorrectLevel.M});
+  const qr=new QRCode(qrDiv,{text:window.location.origin,width:qrSize*3,height:qrSize*3,colorDark:isLight?'#0A0A0A':'#E8E4DF',colorLight:'transparent',correctLevel:QRCode.CorrectLevel.M});
   await new Promise(r=>setTimeout(r,100));
   const qrCanvas=qrDiv.querySelector('canvas');
   if(qrCanvas)qrDataUrl=qrCanvas.toDataURL();
   document.body.removeChild(qrDiv);
 }
 
-// Helper to draw a response card
-async function drawResponseCard(offsetX,offsetY,areaW,areaH){
+// Helper to create a canvas with background
+async function createBaseCanvas(){
+  const canvas=document.createElement('canvas');
+  canvas.width=w;canvas.height=h;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle=bgColor;ctx.fillRect(0,0,w,h);
+  if(currentImageUrl){
+    try{
+      const img=new Image();img.crossOrigin='anonymous';
+      await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=currentImageUrl;});
+      const imgScale=Math.max(w/img.width,h/img.height);
+      const sw=img.width*imgScale,sh=img.height*imgScale;
+      ctx.globalAlpha=isLight?0.15:0.3;
+      ctx.filter='grayscale(100%) contrast(1.1)';
+      ctx.drawImage(img,(w-sw)/2,(h-sh)/2,sw,sh);
+      ctx.globalAlpha=1;ctx.filter='none';
+    }catch(e){}
+  }
+  return {canvas,ctx};
+}
+
+// Helper to draw response card
+async function drawResponseCard(ctx,areaW,areaH){
   ctx.font=`${labelSize}px 'Space Mono', monospace`;
   let contentH=0;
   contentH+=labelSize+padding*0.4;
@@ -514,13 +512,13 @@ async function drawResponseCard(offsetX,offsetY,areaW,areaH){
   contentH+=labelSize+padding*0.8;
   ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
   contentH+=wrapText(ctx,currentResponse,textW).length*(responseSize*1.4)+padding*0.6;
-  contentH+=labelSize;
-  if(includeQR)contentH+=qrSize+padding*0.5;
+  contentH+=labelSize+padding*0.5;
+  if(includeQR)contentH+=qrSize+padding*0.3;
 
   const frameW=textW+padding*2;
   const frameH=contentH+padding*2;
-  const frameX=offsetX+(areaW-frameW)/2;
-  const frameY=offsetY+(areaH-frameH)/2;
+  const frameX=(areaW-frameW)/2;
+  const frameY=(areaH-frameH)/2;
 
   ctx.fillStyle=frameBg;ctx.fillRect(frameX,frameY,frameW,frameH);
   ctx.strokeStyle=borderColor;ctx.lineWidth=1;ctx.strokeRect(frameX,frameY,frameW,frameH);
@@ -553,13 +551,13 @@ async function drawResponseCard(offsetX,offsetY,areaW,areaH){
   ctx.fillStyle=textColor;ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
   wrapText(ctx,currentResponse,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=responseSize*1.4;});
 
-  // Footer with QR
-  const footerY=frameY+frameH-padding*0.7-(includeQR?qrSize+padding*0.3:0);
+  // Footer
+  const footerY=frameY+frameH-padding-(includeQR?qrSize+padding*0.5:0);
   ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;ctx.textAlign='left';
   ctx.fillText('THE PROTOCOL',contentX,footerY);ctx.textAlign='right';
   ctx.fillText('MATTERHOOD',contentRight,footerY);
 
-  // QR code
+  // QR code - bottom right, larger
   if(includeQR&&qrDataUrl){
     const qrImg=new Image();
     await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
@@ -569,30 +567,32 @@ async function drawResponseCard(offsetX,offsetY,areaW,areaH){
   }
 }
 
-// Helper to draw "Why this hurts" card
-async function drawEducationCard(offsetX,offsetY,areaW,areaH){
+// Helper to draw education card
+async function drawEducationCard(ctx,areaW,areaH){
   const whyText=currentMatchedTrigger?.why_it_hurts||"This comment, though well-meaning, can minimize the deep emotional weight of infertility and childlessness. It suggests a simple solution exists when the reality is far more complex.";
   const whatText=currentMatchedTrigger?.what_to_know||"People navigating fertility challenges often hear dozens of these comments. Each one, even from a place of love, can feel like their pain is being dismissed or misunderstood.";
   
   ctx.font=`${labelSize}px 'Space Mono', monospace`;
   let contentH=0;
-  contentH+=labelSize+padding*0.6; // title
-  contentH+=labelSize+padding*0.3; // why label
+  contentH+=responseSize*0.7+padding*0.6; // title
+  contentH+=labelSize+padding*0.2; // when they say label
+  contentH+=triggerSize+padding*0.5; // trigger
+  contentH+=labelSize+padding*0.3; // impact label
   ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-  contentH+=wrapText(ctx,whyText,textW).length*(triggerSize*1.6)+padding*0.6;
-  contentH+=labelSize+padding*0.3; // what label
-  contentH+=wrapText(ctx,whatText,textW).length*(triggerSize*1.6)+padding*0.6;
-  contentH+=labelSize; // footer
-  if(includeQR)contentH+=qrSize+padding*0.5;
+  contentH+=wrapText(ctx,whyText,textW).length*(triggerSize*1.6)+padding*0.5;
+  contentH+=labelSize+padding*0.3; // helps label
+  contentH+=wrapText(ctx,whatText,textW).length*(triggerSize*1.6)+padding*0.5;
+  contentH+=labelSize+padding*0.5;
+  if(includeQR)contentH+=qrSize+padding*0.3;
 
   const frameW=textW+padding*2;
   const frameH=contentH+padding*2;
-  const frameX=offsetX+(areaW-frameW)/2;
-  const frameY=offsetY+(areaH-frameH)/2;
+  const frameX=(areaW-frameW)/2;
+  const frameY=(areaH-frameH)/2;
 
   ctx.fillStyle=frameBg;ctx.fillRect(frameX,frameY,frameW,frameH);
   ctx.strokeStyle=borderColor;ctx.lineWidth=1;ctx.strokeRect(frameX,frameY,frameW,frameH);
-  ctx.fillStyle=alertColor;ctx.fillRect(frameX,frameY,Math.round(40*scale),2); // Red accent for education card
+  ctx.fillStyle=alertColor;ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
 
   const contentX=frameX+padding;
   const contentRight=frameX+frameW-padding;
@@ -616,14 +616,14 @@ async function drawEducationCard(offsetX,offsetY,areaW,areaH){
   wrapText(ctx,whyText,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=triggerSize*1.6;});
   y+=padding*0.5;
 
-  // What to know
+  // What helps
   ctx.fillStyle=goldColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
   ctx.fillText('WHAT HELPS INSTEAD:',contentX,y);y+=labelSize+padding*0.3;
   ctx.fillStyle=triggerColor;ctx.font=`${triggerSize}px 'Space Mono', monospace`;
   wrapText(ctx,whatText,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=triggerSize*1.6;});
 
   // Footer
-  const footerY=frameY+frameH-padding*0.7-(includeQR?qrSize+padding*0.3:0);
+  const footerY=frameY+frameH-padding-(includeQR?qrSize+padding*0.5:0);
   ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;ctx.textAlign='left';
   ctx.fillText('THE PROTOCOL',contentX,footerY);ctx.textAlign='right';
   ctx.fillText('MATTERHOOD',contentRight,footerY);
@@ -638,26 +638,27 @@ async function drawEducationCard(offsetX,offsetY,areaW,areaH){
   }
 }
 
-// Draw cards based on mode
-if(includeDual){
-  if(format==='story'){
-    // Stacked: response on top, education below
-    await drawResponseCard(0,0,w,h/2);
-    await drawEducationCard(0,h/2,w,h/2);
-  }else{
-    // Side by side
-    await drawResponseCard(0,0,w,h);
-    await drawEducationCard(w,0,w,h);
-  }
-}else{
-  await drawResponseCard(0,0,w,h);
-}
+// Export response card
+const {canvas:canvas1,ctx:ctx1}=await createBaseCanvas();
+await drawResponseCard(ctx1,w,h);
+const link1=document.createElement('a');
+link1.download=`protocol-${format}-response-${Date.now()}.png`;
+link1.href=canvas1.toDataURL('image/png');
+link1.click();
 
-const link=document.createElement('a');
-link.download=`protocol-${format}${includeDual?'-dual':''}${includeQR?'-qr':''}-${Date.now()}.png`;
-link.href=canvas.toDataURL('image/png');
-link.click();
-showToast(includeDual?'EXPORTED — HELP THEM UNDERSTAND':'EXPORTED — SHARE YOUR TRUTH');
+// Export education card if dual mode
+if(includeDual){
+  await new Promise(r=>setTimeout(r,300)); // Small delay between downloads
+  const {canvas:canvas2,ctx:ctx2}=await createBaseCanvas();
+  await drawEducationCard(ctx2,w,h);
+  const link2=document.createElement('a');
+  link2.download=`protocol-${format}-why-${Date.now()}.png`;
+  link2.href=canvas2.toDataURL('image/png');
+  link2.click();
+  showToast('EXPORTED 2 IMAGES — SHARE YOUR TRUTH');
+}else{
+  showToast('EXPORTED — SHARE YOUR TRUTH');
+}
 }
 
 function wrapText(ctx,text,maxW){const words=text.split(' '),lines=[];let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else{line=test;}}if(line)lines.push(line);return lines;}
