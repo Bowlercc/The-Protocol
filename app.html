@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{--void:#080808;--charcoal:#121212;--bone:#E8E4DF;--cream:#F5F2ED;--bone-dim:rgba(232,228,223,0.7);--bone-faint:rgba(232,228,223,0.15);--bone-ghost:rgba(232,228,223,0.06);--alert:#C41E1E;--gold:#B8956A;--gold-dim:rgba(184,149,106,0.4);--bg:var(--void);--bg-secondary:var(--charcoal);--text:var(--bone);--text-primary:var(--cream);--border:var(--bone-faint)}
 [data-theme="light"]{--void:#FAFAF8;--charcoal:#F0EDE8;--bone:#1A1A1A;--cream:#0A0A0A;--bone-dim:rgba(10,10,10,0.75);--bone-faint:rgba(10,10,10,0.18);--bone-ghost:rgba(10,10,10,0.08);--gold:#7A6545;--bg:var(--void);--bg-secondary:var(--charcoal);--text:var(--bone);--text-primary:var(--cream);--border:var(--bone-faint)}
@@ -119,6 +120,12 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .export-format-size{font-size:.5rem;opacity:.4}
 .export-close{background:none;border:1px solid var(--bone-faint);color:var(--bone-dim);padding:.55rem 1.1rem;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.1em;cursor:pointer;width:100%}
 .export-close:hover{border-color:var(--bone-dim);color:var(--bone)}
+.export-toggles{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.3rem;padding-top:1rem;border-top:1px solid var(--bone-faint)}
+.export-toggle{display:flex;align-items:center;gap:.6rem;cursor:pointer;font-size:.58rem;letter-spacing:.05em;color:var(--bone-dim)}
+.export-toggle input{appearance:none;width:14px;height:14px;border:1px solid var(--bone-faint);background:transparent;cursor:pointer;position:relative}
+.export-toggle input:checked{border-color:var(--gold);background:var(--gold)}
+.export-toggle input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;color:var(--void)}
+.export-toggle:hover{color:var(--bone)}
 .toast{position:fixed;bottom:1.3rem;left:50%;transform:translateX(-50%) translateY(150%);background:var(--void);border:1px solid var(--gold);color:var(--bone);padding:.8rem 1.1rem;font-size:.5rem;letter-spacing:.1em;z-index:1001;transition:transform .4s;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast a{color:var(--gold);text-decoration:none;margin-left:.35rem}
@@ -284,9 +291,13 @@ footer a{color:var(--gold);text-decoration:none}
 <div class="export-title">Export Scene</div>
 <div class="export-subtitle">Choose your format</div>
 <div class="export-formats">
-<button class="export-format-btn" data-format="story"><span class="export-format-name">INSTAGRAM STORY</span><span class="export-format-size">1080 × 1920</span></button>
-<button class="export-format-btn" data-format="square"><span class="export-format-name">INSTAGRAM FEED</span><span class="export-format-size">1080 × 1080</span></button>
-<button class="export-format-btn" data-format="wide"><span class="export-format-name">TWITTER / OG</span><span class="export-format-size">1200 × 675</span></button>
+<button class="export-format-btn" data-format="story"><span class="export-format-name">STORY</span><span class="export-format-size">1080 × 1920</span></button>
+<button class="export-format-btn" data-format="square"><span class="export-format-name">SQUARE</span><span class="export-format-size">1080 × 1080</span></button>
+<button class="export-format-btn" data-format="wide"><span class="export-format-name">WIDE</span><span class="export-format-size">1200 × 675</span></button>
+</div>
+<div class="export-toggles">
+<label class="export-toggle"><input type="checkbox" id="toggleQR" checked><span class="toggle-label">Include QR code</span></label>
+<label class="export-toggle"><input type="checkbox" id="toggleDual"><span class="toggle-label">Add "Why this hurts" card</span></label>
 </div>
 <button class="export-close" id="exportClose">CANCEL</button>
 </div>
@@ -328,7 +339,7 @@ const COMMON_TRIGGERS=["Just relax","Why don't you adopt?","Have you tried IVF?"
 const CONTEXT_LABELS={stranger:"STRANGER",family:"FAMILY",colleague:"COLLEAGUE",medical:"MEDICAL"};
 const SPICE_LABELS={mild:"MILD",medium:"MEDIUM",hot:"HOT"};
 
-let currentTone=null,currentTrigger=null,currentResponse=null,currentImageUrl='',currentSubtext='';
+let currentTone=null,currentTrigger=null,currentResponse=null,currentImageUrl='',currentSubtext='',currentMatchedTrigger=null;
 let context='stranger',spice='medium',perspective='we';
 let usedResponses={};
 
@@ -368,6 +379,7 @@ const input=document.getElementById('triggerInput').value.trim();
 if(!input){document.getElementById('triggerInput').focus();return;}
 currentTone=tone;
 const match=findMatch(input);
+currentMatchedTrigger=match;
 if(match){
 currentSubtext=match.subtext;
 const toneResponses=match.responses[tone];
@@ -432,8 +444,22 @@ document.getElementById('exportOptions').classList.remove('active');
 
 async function exportImage(w,h,format){
 const isLight=document.documentElement.dataset.theme==='light';
-const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+const includeQR=document.getElementById('toggleQR').checked;
+const includeDual=document.getElementById('toggleDual').checked;
+
+// For dual card, we create two images side by side (or stacked for story)
+const isDualStory=includeDual&&format==='story';
+const isDualWide=includeDual&&(format==='wide'||format==='square');
+
+// Adjust canvas size for dual
+let canvasW=w,canvasH=h;
+if(isDualStory)canvasH=h; // Stack vertically, same height (cards smaller)
+if(isDualWide)canvasW=w*2; // Side by side
+
+const canvas=document.createElement('canvas');
+canvas.width=canvasW;canvas.height=canvasH;
 const ctx=canvas.getContext('2d');
+
 const bgColor=isLight?'#FAFAF8':'#080808';
 const frameBg=isLight?'#F0EDE8':'#121212';
 const textColor=isLight?'#0A0A0A':'#F5F2ED';
@@ -444,10 +470,10 @@ const goldColor=isLight?'#7A6545':'#B8956A';
 const alertColor='#C41E1E';
 
 // Background
-ctx.fillStyle=bgColor;ctx.fillRect(0,0,w,h);
+ctx.fillStyle=bgColor;ctx.fillRect(0,0,canvasW,canvasH);
 
 // Background image
-if(currentImageUrl){try{const img=new Image();img.crossOrigin='anonymous';await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=currentImageUrl;});const scale=Math.max(w/img.width,h/img.height);const sw=img.width*scale,sh=img.height*scale;ctx.globalAlpha=isLight?0.15:0.3;ctx.filter='grayscale(100%) contrast(1.1)';ctx.drawImage(img,(w-sw)/2,(h-sh)/2,sw,sh);ctx.globalAlpha=1;ctx.filter='none';}catch(e){}}
+if(currentImageUrl){try{const img=new Image();img.crossOrigin='anonymous';await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=currentImageUrl;});const imgScale=Math.max(canvasW/img.width,canvasH/img.height);const sw=img.width*imgScale,sh=img.height*imgScale;ctx.globalAlpha=isLight?0.15:0.3;ctx.filter='grayscale(100%) contrast(1.1)';ctx.drawImage(img,(canvasW-sw)/2,(canvasH-sh)/2,sw,sh);ctx.globalAlpha=1;ctx.filter='none';}catch(e){}}
 
 // Font sizes based on format
 const scale=format==='story'?w/1080:format==='square'?w/1080:w/1200;
@@ -456,106 +482,182 @@ const subtextSize=Math.round(13*scale);
 const triggerSize=Math.round(15*scale);
 const responseSize=Math.round(format==='wide'?36:42*scale);
 const padding=Math.round(45*scale);
-const textW=Math.round(format==='wide'?w*0.72:w*0.76);
+const qrSize=Math.round(60*scale);
 
-// Calculate content height
-ctx.font=`${labelSize}px 'Space Mono', monospace`;
-let contentH=0;
-contentH+=labelSize+padding*0.4; // context row + gap
-ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
-contentH+=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).length*(subtextSize*1.5)+padding*0.5;
-contentH+=labelSize+padding*0.3; // they said label + gap
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-contentH+=wrapText(ctx,currentTrigger,textW).length*(triggerSize*1.6)+padding*0.5;
-contentH+=labelSize+padding*0.8; // you say label + gap before response
-ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
-contentH+=wrapText(ctx,currentResponse,textW).length*(responseSize*1.4)+padding*0.6;
-contentH+=labelSize; // footer
+// Calculate card width based on mode
+let cardAreaW=isDualWide?w:w;
+let textW=Math.round((isDualWide?cardAreaW*0.72:format==='wide'?w*0.72:w*0.76));
+if(includeDual&&format==='story')textW=Math.round(w*0.8);
 
-// Frame dimensions - centered
-const frameW=textW+padding*2;
-const frameH=contentH+padding*2;
-const frameX=(w-frameW)/2;
-const frameY=(h-frameH)/2;
+// Generate QR code if needed
+let qrDataUrl=null;
+if(includeQR){
+  const qrDiv=document.createElement('div');
+  document.body.appendChild(qrDiv);
+  const qr=new QRCode(qrDiv,{text:window.location.origin,width:qrSize*2,height:qrSize*2,colorDark:isLight?'#0A0A0A':'#E8E4DF',colorLight:'transparent',correctLevel:QRCode.CorrectLevel.M});
+  await new Promise(r=>setTimeout(r,100));
+  const qrCanvas=qrDiv.querySelector('canvas');
+  if(qrCanvas)qrDataUrl=qrCanvas.toDataURL();
+  document.body.removeChild(qrDiv);
+}
 
-// Draw frame background
-ctx.fillStyle=frameBg;
-ctx.fillRect(frameX,frameY,frameW,frameH);
+// Helper to draw a response card
+async function drawResponseCard(offsetX,offsetY,areaW,areaH){
+  ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  let contentH=0;
+  contentH+=labelSize+padding*0.4;
+  ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
+  contentH+=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).length*(subtextSize*1.5)+padding*0.5;
+  contentH+=labelSize+padding*0.3;
+  ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+  contentH+=wrapText(ctx,currentTrigger,textW).length*(triggerSize*1.6)+padding*0.5;
+  contentH+=labelSize+padding*0.8;
+  ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
+  contentH+=wrapText(ctx,currentResponse,textW).length*(responseSize*1.4)+padding*0.6;
+  contentH+=labelSize;
+  if(includeQR)contentH+=qrSize+padding*0.5;
 
-// Draw frame border
-ctx.strokeStyle=borderColor;
-ctx.lineWidth=1;
-ctx.strokeRect(frameX,frameY,frameW,frameH);
+  const frameW=textW+padding*2;
+  const frameH=contentH+padding*2;
+  const frameX=offsetX+(areaW-frameW)/2;
+  const frameY=offsetY+(areaH-frameH)/2;
 
-// Gold accent bar - inside frame at top left
-ctx.fillStyle=goldColor;
-ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
+  ctx.fillStyle=frameBg;ctx.fillRect(frameX,frameY,frameW,frameH);
+  ctx.strokeStyle=borderColor;ctx.lineWidth=1;ctx.strokeRect(frameX,frameY,frameW,frameH);
+  ctx.fillStyle=goldColor;ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
 
-// Content positioning
-const contentX=frameX+padding;
-const contentRight=frameX+frameW-padding;
-let y=frameY+padding;
+  const contentX=frameX+padding;
+  const contentRight=frameX+frameW-padding;
+  let y=frameY+padding;
 
-// Context and spice row
-ctx.fillStyle=labelColor;
-ctx.font=`${labelSize}px 'Space Mono', monospace`;
-ctx.textAlign='left';
-ctx.fillText(CONTEXT_LABELS[context],contentX,y);
-ctx.fillStyle=spice==='hot'?alertColor:goldColor;
-ctx.textAlign='right';
-ctx.fillText(SPICE_LABELS[spice],contentRight,y);
-ctx.textAlign='left';
-y+=labelSize+padding*0.4;
+  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;ctx.textAlign='left';
+  ctx.fillText(CONTEXT_LABELS[context],contentX,y);
+  ctx.fillStyle=spice==='hot'?alertColor:goldColor;ctx.textAlign='right';
+  ctx.fillText(SPICE_LABELS[spice],contentRight,y);ctx.textAlign='left';
+  y+=labelSize+padding*0.4;
 
-// Subtext
-ctx.fillStyle=goldColor;
-ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
-wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).forEach(line=>{
-ctx.fillText(line,contentX,y);y+=subtextSize*1.5;
-});
-y+=padding*0.5;
+  ctx.fillStyle=goldColor;ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
+  wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=subtextSize*1.5;});
+  y+=padding*0.5;
 
-// They said label
-ctx.fillStyle=labelColor;
-ctx.font=`${labelSize}px 'Space Mono', monospace`;
-ctx.fillText('THEY SAID:',contentX,y);
-y+=labelSize+padding*0.3;
+  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  ctx.fillText('THEY SAID:',contentX,y);y+=labelSize+padding*0.3;
 
-// Trigger text
-ctx.fillStyle=triggerColor;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-wrapText(ctx,currentTrigger,textW).forEach(line=>{
-ctx.fillText(line,contentX,y);y+=triggerSize*1.6;
-});
-y+=padding*0.5;
+  ctx.fillStyle=triggerColor;ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+  wrapText(ctx,currentTrigger,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=triggerSize*1.6;});
+  y+=padding*0.5;
 
-// You say label
-ctx.fillStyle=goldColor;
-ctx.font=`${labelSize}px 'Space Mono', monospace`;
-ctx.fillText('YOU SAY:',contentX,y);
-y+=labelSize+padding*0.8; // More space before response
+  ctx.fillStyle=goldColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  ctx.fillText('YOU SAY:',contentX,y);y+=labelSize+padding*0.8;
 
-// Response text
-ctx.fillStyle=textColor;
-ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
-wrapText(ctx,currentResponse,textW).forEach(line=>{
-ctx.fillText(line,contentX,y);y+=responseSize*1.4;
-});
+  ctx.fillStyle=textColor;ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
+  wrapText(ctx,currentResponse,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=responseSize*1.4;});
 
-// Footer
-const footerY=frameY+frameH-padding*0.7;
-ctx.fillStyle=labelColor;
-ctx.font=`${labelSize}px 'Space Mono', monospace`;
-ctx.textAlign='left';
-ctx.fillText('THE PROTOCOL',contentX,footerY);
-ctx.textAlign='right';
-ctx.fillText('MATTERHOOD',contentRight,footerY);
+  // Footer with QR
+  const footerY=frameY+frameH-padding*0.7-(includeQR?qrSize+padding*0.3:0);
+  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;ctx.textAlign='left';
+  ctx.fillText('THE PROTOCOL',contentX,footerY);ctx.textAlign='right';
+  ctx.fillText('MATTERHOOD',contentRight,footerY);
+
+  // QR code
+  if(includeQR&&qrDataUrl){
+    const qrImg=new Image();
+    await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
+    const qrX=frameX+frameW-padding-qrSize;
+    const qrY=frameY+frameH-padding-qrSize;
+    ctx.drawImage(qrImg,qrX,qrY,qrSize,qrSize);
+  }
+}
+
+// Helper to draw "Why this hurts" card
+async function drawEducationCard(offsetX,offsetY,areaW,areaH){
+  const whyText=currentMatchedTrigger?.why_it_hurts||"This comment, though well-meaning, can minimize the deep emotional weight of infertility and childlessness. It suggests a simple solution exists when the reality is far more complex.";
+  const whatText=currentMatchedTrigger?.what_to_know||"People navigating fertility challenges often hear dozens of these comments. Each one, even from a place of love, can feel like their pain is being dismissed or misunderstood.";
+  
+  ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  let contentH=0;
+  contentH+=labelSize+padding*0.6; // title
+  contentH+=labelSize+padding*0.3; // why label
+  ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+  contentH+=wrapText(ctx,whyText,textW).length*(triggerSize*1.6)+padding*0.6;
+  contentH+=labelSize+padding*0.3; // what label
+  contentH+=wrapText(ctx,whatText,textW).length*(triggerSize*1.6)+padding*0.6;
+  contentH+=labelSize; // footer
+  if(includeQR)contentH+=qrSize+padding*0.5;
+
+  const frameW=textW+padding*2;
+  const frameH=contentH+padding*2;
+  const frameX=offsetX+(areaW-frameW)/2;
+  const frameY=offsetY+(areaH-frameH)/2;
+
+  ctx.fillStyle=frameBg;ctx.fillRect(frameX,frameY,frameW,frameH);
+  ctx.strokeStyle=borderColor;ctx.lineWidth=1;ctx.strokeRect(frameX,frameY,frameW,frameH);
+  ctx.fillStyle=alertColor;ctx.fillRect(frameX,frameY,Math.round(40*scale),2); // Red accent for education card
+
+  const contentX=frameX+padding;
+  const contentRight=frameX+frameW-padding;
+  let y=frameY+padding;
+
+  // Title
+  ctx.fillStyle=textColor;ctx.font=`400 ${Math.round(responseSize*0.7)}px 'Playfair Display', serif`;
+  ctx.textAlign='left';ctx.fillText('Why this hurts.',contentX,y);
+  y+=responseSize*0.7+padding*0.6;
+
+  // Trigger reminder
+  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  ctx.fillText('WHEN THEY SAY:',contentX,y);y+=labelSize+padding*0.2;
+  ctx.fillStyle=triggerColor;ctx.font=`italic ${triggerSize}px 'Space Mono', monospace`;
+  ctx.fillText('"'+currentTrigger+'"',contentX,y);y+=triggerSize+padding*0.5;
+
+  // Why it hurts
+  ctx.fillStyle=goldColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  ctx.fillText('THE IMPACT:',contentX,y);y+=labelSize+padding*0.3;
+  ctx.fillStyle=triggerColor;ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+  wrapText(ctx,whyText,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=triggerSize*1.6;});
+  y+=padding*0.5;
+
+  // What to know
+  ctx.fillStyle=goldColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;
+  ctx.fillText('WHAT HELPS INSTEAD:',contentX,y);y+=labelSize+padding*0.3;
+  ctx.fillStyle=triggerColor;ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+  wrapText(ctx,whatText,textW).forEach(line=>{ctx.fillText(line,contentX,y);y+=triggerSize*1.6;});
+
+  // Footer
+  const footerY=frameY+frameH-padding*0.7-(includeQR?qrSize+padding*0.3:0);
+  ctx.fillStyle=labelColor;ctx.font=`${labelSize}px 'Space Mono', monospace`;ctx.textAlign='left';
+  ctx.fillText('THE PROTOCOL',contentX,footerY);ctx.textAlign='right';
+  ctx.fillText('MATTERHOOD',contentRight,footerY);
+
+  // QR code
+  if(includeQR&&qrDataUrl){
+    const qrImg=new Image();
+    await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
+    const qrX=frameX+frameW-padding-qrSize;
+    const qrY=frameY+frameH-padding-qrSize;
+    ctx.drawImage(qrImg,qrX,qrY,qrSize,qrSize);
+  }
+}
+
+// Draw cards based on mode
+if(includeDual){
+  if(format==='story'){
+    // Stacked: response on top, education below
+    await drawResponseCard(0,0,w,h/2);
+    await drawEducationCard(0,h/2,w,h/2);
+  }else{
+    // Side by side
+    await drawResponseCard(0,0,w,h);
+    await drawEducationCard(w,0,w,h);
+  }
+}else{
+  await drawResponseCard(0,0,w,h);
+}
 
 const link=document.createElement('a');
-link.download=`protocol-${format}-${Date.now()}.png`;
+link.download=`protocol-${format}${includeDual?'-dual':''}${includeQR?'-qr':''}-${Date.now()}.png`;
 link.href=canvas.toDataURL('image/png');
 link.click();
-showToast('EXPORTED — SHARE YOUR TRUTH');
+showToast(includeDual?'EXPORTED — HELP THEM UNDERSTAND':'EXPORTED — SHARE YOUR TRUTH');
 }
 
 function wrapText(ctx,text,maxW){const words=text.split(' '),lines=[];let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else{line=test;}}if(line)lines.push(line);return lines;}
