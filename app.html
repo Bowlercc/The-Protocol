@@ -467,7 +467,7 @@ contentH+=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).length*(subtextSize*1.5
 contentH+=labelSize+padding*0.3; // they said label + gap
 ctx.font=`${triggerSize}px 'Space Mono', monospace`;
 contentH+=wrapText(ctx,currentTrigger,textW).length*(triggerSize*1.6)+padding*0.5;
-contentH+=labelSize*2.5; // you say label + gap before response
+contentH+=labelSize+padding*0.8; // you say label + gap before response
 ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
 contentH+=wrapText(ctx,currentResponse,textW).length*(responseSize*1.4)+padding*0.6;
 contentH+=labelSize; // footer
@@ -533,7 +533,7 @@ y+=padding*0.5;
 ctx.fillStyle=goldColor;
 ctx.font=`${labelSize}px 'Space Mono', monospace`;
 ctx.fillText('YOU SAY:',contentX,y);
-y+=labelSize*2.5; // More space before response
+y+=labelSize+padding*0.8; // More space before response
 
 // Response text
 ctx.fillStyle=textColor;
