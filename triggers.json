@@ -8,6 +8,8 @@
     ],
     "subtext": "You're causing this with your anxiety.",
     "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=1600&q=80",
+    "why_it_hurts": "This implies infertility is caused by stress or that the person is somehow responsible for their situation. It dismisses the real medical, genetic, or unexplained factors involved, and suggests a simple fix for something deeply complex.",
+    "what_to_know": "Instead of offering advice, try: 'I'm here for you' or 'That sounds really hard.' Listening without trying to solve is often what helps most.",
     "responses": {
       "diplomat": {
         "mild": [
@@ -92,6 +94,8 @@
     ],
     "subtext": "There's an obvious solution you're too stubborn to see.",
     "image": "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1600&q=80",
+    "why_it_hurts": "Suggesting adoption as a simple fix dismisses the grief of not being able to conceive biologically. Adoption is a beautiful path to parenthood, but it's not a cure for infertility. It's a separate, complex journey with its own emotional, financial, and legal challenges.",
+    "what_to_know": "Adoption may or may not be right for someone. Either way, it doesn't erase the loss they're experiencing. Simply acknowledging their pain is more helpful than offering solutions.",
     "responses": {
       "diplomat": {
         "mild": [
@@ -1019,6 +1023,8 @@
     ],
     "subtext": "Your suffering has cosmic purpose.",
     "image": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1600&q=80",
+    "why_it_hurts": "This suggests that someone's pain is part of a grand design, which can feel dismissive and even cruel. It puts a spiritual frame on grief without consent, and implies the person should find comfort in something they may not believe.",
+    "what_to_know": "You don't need to make sense of someone's pain for them. Sitting with them in the uncertainty is more supportive than offering explanations.",
     "responses": {
       "diplomat": {
         "mild": [
