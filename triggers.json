@@ -1,0 +1,3201 @@
+[
+  {
+    "triggers": [
+      "just relax",
+      "need to relax",
+      "stop stressing",
+      "stress causes infertility"
+    ],
+    "subtext": "You're causing this with your anxiety.",
+    "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{I} appreciate the thought.",
+          "{We're} focusing on what {we} can control."
+        ],
+        "medium": [
+          "{I} appreciate the thought. {We're} focusing on what science can actually measure.",
+          "Thank you. {We're} working with specialists on what's actually treatable.",
+          "That's kind. {We're} taking a medical approach rather than a mindset one."
+        ],
+        "hot": [
+          "{I}'ll treasure this advice alongside the others in {my} collection.",
+          "Thank you. {I}'ll let {my} reproductive endocrinologist know that relaxation was the missing variable.",
+          "Noted. {I}'ll inform the specialists that the treatment protocol should have been 'chill out.'",
+          "How thoughtful. {I}'ll add it to the pile of unsolicited suggestions {we've} received this year.",
+          "Thank you for solving in five seconds what doctors couldn't in five years."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Stress and infertility aren't linked that way.",
+          "That's a common myth, actually."
+        ],
+        "medium": [
+          "Relaxing is great for a spa day. Statistically irrelevant for biology.",
+          "If stress caused infertility, no one in a war zone would ever conceive. Biology doesn't work that way.",
+          "Stress doesn't cause {my} particular condition. But it's a popular theory."
+        ],
+        "hot": [
+          "Remarkable. {I}'ll simply unclench {my} way out of a documented medical condition. Should {I} cc you on the results?",
+          "{I}'ll let the embryologist know that the issue was vibes, not chromosomes.",
+          "You've just solved reproductive medicine. Someone alert the Nobel committee.",
+          "Incredible. The cure was relaxation all along. Not the surgery, not the hormones. Just calm.",
+          "My diagnosed condition responds poorly to 'just relax.' But thanks for the input."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "Noted. {I}'ll add it to the file.",
+          "Ah. {I}'ll update the spreadsheet."
+        ],
+        "medium": [
+          "{I}'ll simply unclench. Why didn't the specialists think of that.",
+          "Right. {I}'ll file that under 'miracle cures' with the others.",
+          "Fascinating. {I}'ll relax {my} ovaries. They've been very tense."
+        ],
+        "hot": [
+          "{I}'ve filed 'relax' under 'miracle cures' next to 'have you tried yoga' and 'just stop thinking about it.' The filing cabinet is full.",
+          "{My} uterus has been holding a lot of tension. {I}'ll ask it to meditate.",
+          "{I}'ll inform {my} reproductive system that the problem was attitude. It's been very negative lately.",
+          "The stress is stored in {my} fallopian tubes, apparently. {I}'ll ask them to do breathing exercises.",
+          "Noted. {I}'ll simply unclench {my} diagnosed medical condition. The doctors will be thrilled."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Stress didn't cause this. But thank you.",
+          "It's a medical issue, not a stress issue."
+        ],
+        "medium": [
+          "Stress didn't cause this. Biology did. But thank you.",
+          "If only it were that simple. The cause is medical, not emotional.",
+          "{We} wish it were that easy. It's not stress. It's anatomy."
+        ],
+        "hot": [
+          "Stress didn't break {my} body. {I} wish it were that simple to fix.",
+          "{My} condition has a clinical name. It doesn't respond to relaxation techniques.",
+          "If stress caused this, it would have happened years ago. The diagnosis is structural.",
+          "{We} tried relaxing. For years. The ultrasound results stayed the same.",
+          "The problem isn't tension. It's biology. But {I} understand why people want a simple answer."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "why don't you adopt",
+      "just adopt",
+      "have you considered adoption",
+      "could always adopt"
+    ],
+    "subtext": "There's an obvious solution you're too stubborn to see.",
+    "image": "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Adoption is its own journey. Thank you for thinking of {us}.",
+          "That's a path some people take. {We're} still figuring out ours."
+        ],
+        "medium": [
+          "Adoption is a beautiful path to parenthood. It's not a cure for infertility.",
+          "Adoption is something {we've} thought about. It's also a years-long process, not a quick fix.",
+          "Thank you. Adoption is a separate decision that deserves more consideration than 'just.'"
+        ],
+        "hot": [
+          "{We} appreciate the thought. Adoption is a profound decision, not a fallback plan.",
+          "Thank you. {We've} researched adoption extensively. It's not as simple as 'just.'",
+          "Adoption is a years-long process involving home studies, legal proceedings, and significant cost. {We're} aware it exists.",
+          "That's one path. It's not a substitute for grieving the biological one.",
+          "Thank you for the suggestion. {We've} considered it more than you might imagine."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Adoption isn't a substitute. It's a different path.",
+          "Those are two separate decisions, actually."
+        ],
+        "medium": [
+          "Adoption is a parenting path, not a consolation prize. They're different journeys.",
+          "'Just adopt' isn't how adoption works. It's not a store you walk into.",
+          "Adoption is a choice, not a solution to infertility. The grief remains either way."
+        ],
+        "hot": [
+          "'Just adopt' — as if children are waiting in a warehouse for anyone who asks. The process takes years and costs tens of thousands.",
+          "{I} love how 'just adopt' assumes adoption is both easy and a cure. It's neither.",
+          "Adoption doesn't delete infertility. It's a separate path with its own complexity. But sure, 'just.'",
+          "Would you tell someone who lost a limb to 'just get a prosthetic'? Same energy.",
+          "The word 'just' is doing a lot of heavy lifting in that sentence."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We} checked. There's a waitlist.",
+          "The warehouse was out of babies. Backorder."
+        ],
+        "medium": [
+          "The adoption aisle was closed. Supply chain issues.",
+          "{We} rang the baby warehouse. They said there's a queue.",
+          "Incredible. {I}'ll just pop down to the adoption shop. Do they take card?"
+        ],
+        "hot": [
+          "{I}'ve applied to adopt but the 'just' part seems to be missing from the paperwork. Three years of home studies so far.",
+          "{We} checked the adoption store. Sold out. They recommended the waitlist. It's four years long.",
+          "The 'just adopt' aisle was empty. {I} asked the staff. They laughed. Then they cried. Then they gave {me} a pamphlet about the actual process.",
+          "Ah yes, {I}'ll just file Form 47B, complete the home study, pass the background checks, and wait three to seven years. Very 'just.'",
+          "{I} tried to adopt at the supermarket but they said that's not how it works. Very confusing."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Adoption is its own journey. {We're} still processing.",
+          "That's a separate decision. {We're} not there yet."
+        ],
+        "medium": [
+          "Adoption is its own complex journey. {We're} processing one grief at a time.",
+          "Adoption doesn't cure infertility. It's a different choice with different challenges.",
+          "That's a path {we} may explore. It's not a replacement for what {we} lost."
+        ],
+        "hot": [
+          "Adoption doesn't make infertility disappear. It creates a different family. The grief for the biological one remains.",
+          "{We} may adopt someday. It won't erase what {we've} been through to get here.",
+          "{I} know adoption exists. {I} also know it's not a fix for this specific loss.",
+          "Adoption is an act of love. It's not a treatment for {our} diagnosis.",
+          "The decision to adopt deserves more than 'just.' So does {our} grief."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "have you tried ivf",
+      "why don't you do ivf",
+      "just do ivf"
+    ],
+    "subtext": "There's technology for this. Why aren't you using it?",
+    "image": "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We've} explored all our options. Thank you.",
+          "{We've} been through the medical process. Thank you for thinking of {us}."
+        ],
+        "medium": [
+          "{We've} explored all the options available to {us}. Thank you for thinking of {us}.",
+          "{We've} been down that road. It's more complex than it seems from the outside.",
+          "Thank you. IVF was part of {our} journey. It's not a guaranteed solution."
+        ],
+        "hot": [
+          "{We've} been through IVF. Multiple rounds. It's not the miracle it's marketed as.",
+          "Thank you. {We've} spent years and significant savings on treatment. {We're} familiar with the options.",
+          "{We've} done IVF. The injections, the retrievals, the transfers, the failures. {We're} well acquainted.",
+          "IVF was {our} life for several years. It's not a casual suggestion for {us}.",
+          "Thank you for the suggestion. {Our} bank account and {my} body remember IVF vividly."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "IVF isn't simple or guaranteed.",
+          "It's more complicated than it looks from the outside."
+        ],
+        "medium": [
+          "IVF is expensive, invasive, and has a 70% failure rate. It's nobody's casual suggestion.",
+          "'Just do IVF' costs more than a car and works less than a third of the time.",
+          "IVF isn't a vending machine. You put in money and hope. You don't always get a baby."
+        ],
+        "hot": [
+          "IVF: tens of thousands of dollars, daily injections, surgical retrievals, and a 70% chance of failure. 'Just' do it, you say.",
+          "The 'just' in 'just do IVF' ignores the cost, the invasiveness, the failure rate, and the emotional toll. But sure.",
+          "IVF has a higher failure rate than success rate. It's not a magic solution. It's a gruelling process with odds against you.",
+          "Would you 'just' spend your savings on a 30% chance of success? That's IVF.",
+          "IVF is not a solution. It's a gamble with your body, your money, and your hope. {We've} already played."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "The needles and {I} are well acquainted.",
+          "{We've} met IVF. It didn't go well."
+        ],
+        "medium": [
+          "{We've} had more needles than a sewing factory. The production line shut down.",
+          "{My} body has been a pincushion. The cushion has retired.",
+          "IVF and {I} have a complicated relationship. Mostly {I} give it money and it gives {me} disappointment."
+        ],
+        "hot": [
+          "{I}'ve been injected, extracted, monitored, and scanned so many times {my} body has its own medical file number. The 'just' ship sailed three cycles ago.",
+          "{My} reproductive system has had more interventions than a troubled country. The peacekeepers have withdrawn.",
+          "{We} did IVF. Multiple rounds. {My} ovaries have been stimulated more than the economy. Neither responded well.",
+          "{I}'ve given more blood than a vampire's frequent flyer program. The points don't convert to babies, unfortunately.",
+          "IVF treated {my} body like a science experiment. The hypothesis was not supported by the data."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We} tried. It didn't work out.",
+          "{We've} been through IVF. It wasn't successful for {us}."
+        ],
+        "medium": [
+          "{We} tried. Multiple times. The protocol failed. {We've} made peace with that.",
+          "{We} did IVF. Cycles of it. The odds weren't in {our} favour.",
+          "IVF was {our} plan A. It didn't work. {We're} learning to live with plan B."
+        ],
+        "hot": [
+          "{We} did IVF. Multiple rounds. {We} have the scars, the debt, and the empty nursery to show for it.",
+          "{We} tried everything medicine offered. It wasn't enough. {We're} still here.",
+          "{Our} IVF journey ended. Not with a baby, but with acceptance. It took longer to find than {we} expected.",
+          "IVF gave {us} hope, then took it away, repeatedly. {We} eventually had to stop.",
+          "The treatments failed. {We} didn't. But it took time to understand the difference."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "my cousin stopped trying",
+      "stopped trying and got pregnant",
+      "happens when you stop trying",
+      "stop trying so hard"
+    ],
+    "subtext": "Your effort is the problem.",
+    "image": "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Every journey is different.",
+          "That's lovely for your cousin."
+        ],
+        "medium": [
+          "That's a lovely story. Every journey is different.",
+          "{I}'m glad that worked for them. {Our} situation is medically different.",
+          "That happens for some people. {Our} path has been different."
+        ],
+        "hot": [
+          "That's wonderful for your cousin. {Our} doctors have explained why that won't work for {us}.",
+          "{I} appreciate you sharing that. Every situation is medically unique. Ours included.",
+          "That's one outcome. {Our} specialists have given {us} a different prognosis.",
+          "Your cousin's experience is valid. So is {our} diagnosis, which doesn't work that way.",
+          "That's a hopeful story. {Our} reality is different, but {I} appreciate the thought."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Anecdotes aren't medicine.",
+          "One story isn't data."
+        ],
+        "medium": [
+          "Survivorship bias isn't medical advice.",
+          "Your cousin got lucky. That's not a treatment plan.",
+          "The plural of anecdote isn't data. But {I} understand why people share these stories."
+        ],
+        "hot": [
+          "Your cousin's story is lovely. It's also a sample size of one, which is statistically meaningless for {my} specific diagnosis.",
+          "{I} could tell you stories of people who 'stopped trying' and never conceived. Those don't get shared at dinner parties.",
+          "For every 'miracle' story, there are thousands of people who stopped trying and just stayed childless. Selection bias.",
+          "Medical conditions don't resolve because someone else's cousin got lucky.",
+          "That's survivorship bias. The people for whom it didn't work aren't telling stories at brunch."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I}'ll try forgetting {my} medical condition.",
+          "Right. {I}'ll delete it from {my} calendar."
+        ],
+        "medium": [
+          "Incredible. {I}'ll delete {my} reproductive system from {my} calendar and wait.",
+          "{I}'ll simply forget about {my} diagnosed condition. Very mindful.",
+          "Noted. {I}'ll stop trying to have a functional reproductive system."
+        ],
+        "hot": [
+          "{I}'ll simply develop amnesia about {my} ovarian failure. {I}'m sure the eggs will reappear once {I} stop thinking about them.",
+          "{My} condition is structural. {I}'ll ask it to structurally forget itself.",
+          "{I}'ll tell {my} fallopian tubes to relax. They've been trying too hard. Very type A, those tubes.",
+          "Perhaps {my} eggs are just shy. If {I} stop looking, they'll come out. Like woodland creatures.",
+          "{I}'ll stop trying to ovulate. That's been the problem all along. Too much effort from {my} ovaries."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "That's not how {our} situation works, unfortunately.",
+          "Our condition doesn't work that way."
+        ],
+        "medium": [
+          "Anecdotes aren't data. But {I} understand you're trying to help.",
+          "{Our} condition doesn't resolve with mindset. {I} wish it did.",
+          "That's not how {our} diagnosis works. But {I} know you mean well."
+        ],
+        "hot": [
+          "{My} condition doesn't resolve with positive thinking. {I} wish it did.",
+          "{We} stopped trying for months once. Nothing changed except {our} hope levels.",
+          "The 'stop trying' approach assumes the problem is effort. The problem is medical.",
+          "If {our} diagnosis responded to 'not trying,' {we} would have stopped years ago.",
+          "{We} can't stop trying our way out of this. It's not effort. It's biology."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "have you tried acupuncture",
+      "try acupuncture",
+      "eastern medicine",
+      "chinese medicine"
+    ],
+    "subtext": "Western medicine failed. Try something mystical.",
+    "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We've} explored many options. Thank you.",
+          "Thank you for the suggestion."
+        ],
+        "medium": [
+          "{We've} explored many options. Thank you for the suggestion.",
+          "Acupuncture can be relaxing. It hasn't changed {our} diagnosis.",
+          "Thank you. {We've} tried various complementary approaches."
+        ],
+        "hot": [
+          "{We've} tried acupuncture among many other things. {Our} specialists remain the primary guides.",
+          "Thank you. {We've} explored complementary medicine alongside conventional treatment.",
+          "Acupuncture was part of {our} journey. The diagnosis remains unchanged, but {I} appreciate the thought.",
+          "Thank you for thinking of {us}. {We've} cast a wide net on treatments.",
+          "That's been suggested before. {We've} looked into it. The medical reality persists."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "The evidence isn't strong for fertility.",
+          "It's not proven to help {our} condition."
+        ],
+        "medium": [
+          "{I}'ve been poked by enough needles. The clinical kind didn't work either.",
+          "{We} tried it. It was relaxing. It didn't change the pathology.",
+          "Acupuncture has limited evidence for {our} specific diagnosis. But {I} understand why people suggest it."
+        ],
+        "hot": [
+          "If acupuncture cured infertility, fertility clinics would be acupuncture clinics. They're not.",
+          "The plural of testimonial isn't evidence. But {I} appreciate the suggestion.",
+          "{My} condition requires surgery, not needles with a different philosophy.",
+          "Acupuncture can reduce stress. It can't restructure {my} anatomy.",
+          "Alternative medicine that worked would just be called medicine. This didn't work."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I}'ve tried being a pincushion.",
+          "The needles and {I} are acquainted."
+        ],
+        "medium": [
+          "{I}'ve tried being a pincushion. {My} body remains unimpressed.",
+          "{My} qi has been thoroughly realigned. {My} ovaries didn't notice.",
+          "{We} tried acupuncture. {My} chakras are fine. {My} eggs are still missing."
+        ],
+        "hot": [
+          "{I}'ve been needled by both Eastern and Western medicine. Both agree {my} reproductive system is decorative.",
+          "{My} meridians are balanced. {My} hormone levels are not. The meridians don't seem to care.",
+          "Acupuncture told {me} to relax. IVF told {me} to inject. Neither told {me} to expect success.",
+          "{I}'ve had so many needles in {me} from various traditions, {I} could be classified as a hedgehog.",
+          "{My} qi flows beautifully now. Still no baby, but {my} energy is very well-directed."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We} tried it. It didn't change the outcome.",
+          "It helped with stress. Not with {our} diagnosis."
+        ],
+        "medium": [
+          "{We} tried it. It was relaxing. It didn't change the outcome.",
+          "{I} enjoyed acupuncture. It didn't fix what's broken. But it was pleasant.",
+          "Acupuncture helped {me} feel calmer. The condition remained."
+        ],
+        "hot": [
+          "Acupuncture was nice. It didn't change {my} anatomy. Relaxation doesn't fix structural problems.",
+          "{We} tried everything, including acupuncture. The diagnosis doesn't respond to comprehensive approaches. It just is.",
+          "{I} spent money on acupuncture, herbs, and hope. The first two were nice. The third was expensive.",
+          "Complementary medicine complemented {our} grief, not {our} outcome.",
+          "I explored every option. The condition outlasted them all."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "go on holiday",
+      "take a vacation",
+      "get drunk on holiday",
+      "just go to bali",
+      "happened on holiday"
+    ],
+    "subtext": "You need fun, not treatment.",
+    "image": "https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We} love to travel. It's good for the soul.",
+          "Holidays are nice. Thank you."
+        ],
+        "medium": [
+          "{We} love to travel. It hasn't changed {our} biology, but it helps {our} souls.",
+          "Travel is wonderful. It's not a treatment, but it does help {us} cope.",
+          "A holiday sounds lovely. It won't change {our} diagnosis, but {we} appreciate the thought."
+        ],
+        "hot": [
+          "{We've} travelled. The grief packs light and comes everywhere with {us}.",
+          "{We} took holidays. Beautiful ones. The return flight always brought {us} back to the same reality.",
+          "Thank you. Geography doesn't change biology, but the sentiment is kind.",
+          "Travel helps {us} cope. It doesn't help {us} conceive. But {we} appreciate the thought.",
+          "A holiday would be lovely. The condition will still be there when {we} return."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Geography doesn't change biology.",
+          "Travel doesn't fix medical issues."
+        ],
+        "medium": [
+          "Infertility doesn't have a passport. It travels with you.",
+          "{I}'ve conceived zero children in zero countries. The location isn't the variable.",
+          "The 'relax on holiday' theory doesn't account for people who conceive in war zones."
+        ],
+        "hot": [
+          "{I}'ve been told this in Bali, Portugal, Japan, and three different islands. The location changes. The diagnosis doesn't.",
+          "If holidays caused pregnancy, resort towns would be fertility clinics.",
+          "The 'get drunk and conceive' approach doesn't work when the problem is medical, not motivational.",
+          "{We} tried the holiday method. Multiple times. The only thing {we} conceived was credit card debt.",
+          "A change of scenery doesn't change {my} ovarian reserve. But it's a nice thought."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "The airline lost {my} fertility. Still waiting at baggage claim.",
+          "{We} tried Bali. The Bali magic didn't work."
+        ],
+        "medium": [
+          "Ah yes, the magical fertility properties of airport delays and sunburn.",
+          "{We} went on holiday. {My} eggs didn't pack themselves.",
+          "Apparently {I} need to conceive at a specific GPS coordinate. Still searching."
+        ],
+        "hot": [
+          "{We} tried the holiday cure. Turns out infertility clears customs faster than luggage.",
+          "{I}'ve tried conceiving on three continents. {My} uterus isn't interested in tourism.",
+          "{My} reproductive system doesn't respond to minibar prices or ocean views. Very stubborn.",
+          "{We} took the holiday. Drank the cocktails. Watched the sunset. Came home as childless as {we} left.",
+          "Perhaps {I} need to find the exact beach where fertility lives. {I}'ll keep searching."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We've} travelled. The diagnosis came home with {us}.",
+          "Holidays are nice. They don't fix this."
+        ],
+        "medium": [
+          "{We've} taken the holidays. The grief came home with {us} every time.",
+          "A holiday is a change of scenery for {our} sadness. It's still sadness.",
+          "Travel helps {us} cope. It doesn't help {us} conceive. Both are true."
+        ],
+        "hot": [
+          "A holiday is a pause, not a cure. {We} come back to the same reality.",
+          "The grief comes with {us}. It's very well-travelled at this point.",
+          "{We} took holidays hoping something would change. It didn't. But the beaches were nice.",
+          "Every trip ends with a return flight. {We} always come home to the same situation.",
+          "{We} can't holiday {our} way out of this. But {we} can holiday {our} way through it, a little."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "cut out gluten",
+      "cut out caffeine",
+      "probably your diet",
+      "go gluten free",
+      "dairy causes infertility",
+      "it's the plastics"
+    ],
+    "subtext": "You're poisoning yourself.",
+    "image": "https://images.unsplash.com/photo-1495195134817-aeb325a55b65?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We've} made many changes. Thank you.",
+          "Thank you for the suggestion."
+        ],
+        "medium": [
+          "{We've} made many lifestyle changes. Thank you for caring.",
+          "{We've} adjusted {our} diet significantly. The diagnosis remains.",
+          "{We} eat well. Thank you for thinking of {us}."
+        ],
+        "hot": [
+          "Thank you. {We've} consulted nutritionists alongside {our} fertility specialists.",
+          "Diet has been examined. Extensively. The cause is anatomical, not nutritional.",
+          "Thank you. {We've} eliminated, reintroduced, and analysed everything {we} eat.",
+          "Our kitchen has been redesigned multiple times. The biology remained unchanged.",
+          "{We}'ve done elimination diets, supplements, and analysis. The problem isn't food."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Diet doesn't cure this.",
+          "Our condition isn't dietary."
+        ],
+        "medium": [
+          "Unless you're a reproductive endocrinologist, {we're} sticking to the experts.",
+          "{My} condition is structural, not nutritional. But {I} appreciate the thought.",
+          "Diet can't fix what {we} have. But it's a common suggestion."
+        ],
+        "hot": [
+          "{My} fallopian tubes don't care about gluten. Neither does {my} endometriosis.",
+          "Diet doesn't cure chromosomal abnormalities. But it's a popular theory.",
+          "If eliminating gluten fixed infertility, coeliac patients would have the highest birth rates. They don't.",
+          "You're suggesting diet while {I} have a documented structural abnormality. Read the room.",
+          "Unless bread is somehow blocking {my} tubes, diet isn't the issue."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I}'ve eliminated joy. Still waiting on results.",
+          "{My} diet is very sad now. So am {I}."
+        ],
+        "medium": [
+          "{I}'ve eliminated gluten, dairy, joy, and hope. Still awaiting results.",
+          "{My} diet is now entirely beige and disappointing. No change in fertility.",
+          "{I} eat like a very sad rabbit. {My} reproductive system remains unimpressed."
+        ],
+        "hot": [
+          "{I} now eat only sadness and organic kale. {My} reproductive system remains unimpressed by both.",
+          "{I}'ve eliminated everything fun. The only thing {I}'ve conceived is resentment toward brunch menus.",
+          "My diet is a list of things {I} can't have. Just like {my} family plans.",
+          "{I}'ve cut out so much that {my} meals look like apologies. Still no baby.",
+          "The plastics, the gluten, the caffeine, the dairy. {I}'ve blamed them all. They were innocent."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Diet doesn't fix structural problems.",
+          "It's a medical issue, not a food issue."
+        ],
+        "medium": [
+          "Diet doesn't cure structural infertility. But thanks.",
+          "{My} condition is anatomical, not nutritional. But {I} appreciate the thought.",
+          "Eliminating foods didn't eliminate the problem. But {we} eat well now, so that's something."
+        ],
+        "hot": [
+          "{My} condition has a clinical name. It doesn't respond to elimination diets.",
+          "If {my} problem were dietary, it would have resolved years ago. It's not. It didn't.",
+          "{We} changed {our} diet completely. The scans looked the same.",
+          "Diet is something {we} can control. {Our} diagnosis isn't. It's easy to confuse the two.",
+          "Food isn't the villain here. Biology is. But food can't argue back."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "get a dog instead",
+      "why don't you get a dog",
+      "dogs are like children",
+      "fur baby",
+      "get a pet"
+    ],
+    "subtext": "A pet will fill the void.",
+    "image": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We} love animals. They're wonderful companions.",
+          "{We} have pets. They bring {us} joy."
+        ],
+        "medium": [
+          "{We} love animals. They're wonderful companions, not replacements.",
+          "{Our} pets bring {us} joy. They're not substitutes, but they help.",
+          "{We} love our pets. They're family. They're not the family {we} also wanted."
+        ],
+        "hot": [
+          "{Our} pets bring {us} joy. They're family. They're not substitutes for children.",
+          "Thank you. {Our} pets are wonderful. They don't fill the space {we} grieve. They fill a different one.",
+          "{We} have pets {we} love. {We} also have grief. Both live in {our} house.",
+          "Pets are part of {our} family. They're not replacement children. Different love, different loss.",
+          "Thank you for the suggestion. {Our} pets are wonderful. {Our} grief remains."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "A dog is a dog. A child is a child.",
+          "Pets don't replace children."
+        ],
+        "medium": [
+          "A dog is a dog. A child is a child. Grief doesn't fetch.",
+          "'Fur baby' is a term for people who chose pets. {We} didn't choose this.",
+          "Suggesting a pet replaces a child is... a choice."
+        ],
+        "hot": [
+          "Did you just suggest {I} replace a human child with a labrador? Do you hear yourself?",
+          "Pets are lovely. They're not human children. This shouldn't require explanation.",
+          "The 'get a dog' advice assumes {my} grief is about wanting something to care for. It's not.",
+          "A dog can't inherit {my} values, continue conversations into adulthood, or make decisions when {I}'m gone. Different category.",
+          "{I} love dogs. {I} also wanted children. These are not competing desires resolved by choosing one."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We} asked the shelter. Different paperwork.",
+          "{Our} dog is lovely. It doesn't call {us} parents."
+        ],
+        "medium": [
+          "{We} asked the shelter for one that could inherit {our} trauma and call {us} parents. They said no.",
+          "{Our} dog is wonderful. It hasn't offered to care for {us} in old age yet.",
+          "The dog doesn't know it's a replacement. {We} haven't told it. Very awkward."
+        ],
+        "hot": [
+          "{I} tried to list {my} dog as a dependent. The tax office was unimpressed. So was the dog.",
+          "{My} dog is great company. It hasn't offered to continue the family name though. Bit selfish, honestly.",
+          "{We} asked the shelter for a puppy that could provide emotional support, legal next-of-kin status, and call {me} Mum. They were confused.",
+          "The dog fills {our} home with hair and joy. The nursery remains full of neither.",
+          "{I} love {my} dog. {I} can't explain inheritance law to it. Different relationship."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Pets bring joy. They don't fill the same space.",
+          "We have pets. We also have grief."
+        ],
+        "medium": [
+          "Pets bring joy. They don't replace the family {we} imagined. Both are true.",
+          "{Our} pets are family. They're not the family {we} also hoped for.",
+          "{We} have pets {we} love. {We} also grieve children {we} couldn't have. Both exist."
+        ],
+        "hot": [
+          "{We} have pets. {We} love them. {We} also grieve the children {we} couldn't have. Both exist.",
+          "{Our} dog doesn't replace {our} loss. It accompanies {us} through it.",
+          "A pet is a companion in grief, not a cure for it.",
+          "The dog is wonderful. The nursery is still empty. Both things are true every day.",
+          "Pets help {us} live with the loss. They don't resolve it."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "maybe switch doctors",
+      "get a second opinion",
+      "my doctor is amazing",
+      "you need a better doctor",
+      "have you seen a specialist"
+    ],
+    "subtext": "You haven't tried hard enough to find the right expert.",
+    "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We've} worked with excellent specialists. Thank you.",
+          "{We've} seen many doctors. Thank you for the thought."
+        ],
+        "medium": [
+          "{We've} worked with excellent specialists. Thank you for the thought.",
+          "{We've} had multiple opinions. They agreed.",
+          "{Our} medical team has been thorough. Thank you for caring."
+        ],
+        "hot": [
+          "{We've} consulted extensively. The specialists agreed on the diagnosis.",
+          "Thank you. {Our} care has been comprehensive. The outcome remains the same.",
+          "Several doctors, same conclusion. But {I} appreciate the thought.",
+          "{We've} been to multiple clinics across multiple years. The diagnosis is consistent.",
+          "Thank you. {We}'ve had second, third, and fourth opinions. They aligned."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{We've} seen many specialists.",
+          "{We}'ve consulted extensively."
+        ],
+        "medium": [
+          "{We've} consulted with every specialist. The diagnosis is confirmed.",
+          "{We} have excellent doctors. The diagnosis isn't their failure.",
+          "{We}'ve been through the medical system thoroughly. The answer remains the same."
+        ],
+        "hot": [
+          "The problem isn't the doctors. The problem is {my} anatomy. A new opinion won't change it.",
+          "{We've} been through the best clinics. Changing doctors doesn't change biology.",
+          "{I} don't need a different doctor. {I} need a different diagnosis. That's not available.",
+          "You're assuming {we} haven't looked. {We}'ve looked everywhere. The answer is the same.",
+          "The specialists agree. Getting another one to disagree won't change reality."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We've} collected opinions like stamps. Same result.",
+          "{My} medical team is extensive. They all agree."
+        ],
+        "medium": [
+          "{We've} seen more specialists than a medical drama. Same diagnosis, every episode.",
+          "{My} file has been reviewed by so many doctors it should have frequent flyer status.",
+          "{We}'ve assembled an Avengers of reproductive medicine. They couldn't defeat {my} diagnosis."
+        ],
+        "hot": [
+          "{We}'ve consulted so many doctors {I} could host a medical conference. The consensus is: still broken.",
+          "{My} file has been peer-reviewed more than most academic papers. Same conclusion.",
+          "{I}'ve seen specialists in multiple cities. They've formed a support group. For each other.",
+          "The doctors agree. {I}'ve given them all the evidence. They keep reaching the same verdict.",
+          "Switching doctors is like changing seats on a plane. {We}'re still going to the same destination."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We've} had second, third, and fourth opinions.",
+          "{We}'ve seen many doctors. The answer is the same."
+        ],
+        "medium": [
+          "{We've} had second, third, and fourth opinions. They all agreed.",
+          "{We} have excellent doctors. The diagnosis is just difficult.",
+          "{We}'ve consulted widely. The conclusion is consistent."
+        ],
+        "hot": [
+          "The diagnosis comes from multiple sources. Changing doctors won't change it.",
+          "More opinions confirmed the same thing. At some point, you accept the consensus.",
+          "{We}'ve tried different clinics. Same tests, same results. The medicine is consistent.",
+          "{We} stopped seeking new opinions when they stopped being new. The answer is clear.",
+          "Another doctor would give {us} the same news more expensively. {We}'ve accepted what is."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "have you thought about surrogacy",
+      "surrogate",
+      "someone else could carry"
+    ],
+    "subtext": "There are other wombs available.",
+    "image": "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We've} considered all paths. Thank you.",
+          "{We've} looked at various options. Thank you."
+        ],
+        "medium": [
+          "{We've} considered all paths. Each one has its own complexity.",
+          "{We've} explored surrogacy. It's not straightforward, but thank you for thinking of {us}.",
+          "{We} appreciate the thought. {We've} researched all the options available."
+        ],
+        "hot": [
+          "Thank you. Surrogacy is complex, expensive, and not available to everyone. {We've} investigated.",
+          "{We}'ve considered it. The legal, financial, and emotional complexity is significant.",
+          "Surrogacy was explored. The path wasn't viable for {us}, for various reasons.",
+          "Thank you for thinking of {us}. {We}'ve looked into surrogacy. It's not simple.",
+          "The surrogacy option involves legal complexity, significant cost, and isn't available in every jurisdiction. But thank you."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Surrogacy is expensive and complex.",
+          "It's not as simple as it sounds."
+        ],
+        "medium": [
+          "Surrogacy costs more than most houses and isn't available to everyone. It's not casual.",
+          "'Someone else could carry' involves legal contracts, significant money, and emotional complexity.",
+          "Surrogacy is a solution for some. It's not universally accessible."
+        ],
+        "hot": [
+          "Surrogacy costs six figures in some places, is illegal in others, and requires someone willing to carry your child. It's not 'just.'",
+          "The 'someone else could carry' suggestion ignores cost, legality, ethics, and availability. Otherwise, great idea.",
+          "Surrogacy requires {us} to have viable embryos, which is the part that didn't work.",
+          "Not everyone can access surrogacy. Including {us}, as it turns out.",
+          "Surrogacy is a solution that requires problems {we} don't have and resources {we} also don't have."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "Outsourcing {my} uterus wasn't in the original plan.",
+          "{We} looked into subcontracting. Complex paperwork."
+        ],
+        "medium": [
+          "Outsourcing {my} uterus wasn't in the original business plan, but {I} appreciate the pivot suggestion.",
+          "{We} explored the womb rental market. The terms were unfavorable.",
+          "The franchise model for pregnancy is expensive. {We} couldn't get funding."
+        ],
+        "hot": [
+          "{I} tried to outsource {my} reproductive failure. The contractors wanted too much money.",
+          "{We} looked into uterus-as-a-service. The subscription model didn't work for {us}.",
+          "{We} explored the gig economy of pregnancy. Turns out it's highly regulated and expensive.",
+          "Surrogacy: the only industry where you pay someone else to do the work and you still don't get paternity leave.",
+          "The 'rent-a-womb' industry is less accessible than the name implies. {We} checked."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Surrogacy is a path for some. It wasn't right for {us}.",
+          "{We} looked into it. It wasn't viable."
+        ],
+        "medium": [
+          "Surrogacy is a path for some. It wasn't right for {us}. {We've} found {our} peace elsewhere.",
+          "Not all paths are open to everyone. Surrogacy wasn't open to {us}.",
+          "Surrogacy requires things {we} don't have: the right embryos, the right funds, the right jurisdiction."
+        ],
+        "hot": [
+          "Surrogacy requires viable embryos. That was the part that failed.",
+          "The path to surrogacy assumes you have something to transfer. {We} didn't.",
+          "Surrogacy wasn't an option for {us}. The reasons are medical, legal, and financial.",
+          "Not every solution is a solution for everyone. Surrogacy wasn't for {us}.",
+          "{We} explored every path. Some were closed. {We're} learning to live with the doors that didn't open."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "have you tried fertility tea",
+      "fertility tea",
+      "special tea",
+      "herbs for fertility"
+    ],
+    "subtext": "There's a magical solution in the health food aisle.",
+    "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Thank you for thinking of {us}.",
+          "{We}'ve tried various things."
+        ],
+        "medium": [
+          "Thank you for the suggestion. {We}'ve tried many approaches.",
+          "{We}'ve explored various options, including supplements.",
+          "That's kind. {We}'ve looked into complementary approaches."
+        ],
+        "hot": [
+          "Thank you. {We}'ve tried many things alongside medical treatment.",
+          "Tea has been consumed. Many varieties. The diagnosis remains.",
+          "Thank you for thinking of {us}. {We}'ve explored many options.",
+          "Herbal approaches were part of {our} journey. The outcome was determined by biology, not beverages.",
+          "Thank you. {We}'ve tried fertility teas, supplements, and hope. The first two were nice."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Tea doesn't treat medical conditions.",
+          "There's no evidence for that."
+        ],
+        "medium": [
+          "If tea cured infertility, fertility clinics would serve refreshments.",
+          "Fertility tea is a beverage, not a treatment. But {I} understand the appeal.",
+          "There's no clinical evidence for fertility tea. But it's a comforting ritual."
+        ],
+        "hot": [
+          "If raspberry leaf tea fixed infertility, nobody would need IVF clinics.",
+          "Tea is nice. It doesn't restructure {my} anatomy. But it's warm and comforting.",
+          "The 'fertility tea' industry profits from hope. {I} prefer to invest mine in evidence-based medicine.",
+          "{My} condition requires surgery, not steeping. But the tea aisle is cheaper.",
+          "If beverages could cure this, {I} would have conceived years ago. {I} drink a lot of tea."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "The tea aisle has been thoroughly explored.",
+          "{My} kettle is exhausted."
+        ],
+        "medium": [
+          "{I}'ve drunk enough fertility tea to float a small boat. Still landlocked.",
+          "{My} uterus has been caffeinated, herbalised, and steeped. No results.",
+          "The tea worked great for hydration. Less well for conception."
+        ],
+        "hot": [
+          "{I}'ve consumed so much fertility tea {my} blood type is chamomile.",
+          "{My} reproductive system doesn't respond to leaves steeped in hot water. Very disappointing. The tea was nice though.",
+          "The tea aisle promised miracles. {My} ovaries filed a formal complaint about false advertising.",
+          "Fertility tea, fertility yoga, fertility affirmations. {My} fertility remained unimpressed by all of them.",
+          "{I}'ve been brewing hope for years. The recipe doesn't work."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Tea is nice. It doesn't fix this.",
+          "It's comforting. It's not a cure."
+        ],
+        "medium": [
+          "Tea is comforting. It doesn't change the diagnosis.",
+          "{We} tried it. It was nice. The scans looked the same.",
+          "{I} like tea. {I} don't expect it to solve medical problems."
+        ],
+        "hot": [
+          "Tea doesn't cure what {we} have. But it's a nice ritual in a difficult time.",
+          "The tea was comforting. The condition remained. Sometimes comfort is enough.",
+          "No amount of steeping changes {our} reality. But it's a warm mug to hold while {we} wait.",
+          "Herbal remedies gave {us} something to do. The outcome was determined elsewhere.",
+          "{I} drank the tea. {I} took the supplements. {I} did the yoga. The biology didn't change."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "you're overthinking it",
+      "stop overthinking",
+      "just don't think about it",
+      "thinking about it too much"
+    ],
+    "subtext": "Your mind is the problem.",
+    "image": "https://images.unsplash.com/photo-1516410529446-2c777cb7366d?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{I} appreciate the thought.",
+          "Thank you for the advice."
+        ],
+        "medium": [
+          "{I} understand why people say that. {Our} situation is medical, not mental.",
+          "{We} try not to overthink. The appointments don't let {us} forget.",
+          "{I} appreciate the thought. It's hard not to think about something this significant."
+        ],
+        "hot": [
+          "Thank you. It's difficult not to think about something that requires constant medical attention.",
+          "{We}'d love to stop thinking about it. The calendar of appointments makes that difficult.",
+          "{I} appreciate the advice. When the medical system stops requiring {our} attention, {we}'ll stop thinking about it.",
+          "Overthinking isn't the cause. It's the result of years of treatment and disappointment.",
+          "{We}'d love to forget about it. The hormone injections and blood tests are good reminders though."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "The problem isn't {my} thoughts.",
+          "It's medical, not mental."
+        ],
+        "medium": [
+          "Overthinking doesn't cause structural infertility. But {I} understand the theory.",
+          "{My} thoughts don't affect {my} anatomy. The cause is physical.",
+          "The problem isn't in {my} head. It's in {my} medical file."
+        ],
+        "hot": [
+          "If overthinking caused infertility, philosophers would be childless and oblivious people would be parents. Evidence suggests otherwise.",
+          "My diagnosis has a clinical name. It doesn't care about {my} mental state.",
+          "{I} didn't think {my} way into this condition. {I} can't unthink {my} way out of it.",
+          "The scan results don't change based on how much {I} think about them.",
+          "{My} condition is structural. Restructuring {my} thoughts won't restructure {my} organs."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "Noted. {I}'ll think less. Starting now. Oh no, {I}'m thinking about not thinking.",
+          "{I}'ll try to unthink {my} diagnosis."
+        ],
+        "medium": [
+          "{I}'ll simply delete the 'think about fertility' file from {my} brain. Very mindful.",
+          "{My} ovaries are controlled by {my} thoughts, apparently. {I} should think harder. Or softer. Which is it?",
+          "Right. {I}'ll meditate {my} way to a functioning reproductive system."
+        ],
+        "hot": [
+          "{I}'ll simply stop thinking about the scheduled blood tests, ultrasounds, and injections. Very zen. Very forgetful.",
+          "My brain has been causing {my} ovaries to malfunction. {I}'ll have a word with it.",
+          "{I}'ve been thinking about this wrong. {I} should have been not thinking about it. Revolutionary.",
+          "{My} thoughts have been bullying {my} eggs. {I}'ll ask them to apologise.",
+          "If {I} stop thinking about {my} diagnosis, maybe it will go away. Like a polite ghost."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "The problem isn't overthinking. It's the diagnosis.",
+          "It's not a mindset issue."
+        ],
+        "medium": [
+          "Thinking about it isn't the cause. It's the natural response to something this significant.",
+          "{We} think about it because it's always there. Not thinking won't make it less true.",
+          "{I} wish {I} could stop thinking about it. The medical appointments keep reminding {me}."
+        ],
+        "hot": [
+          "Thinking about it constantly is a symptom, not a cause. The cause is medical.",
+          "The diagnosis exists whether {I} think about it or not. Not thinking doesn't change reality.",
+          "{We}'d love to think about something else. The treatment schedule disagrees.",
+          "{I} think about it because it affects every part of {my} life. That's not overthinking. That's living with it.",
+          "The thinking isn't the problem. The problem is what {we}'re thinking about."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "everything happens for a reason",
+      "part of a plan",
+      "there's a reason",
+      "meant to be this way"
+    ],
+    "subtext": "Your suffering has cosmic purpose.",
+    "image": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{I} understand that brings you comfort.",
+          "{I} appreciate your perspective."
+        ],
+        "medium": [
+          "{I} understand that brings you comfort. {We're} finding {our} own meaning.",
+          "{We} respect that belief. {We're} building {our} own framework for this.",
+          "{I} know that helps some people. {We're} finding a different path to peace."
+        ],
+        "hot": [
+          "That belief helps some people. {We're} building {our} own framework for meaning.",
+          "Thank you. {We} find meaning differently, but {I} appreciate the thought.",
+          "{We} understand why people look for reasons. {Our} approach is different.",
+          "That narrative works for some. {We're} writing a different story about {our} experience.",
+          "Thank you for sharing your worldview. {We} carry this differently."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "The reason is biology, not fate.",
+          "Some things just happen."
+        ],
+        "medium": [
+          "The reason is biology. There's no cosmic lesson in chromosomes.",
+          "If there's a reason, it's medical, not metaphysical.",
+          "The reason is documented in {my} medical file. It's not profound. It's clinical."
+        ],
+        "hot": [
+          "The 'reason' is a clinical diagnosis with a Latin name. Not everything needs a narrative.",
+          "{I}'d love to believe in reasons. The random cruelty of biology suggests otherwise.",
+          "If everything happens for a reason, the reason is sometimes 'bad luck.' That's not comforting but it's honest.",
+          "The 'reason' framework assumes fairness. Biology isn't fair. It's just biology.",
+          "Some things happen for no reason. {We're} learning to live with that. It's harder than believing in a plan."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I}'ve requested the reason in writing. No response yet.",
+          "{I}'m waiting for the memo explaining the reason."
+        ],
+        "medium": [
+          "The universe scheduled {my} grief for character development. Five stars. Would not recommend.",
+          "{I}'ve asked the cosmos for the reason. It's been vague.",
+          "{I}'m waiting for the paperwork explaining the reason. It's been delayed."
+        ],
+        "hot": [
+          "{I}'ve lodged a complaint with the cosmic HR department. They said they'd get back to {me} in three to five business lifetimes.",
+          "{I}'ve requested the reason in writing. The universe's response time is poor.",
+          "If there's a reason, it's above {my} pay grade. {I}'ve escalated but no one's responding.",
+          "The reason has been filed under 'cosmic mysteries' along with 'why do feet exist' and 'what is the point of earlobes.'",
+          "{I}'d like to speak to the manager of fate. The customer service has been disappointing."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Sometimes things just happen.",
+          "Not everything has a reason."
+        ],
+        "medium": [
+          "Sometimes things happen for no reason. {We're} learning to live with that.",
+          "{I} don't believe in reasons. {I} believe in what is. This is what is.",
+          "The search for reasons can be a trap. Sometimes things just are."
+        ],
+        "hot": [
+          "There isn't always a reason. Sometimes biology just fails. {We're} learning to sit with that.",
+          "{We} stopped looking for reasons. There may not be one. That's harder, but it feels more honest.",
+          "Not everything has meaning. Some things are just loss. {We} make meaning after.",
+          "{I} used to want a reason. Now {I} just want peace. The reason wouldn't change anything anyway.",
+          "The absence of a reason is part of the grief. {We've} learned to carry that too."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "i'm manifesting",
+      "manifesting a baby for you",
+      "visualize it",
+      "law of attraction",
+      "positive thinking"
+    ],
+    "subtext": "You're not wanting it hard enough.",
+    "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Thank you for your positive thoughts.",
+          "{I} appreciate you thinking of {us}."
+        ],
+        "medium": [
+          "Thank you for your positive thoughts. {We're} focusing on what's real.",
+          "{I} appreciate the sentiment. {We're} taking a different approach.",
+          "Thank you for holding hope for {us}. {We}'re focused on the practical."
+        ],
+        "hot": [
+          "Thank you for your thoughts. {We} focus on medical reality rather than manifestation.",
+          "{We} appreciate positive energy. {We} rely on medical advice.",
+          "Thank you for manifesting. {We} focus on what {we} can actually control.",
+          "That's kind. {We} find more peace in acceptance than in manifestation.",
+          "Thank you. {We} appreciate the thought while focusing on reality."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{My} ovaries don't have a vision board.",
+          "Positive thinking doesn't affect biology."
+        ],
+        "medium": [
+          "{My} ovaries don't have a vision board. Biology isn't swayed by wishful thinking.",
+          "Manifestation is a belief system, not a fertility treatment.",
+          "If positive thinking fixed infertility, no optimist would be childless."
+        ],
+        "hot": [
+          "If manifestation worked, the law of attraction would be in medical textbooks. It's not.",
+          "The universe doesn't take requests. {My} diagnosis is indifferent to positive thinking.",
+          "Manifestation culture blames people for circumstances they can't control. It's not helpful here.",
+          "Wanting something badly doesn't make it happen. Ask anyone who's wanted something for years.",
+          "Positive thinking didn't change {my} hormone levels, {my} scans, or {my} prognosis. I tried."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I} manifested a parking spot once. Fertility seems to require different paperwork.",
+          "{My} vision board is confused."
+        ],
+        "medium": [
+          "{I} manifested a parking spot once. Uteruses seem to require different paperwork.",
+          "The universe keeps sending {my} manifestations to the wrong address.",
+          "{I}'ve been visualizing so hard {I} need glasses now. Still no baby."
+        ],
+        "hot": [
+          "{My} manifestation practice is strong. {My} egg reserve is not. The two don't seem connected.",
+          "{I}'ve been visualizing so hard {my} vision board filed a restraining order.",
+          "{I} tried the law of attraction. {My} eggs were not attracted. Very hurtful.",
+          "The universe received {my} order and sent it to the wrong address. For six years.",
+          "{I}'ve manifested, visualized, and attracted. {My} ovaries remain unmoved by {my} excellent energy."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We} focus on what {we} can control.",
+          "{We} appreciate the thought. {We're} focused on reality."
+        ],
+        "medium": [
+          "{We} manifested hope for years. Now {we're} manifesting acceptance. It's working better.",
+          "{We}'ve tried positive thinking. The results were documented in negative pregnancy tests.",
+          "{I} appreciate the intention. {We} focus on what's actually actionable."
+        ],
+        "hot": [
+          "{We} visualized for years. Now {we} visualize a different future. One without the family {we} hoped for.",
+          "{We} don't control the universe. {We} can't manifest biology. {We} can only accept reality.",
+          "{We} were positive for years. The diagnosis didn't care. Now {we}'re realistic.",
+          "{I} stopped manifesting a baby and started building a life without one. That's the honest path.",
+          "{We} gave up on the universe providing. Now {we} provide for ourselves."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "your baby is waiting",
+      "baby waiting in heaven",
+      "soul waiting for you",
+      "your child is coming"
+    ],
+    "subtext": "There's a spiritual child you're failing to receive.",
+    "image": "https://images.unsplash.com/photo-1516617442634-75371039cb3a?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "That's a beautiful thought. {We're} finding {our} own peace.",
+          "{I} appreciate the sentiment."
+        ],
+        "medium": [
+          "That's a beautiful thought. {We're} finding {our} own peace.",
+          "{I} understand that idea brings comfort to some. {We} think about it differently.",
+          "{We} appreciate the sentiment. {Our} path to peace looks different."
+        ],
+        "hot": [
+          "That's a comforting image for some. {We} carry this differently.",
+          "Thank you. {We} don't hold that belief, but {I} appreciate the kindness behind it.",
+          "{We} appreciate you sharing your belief. {Our} framework for this is different.",
+          "That's one way to think about it. {We} find peace through a different lens.",
+          "Thank you for the thought. {We} don't find comfort in that image, but {I} know you mean well."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{I} appreciate the sentiment, but that's not comforting for {us}.",
+          "That narrative doesn't help {us}."
+        ],
+        "medium": [
+          "{I} appreciate the sentiment, but that's not comforting. It's pressure from the afterlife.",
+          "The 'waiting baby' narrative adds guilt to grief. It doesn't help.",
+          "That implies {we} could receive this child if {we} tried harder. {We} can't."
+        ],
+        "hot": [
+          "The idea of a child 'waiting' implies {I}'m keeping them waiting. That's not comforting. It's accusatory.",
+          "There's no baby waiting. There's a medical condition. The spiritual framing adds guilt to loss.",
+          "If a baby were waiting for {me}, it would have arrived by now. It didn't. Because it doesn't exist.",
+          "That narrative is designed to comfort the speaker, not the grieving. {I} don't find it helpful.",
+          "A 'waiting soul' is a lovely story. It's also a story. {My} reality is different."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "Heaven's waiting room must have terrible service. No messages received.",
+          "{I}'ve checked {my} spiritual inbox. Nothing."
+        ],
+        "medium": [
+          "Heaven's waiting room must have terrible WiFi. No messages received.",
+          "{I}'ve been checking {my} cosmic voicemail. No messages about a baby.",
+          "{My} baby got lost in the celestial post. {I}'ve filed a complaint."
+        ],
+        "hot": [
+          "The soul waiting for {me} must have taken a wrong turn. Very poor navigation.",
+          "If there's a baby waiting, they're stuck in heavenly customs. {I}'ve not received a tracking number.",
+          "The celestial delivery service lost {my} package. {I}'ve been waiting at the door for years.",
+          "{My} waiting baby must have found a shorter queue elsewhere. Can't blame them.",
+          "{I} keep checking for {my} spiritual delivery. The courier seems to have marked it as undeliverable."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We've} stopped waiting. {We're} living the life {we} have.",
+          "{We} don't hold that belief."
+        ],
+        "medium": [
+          "{We've} stopped waiting. {We're} living the life {we} have, not the one {we} imagined.",
+          "{We} don't believe in waiting souls. {We} believe in what's here.",
+          "{We}'ve released that idea. It wasn't serving {us}."
+        ],
+        "hot": [
+          "There's no one waiting. There's just {us}, and the life {we}'re building from what remains.",
+          "{We} stopped waiting for a soul and started living with the ones {we} have—our own.",
+          "The 'waiting baby' narrative kept {us} hoping. Letting it go let {us} live.",
+          "No one is waiting for {us}. {We}'re not waiting either. Not anymore.",
+          "{We} grieved the imagined child. Believing they're 'waiting' prolonged the grief."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "have faith",
+      "believe and it will happen",
+      "you have to believe",
+      "have you tried believing"
+    ],
+    "subtext": "Your doubt is the obstacle.",
+    "image": "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Thank you. {We're} finding {our} own way.",
+          "{I} appreciate the thought."
+        ],
+        "medium": [
+          "Thank you. {We're} finding {our} own way through this.",
+          "{I} appreciate that faith helps some people. {Our} journey is different.",
+          "{We} believed for a long time. Now {we} accept."
+        ],
+        "hot": [
+          "Thank you. Belief was part of {our} journey. Acceptance is the current chapter.",
+          "{We} believed strongly. The outcome wasn't affected. Now {we} focus on what {we} can control.",
+          "{We} had faith. We also had a diagnosis. The second was more influential.",
+          "Belief is one approach. Acceptance is another. {We}'ve moved to the second.",
+          "{I} appreciate the sentiment. {We} don't find belief useful anymore. Reality is what {we} work with."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Belief doesn't change biology.",
+          "Faith didn't affect {our} outcome."
+        ],
+        "medium": [
+          "Belief doesn't change biology. {We} believed. The diagnosis remained.",
+          "If faith cured infertility, no religious person would be childless.",
+          "The 'just believe' advice implies doubt caused this. It didn't."
+        ],
+        "hot": [
+          "The idea that belief determines outcomes is magical thinking. It's also unkind to those whose belief didn't 'work.'",
+          "'Just believe' blames people for not believing hard enough when they don't get what they want. That's cruel.",
+          "Faith doesn't cure medical conditions. If it did, hospitals would be churches.",
+          "We believed. Fiercely. The biology didn't respond. Belief is not a treatment.",
+          "Telling someone to 'just believe' after years of failure implies their belief was insufficient. It wasn't."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "My belief levels are fine. My egg levels are not.",
+          "{I}'ve believed very hard. The eggs weren't convinced."
+        ],
+        "medium": [
+          "{I}'ve believed so hard {I}'ve pulled a faith muscle.",
+          "{My} belief-to-baby pipeline is broken. The contractor didn't show.",
+          "{I}'ve been believing aggressively. {My} ovaries haven't gotten the memo."
+        ],
+        "hot": [
+          "{I}'ve believed, visualized, manifested, and prayed. {My} reproductive system remains agnostic.",
+          "{I}'ve tried believing in various configurations. The uterus remains skeptical of all of them.",
+          "Faith has been applied liberally. No results. Perhaps {I} need a different brand.",
+          "{I}'ve believed in miracles, medicine, and positive thinking. None of them believed back.",
+          "{My} belief is industrial-strength. {My} eggs are not. They don't seem correlated."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Faith didn't change {our} outcome.",
+          "{We} believed. It didn't help."
+        ],
+        "medium": [
+          "Faith didn't change {our} outcome. Acceptance did.",
+          "{We} had faith for years. Now {we} have peace. Both are real.",
+          "{We} believed until it hurt. Now {we} accept. It's healthier."
+        ],
+        "hot": [
+          "{We} believed everything {we} were told to believe. The outcome was determined by biology, not belief.",
+          "Faith was part of {our} journey. So was failure. Acceptance was the resolution.",
+          "{We} had unshakable faith. It was shaken. What remained was acceptance.",
+          "{I} was told to believe. {I} did. {I} was told to keep believing. {I} did. Eventually {I} was told to accept. That worked.",
+          "Belief is one chapter. Loss is another. Acceptance is where {we} live now."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "must be nice to have disposable income",
+      "all that money",
+      "so rich without kids",
+      "must be nice to afford"
+    ],
+    "subtext": "You're buying happiness instead of earning it.",
+    "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We're} fortunate in some ways.",
+          "{We} have different costs."
+        ],
+        "medium": [
+          "{We're} fortunate in some ways. {We're} grieving in others.",
+          "Every life has its own ledger. Ours has different entries.",
+          "{We} have some things. {We} miss others. Both are true."
+        ],
+        "hot": [
+          "Every life has its own ledger. Ours has different entries than yours.",
+          "We have income. We also have loss. The finances don't erase the grief.",
+          "{Our} bank account doesn't replace what {we} wanted. But {I} understand the observation.",
+          "The money is what remains when other things aren't spent on. It's not all upside.",
+          "Thank you. {We} have resources. {We} also have an empty nursery."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{Our} income came with its own costs.",
+          "Money doesn't replace what {we} wanted."
+        ],
+        "medium": [
+          "{We} spent {our} 'disposable income' on IVF. The return on investment was grief.",
+          "{Our} finances reflect {our} loss, not {our} luck.",
+          "The 'disposable income' narrative ignores how much {we} spent trying."
+        ],
+        "hot": [
+          "Would you like to see the receipts? The tens of thousands spent on treatment? The income is 'disposable' because {we} disposed of it on fertility clinics.",
+          "We're not rich. We just didn't spend money on what we couldn't have.",
+          "The money people envy is often what's left after paying for failed attempts.",
+          "'Disposable income' is a strange way to describe money that didn't buy what {we} wanted most.",
+          "You're looking at what {we} have. You're not seeing what {we} spent trying to have something else."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "The savings account is full. The nursery is empty.",
+          "{We're} rich in everything except what {we} wanted."
+        ],
+        "medium": [
+          "Yes, {we're} rolling in savings from all the unused nappies. Astronomical returns.",
+          "{We}'ve invested heavily in disappointment. The returns are reliable.",
+          "The compounding interest on unspent school fees is remarkable. The account labelled 'joy' remains empty."
+        ],
+        "hot": [
+          "{I}'ve calculated the compound interest on {our} unused nappy budget. It doesn't cover the therapy bills.",
+          "{We}'ve reallocated {our} family budget to dining and crying. Very balanced portfolio.",
+          "The financial upside of childlessness is real. So is the emotional bankruptcy.",
+          "{Our} savings account is healthy. {Our} sense of purpose required restructuring.",
+          "The money {we} have is the money {we} didn't spend on children. Not really a brag."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Money doesn't replace what {we} wanted.",
+          "We have different costs."
+        ],
+        "medium": [
+          "Money doesn't replace what {we} lost. But thank you for noticing {our} lifestyle.",
+          "{We} have money. {We} wanted a family. The two aren't exchangeable.",
+          "The money is what's left. It's not what {we} wanted."
+        ],
+        "hot": [
+          "{We} would trade every dollar for what {we} couldn't have. The money is consolation, not compensation.",
+          "The income you see is what {we} didn't spend on the life {we} wanted. It's not a victory.",
+          "{Our} finances are fine. {Our} hearts are not. Both can be true.",
+          "Money is easier to count than loss. The loss is larger.",
+          "The disposable income is consolation for the indisposable grief."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "must be nice to sleep in",
+      "enjoy your sleep",
+      "at least you get sleep",
+      "sleep while you can"
+    ],
+    "subtext": "Your rest is a luxury you don't deserve.",
+    "image": "https://images.unsplash.com/photo-1488034976201-ffbaa99cbf5c?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Sleep is nice. {We} have other challenges.",
+          "{We} rest. {We} also carry grief."
+        ],
+        "medium": [
+          "Sleep is nice. It would be nicer with the family {we} imagined.",
+          "{We} sleep. {We} also have different 3am struggles.",
+          "{Our} nights are quiet. That's not always peaceful."
+        ],
+        "hot": [
+          "{We} sleep. {We} also wake with grief. Everyone's exhaustion looks different.",
+          "The quiet nights aren't always restful. But thank you for the thought.",
+          "{We} get sleep. {We} also get silence {we} didn't ask for.",
+          "Rest is easier when you're not mourning something every morning.",
+          "Sleep is one part of {our} nights. Grief is another."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Grief insomnia isn't restful.",
+          "{Our} sleep isn't as peaceful as you imagine."
+        ],
+        "medium": [
+          "Insomnia from grief doesn't count as 'sleeping in.' But sure.",
+          "You think {we} sleep? {I} lie awake calculating the due dates of children {we} never had.",
+          "Quiet nights aren't the same as peaceful ones."
+        ],
+        "hot": [
+          "You think {we} sleep? {I} lie awake calculating the due dates of children {we} never had. Very restful.",
+          "Grief insomnia doesn't count as luxury rest.",
+          "The bed is quiet. So are {my} thoughts. Neither is true at 3am.",
+          "Sleeping in sounds restful. It's less restful when you wake to remember what's missing.",
+          "A quiet house at night is peaceful for some. For {us}, it's a reminder."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I} sleep like a baby. Meaning poorly and with crying.",
+          "{Our} sleep schedule is grief-optimised."
+        ],
+        "medium": [
+          "{I} sleep like a baby. Meaning {I} wake up crying at 3am for no reason.",
+          "{Our} circadian rhythm is set to 'existential dread.' Very consistent.",
+          "The sleep is interrupted by thoughts, not children. Different alarm system."
+        ],
+        "hot": [
+          "{My} sleep schedule is 'lie awake thinking about loss' followed by 'exhausted by noon.' Very refreshing.",
+          "{I} sleep like a baby. Which is ironic for someone who doesn't have one.",
+          "{Our} 3am wake-ups are caused by grief, not a newborn. Same result, different cause.",
+          "{I} sleep deeply and wake up to the same childless reality. Very refreshing.",
+          "{My} circadian rhythm is aligned with despair. Very regular. 3am, every night."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We} sleep. {We} also grieve.",
+          "{Our} nights are quiet. The silence is loud."
+        ],
+        "medium": [
+          "{We} sleep. {We} also lie awake thinking about what could have been.",
+          "{Our} nights are quiet. Not always peaceful.",
+          "{We} have sleep. {We} also have silence {we} didn't choose."
+        ],
+        "hot": [
+          "The bed is quiet. So is the house. {We} notice the silence constantly.",
+          "Sleep is different when you're not tired from what you wanted to be tired from.",
+          "{We} rest. {We} also wake up to the same empty house. Every day.",
+          "The nights are long when you're grieving something that should have made them short.",
+          "{We} sleep. {We} also dream about the children {we} didn't have. Restful isn't the word."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "career is your baby",
+      "married to your job",
+      "chose career over family",
+      "career instead of kids"
+    ],
+    "subtext": "You prioritised ambition over motherhood.",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{Our} careers didn't make this decision. Biology did.",
+          "{We} have work. {We} wanted more than that."
+        ],
+        "medium": [
+          "{Our} careers didn't make this decision. Biology did.",
+          "{We} work. {We} also wanted a family. Work isn't the reason {we} don't have one.",
+          "The career isn't a replacement. It's what remained."
+        ],
+        "hot": [
+          "{We} didn't choose career over family. {We} have careers because the family didn't happen.",
+          "{Our} work fills time. It doesn't fill the space where a family would be.",
+          "{We} work because {we} have to do something. It's not a substitute. It's a structure.",
+          "The career is what {we} built when the other plan failed. Not a preference. A necessity.",
+          "Work is what {we} have. It's not what {we} chose over something else."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{I} didn't choose {my} career over family. {My} body chose for {me}.",
+          "The career didn't cause this."
+        ],
+        "medium": [
+          "{I} didn't choose {my} career over family. {My} body chose for {me}.",
+          "{We} didn't prioritise work. Biology prioritised failure.",
+          "The 'chose career' narrative assumes {we} had a choice. {We} didn't."
+        ],
+        "hot": [
+          "You're implying {I} traded children for a job. {I} didn't. {I} have a job because {I} couldn't have children.",
+          "The 'career over family' accusation assumes a choice existed. It didn't.",
+          "If {I} could have chosen, {I} would have chosen differently. {I} wasn't given the option.",
+          "{My} career isn't a choice {I} made instead. It's what remained when other options closed.",
+          "The assumption that {I} wanted this is the insult. {I} didn't choose. {I} adapted."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "Yes, {my} spreadsheets call {me} Mum now. Very affectionate.",
+          "{My} inbox is {my} child now. Very demanding."
+        ],
+        "medium": [
+          "Yes, {my} spreadsheets call {me} 'Mum' now. The pivot tables are very affectionate.",
+          "{My} career is {my} baby. It inherits nothing and calls {me} at all hours.",
+          "The job is {my} dependent now. The tax office doesn't agree."
+        ],
+        "hot": [
+          "{My} career is {my} baby. It wakes {me} at 3am, drains {my} resources, and never says thank you. Very realistic.",
+          "{I}'ve listed {my} job as next of kin. HR was confused.",
+          "{My} spreadsheets call {me} Mum. {My} emails call {me} constantly. Very similar to parenting, {I}'m told.",
+          "{My} career provides meaning, structure, and disappointment. Just like a child, apparently.",
+          "Yes, {I} chose PowerPoints over parenthood. The slideshows sustain {me}."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Work fills time. It doesn't fill the space where a family would be.",
+          "{We} work. {We} also grieve."
+        ],
+        "medium": [
+          "Work fills time. It doesn't fill the space where a family would be.",
+          "{Our} careers grew because the family didn't. Not because {we} preferred it.",
+          "{We} have work to do. It's not compensation. It's structure."
+        ],
+        "hot": [
+          "{Our} careers are what {we} have. They're not what {we} wanted instead.",
+          "{We} work hard because there's a vacuum where something else should be. The work fills time, not meaning.",
+          "{My} career is fine. {I} would have traded it for a family if that option had existed.",
+          "{We} build careers now. {We} wanted to build a family. The careers are what's possible.",
+          "Work is the answer to the question 'what do {we} do now?' It's not the life {we} planned."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "you can have one of mine",
+      "take my kids",
+      "want to borrow mine",
+      "have one of mine"
+    ],
+    "subtext": "Parenting is a burden I'll pretend to share.",
+    "image": "https://images.unsplash.com/photo-1516546453174-5e1098a4b4af?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{I} know you're joking. It lands differently for {us}.",
+          "{I} know you mean well."
+        ],
+        "medium": [
+          "{I} know you're joking. It lands differently over here.",
+          "{I} understand it's humour. It's harder to receive than you'd think.",
+          "That joke doesn't translate well to {our} situation. But {I} know you mean well."
+        ],
+        "hot": [
+          "{I} understand it's a joke. It doesn't translate well to {our} experience.",
+          "The joke assumes shared understanding. {Our} realities are quite different.",
+          "Offering what you have to someone who can't have it isn't as funny as it sounds.",
+          "That's a joke people make. It's harder to laugh at from over here.",
+          "{I} know you're trying to connect. The humour doesn't land the same way."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Your children aren't a punchline.",
+          "{My} grief isn't a joke."
+        ],
+        "medium": [
+          "Your children aren't a consolation prize. And {my} grief isn't a joke.",
+          "That joke is at {my} expense. The currency is {my} loss.",
+          "{I} wouldn't offer to give you {my} grief. Same energy."
+        ],
+        "hot": [
+          "Offering your children as comic relief for {my} infertility is a choice. An interesting one.",
+          "Joking about giving away something {I} desperately wanted isn't as funny as you think.",
+          "Your frustration with parenting isn't the same as {my} grief at not parenting.",
+          "That joke works when both people think children are a burden. {I} don't.",
+          "{I}'ve never joked about your situation. This is you joking about mine."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I}'ll need documentation.",
+          "{I}'ll check with {my} legal team."
+        ],
+        "medium": [
+          "Wonderful. {I}'ll need the warranty information and original documentation.",
+          "{I}'ll need proof of ownership and maintenance records.",
+          "Is this a transfer or a loan? The paperwork matters."
+        ],
+        "hot": [
+          "Is this a lease or purchase? {I} need to consult {my} accountant.",
+          "The terms of this transfer are unclear. {I}'ll have {my} lawyer review.",
+          "{I}'ll need a guarantee they're in working condition. No returns, presumably.",
+          "Transferring ownership of your children is more paperwork than you'd think.",
+          "{I}'ll need to see the maintenance log before {I} accept delivery."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "That joke hits different when you're grieving.",
+          "{I} know you're trying to lighten the mood. It doesn't land."
+        ],
+        "medium": [
+          "{I} know you're trying to lighten the mood. It doesn't land the way you think.",
+          "{I} understand you're joking. The context makes it hard to laugh.",
+          "That's meant to be funny. From here it's just a reminder."
+        ],
+        "hot": [
+          "You're joking about giving away something {I} would have given anything for. Sit with that.",
+          "The joke assumes {we}'re both overwhelmed by children. {I} have zero. Different perspective.",
+          "You're offering what you're tired of. {I}'m grieving what {I} never had. Not the same thing.",
+          "The joke implies {I}'d be relieved to take them. {I} wouldn't be. {I}'d be devastated it came to that.",
+          "What you see as burden {I} see as everything {I} wanted. The joke doesn't translate."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "must be nice to travel",
+      "jet off whenever",
+      "so much freedom",
+      "lucky to travel"
+    ],
+    "subtext": "You're living a vacation while others sacrifice.",
+    "image": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We} enjoy travel. It's not compensation.",
+          "{We} travel. It helps, but doesn't fill everything."
+        ],
+        "medium": [
+          "{We're} grateful for what {we} have. {We're} also grieving what {we} don't.",
+          "Travel is what {we} do now. It's not what {we} planned to be doing.",
+          "The freedom to travel is real. So is what {we} traded it for."
+        ],
+        "hot": [
+          "Travel is what {we} do now. It's not what {we} planned to be doing.",
+          "{We} travel because {we} can, not because it was the plan.",
+          "{We} have freedom. {We} also have loss. The trips don't erase the grief.",
+          "The travel is how {we} cope. It's not a victory.",
+          "Freedom looks like a reward. For {us}, it's what's left when the plan changes."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Freedom wasn't the goal.",
+          "{We} travel because the other plan failed."
+        ],
+        "medium": [
+          "Travel is nice. It's not a replacement for the family {we} wanted.",
+          "{We} have 'freedom' because plan A failed catastrophically. Enjoy your assumptions.",
+          "The 'freedom' {we} have isn't a choice. It's what remains."
+        ],
+        "hot": [
+          "{We} have 'freedom' because plan A failed catastrophically. Enjoy your assumptions.",
+          "You're seeing freedom. {We}'re living with what remains after the plan collapsed.",
+          "Calling this 'freedom' implies {we} chose it. {We} didn't.",
+          "Travel is what {we} do instead. It's not what {we} wanted to be doing.",
+          "The 'jet-setting' lifestyle is what {we} built on the ruins of a different plan."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We're} running from grief. Nice scenery though.",
+          "{We} travel to outrun {our} feelings. It works briefly."
+        ],
+        "medium": [
+          "{We've} got an aggressive travel schedule. It's called 'running from grief.' Very scenic.",
+          "{My} coping mechanism has airline points. Very efficient.",
+          "{We} travel to escape. The escape doesn't last, but the photos are nice."
+        ],
+        "hot": [
+          "{I}'ve outrun {my} feelings across four continents. The grief has excellent cardio.",
+          "The frequent flyer miles are real. So is the emptiness when {we} land.",
+          "{We} travel to forget. Then {we} remember on the flight home. Circle of life.",
+          "{Our} passport is full of stamps. {Our} nursery is full of nothing.",
+          "Travel is how {we} cope. {We} land, unpack, and remember. Then {we} book again."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Freedom wasn't the goal. It's what {we} have.",
+          "{We} travel because {we} can. It's not the life {we} planned."
+        ],
+        "medium": [
+          "Freedom wasn't the goal. It's what's left when the plan falls apart.",
+          "{We} travel to fill the time {we} thought {we'd} spend parenting. It's not freedom. It's redirection.",
+          "The trips are nice. They don't replace what {we} wanted. But they help."
+        ],
+        "hot": [
+          "The grief comes with {us}. It's very well-travelled at this point.",
+          "{We} go places because we can't go where {we} wanted: into parenthood.",
+          "Every trip ends with coming home. {We} always return to the same empty house.",
+          "Travel is how {we} fill the calendar. It doesn't fill everything.",
+          "{We} can't travel {our} way out of loss. But {we} can travel {our} way through it."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "life must be so empty",
+      "what do you do with your time",
+      "house is too quiet",
+      "must be boring"
+    ],
+    "subtext": "Without children, your existence lacks meaning.",
+    "image": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{Our} life is full of different things.",
+          "{We} have a life. It's different, not empty."
+        ],
+        "medium": [
+          "{Our} life is full of different things. Not empty, just different.",
+          "{We}'ve built meaning in other ways. It took time, but it's real.",
+          "{Our} house is quiet. {We}'ve learned to find fullness in it."
+        ],
+        "hot": [
+          "{Our} life has meaning. It's just structured differently than yours.",
+          "Empty is one interpretation. {We've} built something different.",
+          "{We}'ve found purpose in other places. It doesn't look like parenting, but it's real.",
+          "{Our} lives are full of different things. Not the things {we} planned, but real things.",
+          "Meaning isn't exclusive to parenthood. {We've} built ours elsewhere."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Meaning isn't exclusive to parents.",
+          "{We} have meaning. It looks different."
+        ],
+        "medium": [
+          "Meaning isn't manufactured by reproduction. {I} find it elsewhere.",
+          "Would you ask a widow if their life is empty? Same energy.",
+          "Empty is what you imagine. Full is what {we} experience."
+        ],
+        "hot": [
+          "Would you say that to someone who lost a child? That their life is 'empty' now?",
+          "The assumption that childless equals meaningless says more about you than {us}.",
+          "Meaning exists in many forms. {We}'ve found ours. Thanks for your concern.",
+          "{Our} lives aren't empty. Your understanding of {our} lives might be.",
+          "That question assumes children are the only source of meaning. They're not."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We} contemplate the void. Very chic.",
+          "{We} stare at walls. Very minimalist."
+        ],
+        "medium": [
+          "{We} stare at the walls and contemplate the void. Very minimalist. Very chic.",
+          "{We} fill the time with hobbies, travel, and quiet weeping. Very full schedule.",
+          "The emptiness has been rebranded as 'intentional simplicity.'"
+        ],
+        "hot": [
+          "{We've} decorated the emptiness with existential dread. Very Scandi. Very sad.",
+          "{We} do puzzles. Literal and metaphorical. The metaphorical ones don't have solutions.",
+          "Our schedule: work, grief, dinner, grief, sleep. Very full.",
+          "What do {we} do with {our} time? Exist. Cope. Same as everyone.",
+          "The house is quiet, yes. {We}'ve filled the silence with podcasts and low-level despair."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Quiet isn't empty.",
+          "{We}'ve found fullness. It took time."
+        ],
+        "medium": [
+          "Quiet isn't empty. It's just different. {We've} learned to find fullness in it.",
+          "{Our} house is quiet. {We've} filled it with other things. Took years to learn how.",
+          "Meaning looks different for everyone. {We}'ve found ours."
+        ],
+        "hot": [
+          "{Our} house is quiet. It's not empty. {We}'ve filled it with other things. Took years to learn how.",
+          "The quiet used to hurt. Now it's home. Adaptation takes time.",
+          "{We} built a life in the space where a family was supposed to be. It's full now. Different, but full.",
+          "The meaning {we} have was built from scratch. It took longer than {we} expected.",
+          "{We} find purpose in what {we} have. It doesn't look like what {we} planned. But it's real."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "who is the problem",
+      "is it you or him",
+      "is it you or her",
+      "whose fault",
+      "which one of you"
+    ],
+    "subtext": "Someone is to blame and I need to know who.",
+    "image": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We} don't assign blame.",
+          "{We} carry this together."
+        ],
+        "medium": [
+          "{We} don't assign blame. {We} carry this together.",
+          "{We} face it as a team. The specifics are ours.",
+          "There's no 'problem' person. There's a shared situation."
+        ],
+        "hot": [
+          "There's no fault. There's a medical situation. {We} face it as a unit.",
+          "{We} don't divide the blame. {We} share the loss.",
+          "{We}'ve agreed not to assign fault. It doesn't help.",
+          "{We} carry this together. The medical details are {our} business.",
+          "It's a shared circumstance. Assigning blame would only cause more pain."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Infertility isn't a crime scene.",
+          "There's no culprit."
+        ],
+        "medium": [
+          "Infertility isn't a crime scene. There's no culprit.",
+          "{We}'re not looking for someone to blame. There's no detective work here.",
+          "That question assumes fault. Biology isn't a fault."
+        ],
+        "hot": [
+          "You're asking {me} to assign blame for a medical condition. Would you ask a cancer patient the same?",
+          "There's no perpetrator. There's a diagnosis. Big difference.",
+          "The question 'whose fault' assumes someone did something wrong. No one did.",
+          "Would you ask a couple who miscarried 'whose fault was it'? Same territory.",
+          "That question is invasive and unhelpful. There's no fault in biology."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We're} both guilty of having bodies.",
+          "{We}'ve declined to press charges."
+        ],
+        "medium": [
+          "{We're} both equally guilty of having bodies that didn't read the manual.",
+          "{Our} bodies formed a union and went on strike. Very coordinated.",
+          "There's been a class action filed against {our} combined genetics."
+        ],
+        "hot": [
+          "{Our} bodies filed a joint grievance. Neither is speaking to management.",
+          "{We've} launched an internal investigation. The suspects are chromosomes.",
+          "{We}'re both guilty. Of existing in bodies. The sentence is grief.",
+          "{Our} genetics conspired. {We}'re considering legal action against DNA.",
+          "{Our} bodies formed a union and struck simultaneously. Very coordinated. Very inconvenient."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "There's no blame. Just biology.",
+          "No one is at fault."
+        ],
+        "medium": [
+          "There's no blame. Only biology and bad luck.",
+          "{We} don't think about fault. There's no benefit in it.",
+          "Blame implies someone did something wrong. {Our} bodies just work differently."
+        ],
+        "hot": [
+          "Blame implies someone did something wrong. {Our} bodies just work differently. That's not a moral failure.",
+          "No one caused this. The bodies didn't cooperate. That's the whole story.",
+          "{We} stopped asking 'whose fault' because the answer didn't help.",
+          "{We} don't assign blame. Knowing who to blame wouldn't change anything.",
+          "The 'fault' question doesn't have a useful answer. {We} moved on from it."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "shooting blanks",
+      "lazy sperm",
+      "sperm count",
+      "his swimmers",
+      "boxers or briefs"
+    ],
+    "subtext": "His masculinity is suspect.",
+    "image": "https://images.unsplash.com/photo-1529390079861-591f682c5ec2?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{Our} medical details are private.",
+          "{We} don't discuss the specifics."
+        ],
+        "medium": [
+          "{Our} medical details are private. Thank you for understanding.",
+          "{We} prefer to keep the medical specifics between {us} and {our} doctors.",
+          "The details are {ours}. Thank you for respecting that."
+        ],
+        "hot": [
+          "{We} don't discuss {our} medical specifics. But thank you for the creative phrasing.",
+          "That's between {us} and {our} medical team. But {I} appreciate the interest.",
+          "The details of {our} fertility are {our} business. The phrasing of your question is certainly... casual.",
+          "Thank you for the question. {We} don't share medical details.",
+          "That falls under 'things {we} don't discuss publicly.' Thanks for understanding."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Fertility isn't a punchline.",
+          "{That}'s not a joke to {us}."
+        ],
+        "medium": [
+          "{My} fertility isn't a punchline. Neither is {my} partner's.",
+          "{We} don't find jokes about fertility very funny, given {our} situation.",
+          "That's a joke at {our} expense. It doesn't land well."
+        ],
+        "hot": [
+          "You just reduced a medical condition to a joke about masculinity. Take a moment with that.",
+          "Fertility jokes are funnier when you're not living through infertility.",
+          "The 'shooting blanks' joke is clever until you're the person being shot at.",
+          "Making jokes about someone's reproductive capacity is a choice. An odd one.",
+          "That's a punchline at {our} expense. The laughs don't balance the hurt."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "The factory floor went quiet.",
+          "{We}'ve notified the union."
+        ],
+        "medium": [
+          "It's a labour dispute. The factory floor went on strike. Union rules.",
+          "{The} production line filed for bankruptcy. Assets frozen.",
+          "The workforce staged a walkout. Negotiations ongoing."
+        ],
+        "hot": [
+          "{My} reproductive system staged a walkout. Management is in negotiations. The union is firm.",
+          "The manufacturing plant is operational but the output is decorative only.",
+          "{We}'ve lodged a formal complaint with the gamete union. They're investigating.",
+          "The sperm filed a class action against the commute. Too hostile an environment, apparently.",
+          "Production has ceased due to quality control issues. Management is very sorry."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Male factor is real and common.",
+          "It's a medical issue, not a joke."
+        ],
+        "medium": [
+          "Male factor is real and common. The jokes don't help.",
+          "Azoospermia affects a lot of men. It's medical, not funny.",
+          "That's a medical diagnosis. The jokes are easier for you than for {us}."
+        ],
+        "hot": [
+          "Azoospermia affects 1% of men. It's a medical diagnosis, not a masculinity referendum.",
+          "Male factor infertility is poorly understood and often joked about. Neither helps.",
+          "You're making a joke about a diagnosis that affected {our} entire life trajectory. Interesting choice.",
+          "Male infertility is common and medically documented. The jokes persist anyway.",
+          "That's a condition with a clinical name and emotional weight. The jokes don't lighten it."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "do you have kids",
+      "when are you having kids",
+      "any kids yet",
+      "starting a family",
+      "planning on kids"
+    ],
+    "subtext": "Your reproductive status is public information.",
+    "image": "https://images.unsplash.com/photo-1476973422084-e0fa66ff9456?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "That's a private question for {us}.",
+          "{We} don't usually discuss that."
+        ],
+        "medium": [
+          "That's a private map. {We} aren't sharing the coordinates right now.",
+          "That question has more layers than {we} usually unpack.",
+          "{We} prefer not to discuss family planning. Thank you for understanding."
+        ],
+        "hot": [
+          "That question has layers {we} don't usually unpack with acquaintances.",
+          "{We} keep that between {us}. It's a loaded question.",
+          "{We} prefer not to go into the details. It's a longer answer than you'd expect.",
+          "That's a deeper question than it sounds. {We} don't usually discuss it.",
+          "Thank you for asking. {We} don't share those details anymore."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "That's a bigger question than you know.",
+          "{We} have history with that question."
+        ],
+        "medium": [
+          "That question has a longer answer than you're prepared for.",
+          "{We}'ve been asked that many times. The answer is complicated.",
+          "That's a more loaded question than it seems."
+        ],
+        "hot": [
+          "You've just asked about {my} medical history, financial situation, and deepest grief. Shall {I} start from the beginning?",
+          "That's a question with years of context behind it. Do you have time?",
+          "'Any kids yet' sounds simple. The answer isn't.",
+          "That's an invasive question disguised as small talk.",
+          "The question is casual. The answer is a decade of loss."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "Children? In this climate?",
+          "{We} submitted an application. Under review."
+        ],
+        "medium": [
+          "Children? In this economy? With these genes? In this climate?",
+          "{We} submitted an application to the universe. It's been under review for six years.",
+          "{We} applied for children. The application was denied. No appeals process."
+        ],
+        "hot": [
+          "{We} applied for kids. The bureaucracy was intense. The outcome was negative.",
+          "Children? {I}'ve seen the paperwork. The requirements are extensive.",
+          "{We} applied multiple times. The cosmos keeps rejecting {our} application.",
+          "The children department lost {our} file. {We}'ve stopped enquiring.",
+          "{We} tried to order kids. The shipping was unavailable to {our} address."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We} tried. It didn't work out.",
+          "{We're} at peace with {our} situation now."
+        ],
+        "medium": [
+          "{We} tried. It didn't work out. {We're} at peace with it now.",
+          "{We} wanted children. It wasn't possible. {We're} okay now.",
+          "{We}'ve been through that journey. It ended differently than {we} hoped."
+        ],
+        "hot": [
+          "{We} wanted children. {We} couldn't have them. {We're} still here.",
+          "{We} spent years trying. The answer was no. {We've} accepted it.",
+          "That question has a painful history for {us}. The short answer is no.",
+          "The journey to 'no kids' was long. {We} don't usually explain it in small talk.",
+          "{We} tried for years. The outcome wasn't what {we} wanted. {We}'ve made peace."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "tick tock",
+      "clock is ticking",
+      "not getting younger",
+      "biological clock",
+      "running out of time"
+    ],
+    "subtext": "Your delay is costing you.",
+    "image": "https://images.unsplash.com/photo-1501139083538-0139583c060f?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "The timing wasn't up to {us}.",
+          "{We} are aware of time."
+        ],
+        "medium": [
+          "The timing wasn't up to {us}. Thank you for your concern.",
+          "{We} know the timeline. {We} didn't choose it.",
+          "Time was one factor. The others were medical."
+        ],
+        "hot": [
+          "{We're} well aware of biology. {We've} had specialists explain it at length.",
+          "The clock wasn't the issue. The biology was.",
+          "Thank you for the reminder. {We} are aware of how time works.",
+          "The timeline was noted. The outcome was determined elsewhere.",
+          "Time pressures were part of the story. They weren't the main character."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{We} weren't waiting. {We} were trying.",
+          "{We} didn't delay by choice."
+        ],
+        "medium": [
+          "{We} weren't waiting. {We} were trying. There's a difference.",
+          "{We} didn't run out of time. {We} ran out of options.",
+          "The 'tick tock' assumes {we} delayed. {We} didn't."
+        ],
+        "hot": [
+          "Thank you for reminding {me} of {my} mortality while {I}'m grieving. Very helpful.",
+          "The clock ran fine. The parts didn't. Biology isn't a punctuality issue.",
+          "'Tick tock' implies {we} waited too long. {We} didn't wait. {We} tried.",
+          "You think {we} don't know about time? {We} counted every month for years.",
+          "The clock was never the enemy. The diagnosis was."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{My} clock played a sad tune and left.",
+          "{We}'ve stopped watching the clock."
+        ],
+        "medium": [
+          "{My} biological clock didn't tick. It just played a sad tune and walked out.",
+          "{My} clock stopped ticking years ago. It sent a formal resignation letter.",
+          "{We} set an alarm for fertility. It never went off."
+        ],
+        "hot": [
+          "{My} biological clock went on strike. Then it filed for redundancy. Now it just sits there, decorative.",
+          "{My} clock didn't tick. It took early retirement.",
+          "The clock was ticking, yes. Then it exploded. Very dramatic.",
+          "{My} biological clock was defective. No warranty. No returns.",
+          "{I} set {my} clock to 'fertility' and it laughed at {me}. Clocks can be cruel."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Time wasn't the issue. Biology was.",
+          "{We} know the timeline. It didn't help."
+        ],
+        "medium": [
+          "Time wasn't the issue. Biology was. The clock ran fine; the parts didn't.",
+          "{We} know how time works. {We} were fighting biology, not calendars.",
+          "The timeline was clear. The outcome was still negative."
+        ],
+        "hot": [
+          "{We} knew time was passing. {We} were trying the entire time. The biology didn't cooperate.",
+          "{We} didn't delay. {We} failed. Different problem.",
+          "The 'tick tock' advice assumes {we} were casual about timing. {We} were not.",
+          "Every month was counted. Every cycle tracked. Time wasn't the issue.",
+          "We lived by the calendar for years. The calendar wasn't the problem."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "how much did you spend",
+      "was it worth it",
+      "ivf is expensive",
+      "all that money on treatment"
+    ],
+    "subtext": "You wasted money on a failed investment.",
+    "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We} invested in hope.",
+          "{We} don't regret trying."
+        ],
+        "medium": [
+          "{We} invested in hope. The returns weren't what {we} expected.",
+          "{We} spent what {we} could on what {we} wanted most. {We} don't regret it.",
+          "The cost was significant. {We} made peace with it."
+        ],
+        "hot": [
+          "We spent what we could on what mattered most. We'd do it again.",
+          "{We} invested everything {we} had. The outcome wasn't in {our} control.",
+          "The money was spent on trying. {We} don't regret the attempt.",
+          "The cost is a number. The loss is not. Both are real.",
+          "Worth isn't measured in outcomes alone. {We} tried. That mattered."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Worth isn't measured in outcomes.",
+          "{We} don't regret trying."
+        ],
+        "medium": [
+          "Worth isn't measured in outcomes. {We} tried everything {we} could.",
+          "The money is gone. So is the hope. {We} don't regret either.",
+          "We spent on trying. The outcome wasn't ours to control."
+        ],
+        "hot": [
+          "Would you ask someone who survived cancer if the treatment was 'worth it' even though they suffered?",
+          "The 'was it worth it' question assumes outcomes are purchased. They're not.",
+          "Worth isn't measured in results. Trying had its own value.",
+          "{We} spent everything. {We'd} spend it again. The alternative was not trying.",
+          "The money bought attempts, not guarantees. {We} knew that going in."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "The ROI was grief. Very high yield.",
+          "{We} invested heavily in disappointment."
+        ],
+        "medium": [
+          "{We} invested heavily in disappointment. The returns were consistent.",
+          "The money went to hope. Hope filed for bankruptcy.",
+          "Excellent ROI on sadness. Very reliable."
+        ],
+        "hot": [
+          "We've calculated the cost-per-disappointment. The figures are impressive.",
+          "{Our} investment strategy was 'hope.' The market crashed.",
+          "The fertility clinic accepted {our} life savings. They returned grief. Fair exchange.",
+          "{We} funded several doctors' retirements. They funded {our} sadness.",
+          "The expense account for grief is unlimited. {We've} hit the ceiling anyway."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "The money is gone. So is the hope.",
+          "{We} spent what {we} could."
+        ],
+        "medium": [
+          "More than {we} had. Less than a child would have been worth. It doesn't balance.",
+          "{We} spent everything on trying. The outcome wasn't guaranteed.",
+          "The cost was real. The loss is realer."
+        ],
+        "hot": [
+          "Worth isn't about outcome. {We} tried everything {we} could. That was worth it.",
+          "The money bought {us} certainty. {We} know {we} tried everything.",
+          "Was it worth it? {We} don't know. But not trying would have been worse.",
+          "The money is spent. The grief remains. {We} live with both.",
+          "{We} can't put a price on trying for something {we} wanted this badly. But the clinic did."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "too much birth control",
+      "birth control caused this",
+      "shouldn't have been on the pill",
+      "the pill ruined"
+    ],
+    "subtext": "Your past choices caused this.",
+    "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "That's a common myth, actually.",
+          "{My} condition isn't related to that."
+        ],
+        "medium": [
+          "That's a myth. But {I} understand people look for explanations.",
+          "Birth control and infertility aren't linked that way.",
+          "{My} condition has medical causes. Birth control isn't one of them."
+        ],
+        "hot": [
+          "The medical evidence doesn't support that. But {I} understand the need for explanations.",
+          "Contraception doesn't cause infertility. The research is clear.",
+          "The birth control myth is persistent but inaccurate.",
+          "That's not medically supported. But {I} know people look for causes.",
+          "The pill didn't cause this. The cause is documented and different."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Birth control doesn't cause infertility.",
+          "That's not how it works."
+        ],
+        "medium": [
+          "Birth control doesn't cause infertility. But blaming women for medical care is evergreen.",
+          "That's a myth that blames women for making responsible choices.",
+          "The science doesn't support that. Neither does {my} patience for hearing it."
+        ],
+        "hot": [
+          "Blaming birth control for infertility is scientifically wrong and morally lazy.",
+          "The 'pill caused it' myth blames women for being responsible. Very original.",
+          "Birth control prevents pregnancy temporarily. It doesn't cause infertility permanently. Different things.",
+          "That theory blames women for taking control of their fertility. Ironic, given the topic.",
+          "The evidence doesn't support that. But the impulse to blame women persists."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "Right. {My} past responsibility caused {my} present condition.",
+          "{I}'ll add it to {my} list of regrets. Very long list."
+        ],
+        "medium": [
+          "You're right. All that responsible family planning really backfired.",
+          "{My} past self sabotaged {my} future self. Very dramatic.",
+          "The pill and {my} ovaries had a feud. Ancient grudge."
+        ],
+        "hot": [
+          "Ah yes, {my} responsible choice to not get pregnant at 19 caused {my} infertility at 35. Very logical.",
+          "{I} took the pill to prevent pregnancy. Now {I} can't have one. The pill is very committed, apparently.",
+          "My past self tried to be responsible. My present self is being punished. Excellent system.",
+          "{I}'ll tell my ovaries they're being petty about the pill. They should move on.",
+          "{My} ovaries are holding a grudge from 2009. Very dramatic. Very unhelpful."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "The causes are medical, not historical.",
+          "{My} condition has a diagnosis. It's not related to the pill."
+        ],
+        "medium": [
+          "The causes are medical, not moral. But people love a simple story.",
+          "{My} condition has a clinical cause. The pill isn't it.",
+          "That theory doesn't match {my} diagnosis. But {I} understand the impulse to find a reason."
+        ],
+        "hot": [
+          "The pill didn't cause this. But the search for someone to blame persists.",
+          "{I}'ve looked for causes. The pill isn't one. The cause is documented and different.",
+          "People want reasons. 'The pill' is an easy answer. It's not the right one.",
+          "{My} diagnosis is medical, not karmic. But {I} understand why people look for narratives.",
+          "The pill is not the villain. Biology is. But biology can't be blamed in conversation."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "give your parents a grandchild",
+      "parents want grandkids",
+      "make me a grandmother",
+      "owe them grandchildren"
+    ],
+    "subtext": "You owe your parents progeny.",
+    "image": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{Our} parents understand.",
+          "{Our} parents have been supportive."
+        ],
+        "medium": [
+          "{Our} parents understand. They're supporting {us} through this.",
+          "{Our} family knows {our} situation. They've been kind.",
+          "{Our} parents have grieved this too. They've chosen support over pressure."
+        ],
+        "hot": [
+          "{Our} parents have grieved this too. They've chosen to support {us} rather than pressure {us}.",
+          "{Our} family knows the details. They're walking this with {us}, not demanding from {us}.",
+          "{We} can't give what {we} don't have. {Our} parents understand that.",
+          "Grandchildren aren't owed. {Our} parents know that. They love {us} anyway.",
+          "{Our} parents wanted grandchildren. So did {we}. We're all grieving together."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Children aren't gifts {we} manufacture.",
+          "{We} can't produce grandchildren on demand."
+        ],
+        "medium": [
+          "Children aren't gifts {we} manufacture for other people's happiness.",
+          "{We} don't owe anyone children. Not even family.",
+          "{We} can't make grandchildren appear because someone wants them."
+        ],
+        "hot": [
+          "{I}'m not a grandchild vending machine. Deposit guilt, receive baby? That's not how bodies work.",
+          "Children aren't produced on demand to satisfy family expectations.",
+          "The expectation of grandchildren assumes {we} have control. {We} don't.",
+          "Would you pressure someone with cancer to 'just get better' for their parents? Same energy.",
+          "Grandchildren are wanted, not owed. {We} wanted them too."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I} tried to order grandchildren. Shipping unavailable.",
+          "{We} checked the catalogue. Backordered."
+        ],
+        "medium": [
+          "{I} tried to order grandchildren online. Shipping was unavailable to {my} address.",
+          "{We} applied for grandchildren. The application was rejected.",
+          "The grandchild department lost {our} order. No tracking available."
+        ],
+        "hot": [
+          "{I}'ve tried ordering grandchildren from several providers. None deliver to this uterus.",
+          "The grandchild fulfilment centre is experiencing delays. Indefinite delays.",
+          "{I} submitted {my} grandchild request to HR. They forwarded it to Uterine Affairs. Still waiting.",
+          "{We}'ve been on the grandchild waitlist for years. The queue doesn't move.",
+          "The grandparent package requires children. {We} couldn't download the prerequisites."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{Our} parents have found other ways to love {us}.",
+          "{We} can't give what {we} couldn't have."
+        ],
+        "medium": [
+          "{Our} parents have found other ways to love {us}. And {we} them.",
+          "{We} can't produce grandchildren. {Our} parents have accepted that.",
+          "{We} wanted to give them grandchildren. {We} couldn't. They understand."
+        ],
+        "hot": [
+          "{We} can't produce grandchildren to specification. {Our} parents have learned to love {us} anyway.",
+          "The grandchildren won't come. {Our} parents have grieved that too. {We} carry it together.",
+          "What {our} parents wanted, {we} wanted too. None of {us} got it.",
+          "Grandchildren would have been wonderful. They're not possible. {Our} family knows.",
+          "The absence of grandchildren is a shared loss. {Our} parents grieve with {us}, not at {us}."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "who will look after you",
+      "when you're old",
+      "die alone",
+      "no one to care for you"
+    ],
+    "subtext": "Children are retirement insurance.",
+    "image": "https://images.unsplash.com/photo-1490730141103-6cac27abb37f?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We're} planning for the future.",
+          "{We've} thought about this."
+        ],
+        "medium": [
+          "{We're} planning for {our} future in other ways. Thank you for your concern.",
+          "{We've} made arrangements. The future has been considered.",
+          "{We} have plans. Children weren't the only path forward."
+        ],
+        "hot": [
+          "Thank you. {We've} considered {our} future without children and made plans.",
+          "{We've} planned for aging. The plan doesn't require children.",
+          "{We} have structures in place. Children were one option, not the only one.",
+          "{Our} future has been considered. The planning looks different without children, but it exists.",
+          "{We}'ve thought about this more than you might imagine. {We} have plans."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Children aren't retirement plans.",
+          "{We've} made other arrangements."
+        ],
+        "medium": [
+          "Children aren't retirement plans. {We've} made other arrangements.",
+          "Plenty of parents die alone. Plenty of childless people don't.",
+          "Children don't guarantee companionship in old age."
+        ],
+        "hot": [
+          "Having children to guarantee aged care is a strange gamble. Plenty of parents die alone. Plenty of childless people don't.",
+          "Children aren't a retirement investment. Some move away. Some can't help.",
+          "The 'who will care for you' argument assumes children are obligated caregivers. They're not.",
+          "Many people with children end up in care homes anyway. The math doesn't work the way you think.",
+          "Having children for future care is transactional. And not even a reliable transaction."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We} plan to bribe the orderlies.",
+          "{We}'ll fund excellent care with childlessness savings."
+        ],
+        "medium": [
+          "{We} plan to bribe the care home staff with expensive whiskey. Very dignified.",
+          "{We}'ll pay for quality care with all the money {we} saved on school fees.",
+          "Our retirement plan is 'be eccentric and tip well.' Very sustainable."
+        ],
+        "hot": [
+          "{We}'ll fund {our} care with the money {we} didn't spend on children. The maths works out.",
+          "{We} plan to age disgracefully in a well-funded facility. The staff will adore {us}.",
+          "Our end-of-life plan is 'have enough money to make {us} someone's favourite resident.'",
+          "{We} won't have kids visiting. {We}'ll have excellent catering instead.",
+          "{We}'ve redirected the child-rearing budget to future care. The portfolio is promising."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We've} planned for {our} future.",
+          "{We} know children aren't a guarantee."
+        ],
+        "medium": [
+          "Care homes are full of people with children. Presence isn't guaranteed by birth.",
+          "{I} know people with four children who died alone. {I} know childless people surrounded by love. It's not a formula.",
+          "Children don't guarantee care. {We've} made other plans."
+        ],
+        "hot": [
+          "{We}'ve seen parents die alone in rooms their children never visited. Parenthood isn't insurance.",
+          "The 'who will care for you' question assumes children show up. Many don't.",
+          "{We} know the statistics. Children don't guarantee anything. {We}'ve planned accordingly.",
+          "Some parents die surrounded by family. Some die alone despite having children. {We've} planned for the uncertainty.",
+          "{We} can't guarantee anyone will care for {us}. Neither can parents. {We've} made peace with that."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "you'll regret it",
+      "regret not having kids",
+      "regret this decision",
+      "you'll be sorry"
+    ],
+    "subtext": "Your future self will blame your present self.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We've} made peace with this.",
+          "{We} don't expect to regret acceptance."
+        ],
+        "medium": [
+          "{We've} made peace with this. Regret isn't the only path forward.",
+          "{We}'ve processed this more thoroughly than you might imagine. Acceptance came hard.",
+          "Regret is possible. {We} think peace is more likely."
+        ],
+        "hot": [
+          "{We}'ve processed this more thoroughly than you might imagine. Acceptance came hard. It also came.",
+          "Regret is possible. {We}'ve chosen acceptance instead. It feels better.",
+          "{We} may have moments of sadness. Regret implies {we} had a choice. {We} didn't.",
+          "Thank you for the forecast. {We}'ve made different predictions for ourselves.",
+          "Regret is a risk either way. {We've} chosen to risk peace instead."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Regret assumes {we} had a choice.",
+          "{We} didn't choose this."
+        ],
+        "medium": [
+          "Regret for what? A decision {our} bodies made for {us}?",
+          "Regretting biology is like regretting gravity. It just is.",
+          "The regret narrative assumes choice. {We} had none."
+        ],
+        "hot": [
+          "You're assuming {we} chose this. {We} didn't. Regretting biology is like regretting gravity.",
+          "Regret implies a decision was made. The only decision was to stop trying. That was survival.",
+          "{I} can't regret what {I} didn't control. {I} can only live with it.",
+          "The 'regret' warning assumes {we} had alternatives. {We} didn't.",
+          "Telling someone they'll regret their medical circumstances is a strange prediction."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I}'ll add it to {my} regret list. Very long.",
+          "{My} regret queue is full."
+        ],
+        "medium": [
+          "{I}'ll add it to {my} list. Right after 'regret being mortal' and 'regret gravity.'",
+          "{My} regret queue is full. {I}'ve got 'regret existing' at the top. Childlessness is further down.",
+          "Regret is scheduled for later. Currently booked with acceptance."
+        ],
+        "hot": [
+          "{My} regret schedule is fully booked through 2045. Childlessness has been waitlisted.",
+          "{I}'ve pre-regretted everything possible. This one's covered.",
+          "{My} regret portfolio is diversified. Childlessness is one holding among many.",
+          "{I}'m too busy regretting other things to regret this specifically.",
+          "{I}'ll regret it along with all the other things {I} couldn't control. Very efficient grieving."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We} may grieve, but regret is different.",
+          "{We} don't expect regret. {We} expect peace."
+        ],
+        "medium": [
+          "{We} may regret what {we} couldn't have. {We} won't regret making peace with it.",
+          "{We} might have sadness. Regret implies {we} had a choice. {We} didn't.",
+          "{We}'ve considered the future. Peace seems more likely than regret."
+        ],
+        "hot": [
+          "{We} regret the loss. {We} don't regret learning to live with it.",
+          "{We} may always be sad about this. But regret is for choices. This wasn't a choice.",
+          "The regret warning assumes {we} haven't thought about this. {We} have. Extensively.",
+          "We've grieved the children {we} couldn't have. The regret has already happened. Now {we} live.",
+          "{We}'ve processed more grief than you know. Regret isn't what comes next."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "breaking the family line",
+      "end of the bloodline",
+      "family name dies",
+      "lineage ends"
+    ],
+    "subtext": "You're failing your ancestors.",
+    "image": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Legacy is more than biology.",
+          "{We} leave other things behind."
+        ],
+        "medium": [
+          "Legacy is a story, not a bloodline. {We're} writing ours differently.",
+          "The family line wasn't guaranteed. {We're} contributing differently.",
+          "Legacy can mean many things. DNA is only one."
+        ],
+        "hot": [
+          "Legacy isn't only genetic. {We} leave behind ideas, relationships, impact.",
+          "The 'bloodline' framing is one way to see it. {We} see legacy differently.",
+          "The family continues through connections, not just chromosomes.",
+          "{We're} not ending anything. {We're} redirecting. Legacy takes many forms.",
+          "The family name may end. The family's impact doesn't have to."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{We're} not obligated to continue a line.",
+          "{We} don't owe ancestors children."
+        ],
+        "medium": [
+          "The family line isn't a chain to bind {us}. {We're} not obligated to continue it.",
+          "The pressure to continue a 'bloodline' feels medieval. {My} worth isn't reproductive.",
+          "The 'bloodline' concept assumes {we} owe something to the dead. {We} don't."
+        ],
+        "hot": [
+          "The pressure to continue a 'bloodline' feels medieval. {My} worth isn't reproductive.",
+          "The ancestors are dead. They don't have opinions about {my} uterus.",
+          "Family lines end all the time. The universe doesn't notice.",
+          "The 'bloodline' argument treats {me} like breeding stock. Pass.",
+          "Continuing a genetic line isn't an obligation {I} signed up for."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We} are the series finale.",
+          "{We}'re the last episode. Very dramatic."
+        ],
+        "medium": [
+          "{We} are the series finale. It's going to be a magnificent episode.",
+          "The bloodline ends with {us}. {We're} making it a memorable finale.",
+          "The family tree stops here. {We}'re a very decorative dead end."
+        ],
+        "hot": [
+          "The bloodline ends with {us}. Very dramatic. Very final. Excellent television.",
+          "We're the last episode of this particular series. No spin-offs planned.",
+          "The family tree ends here. {We}'ve planted a nice bench instead.",
+          "{Our} ancestors worked very hard for {us} to not reproduce. {We} honour their legacy.",
+          "{We}'re the evolutionary cul-de-sac of {our} family. Very exclusive."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We're} leaving something else behind.",
+          "{We} contribute differently."
+        ],
+        "medium": [
+          "The family tree ends here. {We're} planting a different garden.",
+          "The 'line' ends. The love doesn't. {We're} leaving ideas, not DNA.",
+          "Legacy doesn't require reproduction. {We're} leaving other things."
+        ],
+        "hot": [
+          "The 'line' ends. The love doesn't. {We're} leaving ideas, connections, impact. DNA isn't the only inheritance.",
+          "The bloodline concept is one framework. {We} measure legacy differently.",
+          "The family line stops with {us}. The family's values don't have to.",
+          "{We} can't continue the genes. {We} can continue the ideas.",
+          "{We}'ve grieved the line ending. Now {we} focus on what {we} can leave behind."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "christmas is for children",
+      "holidays aren't the same",
+      "what about christmas",
+      "holidays must be sad"
+    ],
+    "subtext": "Your holidays are empty.",
+    "image": "https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Holidays are for connection. {We} find it.",
+          "{We} celebrate differently."
+        ],
+        "medium": [
+          "Holidays are for connection. {We} find that in many ways.",
+          "Holidays look different for {us}. They can still be meaningful.",
+          "{We}'ve reimagined holidays. They work for {us}."
+        ],
+        "hot": [
+          "{We} celebrate holidays. They look different. They still have meaning.",
+          "{We}'ve built new traditions. They don't require children to be valid.",
+          "{We} connect over holidays in different ways. The meaning is still there.",
+          "Holidays aren't empty without children. They're different. {We've} adapted.",
+          "The holidays have evolved. {We} find joy in other ways."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Holidays existed before children.",
+          "{We} still show up and celebrate."
+        ],
+        "medium": [
+          "Holidays existed before children and will exist after. {We} still show up.",
+          "Holidays aren't exclusively for children. Adults can celebrate too.",
+          "The holidays aren't empty. The assumption is."
+        ],
+        "hot": [
+          "Holidays existed before {we} had the concept of childhood. They're not exclusively for kids.",
+          "The 'holidays are for children' idea excludes anyone who isn't a parent. That's most people at various points.",
+          "Would you tell a widow that Christmas is sad now? Same energy.",
+          "The assumption that {our} holidays are empty says more about your imagination than {our} celebrations.",
+          "Plenty of people celebrate holidays without children. The holidays don't notice."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We}'ve become the eccentric relatives.",
+          "{We} give inappropriate gifts now. Very fulfilling."
+        ],
+        "medium": [
+          "{We've} pivoted to being the eccentric relatives who give inappropriate gifts. Very fulfilling.",
+          "{We} bring wine to Christmas now. {We} are the fun ones.",
+          "Holiday role: spoil other people's children, leave before bedtime. Excellent arrangement."
+        ],
+        "hot": [
+          "We're the relatives who show up with expensive gifts and leave before the tantrums. Very strategic.",
+          "Christmas morning is quieter at {our} house. Also, {we} have nicer things.",
+          "The holiday season is {our} time to be the cool aunt and uncle. {We've} leaned in.",
+          "{Our} holidays involve sleep, good food, and no school plays. Very peaceful.",
+          "{We} celebrate by being rested and well-dressed at family events. Rare privilege."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Holidays are harder. But {we} still find moments.",
+          "{We} celebrate differently now."
+        ],
+        "medium": [
+          "Christmas is harder without what {we} hoped for. But {we} still find moments of light.",
+          "{We}'ve had to rebuild what holidays mean for {us}. It's ongoing.",
+          "The holidays bring reminders. Also joy. Both exist."
+        ],
+        "hot": [
+          "Holidays bring grief and joy in equal measure. {We}'ve learned to hold both.",
+          "Christmas reminds {us} of what's missing. It also has its own meaning now.",
+          "The holidays are complicated. {We} show up anyway.",
+          "{We}'ve grieved the Christmas morning {we} imagined. Now {we} live the one {we} have.",
+          "Holidays aren't what {we} planned. They're what {we} have. {We} make them meaningful."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "who will inherit",
+      "what happens to your stuff",
+      "inheritance",
+      "leave everything to"
+    ],
+    "subtext": "Your possessions need biological heirs.",
+    "image": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We're} leaving behind ideas, not just things.",
+          "{We} have plans for what {we} leave behind."
+        ],
+        "medium": [
+          "{We're} leaving behind ideas, not just things. That's legacy enough.",
+          "{We} have plans for {our} estate. Children were one option.",
+          "{We} will leave things to people who matter. They don't have to be biological."
+        ],
+        "hot": [
+          "Legacy isn't about who gets the furniture. It's about who carries forward what mattered to {us}.",
+          "{We} leave behind ideas, relationships, impact. The stuff goes to people {we} love.",
+          "{We}'ve thought about this. The answer doesn't require children.",
+          "{Our} inheritance will go to people who matter to {us}. Biology isn't the requirement.",
+          "Things are just things. What {we} leave behind is bigger than objects."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Inheritance isn't a reason to have children.",
+          "{We} have plans for {our} estate."
+        ],
+        "medium": [
+          "Inheritance isn't a reason to have children. It's a reason to have a will.",
+          "Children inherit stuff. They also sometimes fight over it. Not a compelling argument.",
+          "The 'who will inherit' question assumes {we} need biological heirs. {We} don't."
+        ],
+        "hot": [
+          "Having children to have someone to leave things to is transactional parenting. No thanks.",
+          "The inheritance question is about stuff. {We} care about legacy. Different things.",
+          "Nieces, nephews, charities, friends. Options exist beyond biological children.",
+          "The stuff goes somewhere. It doesn't need to go to {our} DNA.",
+          "{We} have a will. The lawyer didn't require {us} to have children first."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "The cat gets everything.",
+          "{We}'re leaving it all to a confused stranger."
+        ],
+        "medium": [
+          "The cat gets everything. She's earned it.",
+          "{We}'re leaving everything to whoever looks most surprised at the reading of the will.",
+          "The estate goes to the houseplant. Very deserving."
+        ],
+        "hot": [
+          "We're leaving everything to whoever brings the best snacks to the memorial.",
+          "The inheritance goes to whoever most annoys the relatives. A competitive sport.",
+          "{We}'ve willed {our} possessions to a very confused nephew. Good luck with {our} vinyl collection.",
+          "{Our} estate plan: liquidate everything, fund a bench with a passive-aggressive plaque.",
+          "The cat inherits. The cat has earned it. The cat doesn't know. Very dramatic reveal pending."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We}'re leaving ideas, not just DNA.",
+          "{Our} legacy is more than stuff."
+        ],
+        "medium": [
+          "{We}'re leaving behind ideas, not DNA. Some would argue that's more durable.",
+          "{We} have plans for {our} estate. The answer doesn't require biological heirs.",
+          "Legacy is about impact, not inheritance. {We} focus on the first."
+        ],
+        "hot": [
+          "The stuff goes somewhere. The ideas go further. {We} focus on the ideas.",
+          "Legacy isn't about who gets the house. It's about what {we} leave in people.",
+          "{We}'ve thought about inheritance. The answer involves charities, niblings, and a clear will.",
+          "What {we} leave behind is bigger than possessions. The possessions are sorted.",
+          "The things matter less than the impact. {We}'ve made peace with where both go."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "at least you have your freedom",
+      "at least you're free",
+      "look on the bright side",
+      "silver lining"
+    ],
+    "subtext": "Your loss has compensations.",
+    "image": "https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "Freedom is nice. It wasn't the goal.",
+          "{We} have things. {We} miss other things."
+        ],
+        "medium": [
+          "Freedom is nice. It's not what {we} would have chosen.",
+          "{We} have some things. {We} grieve others. Both are true.",
+          "The freedom is real. So is the loss."
+        ],
+        "hot": [
+          "{We} have freedom. {We} also have grief. Both live here now.",
+          "Freedom is a consolation, not a victory. {We're} learning to appreciate it.",
+          "{We} didn't choose freedom. {We}'re adapting to it.",
+          "The 'bright side' exists alongside the dark side. {We} live with both.",
+          "{We} have freedom. {We} wanted a family. The trade-off wasn't voluntary."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "'At least' minimises real loss.",
+          "{We} didn't ask for silver linings."
+        ],
+        "medium": [
+          "'At least' is how people minimise grief. {We} didn't ask for silver linings.",
+          "Starting with 'at least' tells {me} the loss is about to be dismissed.",
+          "Silver linings don't erase the cloud. They coexist."
+        ],
+        "hot": [
+          "Starting with 'at least' tells {me} you're about to diminish {my} loss. Brace yourself for {my} lack of gratitude.",
+          "The 'silver lining' narrative asks {me} to be grateful for {my} consolation prize. Pass.",
+          "Freedom isn't compensation for childlessness. It's what's left.",
+          "{I} didn't ask for silver linings. {I} asked for a family.",
+          "'At least' is how people redirect grief into gratitude. It doesn't work that way."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{We're} free. Free to weep wherever {we} want.",
+          "{We} have freedom and sadness. Very balanced."
+        ],
+        "medium": [
+          "Yes, {we're} profoundly free. Free to weep in furniture shops without competition.",
+          "{We} have unlimited freedom and unlimited grief. Very balanced portfolio.",
+          "The freedom is real. The crying in car parks is also real."
+        ],
+        "hot": [
+          "{I}'m free to travel, sleep in, and contemplate the void. Living the dream.",
+          "{We} have the freedom to grieve in IKEA without anyone else crying louder. Truly blessed.",
+          "The freedom includes freedom to be sad whenever {we} want. Very liberating.",
+          "Yes, {we}'re free. Free to feel loss on every birthday, holiday, and quiet Sunday.",
+          "Freedom: the absence of what {we} wanted, rebranded as a benefit."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Freedom wasn't the goal. It's what {we} have.",
+          "{We} have freedom. {We} wanted something else."
+        ],
+        "medium": [
+          "Freedom wasn't the goal. It's what's left when the plan falls apart.",
+          "{We} have freedom. {We} also have loss. {We} carry both.",
+          "{We} didn't want freedom. {We} wanted a family. Freedom is what {we}'re learning to accept."
+        ],
+        "hot": [
+          "{We} didn't want freedom. {We} wanted a family. Freedom is what's left. {We're} learning to carry it.",
+          "The freedom is real. So is the grief. {We} don't pretend one erases the other.",
+          "Freedom is the consolation for something {we} couldn't have. It's not a fair trade, but it's what exists.",
+          "{We} can appreciate freedom and mourn the loss simultaneously. That's the reality.",
+          "{We}'re free. {We}'re also grieving. Both are permanent residents here."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "you wouldn't understand",
+      "you aren't a parent",
+      "as a parent",
+      "you don't know what it's like"
+    ],
+    "subtext": "Your perspective is invalid.",
+    "image": "https://images.unsplash.com/photo-1476842634003-7dcca8f832de?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{Our} experiences are different, not less valid.",
+          "{We} have different perspectives."
+        ],
+        "medium": [
+          "You're right, {our} experiences are different. That doesn't make {mine} less real.",
+          "{We} have different experiences. Both are valid.",
+          "{Our} perspectives differ. Comparison isn't necessary."
+        ],
+        "hot": [
+          "{I} have different experiences, not lesser ones. Comparison isn't necessary.",
+          "You're right, {I} don't understand parenting. {I} understand loss. Both are real.",
+          "{Our} experiences are different. Neither is more valid.",
+          "Being excluded from understanding because {I}'m not a parent is isolating. But {I} get it.",
+          "{I} don't share your experience. You don't share mine. Both matter."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{I} understand loss. That's enough.",
+          "{I} have experiences too."
+        ],
+        "medium": [
+          "{I} understand loss. {I} understand longing. {I} understand being excluded from conversations like this.",
+          "{I} understand more than you know. {I} just understand it from the outside.",
+          "You don't understand infertility either. Shall {we} call it even?"
+        ],
+        "hot": [
+          "You're right. {I} don't understand parenting. You don't understand infertility. Shall {we} call it even?",
+          "{I} understand loss, longing, and the weight of impossible decisions. The specifics differ. The depth doesn't.",
+          "The assumption that {I} lack understanding because {I}'m not a parent is reductive.",
+          "{I} don't understand your specific experience. You don't understand mine. Neither of us should claim the other's feelings are less.",
+          "{I}'m not asking you to understand {my} loss. Please don't dismiss it."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{My} empathy requires biological offspring, apparently.",
+          "{I}'ll develop understanding once {I} reproduce."
+        ],
+        "medium": [
+          "You're right. {My} empathy glands only activate with biological offspring. Science.",
+          "{I} must have missed the empathy firmware update that comes with childbirth.",
+          "{I}'ll submit {my} understanding application once {I} produce a child. Until then, {I}'m disqualified."
+        ],
+        "hot": [
+          "My empathy chip didn't install properly without a live birth. Very frustrating.",
+          "{I} lack the parenting software required to understand human experience. Sorry for the bug.",
+          "{I}'ll attend the parenthood seminar required for having valid emotions. When's the next session?",
+          "My understanding levels are locked until {I} complete the reproduction achievement. Still grinding.",
+          "{I}'m not qualified to have feelings about this because {I} didn't give birth. Very gatekept."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{I} understand more than you know.",
+          "{We} have different vantage points."
+        ],
+        "medium": [
+          "{I} understand more than you know. {I} just understand it from the outside.",
+          "{I} understand longing, loss, and the weight of impossible decisions. The specifics differ. The depth doesn't.",
+          "We have different experiences. Neither cancels the other."
+        ],
+        "hot": [
+          "{I} understand longing, loss, and the weight of impossible decisions. The specifics differ. The depth doesn't.",
+          "{My} understanding is different, not absent. {I} have a different grief.",
+          "{We} both have experiences the other doesn't share. That's not a competition.",
+          "{I} don't understand parenting. {I} understand loss. They're different. Both are real.",
+          "{My} perspective is different. It's still valid."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "kids are a nightmare",
+      "you dodged a bullet",
+      "trust me you're lucky",
+      "be glad you don't have kids"
+    ],
+    "subtext": "My complaints about parenting should comfort you.",
+    "image": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{I} hear parenting is hard. {I} would have welcomed it.",
+          "{I} know it's difficult for you."
+        ],
+        "medium": [
+          "{I} hear parenting is hard. {I} would have welcomed that challenge.",
+          "{I} know parenting is exhausting. {I} would have taken that exhaustion.",
+          "Your difficulties are real. {My} grief is also real. Both exist."
+        ],
+        "hot": [
+          "Parenting sounds difficult. {I} grieve not getting to experience that difficulty.",
+          "{I} would have taken the sleepless nights. The tantrums. The chaos.",
+          "Your exhaustion is real. {My} loss is also real. They don't cancel each other.",
+          "{I} hear you. The thing you're complaining about is the thing {I} wanted most.",
+          "The difficulties you describe are the difficulties {I} wanted to have."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "Your exhaustion isn't {my} consolation.",
+          "{We} wanted different problems."
+        ],
+        "medium": [
+          "Your exhaustion isn't {my} consolation prize. {We} wanted different problems.",
+          "{I} didn't dodge a bullet. {I} missed something {I} wanted.",
+          "Complaining about parenting to someone who can't have kids is a choice."
+        ],
+        "hot": [
+          "You're describing the hardship of something {I} desperately wanted. Read the room.",
+          "{I} didn't dodge anything. {I} lost something. Different experience.",
+          "Your complaints aren't comfort for {my} loss. They're reminders of it.",
+          "The 'bullet' you think {I} dodged is something {I} would have caught willingly.",
+          "Telling {me} {I}'m lucky {I} don't have what {I} wanted is not the comfort you think it is."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "{I} dodged a bullet into a different bullet.",
+          "{My} bullet had different aim."
+        ],
+        "medium": [
+          "You're right. {I} dodged a bullet. Straight into a different bullet. Very action film.",
+          "{I} dodged the bullet of parenting and walked directly into the bullet of childlessness. Very skilled.",
+          "{My} Matrix dodge was into a different Matrix. Still trapped."
+        ],
+        "hot": [
+          "{I} dodged the parenting bullet and caught the childlessness grenade. Very tactical.",
+          "{I}'m Neo if Neo dodged one bullet into another, equally painful bullet. Very cinematic.",
+          "{I} didn't dodge the bullet. The bullet dodged {me}. Now {I} have a different wound.",
+          "The 'bullet' {I} dodged was replaced by shrapnel. Different injury, similar pain.",
+          "We're both injured. Different bullets. Same calibre of grief."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "Your hard days don't make {our} loss easier.",
+          "{We'd} have taken those hard days."
+        ],
+        "medium": [
+          "Your hard days don't make {our} loss easier. {We'd} have taken those hard days.",
+          "{I} wanted the sleepless nights. The tantrums. The chaos. {I'd} have taken all of it.",
+          "Your exhaustion is real. So is {my} grief. They're not interchangeable."
+        ],
+        "hot": [
+          "{We} wanted the sleepless nights. The tantrums. The chaos. {We'd} have taken all of it.",
+          "The thing you find exhausting is the thing {I} lost. Hearing you complain doesn't help.",
+          "You're lucky to have what you have. Even when it's hard. {I} would have taken hard.",
+          "{We} grieve the exhaustion {we} never got to have. Your complaints land differently over here.",
+          "The difficulties of parenting would have been welcome difficulties. {We} didn't get them."
+        ]
+      }
+    }
+  },
+  {
+    "triggers": [
+      "at least you have each other",
+      "at least you're together",
+      "you still have your partner"
+    ],
+    "subtext": "Your relationship should be enough.",
+    "image": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1600&q=80",
+    "responses": {
+      "diplomat": {
+        "mild": [
+          "{We're} grateful for each other.",
+          "{We} have each other. {We} also have grief."
+        ],
+        "medium": [
+          "{We're} grateful for each other. {We're} also allowed to grieve.",
+          "{We} have each other. {We} also have shared loss. Both are real.",
+          "Our relationship is strong. It also carries grief."
+        ],
+        "hot": [
+          "{We} have each other. {We} also have shared grief. Both are real.",
+          "{We} are grateful for our partnership. We also grieve together. Both exist.",
+          "{We} have each other. {We} also have the ghost of the family {we} planned. Everyone lives here now.",
+          "Our relationship survived this. It also carries this. {We} hold both.",
+          "{We}'re together. {We}'re also grieving. 'At least' doesn't help with the second part."
+        ]
+      },
+      "critic": {
+        "mild": [
+          "{We} can have love and grief together.",
+          "{We} are together. {We} also grieve."
+        ],
+        "medium": [
+          "{We} do have each other. {We} also have grief. Both fit in the same house.",
+          "{We}'re together. {We}'re also both grieving. One doesn't erase the other.",
+          "Would you tell a couple who lost a child 'at least you have each other'? Think about it."
+        ],
+        "hot": [
+          "Would you tell a couple who lost a child 'at least you have each other'? Think about it.",
+          "{We} have each other. {We} also have matching wounds. Not a complete picture of joy.",
+          "'At least you have each other' diminishes the loss. {We} have both. Love and grief.",
+          "{We}'re not incomplete because {we} wanted more than just {us}.",
+          "{We} are a family of two. {We} wanted to be more. The 'at least' doesn't cover the difference."
+        ]
+      },
+      "absurdist": {
+        "mild": [
+          "Party of two. Very exclusive. Very sad.",
+          "{We} have each other and matching grief. Very coordinated."
+        ],
+        "medium": [
+          "Yes, {we're} a party of two at every restaurant. Very exclusive. Very melancholy.",
+          "{We} have each other, a shared trauma, and excellent restaurant access. Living the dream.",
+          "{We}'re a duo. With matching sadness. Very cohesive."
+        ],
+        "hot": [
+          "{We} have each other and a shared trauma bond. Very romantic. Very sad.",
+          "{We're} a party of two at every reservation. The third chair is for grief. It always shows up.",
+          "{We} are together. And {we} grieve together. Very efficient emotional processing.",
+          "Our relationship includes two people and one giant shared loss. Crowded.",
+          "{We} have each other, an empty nursery, and excellent restaurant availability. Quite the trio."
+        ]
+      },
+      "realist": {
+        "mild": [
+          "{We're} still here. Still together.",
+          "{We} have each other. {We} also carry loss."
+        ],
+        "medium": [
+          "{We're} still here. {We're} still {us}. Just a different version of the plan.",
+          "{We} have each other. {We} also have the ghost of the family {we} planned. Everyone lives here now.",
+          "Our relationship is real. So is our grief. Both are permanent."
+        ],
+        "hot": [
+          "{We} have each other. {We} also have the ghost of the family {we} planned. Everyone lives here now.",
+          "{We}'re together. {We}'re also mourning together. The partnership includes both.",
+          "{We} chose each other. {We} didn't choose childlessness. {We} carry both.",
+          "{We} have each other. It's not nothing. It's also not everything {we} wanted.",
+          "The relationship is strong. The grief is also strong. {We} live with both."
+        ]
+      }
+    }
+  }
+]

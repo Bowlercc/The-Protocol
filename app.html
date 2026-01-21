@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE PROTOCOL — Matterhood Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--void:#080808;--charcoal:#121212;--bone:#E8E4DF;--cream:#F5F2ED;--bone-dim:rgba(232,228,223,0.7);--bone-faint:rgba(232,228,223,0.15);--bone-ghost:rgba(232,228,223,0.06);--alert:#C41E1E;--gold:#B8956A;--gold-dim:rgba(184,149,106,0.4);--bg:var(--void);--bg-secondary:var(--charcoal);--text:var(--bone);--text-primary:var(--cream);--border:var(--bone-faint)}
+[data-theme="light"]{--void:#FAFAF8;--charcoal:#F0EDE8;--bone:#1A1A1A;--cream:#0A0A0A;--bone-dim:rgba(10,10,10,0.75);--bone-faint:rgba(10,10,10,0.18);--bone-ghost:rgba(10,10,10,0.08);--gold:#7A6545;--bg:var(--void);--bg-secondary:var(--charcoal);--text:var(--bone);--text-primary:var(--cream);--border:var(--bone-faint)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Space Mono',monospace;background:var(--void);color:var(--bone);min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+.film-grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .4s steps(1) infinite}
+[data-theme="light"] .film-grain{opacity:0.015}
+@keyframes grain{0%,100%{transform:translate(0)}25%{transform:translate(-2%,-2%)}50%{transform:translate(2%,2%)}75%{transform:translate(-2%,2%)}}
+.tutorial-overlay{position:fixed;inset:0;background:var(--void);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .5s,background .3s}
+.tutorial-overlay.hidden{opacity:0;pointer-events:none}
+.tutorial-content{max-width:540px;padding:2.5rem;text-align:center}
+.tutorial-step{display:none;animation:fadeUp .5s ease forwards}
+.tutorial-step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.tutorial-title{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1.2rem;color:var(--cream)}
+.tutorial-text{font-size:.76rem;line-height:1.85;opacity:.6;margin-bottom:1.8rem}
+.tutorial-example{background:var(--charcoal);border:1px solid var(--bone-faint);padding:1.15rem;margin:1.3rem 0;text-align:left}
+.tutorial-example-label{font-size:.5rem;letter-spacing:.2em;opacity:.4;margin-bottom:.45rem}
+.tutorial-example-text{font-family:'Playfair Display',serif;font-size:.92rem;font-style:italic;color:var(--bone-dim);line-height:1.6}
+.tutorial-btn{background:var(--bone);color:var(--void);border:none;padding:.82rem 1.7rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.tutorial-btn:hover{background:var(--cream)}
+.tutorial-skip{display:block;margin-top:1.15rem;background:none;border:none;color:var(--bone-dim);font-family:'Space Mono',monospace;font-size:.55rem;cursor:pointer;opacity:.4}
+.tutorial-skip:hover{opacity:1}
+.tutorial-dots{display:flex;justify-content:center;gap:.38rem;margin-top:1.35rem}
+.tutorial-dot{width:5px;height:5px;border-radius:50%;background:var(--bone-faint)}
+.tutorial-dot.active{background:var(--gold)}
+.container{min-height:100vh;display:flex;flex-direction:column}
+header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--void);backdrop-filter:blur(12px);z-index:100;transition:background .3s}
+[data-theme="light"] header{background:rgba(248,246,243,.95)}
+.header-left{display:flex;align-items:center;gap:1.15rem}
+.logo{font-size:.65rem;font-weight:700;letter-spacing:.3em}
+.logo-sub{font-size:.46rem;letter-spacing:.15em;opacity:.3;margin-left:.55rem}
+.header-actions{display:flex;align-items:center;gap:.65rem}
+.icon-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);width:28px;height:28px;font-family:'Space Mono',monospace;font-size:.55rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.icon-btn:hover{background:var(--bone);color:var(--void)}
+.rec-indicator{display:flex;align-items:center;gap:.38rem;font-size:.5rem;letter-spacing:.15em}
+.rec-dot{width:5px;height:5px;background:var(--alert);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.main-content{flex:1;display:flex}
+.control-panel{width:355px;min-width:355px;border-right:1px solid var(--bone-faint);padding:1.5rem 1.15rem;display:flex;flex-direction:column;gap:1.1rem;background:var(--charcoal);overflow-y:auto;transition:background .3s}
+.section-label{font-size:.46rem;letter-spacing:.2em;opacity:.4;margin-bottom:.4rem}
+.input-section{display:flex;flex-direction:column;gap:.4rem}
+.trigger-input{background:transparent;color:var(--bone);border:none;border-bottom:1px solid var(--bone-faint);padding:.65rem 0;font-family:'Space Mono',monospace;font-size:.8rem;outline:none;transition:border-color .3s}
+.trigger-input::placeholder{color:rgba(232,228,223,.2);font-style:italic}
+.trigger-input:focus{border-bottom-color:var(--bone-dim)}
+.triggers-section{display:flex;flex-direction:column;gap:.4rem}
+.triggers-grid{display:flex;flex-wrap:wrap;gap:.28rem}
+.trigger-chip{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.38rem .55rem;font-size:.62rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace}
+.trigger-chip:hover{background:var(--bone-faint);color:var(--bone)}
+.config-row{display:flex;gap:.6rem;flex-wrap:wrap}
+.config-group{flex:1;min-width:140px;display:flex;flex-direction:column;gap:.35rem}
+.toggle-group{display:flex;gap:.2rem;flex-wrap:wrap}
+.toggle-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.4rem .55rem;font-size:.6rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace;letter-spacing:.05em}
+.toggle-btn:hover{background:var(--bone-faint);color:var(--bone)}
+.toggle-btn.active{background:var(--bone);color:var(--void);border-color:var(--bone)}
+.spice-toggle{display:flex;gap:.2rem}
+.spice-btn{flex:1;background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.4rem .3rem;font-size:.58rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace;text-align:center}
+.spice-btn:hover{background:var(--bone-faint);color:var(--bone)}
+.spice-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+.spice-btn.active[data-spice="hot"]{border-color:var(--alert);color:var(--alert);background:rgba(196,30,30,0.15)}
+.tone-section{display:flex;flex-direction:column;gap:.4rem}
+.tone-buttons{display:flex;flex-direction:column;gap:.28rem}
+.tone-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);padding:.75rem .9rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;cursor:pointer;transition:all .25s;text-align:left;position:relative;display:flex;justify-content:space-between}
+.tone-btn::before{content:'';position:absolute;left:0;top:0;width:2px;height:100%;background:var(--gold);transform:scaleY(0);transition:transform .25s}
+.tone-btn:hover{background:var(--bone-ghost);padding-left:1rem}
+.tone-btn:hover::before{transform:scaleY(1)}
+.tone-btn.active{background:var(--bone);color:var(--void)}
+.tone-btn.active::before{background:var(--void);transform:scaleY(1)}
+.tone-desc{font-size:.46rem;opacity:.5}
+.tone-btn.active .tone-desc{opacity:.7}
+.display-panel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden}
+.scene-bg{position:absolute;inset:0;opacity:0;transition:opacity 1s;background-size:cover;background-position:center;filter:grayscale(100%) contrast(1.1)}
+.scene-bg.active{opacity:1}
+.scene-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.78) 0%,rgba(10,10,10,.6) 50%,rgba(10,10,10,.78) 100%)}
+.script-display{max-width:600px;width:100%;position:relative;z-index:10}
+.placeholder-card{text-align:center;padding:2.5rem 1.3rem}
+.placeholder-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;opacity:.2;line-height:1.8}
+.placeholder-text span{display:block}
+.script-card{display:none;padding:1.8rem;background:var(--charcoal);border:1px solid var(--bone-faint);position:relative;transition:background .3s}
+.script-card.active{display:block;animation:cardReveal .6s ease forwards}
+@keyframes cardReveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.script-card::before{content:'';position:absolute;top:0;left:0;width:40px;height:2px;background:var(--gold)}
+.script-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bone-faint)}
+.script-context{font-size:.46rem;letter-spacing:.15em;opacity:.4}
+.script-spice{font-size:.46rem;letter-spacing:.1em;color:var(--gold)}
+.script-spice.hot{color:var(--alert)}
+.script-subtext{font-size:.5rem;letter-spacing:.08em;color:var(--gold);margin-bottom:1.1rem;font-style:italic}
+.script-subtext::before{content:'SUBTEXT: ';opacity:.5;font-style:normal}
+.script-trigger{font-size:.6rem;color:var(--bone-dim);letter-spacing:.05em;margin-bottom:.95rem;line-height:1.6}
+.script-trigger-label{display:block;font-size:.46rem;opacity:.4;margin-bottom:.28rem;letter-spacing:.2em}
+.script-response{margin-bottom:1.3rem}
+.script-response-label{font-size:.46rem;color:var(--gold);margin-bottom:.55rem;letter-spacing:.2em}
+.script-text{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.3vw,1.65rem);line-height:1.4;color:var(--cream)}
+.script-footer{font-size:.46rem;letter-spacing:.15em;opacity:.25;padding-top:.95rem;border-top:1px solid var(--bone-faint);display:flex;justify-content:space-between}
+.controls{display:flex;gap:.35rem;justify-content:center;margin-top:1.3rem;flex-wrap:wrap}
+.control-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);padding:.58rem .95rem;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;cursor:pointer;transition:all .25s}
+.control-btn:hover:not(:disabled){background:var(--bone-ghost);border-color:var(--bone-dim)}
+.control-btn:disabled{opacity:.15;cursor:not-allowed}
+.control-btn.primary{background:var(--bone);color:var(--void)}
+.control-btn.primary:hover:not(:disabled){background:var(--cream)}
+.export-options{display:none;position:fixed;inset:0;background:rgba(10,10,10,.95);z-index:1000;align-items:center;justify-content:center}
+.export-options.active{display:flex}
+.export-modal{background:var(--charcoal);border:1px solid var(--bone-faint);padding:1.8rem;max-width:400px;width:90%;transition:background .3s}
+.export-title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.35rem}
+.export-subtitle{font-size:.55rem;opacity:.5;margin-bottom:1.3rem;letter-spacing:.1em}
+.export-formats{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.3rem}
+.export-format-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.95rem 1.1rem;cursor:pointer;transition:all .25s;display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono',monospace;color:var(--bone)}
+.export-format-btn:hover{background:var(--bone-faint);border-color:var(--bone-dim)}
+.export-format-name{font-size:.62rem;letter-spacing:.1em}
+.export-format-size{font-size:.5rem;opacity:.4}
+.export-close{background:none;border:1px solid var(--bone-faint);color:var(--bone-dim);padding:.55rem 1.1rem;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.1em;cursor:pointer;width:100%}
+.export-close:hover{border-color:var(--bone-dim);color:var(--bone)}
+.toast{position:fixed;bottom:1.3rem;left:50%;transform:translateX(-50%) translateY(150%);background:var(--void);border:1px solid var(--gold);color:var(--bone);padding:.8rem 1.1rem;font-size:.5rem;letter-spacing:.1em;z-index:1001;transition:transform .4s;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast a{color:var(--gold);text-decoration:none;margin-left:.35rem}
+footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
+footer a{color:var(--gold);text-decoration:none}
+@media(max-width:900px){
+.logo-sub{display:none}
+.main-content{flex-direction:column}
+.control-panel{width:100%;min-width:0;border-right:none;border-bottom:1px solid var(--bone-faint);padding:1.1rem;max-height:none}
+.control-panel.hidden{display:none}
+.config-row{flex-direction:column;gap:.5rem}
+.config-group{min-width:100%}
+.triggers-grid{max-height:none;overflow-y:visible}
+.tone-buttons{flex-direction:row;flex-wrap:wrap}
+.tone-btn{flex:1 1 calc(50% - .15rem);text-align:center;padding:.6rem .35rem;font-size:.62rem;flex-direction:column;gap:.15rem}
+.tone-desc{display:none}
+.display-panel{padding:1.1rem;min-height:50vh}
+.display-panel.hidden{display:none}
+.script-card{padding:1.3rem 1.1rem}
+.back-btn{position:absolute;top:.8rem;left:.8rem;z-index:20}
+.controls{flex-direction:column;width:100%}
+.control-btn{width:100%}
+}
+@media(min-width:901px){.mobile-only{display:none!important}}
+.script-card:not(.active){display:none}
+</style>
+</head>
+<body>
+<div class="film-grain"></div>
+<div class="tutorial-overlay" id="tutorialOverlay">
+<div class="tutorial-content">
+<div class="tutorial-step active" data-step="1">
+<div class="tutorial-title">The Protocol</div>
+<div class="tutorial-text">Scripts for the moments you didn't ask for.<br><br>When someone intrudes on your fertility, your family, or your choices — this tool helps you rewrite the scene.</div>
+<button class="tutorial-btn" onclick="goToStep(2)">BEGIN</button>
+<button class="tutorial-skip" onclick="completeTutorial()">Skip intro</button>
+</div>
+<div class="tutorial-step" data-step="2">
+<div class="tutorial-title">The Trigger</div>
+<div class="tutorial-text">Enter what they said — or choose from common triggers.</div>
+<div class="tutorial-example">
+<div class="tutorial-example-label">THEY SAID:</div>
+<div class="tutorial-example-text">"You just need to relax and it will happen."</div>
+</div>
+<button class="tutorial-btn" onclick="goToStep(3)">NEXT</button>
+</div>
+<div class="tutorial-step" data-step="3">
+<div class="tutorial-title">The Calibration</div>
+<div class="tutorial-text">Tell us who said it, how spicy you want to go, and whether you speak as "I" or "We".</div>
+<div class="tutorial-example">
+<div class="tutorial-example-label">SETTINGS:</div>
+<div class="tutorial-example-text">Context: Family / Stranger / Colleague / Medical<br>Spice: Mild / Medium / Hot<br>Perspective: I / We</div>
+</div>
+<button class="tutorial-btn" onclick="goToStep(4)">NEXT</button>
+</div>
+<div class="tutorial-step" data-step="4">
+<div class="tutorial-title">The Voice</div>
+<div class="tutorial-text">Choose your tone. Diplomat deflects gracefully. Critic cuts clean. Absurdist finds the dark humour. Realist speaks plain truth.</div>
+<div class="tutorial-example">
+<div class="tutorial-example-label">THE VOICES:</div>
+<div class="tutorial-example-text">Diplomat — Graceful boundary<br>Critic — Sharp truth<br>Absurdist — Deadpan weird<br>Realist — Honest acceptance</div>
+</div>
+<button class="tutorial-btn" onclick="goToStep(5)">NEXT</button>
+</div>
+<div class="tutorial-step" data-step="5">
+<div class="tutorial-title">The Export</div>
+<div class="tutorial-text">Save your scene as an image. Hit "New Take" for variations. Instagram Stories, feed posts, or just for you.</div>
+<button class="tutorial-btn" onclick="completeTutorial()">START</button>
+</div>
+<div class="tutorial-dots">
+<div class="tutorial-dot active" data-dot="1"></div>
+<div class="tutorial-dot" data-dot="2"></div>
+<div class="tutorial-dot" data-dot="3"></div>
+<div class="tutorial-dot" data-dot="4"></div>
+<div class="tutorial-dot" data-dot="5"></div>
+</div>
+</div>
+</div>
+<div class="container">
+<header>
+<div class="header-left"><div class="logo">THE PROTOCOL<span class="logo-sub">MATTERHOOD</span></div></div>
+<div class="header-actions">
+<button class="icon-btn" id="themeToggle" title="Toggle light/dark mode">☀</button>
+<button class="icon-btn" onclick="showTutorial()" title="Help">?</button>
+<div class="rec-indicator"><div class="rec-dot"></div><span>REC</span></div>
+</div>
+</header>
+<div class="main-content">
+<div class="control-panel" id="controlPanel">
+<div class="input-section">
+<div class="section-label">THEY SAID:</div>
+<input type="text" class="trigger-input" id="triggerInput" placeholder="Type what they said...">
+</div>
+<div class="triggers-section">
+<div class="section-label">COMMON TRIGGERS:</div>
+<div class="triggers-grid" id="triggersGrid"></div>
+</div>
+<div class="config-row">
+<div class="config-group">
+<div class="section-label">THEY ARE:</div>
+<div class="toggle-group" id="contextGroup">
+<button class="toggle-btn active" data-context="stranger">STRANGER</button>
+<button class="toggle-btn" data-context="family">FAMILY</button>
+<button class="toggle-btn" data-context="colleague">COLLEAGUE</button>
+<button class="toggle-btn" data-context="medical">MEDICAL</button>
+</div>
+</div>
+</div>
+<div class="config-row">
+<div class="config-group">
+<div class="section-label">SPICE LEVEL:</div>
+<div class="spice-toggle" id="spiceGroup">
+<button class="spice-btn" data-spice="mild">MILD</button>
+<button class="spice-btn active" data-spice="medium">MEDIUM</button>
+<button class="spice-btn" data-spice="hot">HOT</button>
+</div>
+</div>
+<div class="config-group">
+<div class="section-label">PERSPECTIVE:</div>
+<div class="toggle-group" id="perspectiveGroup">
+<button class="toggle-btn" data-perspective="i">I</button>
+<button class="toggle-btn active" data-perspective="we">WE</button>
+</div>
+</div>
+</div>
+<div class="tone-section">
+<div class="section-label">YOUR VOICE:</div>
+<div class="tone-buttons">
+<button class="tone-btn" data-tone="diplomat"><span>DIPLOMAT</span><span class="tone-desc">Graceful</span></button>
+<button class="tone-btn" data-tone="critic"><span>CRITIC</span><span class="tone-desc">Sharp</span></button>
+<button class="tone-btn" data-tone="absurdist"><span>ABSURDIST</span><span class="tone-desc">Deadpan</span></button>
+<button class="tone-btn" data-tone="realist"><span>REALIST</span><span class="tone-desc">Honest</span></button>
+</div>
+</div>
+</div>
+<div class="display-panel" id="displayPanel">
+<div class="scene-bg" id="sceneBg"></div>
+<button class="control-btn mobile-only back-btn" id="backBtn" style="display:none">← BACK</button>
+<div class="script-display">
+<div class="placeholder-card" id="placeholderCard">
+<div class="placeholder-text"><span>Enter what they said.</span><span>Calibrate your response.</span><span>Choose your voice.</span></div>
+</div>
+<div class="script-card" id="scriptCard">
+<div class="script-meta">
+<span class="script-context" id="contextDisplay">STRANGER</span>
+<span class="script-spice" id="spiceDisplay">MEDIUM</span>
+</div>
+<div class="script-subtext" id="subtextDisplay"></div>
+<div class="script-trigger"><span class="script-trigger-label">THEY SAID:</span><span id="triggerDisplay"></span></div>
+<div class="script-response"><div class="script-response-label">YOU SAY:</div><div class="script-text" id="scriptText"></div></div>
+<div class="script-footer"><span>THE PROTOCOL</span><span>MATTERHOOD</span></div>
+</div>
+<div class="controls">
+<button class="control-btn" id="newTakeBtn" disabled>NEW TAKE</button>
+<button class="control-btn" id="copyBtn" disabled>COPY</button>
+<button class="control-btn primary" id="exportBtn" disabled>EXPORT</button>
+</div>
+</div>
+</div>
+</div>
+<div class="export-options" id="exportOptions">
+<div class="export-modal">
+<div class="export-title">Export Scene</div>
+<div class="export-subtitle">Choose your format</div>
+<div class="export-formats">
+<button class="export-format-btn" data-format="story"><span class="export-format-name">INSTAGRAM STORY</span><span class="export-format-size">1080 × 1920</span></button>
+<button class="export-format-btn" data-format="square"><span class="export-format-name">INSTAGRAM FEED</span><span class="export-format-size">1080 × 1080</span></button>
+<button class="export-format-btn" data-format="wide"><span class="export-format-name">TWITTER / OG</span><span class="export-format-size">1200 × 675</span></button>
+</div>
+<button class="export-close" id="exportClose">CANCEL</button>
+</div>
+</div>
+<div class="toast" id="toast">EXPORTED</div>
+</div>
+<footer>CRAIG & COURTNEY — <a href="#">BUY US A CHIP</a></footer>
+<script>
+// THE PROTOCOL v2.1 — Expanded Variation Engine
+// Triggers loaded from external JSON
+
+let TRIGGERS = [];
+
+// Tutorial (global scope for onclick handlers)
+function goToStep(n){document.querySelectorAll('.tutorial-step').forEach(s=>s.classList.remove('active'));document.querySelector(`.tutorial-step[data-step="${n}"]`)?.classList.add('active');document.querySelectorAll('.tutorial-dot').forEach(d=>d.classList.remove('active'));document.querySelector(`.tutorial-dot[data-dot="${n}"]`)?.classList.add('active');}
+function completeTutorial(){localStorage.setItem('protocol_tutorial_v4','true');document.getElementById('tutorialOverlay').classList.add('hidden');}
+function showTutorial(){document.getElementById('tutorialOverlay').classList.remove('hidden');goToStep(1);}
+
+// Load triggers from JSON
+async function loadTriggers() {
+  try {
+    const response = await fetch('triggers.json');
+    TRIGGERS = await response.json();
+    console.log(`Loaded ${TRIGGERS.length} triggers`);
+    initApp();
+  } catch (err) {
+    console.error('Failed to load triggers:', err);
+    document.body.innerHTML = '<div style="padding:2rem;color:#c41e1e;">Failed to load response data. Please refresh.</div>';
+  }
+}
+
+function initApp() {
+
+// ============================================================================
+// COMMON TRIGGERS DISPLAY + ENGINE
+// ============================================================================
+
+const COMMON_TRIGGERS=["Just relax","Why don't you adopt?","Have you tried IVF?","Everything happens for a reason","My cousin stopped trying","At least you have freedom","Who's the problem?","Tick tock","You'll regret it","You wouldn't understand","Must be nice to sleep in","At least you have each other"];
+const CONTEXT_LABELS={stranger:"STRANGER",family:"FAMILY",colleague:"COLLEAGUE",medical:"MEDICAL"};
+const SPICE_LABELS={mild:"MILD",medium:"MEDIUM",hot:"HOT"};
+
+let currentTone=null,currentTrigger=null,currentResponse=null,currentImageUrl='',currentSubtext='';
+let context='stranger',spice='medium',perspective='we';
+let usedResponses={};
+
+// Check tutorial on init
+if(localStorage.getItem('protocol_tutorial_v4'))document.getElementById('tutorialOverlay').classList.add('hidden');
+
+// Matching
+function normalize(t){return t.toLowerCase().replace(/['']/g,"'").replace(/[""]/g,'"').replace(/[?!.,;:]/g,'').replace(/\s+/g,' ').trim();}
+function findMatch(input){const n=normalize(input);if(!n)return null;for(const t of TRIGGERS){for(const p of t.triggers){if(n.includes(normalize(p)))return t;}}let best=null,bestScore=0;for(const t of TRIGGERS){for(const p of t.triggers){const words=normalize(p).split(' ');let match=0;for(const w of words){if(n.includes(w))match++;}const score=match/words.length;if(score>bestScore&&score>=0.5){bestScore=score;best=t;}}}return best;}
+
+// Perspective swap
+function swapPerspective(text){
+if(perspective==='i'){
+return text.replace(/\{We're\}/g,"I'm").replace(/\{we're\}/g,"I'm").replace(/\{We've\}/g,"I've").replace(/\{we've\}/g,"I've").replace(/\{We'll\}/g,"I'll").replace(/\{we'll\}/g,"I'll").replace(/\{We'd\}/g,"I'd").replace(/\{we'd\}/g,"I'd").replace(/\{We\}/g,"I").replace(/\{we\}/g,"I").replace(/\{Our\}/g,"My").replace(/\{our\}/g,"my").replace(/\{us\}/g,"me").replace(/\{Us\}/g,"Me").replace(/\{I\}'m/g,"I'm").replace(/\{I\}'ve/g,"I've").replace(/\{I\}'ll/g,"I'll").replace(/\{I\}'d/g,"I'd").replace(/\{I\}/g,"I").replace(/\{I'm\}/g,"I'm").replace(/\{My\}/g,"My").replace(/\{my\}/g,"my").replace(/\{me\}/g,"me");
+}else{
+return text.replace(/\{We're\}/g,"We're").replace(/\{we're\}/g,"we're").replace(/\{We've\}/g,"We've").replace(/\{we've\}/g,"we've").replace(/\{We'll\}/g,"We'll").replace(/\{we'll\}/g,"we'll").replace(/\{We'd\}/g,"We'd").replace(/\{we'd\}/g,"we'd").replace(/\{We\}/g,"We").replace(/\{we\}/g,"we").replace(/\{Our\}/g,"Our").replace(/\{our\}/g,"our").replace(/\{us\}/g,"us").replace(/\{Us\}/g,"Us").replace(/\{I\}'m/g,"We're").replace(/\{I\}'ve/g,"We've").replace(/\{I\}'ll/g,"We'll").replace(/\{I\}'d/g,"We'd").replace(/\{I\}/g,"We").replace(/\{I'm\}/g,"We're").replace(/\{My\}/g,"Our").replace(/\{my\}/g,"our").replace(/\{me\}/g,"us");
+}}
+
+// Get response key
+function getResponseKey(trigger,tone,spiceLevel){return `${trigger.triggers[0]}-${tone}-${spiceLevel}`;}
+
+// Get random response
+function getRandomResponse(variants,key){
+if(!usedResponses[key])usedResponses[key]=[];
+const available=variants.filter((_,i)=>!usedResponses[key].includes(i));
+if(available.length===0){usedResponses[key]=[];return variants[Math.floor(Math.random()*variants.length)];}
+const idx=variants.indexOf(available[Math.floor(Math.random()*available.length)]);
+usedResponses[key].push(idx);
+return variants[idx];
+}
+
+// Scene
+function setBackground(url){currentImageUrl=url;const bg=document.getElementById('sceneBg');bg.classList.remove('active');const img=new Image();img.onload=()=>{setTimeout(()=>{bg.style.backgroundImage=`url('${url}')`;bg.classList.add('active');},100);};img.src=url;}
+
+function generateScene(tone){
+const input=document.getElementById('triggerInput').value.trim();
+if(!input){document.getElementById('triggerInput').focus();return;}
+currentTone=tone;
+const match=findMatch(input);
+if(match){
+currentSubtext=match.subtext;
+const toneResponses=match.responses[tone];
+const variants=toneResponses[spice]||toneResponses.medium;
+const key=getResponseKey(match,tone,spice);
+const rawResponse=Array.isArray(variants)?getRandomResponse(variants,key):variants;
+currentResponse=swapPerspective(rawResponse);
+setBackground(match.image);
+}else{
+currentSubtext="A question that doesn't deserve this much thought.";
+const fallbacks=["Some questions don't deserve answers. This is one of them.","Not every question deserves {our} energy.","That one's not in {our} script. For good reason.","{We} don't have a rehearsed response for that."];
+currentResponse=swapPerspective(fallbacks[Math.floor(Math.random()*fallbacks.length)]);
+setBackground('https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=1600&q=80');
+}
+currentTrigger=input;
+document.getElementById('subtextDisplay').textContent=currentSubtext;
+document.getElementById('triggerDisplay').textContent=input;
+document.getElementById('scriptText').textContent=currentResponse;
+document.getElementById('contextDisplay').textContent=CONTEXT_LABELS[context];
+document.getElementById('spiceDisplay').textContent=SPICE_LABELS[spice];
+document.getElementById('spiceDisplay').className='script-spice'+(spice==='hot'?' hot':'');
+document.getElementById('placeholderCard').style.display='none';
+const card=document.getElementById('scriptCard');card.classList.remove('active');void card.offsetWidth;card.classList.add('active');
+document.getElementById('newTakeBtn').disabled=false;
+document.getElementById('copyBtn').disabled=false;
+document.getElementById('exportBtn').disabled=false;
+if(window.innerWidth<=900){document.getElementById('controlPanel').classList.add('hidden');document.getElementById('displayPanel').classList.remove('hidden');document.getElementById('backBtn').style.display='block';}}
+
+// Toggle handlers
+function setupToggles(groupId,callback){
+document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(btn=>{
+btn.addEventListener('click',()=>{
+document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+callback(btn.dataset.context||btn.dataset.spice||btn.dataset.perspective);
+});});}
+setupToggles('contextGroup',v=>{context=v;});
+setupToggles('spiceGroup',v=>{spice=v;});
+setupToggles('perspectiveGroup',v=>{perspective=v;});
+
+// Chips
+COMMON_TRIGGERS.forEach(t=>{const c=document.createElement('button');c.className='trigger-chip';c.textContent=t;c.onclick=()=>{document.getElementById('triggerInput').value=t;};document.getElementById('triggersGrid').appendChild(c);});
+
+// Tone buttons
+document.querySelectorAll('.tone-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');generateScene(btn.dataset.tone);});});
+
+// Controls
+document.getElementById('newTakeBtn').addEventListener('click',()=>{if(currentTone)generateScene(currentTone);});
+document.getElementById('copyBtn').addEventListener('click',()=>{if(currentResponse){navigator.clipboard.writeText(currentResponse).then(()=>showToast('COPIED'));}});
+document.getElementById('exportBtn').addEventListener('click',()=>document.getElementById('exportOptions').classList.add('active'));
+document.getElementById('exportClose').addEventListener('click',()=>document.getElementById('exportOptions').classList.remove('active'));
+document.getElementById('exportOptions').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
+
+// Export formats
+document.querySelectorAll('.export-format-btn').forEach(btn=>{
+btn.addEventListener('click',async()=>{
+const format=btn.dataset.format;
+const dims={story:{w:1080,h:1920},square:{w:1080,h:1080},wide:{w:1200,h:675}}[format];
+await exportImage(dims.w,dims.h,format);
+document.getElementById('exportOptions').classList.remove('active');
+});});
+
+async function exportImage(w,h,format){
+const isLight=document.documentElement.dataset.theme==='light';
+const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+const ctx=canvas.getContext('2d');
+const bgColor=isLight?'#FAFAF8':'#080808';
+const frameBg=isLight?'#F0EDE8':'#121212';
+const textColor=isLight?'#0A0A0A':'#F5F2ED';
+const triggerColor=isLight?'#444444':'#888888';
+const labelColor=isLight?'rgba(10,10,10,0.5)':'rgba(232,228,223,0.5)';
+const borderColor=isLight?'rgba(10,10,10,0.18)':'rgba(232,228,223,0.15)';
+const goldColor=isLight?'#7A6545':'#B8956A';
+const alertColor='#C41E1E';
+
+// Background
+ctx.fillStyle=bgColor;ctx.fillRect(0,0,w,h);
+
+// Background image
+if(currentImageUrl){try{const img=new Image();img.crossOrigin='anonymous';await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=currentImageUrl;});const scale=Math.max(w/img.width,h/img.height);const sw=img.width*scale,sh=img.height*scale;ctx.globalAlpha=isLight?0.15:0.3;ctx.filter='grayscale(100%) contrast(1.1)';ctx.drawImage(img,(w-sw)/2,(h-sh)/2,sw,sh);ctx.globalAlpha=1;ctx.filter='none';}catch(e){}}
+
+// Font sizes based on format
+const scale=format==='story'?w/1080:format==='square'?w/1080:w/1200;
+const labelSize=Math.round(12*scale);
+const subtextSize=Math.round(13*scale);
+const triggerSize=Math.round(15*scale);
+const responseSize=Math.round(format==='wide'?36:42*scale);
+const padding=Math.round(45*scale);
+const textW=Math.round(format==='wide'?w*0.72:w*0.76);
+
+// Calculate content height
+ctx.font=`${labelSize}px 'Space Mono', monospace`;
+let contentH=0;
+contentH+=labelSize+padding*0.4; // context row + gap
+ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
+contentH+=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).length*(subtextSize*1.5)+padding*0.5;
+contentH+=labelSize+padding*0.3; // they said label + gap
+ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+contentH+=wrapText(ctx,currentTrigger,textW).length*(triggerSize*1.6)+padding*0.5;
+contentH+=labelSize*2.5; // you say label + gap before response
+ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
+contentH+=wrapText(ctx,currentResponse,textW).length*(responseSize*1.4)+padding*0.6;
+contentH+=labelSize; // footer
+
+// Frame dimensions - centered
+const frameW=textW+padding*2;
+const frameH=contentH+padding*2;
+const frameX=(w-frameW)/2;
+const frameY=(h-frameH)/2;
+
+// Draw frame background
+ctx.fillStyle=frameBg;
+ctx.fillRect(frameX,frameY,frameW,frameH);
+
+// Draw frame border
+ctx.strokeStyle=borderColor;
+ctx.lineWidth=1;
+ctx.strokeRect(frameX,frameY,frameW,frameH);
+
+// Gold accent bar - inside frame at top left
+ctx.fillStyle=goldColor;
+ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
+
+// Content positioning
+const contentX=frameX+padding;
+const contentRight=frameX+frameW-padding;
+let y=frameY+padding;
+
+// Context and spice row
+ctx.fillStyle=labelColor;
+ctx.font=`${labelSize}px 'Space Mono', monospace`;
+ctx.textAlign='left';
+ctx.fillText(CONTEXT_LABELS[context],contentX,y);
+ctx.fillStyle=spice==='hot'?alertColor:goldColor;
+ctx.textAlign='right';
+ctx.fillText(SPICE_LABELS[spice],contentRight,y);
+ctx.textAlign='left';
+y+=labelSize+padding*0.4;
+
+// Subtext
+ctx.fillStyle=goldColor;
+ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
+wrapText(ctx,'SUBTEXT: '+currentSubtext,textW).forEach(line=>{
+ctx.fillText(line,contentX,y);y+=subtextSize*1.5;
+});
+y+=padding*0.5;
+
+// They said label
+ctx.fillStyle=labelColor;
+ctx.font=`${labelSize}px 'Space Mono', monospace`;
+ctx.fillText('THEY SAID:',contentX,y);
+y+=labelSize+padding*0.3;
+
+// Trigger text
+ctx.fillStyle=triggerColor;
+ctx.font=`${triggerSize}px 'Space Mono', monospace`;
+wrapText(ctx,currentTrigger,textW).forEach(line=>{
+ctx.fillText(line,contentX,y);y+=triggerSize*1.6;
+});
+y+=padding*0.5;
+
+// You say label
+ctx.fillStyle=goldColor;
+ctx.font=`${labelSize}px 'Space Mono', monospace`;
+ctx.fillText('YOU SAY:',contentX,y);
+y+=labelSize*2.5; // More space before response
+
+// Response text
+ctx.fillStyle=textColor;
+ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
+wrapText(ctx,currentResponse,textW).forEach(line=>{
+ctx.fillText(line,contentX,y);y+=responseSize*1.4;
+});
+
+// Footer
+const footerY=frameY+frameH-padding*0.7;
+ctx.fillStyle=labelColor;
+ctx.font=`${labelSize}px 'Space Mono', monospace`;
+ctx.textAlign='left';
+ctx.fillText('THE PROTOCOL',contentX,footerY);
+ctx.textAlign='right';
+ctx.fillText('MATTERHOOD',contentRight,footerY);
+
+const link=document.createElement('a');
+link.download=`protocol-${format}-${Date.now()}.png`;
+link.href=canvas.toDataURL('image/png');
+link.click();
+showToast('EXPORTED — SHARE YOUR TRUTH');
+}
+
+function wrapText(ctx,text,maxW){const words=text.split(' '),lines=[];let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else{line=test;}}if(line)lines.push(line);return lines;}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+// Mobile
+document.getElementById('backBtn').addEventListener('click',()=>{document.getElementById('controlPanel').classList.remove('hidden');document.getElementById('displayPanel').classList.add('hidden');document.getElementById('backBtn').style.display='none';});
+
+// Theme toggle
+const themeToggle=document.getElementById('themeToggle');
+function setTheme(theme){
+document.documentElement.dataset.theme=theme;
+themeToggle.textContent=theme==='light'?'☾':'☀';
+localStorage.setItem('protocol_theme',theme);
+}
+themeToggle.addEventListener('click',()=>{
+const current=document.documentElement.dataset.theme;
+setTheme(current==='light'?'dark':'light');
+});
+const savedTheme=localStorage.getItem('protocol_theme')||'dark';
+setTheme(savedTheme);
+
+// Enter key
+document.getElementById('triggerInput').addEventListener('keydown',e=>{if(e.key==='Enter'){const activeTone=document.querySelector('.tone-btn.active');if(activeTone){generateScene(activeTone.dataset.tone);}else{document.querySelector('.tone-btn[data-tone="diplomat"]').click();}}});
+}
+
+// Start the app
+loadTriggers();
+</script>
+</body>
+</html>
