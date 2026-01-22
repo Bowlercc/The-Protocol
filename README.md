@@ -48,10 +48,13 @@ the-protocol/
 
 ### Main App (`app.html`)
 
-- **Smart matching**: Fuzzy matches input to known triggers
+- **Smart fuzzy matching**: Matches input to triggers even with typos, filler words, or variations
 - **Response variety**: Multiple responses per tone/spice combo with "New Take" rotation
 - **Perspective switching**: Toggle between "I" and "We" pronouns
 - **Image export**: Share cards in Story (9:16), Square (1:1), or Wide (16:9) formats
+- **QR code on exports**: Links back to the site (toggleable)
+- **"Why this hurts" export**: Educational companion card explaining the impact (toggleable)
+- **Copy to clipboard**: One-click copy of response text
 - **Dark/Light themes**: Toggle with the sun/moon button
 - **Mobile responsive**: Works on all devices
 - **Tutorial**: First-time user walkthrough
@@ -103,6 +106,8 @@ Each trigger in `triggers.json` follows this schema:
   "triggers": ["phrase 1", "phrase 2", "..."],
   "subtext": "The hidden meaning behind what they said",
   "image": "https://images.unsplash.com/...",
+  "why_it_hurts": "Explanation of the emotional impact (for education card)",
+  "what_to_know": "What actually helps instead (for education card)",
   "responses": {
     "diplomat": {
       "mild": ["response 1", "response 2"],
@@ -118,12 +123,16 @@ Each trigger in `triggers.json` follows this schema:
 
 ### Fields
 
-| Field | Description |
-|-------|-------------|
-| `triggers` | Array of phrases that match this trigger (first is primary) |
-| `subtext` | The implied meaning — what they're really saying |
-| `image` | Unsplash URL for background (grayscale filtered in app) |
-| `responses` | Object with 4 tones, each containing 3 spice levels |
+| Field | Description | Required |
+|-------|-------------|----------|
+| `triggers` | Array of phrases that match this trigger (first is primary) | ✅ Yes |
+| `subtext` | The implied meaning — what they're really saying | ✅ Yes |
+| `image` | Unsplash URL for background (grayscale filtered in app) | ✅ Yes |
+| `why_it_hurts` | Explanation for the "Why this hurts" education card | ⚠️ Optional* |
+| `what_to_know` | What helps instead, for the education card | ⚠️ Optional* |
+| `responses` | Object with 4 tones, each containing 3 spice levels | ✅ Yes |
+
+*If not provided, default text is used for the education card export.
 
 ---
 
@@ -145,6 +154,81 @@ Each trigger in `triggers.json` follows this schema:
 | **Mild** | Safe for any audience. Polite but clear. |
 | **Medium** | More direct. Some edge, still professional. |
 | **Hot** | Full honesty. May cause discomfort. Use wisely. |
+
+---
+
+## Content Gaps (Needs Your Attention)
+
+### "Why This Hurts" Education Cards
+
+The dual-export feature creates a second image explaining why a comment hurts. This requires two new fields per trigger:
+
+| Field | Purpose | Example |
+|-------|---------|---------|
+| `why_it_hurts` | Explains the emotional impact | "This implies infertility is caused by stress or that the person is somehow responsible..." |
+| `what_to_know` | What actually helps instead | "Instead of offering advice, try: 'I'm here for you' or 'That sounds really hard.'" |
+
+**Current status:** Only 3 triggers have this content filled in:
+- ✅ "just relax"
+- ✅ "why don't you adopt"
+- ✅ "everything happens for a reason"
+
+**All other triggers use default fallback text.** To make the education cards more powerful and specific, add these fields to each trigger.
+
+#### How to Add
+
+**Option 1: Edit triggers.json directly**
+```json
+{
+  "triggers": ["have you tried IVF"],
+  "subtext": "...",
+  "image": "...",
+  "why_it_hurts": "Your explanation here...",
+  "what_to_know": "Your helpful alternative here...",
+  "responses": { ... }
+}
+```
+
+**Option 2: Use the admin panel** (if updated to support these fields)
+
+#### Writing Guidelines
+
+When writing `why_it_hurts`:
+- Explain the emotional weight, not just why it's factually wrong
+- Consider the cumulative effect (they've heard this dozens of times)
+- Keep it 2-3 sentences
+
+When writing `what_to_know`:
+- Focus on what actually helps
+- Offer concrete alternatives ("Instead of X, try Y")
+- Keep the tone educational, not accusatory
+
+---
+
+### Fuzzy Matching
+
+The matching system now handles variations like:
+- "you just need to relax" → matches "just relax"
+- "have you ever tried IVF?" → matches "have you tried IVF"
+- Typos: "everthing hapens for a reson" → matches "everything happens for a reason"
+
+**To improve matching for a specific trigger**, add more variations to its `triggers` array:
+
+```json
+{
+  "triggers": [
+    "just relax",
+    "need to relax",
+    "stop stressing",
+    "stress causes infertility",
+    "you're too stressed",
+    "relax and it will happen"
+  ],
+  ...
+}
+```
+
+The more variations you add, the better the matching. The fuzzy system will handle minor differences, but explicit variations help with completely different phrasings of the same idea.
 
 ---
 

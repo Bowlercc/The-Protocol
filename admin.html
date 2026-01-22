@@ -141,6 +141,10 @@ textarea.editor-input{min-height:80px;resize:vertical;line-height:1.6}
       <span class="stat-label">RESPONSES</span>
     </div>
     <div class="stat">
+      <span class="stat-value" id="statEducation">0</span>
+      <span class="stat-label">WITH EDUCATION CONTENT</span>
+    </div>
+    <div class="stat">
       <span class="stat-value" id="statTones">4</span>
       <span class="stat-label">TONES</span>
     </div>
@@ -190,6 +194,16 @@ textarea.editor-input{min-height:80px;resize:vertical;line-height:1.6}
           <div class="editor-section">
             <label class="editor-label">BACKGROUND IMAGE URL</label>
             <input type="text" class="editor-input" id="imageInput" placeholder="https://images.unsplash.com/...">
+          </div>
+          
+          <div class="editor-section">
+            <label class="editor-label">WHY THIS HURTS (for education card export)</label>
+            <textarea class="editor-input editor-textarea" id="whyHurtsInput" rows="3" placeholder="Explain the emotional impact of this comment..."></textarea>
+          </div>
+          
+          <div class="editor-section">
+            <label class="editor-label">WHAT HELPS INSTEAD (for education card export)</label>
+            <textarea class="editor-input editor-textarea" id="whatHelpsInput" rows="3" placeholder="What people can say or do instead..."></textarea>
           </div>
           
           <div class="editor-section">
@@ -367,8 +381,13 @@ function updateStats() {
   document.getElementById('statTriggers').textContent = triggers.length;
   
   let totalResponses = 0;
-  triggers.forEach(t => totalResponses += countResponses(t));
+  let withEducation = 0;
+  triggers.forEach(t => {
+    totalResponses += countResponses(t);
+    if (t.why_it_hurts && t.what_to_know) withEducation++;
+  });
   document.getElementById('statResponses').textContent = totalResponses;
+  document.getElementById('statEducation').textContent = withEducation;
 }
 
 // Select trigger for editing
@@ -398,6 +417,10 @@ function loadTriggerIntoEditor() {
   // Subtext and image
   document.getElementById('subtextInput').value = trigger.subtext || '';
   document.getElementById('imageInput').value = trigger.image || '';
+  
+  // Education card fields
+  document.getElementById('whyHurtsInput').value = trigger.why_it_hurts || '';
+  document.getElementById('whatHelpsInput').value = trigger.what_to_know || '';
   
   // Responses
   for (const tone of TONES) {
@@ -472,6 +495,14 @@ function saveCurrentTrigger() {
   
   trigger.subtext = document.getElementById('subtextInput').value.trim();
   trigger.image = document.getElementById('imageInput').value.trim();
+  
+  // Education card fields
+  const whyHurts = document.getElementById('whyHurtsInput').value.trim();
+  const whatHelps = document.getElementById('whatHelpsInput').value.trim();
+  if (whyHurts) trigger.why_it_hurts = whyHurts;
+  else delete trigger.why_it_hurts;
+  if (whatHelps) trigger.what_to_know = whatHelps;
+  else delete trigger.what_to_know;
   
   // Initialize responses if needed
   if (!trigger.responses) trigger.responses = {};
