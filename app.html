@@ -165,9 +165,9 @@ footer a{color:var(--gold);text-decoration:none}
     position: relative;
     width: 100%;
     height: 100%; 
-    max-width: 450px;
+    max-width: 450px; /* Slightly wider to match main card feel */
     aspect-ratio: 9/16;
-    display: flex;
+    display: flex; /* Use flex to center the card */
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -185,16 +185,17 @@ footer a{color:var(--gold);text-decoration:none}
 
 .animate-card {
     position: relative;
-    width: 88%;
+    width: 88%; /* Consistent width */
     background: var(--charcoal);
     border: 1px solid var(--bone-faint);
-    padding: 1.8rem;
+    padding: 1.8rem; /* Match script-card padding */
     display: flex;
     flex-direction: column;
     z-index: 10;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5); /* Add depth */
 }
 
+/* Gold Bar match */
 .animate-card::before {
     content: '';
     position: absolute;
@@ -205,6 +206,7 @@ footer a{color:var(--gold);text-decoration:none}
     background: var(--gold);
 }
 
+/* Typography matching main site exactly */
 .animate-meta {
     display: flex;
     justify-content: space-between;
@@ -280,15 +282,16 @@ footer a{color:var(--gold);text-decoration:none}
     text-transform: uppercase;
 }
 
+/* Response Text - Larger and sharper like main site */
 .animate-response-text {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.2rem, 2.3vw, 1.65rem);
+    font-size: clamp(1.2rem, 2.3vw, 1.65rem); /* Matches .script-text */
     line-height: 1.4;
     color: var(--cream);
     min-height: 2.8rem;
 }
 
-/* Word wrapping logic */
+/* Word wrapping fix */
 .animate-response-text .word {
     display: inline-block;
     white-space: nowrap;
@@ -310,6 +313,7 @@ footer a{color:var(--gold);text-decoration:none}
     justify-content: space-between;
 }
 
+/* Controls at bottom of screen */
 .animate-controls {
     position: absolute;
     bottom: 2rem;
@@ -384,7 +388,7 @@ footer a{color:var(--gold);text-decoration:none}
 </div>
 <div class="tutorial-step" data-step="2">
 <div class="tutorial-title">The Trigger</div>
-<div class="tutorial-text">Enter what they said — or choose from common triggers.</div>
+<div class="tutorial-text">Enter what they said, choose a common trigger, or hit 🎲 for a random scenario.</div>
 <div class="tutorial-example">
 <div class="tutorial-example-label">THEY SAID:</div>
 <div class="tutorial-example-text">"You just need to relax and it will happen."</div>
@@ -411,7 +415,7 @@ footer a{color:var(--gold);text-decoration:none}
 </div>
 <div class="tutorial-step" data-step="5">
 <div class="tutorial-title">The Export</div>
-<div class="tutorial-text">Save your scene as an image. Hit "New Take" for variations. Instagram Stories, feed posts, or just for you.</div>
+<div class="tutorial-text">Export as an image, or hit <strong>ANIMATE</strong> to create a video for your Story. Use "New Take" for variations.</div>
 <button class="tutorial-btn" onclick="completeTutorial()">START</button>
 </div>
 <div class="tutorial-dots">
