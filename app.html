@@ -145,6 +145,29 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .toast a{color:var(--gold);text-decoration:none;margin-left:.35rem}
 footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
 footer a{color:var(--gold);text-decoration:none}
+/* Animation Overlay */
+.animate-overlay{position:fixed;inset:0;background:var(--void);z-index:2000;display:none;flex-direction:column;align-items:center;justify-content:center}
+.animate-overlay.active{display:flex}
+.animate-scene{position:relative;width:100%;max-width:400px;aspect-ratio:9/16;overflow:hidden}
+.animate-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.3;filter:grayscale(100%)}
+.animate-card{position:absolute;bottom:8%;left:5%;right:5%;background:rgba(8,8,8,.92);border:1px solid var(--bone-faint);padding:1.5rem;display:flex;flex-direction:column;gap:.8rem}
+.animate-meta{display:flex;justify-content:space-between;font-size:.6rem;letter-spacing:.15em;color:var(--bone-dim);padding-bottom:.6rem;border-bottom:1px solid var(--bone-faint)}
+.animate-spice{color:var(--gold)}
+.animate-subtext{font-size:.7rem;font-style:italic;color:var(--gold);opacity:0;transform:translateY(10px)}
+.animate-subtext.show{animation:fadeUp .6s ease forwards}
+.animate-trigger{display:flex;flex-direction:column;gap:.25rem}
+.animate-label{font-size:.55rem;letter-spacing:.15em;color:var(--bone-dim)}
+.animate-trigger-text{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--bone);opacity:0}
+.animate-trigger-text.show{animation:fadeUp .5s ease forwards}
+.animate-response{display:flex;flex-direction:column;gap:.35rem}
+.animate-response-text{font-family:'Playfair Display',serif;font-size:1.4rem;line-height:1.35;color:var(--cream);min-height:2.8rem}
+.animate-response-text .char{opacity:0;display:inline-block}
+.animate-response-text .char.show{animation:charIn .05s ease forwards}
+.animate-footer{display:flex;justify-content:space-between;font-size:.5rem;letter-spacing:.15em;color:var(--bone-dim);opacity:.5;padding-top:.6rem;border-top:1px solid var(--bone-faint)}
+.animate-controls{display:flex;gap:1rem;margin-top:1.5rem}
+.animate-hint{font-size:.6rem;letter-spacing:.15em;color:var(--bone-dim);opacity:.5;margin-top:1rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes charIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){
 .logo-sub{display:none}
 .main-content{flex-direction:column}
@@ -298,6 +321,7 @@ footer a{color:var(--gold);text-decoration:none}
 <div class="controls">
 <button class="control-btn" id="newTakeBtn" disabled>NEW TAKE</button>
 <button class="control-btn" id="copyBtn" disabled>COPY</button>
+<button class="control-btn" id="animateBtn" disabled>ANIMATE</button>
 <button class="control-btn primary" id="exportBtn" disabled>EXPORT</button>
 </div>
 </div>
@@ -324,6 +348,35 @@ footer a{color:var(--gold);text-decoration:none}
 </div>
 </div>
 <div class="toast" id="toast">EXPORTED</div>
+<div class="animate-overlay" id="animateOverlay">
+<div class="animate-scene" id="animateScene">
+<div class="animate-bg" id="animateBg"></div>
+<div class="animate-card">
+<div class="animate-meta">
+<span class="animate-context" id="animContext"></span>
+<span class="animate-spice" id="animSpice"></span>
+</div>
+<div class="animate-subtext" id="animSubtext"></div>
+<div class="animate-trigger">
+<span class="animate-label">THEY SAID:</span>
+<span class="animate-trigger-text" id="animTrigger"></span>
+</div>
+<div class="animate-response">
+<div class="animate-label">YOU SAY:</div>
+<div class="animate-response-text" id="animResponse"></div>
+</div>
+<div class="animate-footer">
+<span>THE PROTOCOL</span>
+<span>MATTERHOOD</span>
+</div>
+</div>
+</div>
+<div class="animate-controls">
+<button class="control-btn" id="replayBtn">REPLAY</button>
+<button class="control-btn" id="animCloseBtn">CLOSE</button>
+</div>
+<div class="animate-hint">Screen record this for your story</div>
+</div>
 </div>
 <footer>CRAIG & COURTNEY — <a href="#">BUY US A CHIP</a></footer>
 <script>
@@ -526,6 +579,7 @@ document.getElementById('placeholderCard').style.display='none';
 const card=document.getElementById('scriptCard');card.classList.remove('active');void card.offsetWidth;card.classList.add('active');
 document.getElementById('newTakeBtn').disabled=false;
 document.getElementById('copyBtn').disabled=false;
+document.getElementById('animateBtn').disabled=false;
 document.getElementById('exportBtn').disabled=false;
 if(window.innerWidth<=900){document.getElementById('controlPanel').classList.add('hidden');document.getElementById('displayPanel').classList.remove('hidden');document.getElementById('backBtn').style.display='block';}}
 
@@ -555,6 +609,49 @@ document.getElementById('exportBtn').addEventListener('click',()=>{
   document.getElementById('exportOptions').classList.add('active');
 });
 document.getElementById('exportClose').addEventListener('click',()=>document.getElementById('exportOptions').classList.remove('active'));
+
+// Animation mode
+let animationTimeout=null;
+function playAnimation(){
+  // Clear any running animation
+  if(animationTimeout)clearTimeout(animationTimeout);
+  
+  // Set up scene
+  document.getElementById('animateBg').style.backgroundImage=`url('${currentImageUrl}')`;
+  document.getElementById('animContext').textContent=CONTEXT_LABELS[context];
+  document.getElementById('animSpice').textContent=SPICE_LABELS[spice];
+  document.getElementById('animSubtext').textContent=currentSubtext;
+  document.getElementById('animTrigger').textContent=currentTrigger;
+  
+  // Wrap response in character spans
+  const responseEl=document.getElementById('animResponse');
+  responseEl.innerHTML=currentResponse.split('').map(c=>c===' '?` `:`<span class="char">${c}</span>`).join('');
+  
+  // Reset states
+  document.getElementById('animSubtext').classList.remove('show');
+  document.getElementById('animTrigger').classList.remove('show');
+  responseEl.querySelectorAll('.char').forEach(c=>c.classList.remove('show'));
+  
+  // Animate sequence
+  setTimeout(()=>document.getElementById('animSubtext').classList.add('show'),300);
+  setTimeout(()=>document.getElementById('animTrigger').classList.add('show'),900);
+  
+  // Type out response
+  const chars=responseEl.querySelectorAll('.char');
+  chars.forEach((char,i)=>{
+    animationTimeout=setTimeout(()=>char.classList.add('show'),1400+i*35);
+  });
+}
+
+document.getElementById('animateBtn').addEventListener('click',()=>{
+  document.getElementById('animateOverlay').classList.add('active');
+  playAnimation();
+});
+document.getElementById('replayBtn').addEventListener('click',playAnimation);
+document.getElementById('animCloseBtn').addEventListener('click',()=>{
+  document.getElementById('animateOverlay').classList.remove('active');
+  if(animationTimeout)clearTimeout(animationTimeout);
+});
 document.getElementById('exportOptions').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
 
 // Surprise me button

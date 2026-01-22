@@ -1908,19 +1908,19 @@
     "responses": {
       "diplomat": {
         "mild": [
-          "{We} don't assign blame.",
-          "{We} carry this together."
+          "There's no blame to assign here.",
+          "{We} face this as partners, not opponents."
         ],
         "medium": [
-          "{We} don't assign blame. {We} carry this together.",
-          "{We} face it as a team. The specifics are ours.",
+          "There's no blame here. {We} face this together.",
+          "The specifics are private. What matters is {we're} in this as partners.",
           "There's no 'problem' person. There's a shared situation."
         ],
         "hot": [
-          "There's no fault. There's a medical situation. {We} face it as a unit.",
-          "{We} don't divide the blame. {We} share the loss.",
-          "{We}'ve agreed not to assign fault. It doesn't help.",
-          "{We} carry this together. The medical details are {our} business.",
+          "There's no fault. There's a medical situation {we} navigate as partners.",
+          "Blame doesn't help. {We} share this burden, not divide it.",
+          "{We've} agreed not to assign fault. It doesn't help anyone.",
+          "The medical details are {our} business. Not a blame game.",
           "It's a shared circumstance. Assigning blame would only cause more pain."
         ]
       },
@@ -2440,7 +2440,7 @@
           "{Our} family knows the details. They're walking this with {us}, not demanding from {us}.",
           "{We} can't give what {we} don't have. {Our} parents understand that.",
           "Grandchildren aren't owed. {Our} parents know that. They love {us} anyway.",
-          "{Our} parents wanted grandchildren. So did {we}. We're all grieving together."
+          "{Our} parents wanted grandchildren. So did {we}. {We're} all grieving this."
         ]
       },
       "critic": {
@@ -2491,7 +2491,7 @@
         ],
         "hot": [
           "{We} can't produce grandchildren to specification. {Our} parents have learned to love {us} anyway.",
-          "The grandchildren won't come. {Our} parents have grieved that too. {We} carry it together.",
+          "The grandchildren won't come. {Our} parents have grieved that too. {We} share that grief.",
           "What {our} parents wanted, {we} wanted too. None of {us} got it.",
           "Grandchildren would have been wonderful. They're not possible. {Our} family knows.",
           "The absence of grandchildren is a shared loss. {Our} parents grieve with {us}, not at {us}."
@@ -3002,11 +3002,11 @@
         ],
         "medium": [
           "Freedom wasn't the goal. It's what's left when the plan falls apart.",
-          "{We} have freedom. {We} also have loss. {We} carry both.",
+          "{We} have freedom. {We} also have loss. Both are real.",
           "{We} didn't want freedom. {We} wanted a family. Freedom is what {we}'re learning to accept."
         ],
         "hot": [
-          "{We} didn't want freedom. {We} wanted a family. Freedom is what's left. {We're} learning to carry it.",
+          "{We} didn't want freedom. {We} wanted a family. Freedom is what's left. {We're} learning to live with it.",
           "The freedom is real. So is the grief. {We} don't pretend one erases the other.",
           "Freedom is the consolation for something {we} couldn't have. It's not a fair trade, but it's what exists.",
           "{We} can appreciate freedom and mourn the loss simultaneously. That's the reality.",
@@ -3218,8 +3218,8 @@
       },
       "critic": {
         "mild": [
-          "{We} can have love and grief together.",
-          "{We} are together. {We} also grieve."
+          "Love and grief coexist here.",
+          "{We} have each other. {We} also grieve."
         ],
         "medium": [
           "{We} do have each other. {We} also have grief. Both fit in the same house.",
@@ -3254,8 +3254,8 @@
       },
       "realist": {
         "mild": [
-          "{We're} still here. Still together.",
-          "{We} have each other. {We} also carry loss."
+          "{We're} still here. Still standing.",
+          "{We} have each other. {We} also have loss."
         ],
         "medium": [
           "{We're} still here. {We're} still {us}. Just a different version of the plan.",
@@ -3265,7 +3265,7 @@
         "hot": [
           "{We} have each other. {We} also have the ghost of the family {we} planned. Everyone lives here now.",
           "{We}'re together. {We}'re also mourning together. The partnership includes both.",
-          "{We} chose each other. {We} didn't choose childlessness. {We} carry both.",
+          "{We} chose each other. {We} didn't choose childlessness. Both are real.",
           "{We} have each other. It's not nothing. It's also not everything {we} wanted.",
           "The relationship is strong. The grief is also strong. {We} live with both."
         ]
