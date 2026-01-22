@@ -146,32 +146,198 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
 footer a{color:var(--gold);text-decoration:none}
 
-/* Animation Overlay - Updated to match card style */
-.animate-overlay{position:fixed;inset:0;background:var(--void);z-index:2000;display:none;flex-direction:column;align-items:center;justify-content:center}
-.animate-overlay.active{display:flex}
-.animate-scene{position:relative;width:100%;max-width:400px;aspect-ratio:9/16;overflow:hidden}
-.animate-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.3;filter:grayscale(100%)}
-.animate-card{position:absolute;bottom:8%;left:5%;right:5%;background:var(--charcoal);border:1px solid var(--bone-faint);padding:1.5rem;display:flex;flex-direction:column;position:relative}
-.animate-card::before{content:'';position:absolute;top:0;left:0;width:40px;height:2px;background:var(--gold)}
-.animate-meta{display:flex;justify-content:space-between;font-size:.46rem;letter-spacing:.15em;color:var(--bone-dim);padding-bottom:.75rem;border-bottom:1px solid var(--bone-faint);margin-bottom:1rem;opacity:.6}
-.animate-spice{color:var(--gold);letter-spacing:.1em}
-.animate-subtext{font-size:.5rem;letter-spacing:.08em;color:var(--gold);margin-bottom:1.1rem;font-style:italic;opacity:0;transform:translateY(10px)}
-.animate-subtext::before{content:'SUBTEXT: ';opacity:.5;font-style:normal}
-.animate-subtext.show{animation:fadeUp .6s ease forwards}
-.animate-trigger-wrapper{margin-bottom:.95rem}
-.animate-label{display:block;font-size:.46rem;opacity:.4;margin-bottom:.28rem;letter-spacing:.2em;color:var(--bone)}
-.animate-trigger-text{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--bone-dim);letter-spacing:.05em;line-height:1.6;opacity:0}
-.animate-trigger-text.show{animation:fadeUp .5s ease forwards}
-.animate-response-wrapper{margin-bottom:1.3rem}
-.animate-label-gold{font-size:.46rem;color:var(--gold);margin-bottom:.55rem;letter-spacing:.2em}
-.animate-response-text{font-family:'Playfair Display',serif;font-size:1.4rem;line-height:1.4;color:var(--cream);min-height:2.8rem}
-.animate-response-text .char{opacity:0;display:inline-block}
-.animate-response-text .char.show{animation:charIn .05s ease forwards}
-.animate-footer{display:flex;justify-content:space-between;font-size:.46rem;letter-spacing:.15em;color:var(--bone-dim);opacity:.25;padding-top:.95rem;border-top:1px solid var(--bone-faint)}
-.animate-controls{display:flex;gap:1rem;margin-top:1.5rem}
-.animate-hint{font-size:.6rem;letter-spacing:.15em;color:var(--bone-dim);opacity:.5;margin-top:1rem}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-@keyframes charIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+/* Animation Overlay - Fixed Centering & Styling */
+.animate-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--void);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.animate-overlay.active {
+    display: flex;
+}
+
+.animate-scene {
+    position: relative;
+    width: 100%;
+    height: 100%; 
+    max-width: 450px; /* Slightly wider to match main card feel */
+    aspect-ratio: 9/16;
+    display: flex; /* Use flex to center the card */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.animate-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    filter: grayscale(100%);
+    z-index: 0;
+}
+
+.animate-card {
+    position: relative; /* Fixed: changed from absolute to relative */
+    width: 88%; /* Consistent width */
+    background: var(--charcoal);
+    border: 1px solid var(--bone-faint);
+    padding: 1.8rem; /* Match script-card padding */
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5); /* Add depth */
+}
+
+/* Gold Bar match */
+.animate-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+}
+
+/* Typography matching main site exactly */
+.animate-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--bone-faint);
+}
+
+.animate-context {
+    font-size: 0.46rem;
+    letter-spacing: 0.15em;
+    opacity: 0.4;
+    text-transform: uppercase;
+}
+
+.animate-spice {
+    font-size: 0.46rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+}
+
+.animate-subtext {
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    margin-bottom: 1.1rem;
+    font-style: italic;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.animate-subtext::before {
+    content: 'SUBTEXT: ';
+    opacity: 0.5;
+    font-style: normal;
+}
+
+.animate-trigger-wrapper {
+    margin-bottom: 0.95rem;
+}
+
+.animate-label {
+    display: block;
+    font-size: 0.46rem;
+    opacity: 0.4;
+    margin-bottom: 0.28rem;
+    letter-spacing: 0.2em;
+    color: var(--bone);
+    text-transform: uppercase;
+}
+
+.animate-trigger-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--bone-dim);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    opacity: 0;
+    display: block;
+}
+
+.animate-response-wrapper {
+    margin-bottom: 1.3rem;
+}
+
+.animate-label-gold {
+    font-size: 0.46rem;
+    color: var(--gold);
+    margin-bottom: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+/* Response Text - Larger and sharper like main site */
+.animate-response-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 2.3vw, 1.65rem); /* Matches .script-text */
+    line-height: 1.4;
+    color: var(--cream);
+    min-height: 2.8rem;
+}
+
+.animate-footer {
+    font-size: 0.46rem;
+    letter-spacing: 0.15em;
+    opacity: 0.25;
+    padding-top: 0.95rem;
+    border-top: 1px solid var(--bone-faint);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Controls at bottom of screen */
+.animate-controls {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 20;
+}
+
+.animate-hint {
+    position: absolute;
+    bottom: 5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--bone-dim);
+    opacity: 0.5;
+    z-index: 20;
+    text-transform: uppercase;
+}
+
+/* Animations */
+.animate-subtext.show, .animate-trigger-text.show {
+    animation: fadeUp 0.6s ease forwards;
+}
+
+.animate-response-text .char {
+    opacity: 0;
+    display: inline-block;
+}
+
+.animate-response-text .char.show {
+    animation: charIn 0.05s ease forwards;
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes charIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 @media(max-width:900px){
 .logo-sub{display:none}
@@ -354,31 +520,40 @@ footer a{color:var(--gold);text-decoration:none}
 </div>
 <div class="toast" id="toast">EXPORTED</div>
 <div class="animate-overlay" id="animateOverlay">
-<div class="animate-scene" id="animateScene">
-<div class="animate-bg" id="animateBg"></div>
-<div class="animate-card">
-<div class="animate-meta">
-<span class="animate-context" id="animContext"></span>
-<span class="animate-spice" id="animSpice"></span>
-</div>
-<div class="animate-subtext" id="animSubtext"></div>
-<div class="animate-trigger-wrapper">
-<span class="animate-label">THEY SAID:</span>
-<span class="animate-trigger-text" id="animTrigger"></span>
-</div>
-<div class="animate-response-wrapper">
-<div class="animate-label-gold">YOU SAY:</div>
-<div class="animate-response-text" id="animResponse"></div>
-</div>
-<div class="animate-footer">
-<span>THE PROTOCOL</span>
-<span>MATTERHOOD</span>
-</div>
-</div>
-</div>
-<div class="animate-controls">
-<button class="control-btn" id="replayBtn">REPLAY</button>
-<button class="control-btn" id="animCloseBtn">CLOSE</button>
+  <div class="animate-scene" id="animateScene">
+    <div class="animate-bg" id="animateBg"></div>
+    
+    <div class="animate-card">
+      <div class="animate-meta">
+        <span class="animate-context" id="animContext">STRANGER</span>
+        <span class="animate-spice" id="animSpice">HOT</span>
+      </div>
+      
+      <div class="animate-subtext" id="animSubtext"></div>
+      
+      <div class="animate-trigger-wrapper">
+        <span class="animate-label">THEY SAID:</span>
+        <span class="animate-trigger-text" id="animTrigger"></span>
+      </div>
+      
+      <div class="animate-response-wrapper">
+        <div class="animate-label-gold">YOU SAY:</div>
+        <div class="animate-response-text" id="animResponse"></div>
+      </div>
+      
+      <div class="animate-footer">
+        <span>THE PROTOCOL</span>
+        <span>MATTERHOOD</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="animate-hint">Screen record this for your story</div>
+  
+  <div class="animate-controls">
+    <button class="control-btn" id="replayBtn">REPLAY</button>
+    <button class="control-btn" id="animCloseBtn">CLOSE</button>
+  </div>
 </div>
 <div class="animate-hint">Screen record this for your story</div>
 </div>
