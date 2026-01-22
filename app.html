@@ -50,6 +50,10 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .control-panel{width:355px;min-width:355px;border-right:1px solid var(--bone-faint);padding:1.5rem 1.15rem;display:flex;flex-direction:column;gap:1.1rem;background:var(--charcoal);overflow-y:auto;transition:background .3s}
 .section-label{font-size:.46rem;letter-spacing:.2em;opacity:.4;margin-bottom:.4rem}
 .input-section{display:flex;flex-direction:column;gap:.4rem}
+.input-row{display:flex;gap:.5rem;align-items:flex-end}
+.input-row .trigger-input{flex:1}
+.surprise-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);color:var(--bone);width:36px;height:36px;font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.surprise-btn:hover{background:var(--gold-dim);border-color:var(--gold)}
 .trigger-input{background:transparent;color:var(--bone);border:none;border-bottom:1px solid var(--bone-faint);padding:.65rem 0;font-family:'Space Mono',monospace;font-size:.8rem;outline:none;transition:border-color .3s}
 .trigger-input::placeholder{color:rgba(232,228,223,.2);font-style:italic}
 .trigger-input:focus{border-bottom-color:var(--bone-dim)}
@@ -126,6 +130,16 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .export-toggle input:checked{border-color:var(--gold);background:var(--gold)}
 .export-toggle input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;color:var(--void)}
 .export-toggle:hover{color:var(--bone)}
+.caption-section{border-top:1px solid var(--bone-faint);padding-top:1rem;margin-bottom:1rem}
+.caption-label{font-size:.5rem;letter-spacing:.15em;opacity:.5;margin-bottom:.6rem}
+.caption-suggestions{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.6rem}
+.caption-item{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.6rem .8rem;font-size:.58rem;line-height:1.5;cursor:pointer;transition:all .2s;color:var(--bone-dim)}
+.caption-item:hover{background:var(--bone-faint);color:var(--bone);border-color:var(--bone-dim)}
+.caption-item.copied{border-color:var(--gold);color:var(--gold)}
+.hashtag-row{display:flex;flex-wrap:wrap;gap:.3rem}
+.hashtag{background:transparent;border:1px solid var(--bone-faint);padding:.3rem .5rem;font-size:.5rem;cursor:pointer;transition:all .2s;color:var(--bone-dim)}
+.hashtag:hover{background:var(--bone-ghost);color:var(--bone)}
+.hashtag.copied{border-color:var(--gold);color:var(--gold)}
 .toast{position:fixed;bottom:1.3rem;left:50%;transform:translateX(-50%) translateY(150%);background:var(--void);border:1px solid var(--gold);color:var(--bone);padding:.8rem 1.1rem;font-size:.5rem;letter-spacing:.1em;z-index:1001;transition:transform .4s;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast a{color:var(--gold);text-decoration:none;margin-left:.35rem}
@@ -217,7 +231,10 @@ footer a{color:var(--gold);text-decoration:none}
 <div class="control-panel" id="controlPanel">
 <div class="input-section">
 <div class="section-label">THEY SAID:</div>
+<div class="input-row">
 <input type="text" class="trigger-input" id="triggerInput" placeholder="Type what they said...">
+<button class="surprise-btn" id="surpriseBtn" title="Random trigger">🎲</button>
+</div>
 </div>
 <div class="triggers-section">
 <div class="section-label">COMMON TRIGGERS:</div>
@@ -298,6 +315,10 @@ footer a{color:var(--gold);text-decoration:none}
 <div class="export-toggles">
 <label class="export-toggle"><input type="checkbox" id="toggleQR" checked><span class="toggle-label">Include QR code</span></label>
 <label class="export-toggle"><input type="checkbox" id="toggleDual"><span class="toggle-label">Add "Why this hurts" card</span></label>
+</div>
+<div class="caption-section">
+<div class="caption-label">CAPTION (tap to copy)</div>
+<div class="caption-suggestions" id="captionSuggestions"></div>
 </div>
 <button class="export-close" id="exportClose">CANCEL</button>
 </div>
@@ -529,9 +550,70 @@ document.querySelectorAll('.tone-btn').forEach(btn=>{btn.addEventListener('click
 // Controls
 document.getElementById('newTakeBtn').addEventListener('click',()=>{if(currentTone)generateScene(currentTone);});
 document.getElementById('copyBtn').addEventListener('click',()=>{if(currentResponse){navigator.clipboard.writeText(currentResponse).then(()=>showToast('COPIED'));}});
-document.getElementById('exportBtn').addEventListener('click',()=>document.getElementById('exportOptions').classList.add('active'));
+document.getElementById('exportBtn').addEventListener('click',()=>{
+  generateCaptions();
+  document.getElementById('exportOptions').classList.add('active');
+});
 document.getElementById('exportClose').addEventListener('click',()=>document.getElementById('exportOptions').classList.remove('active'));
 document.getElementById('exportOptions').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
+
+// Surprise me button
+document.getElementById('surpriseBtn').addEventListener('click',()=>{
+  const randomTrigger=TRIGGERS[Math.floor(Math.random()*TRIGGERS.length)];
+  const randomPhrase=randomTrigger.triggers[Math.floor(Math.random()*randomTrigger.triggers.length)];
+  document.getElementById('triggerInput').value=randomPhrase;
+  // Auto-generate with random tone
+  const tones=['diplomat','critic','absurdist','realist'];
+  const randomTone=tones[Math.floor(Math.random()*tones.length)];
+  document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.tone-btn[data-tone="${randomTone}"]`).classList.add('active');
+  generateScene(randomTone);
+});
+
+// Caption suggestions
+const CAPTIONS=[
+  "Things people actually say to us. Here's what we wish we'd said back.",
+  "Filed under: comments that don't help.",
+  "For everyone who's heard this one before.",
+  "Words we've been saving.",
+  "What I wanted to say vs. what I said: finally aligned.",
+  "This one's for the well-meaning but clueless.",
+  "Boundaries, but make it articulate.",
+  "The script I needed years ago.",
+  "Not all comments deserve a polite response.",
+  "Sharing because someone needs to hear this isn't okay."
+];
+
+const CAPTIONS_EDUCATIONAL=[
+  "Sharing this to help people understand, not to call anyone out.",
+  "For those who want to support someone going through this—here's what actually helps.",
+  "Swipe to see why this comment hurts more than it helps.",
+  "Well-meaning doesn't always mean helpful. Here's what to know.",
+  "If you've said this, you're not alone. Here's how to do better."
+];
+
+function generateCaptions(){
+  const isDual=document.getElementById('toggleDual').checked;
+  const captionPool=isDual?[...CAPTIONS_EDUCATIONAL,...CAPTIONS.slice(0,3)]:CAPTIONS;
+  
+  // Pick 3 random captions
+  const shuffled=[...captionPool].sort(()=>Math.random()-0.5);
+  const selected=shuffled.slice(0,3);
+  
+  const container=document.getElementById('captionSuggestions');
+  container.innerHTML=selected.map(c=>`<div class="caption-item" onclick="copyCaption(this,'${c.replace(/'/g,"\\'")} #matterhood')">${c}</div>`).join('');
+}
+
+function copyCaption(el,text){
+  navigator.clipboard.writeText(text).then(()=>{
+    document.querySelectorAll('.caption-item').forEach(c=>c.classList.remove('copied'));
+    el.classList.add('copied');
+    showToast('CAPTION COPIED');
+  });
+}
+
+// Regenerate captions when dual toggle changes
+document.getElementById('toggleDual').addEventListener('change',generateCaptions);
 
 // Export formats
 document.querySelectorAll('.export-format-btn').forEach(btn=>{
