@@ -346,9 +346,109 @@ let usedResponses={};
 // Check tutorial on init
 if(localStorage.getItem('protocol_tutorial_v4'))document.getElementById('tutorialOverlay').classList.add('hidden');
 
-// Matching
+// Matching - Fuzzy search with multiple strategies
 function normalize(t){return t.toLowerCase().replace(/['']/g,"'").replace(/[""]/g,'"').replace(/[?!.,;:]/g,'').replace(/\s+/g,' ').trim();}
-function findMatch(input){const n=normalize(input);if(!n)return null;for(const t of TRIGGERS){for(const p of t.triggers){if(n.includes(normalize(p)))return t;}}let best=null,bestScore=0;for(const t of TRIGGERS){for(const p of t.triggers){const words=normalize(p).split(' ');let match=0;for(const w of words){if(n.includes(w))match++;}const score=match/words.length;if(score>bestScore&&score>=0.5){bestScore=score;best=t;}}}return best;}
+
+// Common filler words to ignore when matching
+const FILLER_WORDS=new Set(['a','an','the','you','your','i','my','we','our','just','really','actually','maybe','perhaps','ever','even','so','very','like','know','think','well','oh','um','uh','hey','but','and','or','if','then','have','has','had','do','does','did','should','could','would','can','will','been','being','gonna','gotta','wanna','dont','didnt','cant','wont','youre','youve','youll','ive','im','were','weve','thats','its','hes','shes','theyre','theyve']);
+
+// Remove filler words from text
+function removeFillers(text){
+  return text.split(' ').filter(w=>!FILLER_WORDS.has(w)).join(' ');
+}
+
+// Calculate similarity between two strings (0-1)
+function similarity(a,b){
+  if(a===b)return 1;
+  if(a.length<2||b.length<2)return 0;
+  
+  // Bigram similarity
+  const bigramsA=new Map();
+  for(let i=0;i<a.length-1;i++){
+    const bg=a.substring(i,i+2);
+    bigramsA.set(bg,(bigramsA.get(bg)||0)+1);
+  }
+  
+  let matches=0;
+  for(let i=0;i<b.length-1;i++){
+    const bg=b.substring(i,i+2);
+    if(bigramsA.get(bg)>0){
+      matches++;
+      bigramsA.set(bg,bigramsA.get(bg)-1);
+    }
+  }
+  
+  return (2*matches)/(a.length+b.length-2);
+}
+
+// Find best matching trigger
+function findMatch(input){
+  const n=normalize(input);
+  if(!n)return null;
+  
+  const nNoFill=removeFillers(n);
+  
+  let bestMatch=null;
+  let bestScore=0;
+  
+  for(const t of TRIGGERS){
+    for(const p of t.triggers){
+      const pattern=normalize(p);
+      const patternNoFill=removeFillers(pattern);
+      
+      // Strategy 1: Exact substring match (highest confidence)
+      if(n.includes(pattern)){
+        return t; // Exact match, return immediately
+      }
+      
+      // Strategy 2: Input contains pattern without fillers
+      if(nNoFill.includes(patternNoFill)&&patternNoFill.length>3){
+        const score=0.95;
+        if(score>bestScore){bestScore=score;bestMatch=t;}
+        continue;
+      }
+      
+      // Strategy 3: Pattern contained in input (user typed more)
+      if(n.includes(patternNoFill)&&patternNoFill.length>3){
+        const score=0.9;
+        if(score>bestScore){bestScore=score;bestMatch=t;}
+        continue;
+      }
+      
+      // Strategy 4: Word overlap scoring
+      const patternWords=patternNoFill.split(' ').filter(w=>w.length>2);
+      const inputWords=nNoFill.split(' ').filter(w=>w.length>2);
+      
+      if(patternWords.length>0){
+        let wordMatches=0;
+        for(const pw of patternWords){
+          for(const iw of inputWords){
+            // Exact word match
+            if(pw===iw){wordMatches++;break;}
+            // Fuzzy word match (for typos)
+            if(pw.length>3&&iw.length>3&&similarity(pw,iw)>0.7){
+              wordMatches+=0.8;break;
+            }
+          }
+        }
+        const score=wordMatches/patternWords.length;
+        if(score>bestScore&&score>=0.5){
+          bestScore=score;
+          bestMatch=t;
+        }
+      }
+      
+      // Strategy 5: Overall string similarity (catches typos)
+      const sim=similarity(nNoFill,patternNoFill);
+      if(sim>bestScore&&sim>=0.6){
+        bestScore=sim;
+        bestMatch=t;
+      }
+    }
+  }
+  
+  return bestMatch;
+}
 
 // Perspective swap
 function swapPerspective(text){
