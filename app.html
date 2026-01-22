@@ -165,9 +165,9 @@ footer a{color:var(--gold);text-decoration:none}
     position: relative;
     width: 100%;
     height: 100%; 
-    max-width: 450px; /* Slightly wider to match main card feel */
+    max-width: 450px;
     aspect-ratio: 9/16;
-    display: flex; /* Use flex to center the card */
+    display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -185,17 +185,16 @@ footer a{color:var(--gold);text-decoration:none}
 
 .animate-card {
     position: relative;
-    width: 88%; /* Consistent width */
+    width: 88%;
     background: var(--charcoal);
     border: 1px solid var(--bone-faint);
-    padding: 1.8rem; /* Match script-card padding */
+    padding: 1.8rem;
     display: flex;
     flex-direction: column;
     z-index: 10;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5); /* Add depth */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 
-/* Gold Bar match */
 .animate-card::before {
     content: '';
     position: absolute;
@@ -206,7 +205,6 @@ footer a{color:var(--gold);text-decoration:none}
     background: var(--gold);
 }
 
-/* Typography matching main site exactly */
 .animate-meta {
     display: flex;
     justify-content: space-between;
@@ -282,16 +280,15 @@ footer a{color:var(--gold);text-decoration:none}
     text-transform: uppercase;
 }
 
-/* Response Text - Larger and sharper like main site */
 .animate-response-text {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.2rem, 2.3vw, 1.65rem); /* Matches .script-text */
+    font-size: clamp(1.2rem, 2.3vw, 1.65rem);
     line-height: 1.4;
     color: var(--cream);
     min-height: 2.8rem;
 }
 
-/* Word wrapping fix */
+/* Word wrapping logic */
 .animate-response-text .word {
     display: inline-block;
     white-space: nowrap;
@@ -313,13 +310,13 @@ footer a{color:var(--gold);text-decoration:none}
     justify-content: space-between;
 }
 
-/* Controls at bottom of screen */
 .animate-controls {
     position: absolute;
     bottom: 2rem;
     display: flex;
     gap: 1rem;
     z-index: 20;
+    transition: opacity 0.5s ease;
 }
 
 .animate-hint {
@@ -331,6 +328,14 @@ footer a{color:var(--gold);text-decoration:none}
     opacity: 0.5;
     z-index: 20;
     text-transform: uppercase;
+    transition: opacity 0.5s ease;
+}
+
+/* Clean mode for recording */
+.animate-overlay.clean-mode .animate-controls,
+.animate-overlay.clean-mode .animate-hint {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Animations */
@@ -795,10 +800,17 @@ document.getElementById('exportBtn').addEventListener('click',()=>{
 document.getElementById('exportClose').addEventListener('click',()=>document.getElementById('exportOptions').classList.remove('active'));
 
 // Animation mode
-let animationTimeout=null;
+let animationTimeout = null;
+let uiTimeout = null;
+
 function playAnimation(){
   // Clear any running animation
   if(animationTimeout)clearTimeout(animationTimeout);
+  if(uiTimeout)clearTimeout(uiTimeout);
+  
+  // Enter clean mode (hide UI)
+  const overlay = document.getElementById('animateOverlay');
+  overlay.classList.add('clean-mode');
   
   // Set up scene
   document.getElementById('animateBg').style.backgroundImage=`url('${currentImageUrl}')`;
@@ -831,6 +843,12 @@ function playAnimation(){
   chars.forEach((char,i)=>{
     animationTimeout=setTimeout(()=>char.classList.add('show'),1400+i*35);
   });
+
+  // Exit clean mode after animation + buffer
+  const totalDuration = 1400 + (chars.length * 35) + 1500;
+  uiTimeout = setTimeout(() => {
+    overlay.classList.remove('clean-mode');
+  }, totalDuration);
 }
 
 document.getElementById('animateBtn').addEventListener('click',()=>{
@@ -841,6 +859,8 @@ document.getElementById('replayBtn').addEventListener('click',playAnimation);
 document.getElementById('animCloseBtn').addEventListener('click',()=>{
   document.getElementById('animateOverlay').classList.remove('active');
   if(animationTimeout)clearTimeout(animationTimeout);
+  if(uiTimeout)clearTimeout(uiTimeout);
+  document.getElementById('animateOverlay').classList.remove('clean-mode');
 });
 document.getElementById('exportOptions').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
 
