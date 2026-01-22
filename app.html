@@ -81,7 +81,6 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .tone-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);padding:.75rem .9rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;cursor:pointer;transition:all .25s;text-align:left;position:relative;display:flex;justify-content:space-between}
 .tone-btn::before{content:'';position:absolute;left:0;top:0;width:2px;height:100%;background:var(--gold);transform:scaleY(0);transition:transform .25s}
 .tone-btn:hover{background:var(--bone-ghost);padding-left:1rem}
-.tone-btn:hover::before{transform:scaleY(1)}
 .tone-btn.active{background:var(--bone);color:var(--void)}
 .tone-btn.active::before{background:var(--void);transform:scaleY(1)}
 .tone-desc{font-size:.46rem;opacity:.5}
@@ -146,7 +145,7 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
 footer a{color:var(--gold);text-decoration:none}
 
-/* Animation Overlay - Fixed Centering & Styling */
+/* Animation Overlay - Fixed Centering & Layout & Word Wrapping */
 .animate-overlay {
     position: fixed;
     inset: 0;
@@ -185,7 +184,7 @@ footer a{color:var(--gold);text-decoration:none}
 }
 
 .animate-card {
-    position: relative; /* Fixed: changed from absolute to relative */
+    position: relative;
     width: 88%; /* Consistent width */
     background: var(--charcoal);
     border: 1px solid var(--bone-faint);
@@ -292,6 +291,18 @@ footer a{color:var(--gold);text-decoration:none}
     min-height: 2.8rem;
 }
 
+/* Word wrapping fix */
+.animate-response-text .word {
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: 0.25em;
+}
+
+.animate-response-text .char {
+    opacity: 0;
+    display: inline-block;
+}
+
 .animate-footer {
     font-size: 0.46rem;
     letter-spacing: 0.15em;
@@ -325,11 +336,6 @@ footer a{color:var(--gold);text-decoration:none}
 /* Animations */
 .animate-subtext.show, .animate-trigger-text.show {
     animation: fadeUp 0.6s ease forwards;
-}
-
-.animate-response-text .char {
-    opacity: 0;
-    display: inline-block;
 }
 
 .animate-response-text .char.show {
@@ -554,8 +560,6 @@ footer a{color:var(--gold);text-decoration:none}
     <button class="control-btn" id="replayBtn">REPLAY</button>
     <button class="control-btn" id="animCloseBtn">CLOSE</button>
   </div>
-</div>
-<div class="animate-hint">Screen record this for your story</div>
 </div>
 </div>
 <footer>CRAIG & COURTNEY — <a href="#">BUY US A CHIP</a></footer>
@@ -803,9 +807,15 @@ function playAnimation(){
   document.getElementById('animSubtext').textContent=currentSubtext; // Prefix handled by CSS
   document.getElementById('animTrigger').textContent=currentTrigger;
   
-  // Wrap response in character spans
-  const responseEl=document.getElementById('animResponse');
-  responseEl.innerHTML=currentResponse.split('').map(c=>c===' '?` `:`<span class="char">${c}</span>`).join('');
+  // Wrap response in words, then character spans
+  const responseEl = document.getElementById('animResponse');
+  const words = currentResponse.split(' ');
+  const html = words.map(word => {
+    const chars = word.split('').map(c => `<span class="char">${c}</span>`).join('');
+    return `<span class="word">${chars}</span>`;
+  }).join(' ');
+  
+  responseEl.innerHTML = html;
   
   // Reset states
   document.getElementById('animSubtext').classList.remove('show');
