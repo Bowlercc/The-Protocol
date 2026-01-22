@@ -126,7 +126,7 @@
           "Adoption is a choice, not a solution to infertility. The grief remains either way."
         ],
         "hot": [
-          "'Just adopt' — as if children are waiting in a warehouse for anyone who asks. The process takes years and costs tens of thousands.",
+          "'Just adopt' \u2014 as if children are waiting in a warehouse for anyone who asks. The process takes years and costs tens of thousands.",
           "{I} love how 'just adopt' assumes adoption is both easy and a cure. It's neither.",
           "Adoption doesn't delete infertility. It's a separate path with its own complexity. But sure, 'just.'",
           "Would you tell someone who lost a limb to 'just get a prosthetic'? Same energy.",
@@ -252,7 +252,9 @@
           "The treatments failed. {We} didn't. But it took time to understand the difference."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This assumes IVF is a simple solution they haven't considered. In reality, many have already tried it\u2014sometimes multiple times\u2014at enormous emotional, physical, and financial cost. Others can't pursue it for medical, ethical, or financial reasons. The question reduces a complex, often traumatic journey to a checkbox.",
+    "what_to_know": "If someone wants to share their treatment path, they will. Instead of suggesting options, try: 'I'm here if you ever want to talk about it' or simply acknowledge how hard the journey is."
   },
   {
     "triggers": [
@@ -336,7 +338,9 @@
           "{We} can't stop trying our way out of this. It's not effort. It's biology."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Anecdotes about miraculous pregnancies imply that effort or attitude is the problem. They suggest the person should just 'let go' and magic will happen. This dismisses diagnosed medical conditions and years of treatment, reducing their experience to a mindset issue.",
+    "what_to_know": "Every situation is medically unique. What happened for one person has no bearing on another's diagnosis. These stories, however well-meaning, often add pressure rather than hope."
   },
   {
     "triggers": [
@@ -420,7 +424,9 @@
           "I explored every option. The condition outlasted them all."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Suggesting alternative treatments implies they haven't explored all options or that conventional medicine has failed due to lack of creativity. Many have tried everything\u2014acupuncture, supplements, diets\u2014while also pursuing medical treatment. The suggestion can feel like blame disguised as help.",
+    "what_to_know": "Trust that they're working with their doctors on a treatment plan. If you want to help, offer practical support\u2014a meal, a ride to an appointment, or just a listening ear."
   },
   {
     "triggers": [
@@ -505,7 +511,9 @@
           "{We} can't holiday {our} way out of this. But {we} can holiday {our} way through it, a little."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This suggests that relaxation or a change of scenery will solve a medical condition. It implies they're too stressed and that's the real problem. It also assumes they have the financial means and emotional bandwidth for travel while navigating fertility treatments.",
+    "what_to_know": "Holidays don't cure medical conditions. If you want to help them relax, offer something concrete\u2014watch their pet, bring them dinner, or simply spend time with them without bringing up fertility."
   },
   {
     "triggers": [
@@ -591,7 +599,9 @@
           "Food isn't the villain here. Biology is. But food can't argue back."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Diet suggestions imply that fertility struggles are caused by lifestyle choices and can be fixed with the right foods. This places blame on the person and oversimplifies complex medical realities. Many have already tried every dietary change with no result.",
+    "what_to_know": "Unless you're their doctor or dietitian, dietary advice isn't helpful. Most people navigating infertility have researched extensively. Support them by respecting their choices, not questioning them."
   },
   {
     "triggers": [
@@ -676,7 +686,9 @@
           "Pets help {us} live with the loss. They don't resolve it."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Suggesting a pet as a substitute for a child trivializes the deep desire for parenthood. It implies a dog can fill the same emotional role, dismissing the grief and longing they're experiencing. Pets are wonderful, but they're not a replacement for the family someone hoped to build.",
+    "what_to_know": "The desire for children isn't about needing 'something to care for.' Acknowledge their loss rather than offering substitutes. Simply saying 'I'm sorry this is so hard' goes much further."
   },
   {
     "triggers": [
@@ -761,7 +773,9 @@
           "Another doctor would give {us} the same news more expensively. {We}'ve accepted what is."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This implies they haven't advocated for themselves or found competent care. Many have seen multiple specialists, sought second opinions, and done extensive research. The suggestion questions their judgment and effort during an already exhausting process.",
+    "what_to_know": "Trust that they're making informed decisions about their care. If they want advice on doctors, they'll ask. Otherwise, support the path they're on."
   },
   {
     "triggers": [
@@ -844,7 +858,9 @@
           "{We} explored every path. Some were closed. {We're} learning to live with the doors that didn't open."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Surrogacy is legally complex, emotionally intense, and can cost $100,000+. Suggesting it casually shows a lack of understanding of what's involved. It also implies that the 'obvious' solutions haven't been considered, when they almost certainly have.",
+    "what_to_know": "Family-building options are deeply personal decisions involving medical, financial, legal, and emotional factors. Let them lead any conversation about their path forward."
   },
   {
     "triggers": [
@@ -928,7 +944,9 @@
           "{I} drank the tea. {I} took the supplements. {I} did the yoga. The biology didn't change."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Suggesting teas, supplements, or miracle cures implies that medical treatment isn't enough\u2014or that the person hasn't tried hard enough. It reduces complex reproductive medicine to folklore and can feel dismissive of the real treatments they're undergoing.",
+    "what_to_know": "People navigating infertility are typically well-researched and working with specialists. Unproven remedies suggested casually can feel belittling. Offer support, not solutions."
   },
   {
     "triggers": [
@@ -1012,7 +1030,9 @@
           "The thinking isn't the problem. The problem is what {we}'re thinking about."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This places blame on the person's mental state, suggesting their thoughts are causing the problem. It dismisses the medical reality and implies they could succeed if they just 'got out of their head.' It's a form of gaslighting that adds guilt to grief.",
+    "what_to_know": "Infertility has medical causes\u2014it's not caused by thinking too much. Acknowledge the difficulty without suggesting their mindset is the problem."
   },
   {
     "triggers": [
@@ -1183,7 +1203,9 @@
           "{We} gave up on the universe providing. Now {we} provide for ourselves."
         ]
       }
-    }
+    },
+    "why_it_hurts": "While meant supportively, manifestation language implies that positive thinking creates outcomes\u2014which means negative outcomes come from negative thinking. This adds guilt and magical thinking to an already painful situation.",
+    "what_to_know": "Support doesn't require manifesting or positive vibes. Simply being present and acknowledging their reality is more helpful than spiritual bypassing."
   },
   {
     "triggers": [
@@ -1261,13 +1283,15 @@
         ],
         "hot": [
           "There's no one waiting. There's just {us}, and the life {we}'re building from what remains.",
-          "{We} stopped waiting for a soul and started living with the ones {we} have—our own.",
+          "{We} stopped waiting for a soul and started living with the ones {we} have\u2014our own.",
           "The 'waiting baby' narrative kept {us} hoping. Letting it go let {us} live.",
           "No one is waiting for {us}. {We}'re not waiting either. Not anymore.",
           "{We} grieved the imagined child. Believing they're 'waiting' prolonged the grief."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Spiritual platitudes about destined babies add pressure and imply a cosmic plan that makes their suffering meaningful. For those who may never have children, it suggests they're failing to receive what the universe has 'planned.' It's false comfort that can deepen pain.",
+    "what_to_know": "Not everyone believes in destiny, and even those who do may not find comfort in this framing. Acknowledge uncertainty rather than promising outcomes you can't guarantee."
   },
   {
     "triggers": [
@@ -1351,7 +1375,9 @@
           "Belief is one chapter. Loss is another. Acceptance is where {we} live now."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Religious or spiritual advice assumes shared beliefs and implies that more faith would change the outcome. It can make someone feel their faith is being questioned or that they're not praying hard enough. It spiritualizes a medical condition.",
+    "what_to_know": "Faith is personal. If someone finds comfort in spirituality, they'll draw on it themselves. Offer presence, not prescriptions for how they should feel or believe."
   },
   {
     "triggers": [
@@ -1435,7 +1461,9 @@
           "The disposable income is consolation for the indisposable grief."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This assumes childlessness means wealth, ignoring that many have spent their savings on treatments. It dismisses their grief by suggesting they should be grateful for money. It reframes loss as a lifestyle choice with perks.",
+    "what_to_know": "You don't know someone's financial situation or what they've spent trying to build a family. Don't assume childlessness comes with financial benefits\u2014for many, it came with financial devastation."
   },
   {
     "triggers": [
@@ -1519,7 +1547,9 @@
           "{We} sleep. {We} also dream about the children {we} didn't have. Restful isn't the word."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Envying someone's sleep trivializes their loss. Many would trade every sleep-in for the chance to be woken by a child. These comments reframe grief as a lifestyle perk and dismiss the emptiness they feel.",
+    "what_to_know": "What looks like freedom from the outside often feels like absence. Don't assume they're enjoying the things they have because of what they're missing."
   },
   {
     "triggers": [
@@ -1603,7 +1633,9 @@
           "Work is the answer to the question 'what do {we} do now?' It's not the life {we} planned."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Suggesting work can substitute for a child dismisses the desire for parenthood and reduces their life to career achievements. It implies they should redirect their maternal/paternal instincts to spreadsheets. Work fulfillment and family fulfillment aren't interchangeable.",
+    "what_to_know": "Career success doesn't fill the space meant for family. Acknowledge that someone can be professionally accomplished and still grieve the family they wanted."
   },
   {
     "triggers": [
@@ -1687,7 +1719,9 @@
           "What you see as burden {I} see as everything {I} wanted. The joke doesn't translate."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This 'joke' is never funny to someone longing for a child. It trivializes their pain while complaining about the very thing they desperately want. It creates distance by showing you don't understand the weight of what they're carrying.",
+    "what_to_know": "Parenting is hard, but joking about giving away your children to someone struggling with infertility is cruel, even if unintentionally. Save the venting for someone who isn't grieving childlessness."
   },
   {
     "triggers": [
@@ -1771,7 +1805,9 @@
           "{We} can't travel {our} way out of loss. But {we} can travel {our} way through it."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Assuming freedom to travel is a silver lining dismisses the grief behind the flexibility. Many would give up every vacation for the family they wanted. It reframes loss as lifestyle gain.",
+    "what_to_know": "Travel doesn't compensate for childlessness. Don't assume someone is enjoying their circumstances just because they're making the best of them."
   },
   {
     "triggers": [
@@ -1855,7 +1891,9 @@
           "{We} find purpose in what {we} have. It doesn't look like what {we} planned. But it's real."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This is a direct statement that their life lacks meaning without children. It's cruel, dismissive of everything else they are and do, and confirms their worst fears about how others see them.",
+    "what_to_know": "A life without children is not empty. People build meaningful lives in many ways. This comment reveals more about your assumptions than their reality."
   },
   {
     "triggers": [
@@ -1940,7 +1978,9 @@
           "The 'fault' question doesn't have a useful answer. {We} moved on from it."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Asking who is 'at fault' treats infertility as blame to be assigned. It's invasive, medically reductive, and often unanswerable\u2014many cases are unexplained or involve both partners. It adds shame to an already painful situation.",
+    "what_to_know": "Infertility isn't about fault. It's a medical condition, not a blame game. Never ask someone to identify who is 'the problem.'"
   },
   {
     "triggers": [
@@ -2025,7 +2065,9 @@
           "That's a condition with a clinical name and emotional weight. The jokes don't lighten it."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This crude phrase reduces male infertility to a joke, adding shame to an already stigmatized topic. It dismisses real medical conditions and can be deeply humiliating. Male infertility is often suffered in silence partly because of comments like this.",
+    "what_to_know": "Male factor infertility is a medical condition, not a punchline. Comments like this perpetuate shame and make it harder for men to seek support."
   },
   {
     "triggers": [
@@ -2110,7 +2152,9 @@
           "{We} tried for years. The outcome wasn't what {we} wanted. {We}'ve made peace."
         ]
       }
-    }
+    },
+    "why_it_hurts": "A casual question that can cut deeply. For those struggling with infertility or childlessness, it forces a split-second decision: lie, deflect, or expose their grief to a stranger. It's a reminder of what they don't have.",
+    "what_to_know": "This question is often unavoidable in social contexts, but be prepared for it to land differently than expected. If someone seems uncomfortable, don't press. Let them share what they choose."
   },
   {
     "triggers": [
@@ -2195,7 +2239,9 @@
           "We lived by the calendar for years. The calendar wasn't the problem."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Referencing biological clocks adds pressure to an already urgent situation. It implies they don't know time is passing, when they're acutely aware of every cycle, every month, every birthday. It's panic dressed as concern.",
+    "what_to_know": "People navigating fertility are deeply aware of time. Reminding them adds pressure without helping. Trust they're making decisions with full knowledge of their timeline."
   },
   {
     "triggers": [
@@ -2279,7 +2325,9 @@
           "{We} can't put a price on trying for something {we} wanted this badly. But the clinic did."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Asking about fertility treatment costs is invasive and reduces their journey to a financial transaction. Many have spent tens or hundreds of thousands of dollars\u2014this question can surface grief, shame, and financial trauma.",
+    "what_to_know": "Medical costs are private. If someone wants to discuss the financial burden of infertility, they'll bring it up. Don't ask."
   },
   {
     "triggers": [
@@ -2363,7 +2411,9 @@
           "The pill is not the villain. Biology is. But biology can't be blamed in conversation."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This myth blames the person for their infertility by suggesting past contraception caused it. It's medically inaccurate and adds guilt to grief. Birth control does not cause infertility.",
+    "what_to_know": "Birth control does not cause infertility\u2014this is a harmful myth. Don't spread misinformation that makes people blame themselves for medical conditions."
   },
   {
     "triggers": [
@@ -2447,7 +2497,9 @@
           "The absence of grandchildren is a shared loss. {Our} parents grieve with {us}, not at {us}."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This frames reproduction as an obligation to others, adding family pressure to personal grief. It dismisses their own desires and struggles, making them feel like they're failing not just themselves but their entire family.",
+    "what_to_know": "Having children is a personal decision, not a family duty. Pressuring someone adds guilt to an already heavy burden. Support their journey without adding expectations."
   },
   {
     "triggers": [
@@ -2531,7 +2583,9 @@
           "{We} can't guarantee anyone will care for {us}. Neither can parents. {We've} made peace with that."
         ]
       }
-    }
+    },
+    "why_it_hurts": "This fear-based question suggests childlessness means a lonely, uncared-for old age. It adds anxiety about the future to present grief and implies children are primarily insurance policies for eldercare.",
+    "what_to_know": "People build support networks in many ways. Children don't guarantee care in old age, and childlessness doesn't guarantee loneliness. Don't project fears onto someone already grieving."
   },
   {
     "triggers": [
@@ -2615,7 +2669,9 @@
           "{We}'ve processed more grief than you know. Regret isn't what comes next."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Warning someone they'll regret not having children assumes they have a choice, when many don't. It dismisses their grief and adds fear of future regret to present pain. It's presumptuous and unkind.",
+    "what_to_know": "You can't predict someone else's future feelings. Many childless people live fulfilling, regret-free lives. And for those who wanted children but couldn't have them, the regret framing adds insult to injury."
   },
   {
     "triggers": [
@@ -2699,7 +2755,9 @@
           "{We}'ve grieved the line ending. Now {we} focus on what {we} can leave behind."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Framing childlessness as ending a lineage adds ancestral guilt to personal grief. It makes the person feel responsible for failing generations past and future, as if their worth is tied to reproduction.",
+    "what_to_know": "Legacy isn't only genetic. People contribute to family and community in countless ways. Don't reduce someone's value to their reproductive capacity."
   },
   {
     "triggers": [
@@ -2783,7 +2841,9 @@
           "Holidays aren't what {we} planned. They're what {we} have. {We} make them meaningful."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Comments like this exclude childless people from joy and celebration. It implies holidays are meaningless without kids, adding isolation to grief during already difficult times of year.",
+    "what_to_know": "Holidays can be hard for those struggling with childlessness. Include them without conditions. Joy isn't reserved for parents."
   },
   {
     "triggers": [
@@ -2867,7 +2927,9 @@
           "The things matter less than the impact. {We}'ve made peace with where both go."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Reducing legacy to inheritance makes childlessness about assets rather than love and connection. It's coldly transactional and dismisses the emotional weight of not having children.",
+    "what_to_know": "Legacy is about more than passing down possessions. Don't reduce someone's grief to a question of estate planning."
   },
   {
     "triggers": [
@@ -2951,7 +3013,9 @@
           "{We}'re free. {We}'re also grieving. Both are permanent residents here."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Silver-lining someone's grief dismisses their pain. The 'freedom' of childlessness often feels like emptiness. Reframing loss as liberation denies them the right to grieve what they wanted.",
+    "what_to_know": "Don't tell someone what's good about their painful situation. Acknowledge the loss without trying to find an upside. Sometimes there isn't one."
   },
   {
     "triggers": [
@@ -3035,7 +3099,9 @@
           "{My} perspective is different. It's still valid."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Excluding someone from conversations about parenting or children because they 'wouldn't understand' is isolating and dismissive. It suggests their experiences and empathy are less valid because they don't have kids.",
+    "what_to_know": "Childless people understand more than you might assume. Many have deep experience with children through family, work, or community. Don't exclude them from conversations or assume they can't relate."
   },
   {
     "triggers": [
@@ -3119,7 +3185,9 @@
           "The difficulties of parenting would have been welcome difficulties. {We} didn't get them."
         ]
       }
-    }
+    },
+    "why_it_hurts": "Complaining about children to someone who desperately wants them is painful. It can feel like complaining about winning the lottery to someone who lost everything trying to win. It dismisses their longing by treating parenthood as a burden.",
+    "what_to_know": "Parenting is hard, but be mindful of your audience. Someone grieving childlessness isn't the right person to vent to about the challenges of raising kids."
   },
   {
     "triggers": [
@@ -3202,6 +3270,8 @@
           "The relationship is strong. The grief is also strong. {We} live with both."
         ]
       }
-    }
+    },
+    "why_it_hurts": "While meant as comfort, this minimizes the grief by suggesting a partner compensates for a child. Many couples' relationships are strained by infertility. And for some, the pain is precisely that they wanted to share parenthood together.",
+    "what_to_know": "Partnership and parenthood are different desires. Having a loving relationship doesn't erase the grief of childlessness. Acknowledge both can coexist."
   }
 ]
