@@ -145,29 +145,34 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .toast a{color:var(--gold);text-decoration:none;margin-left:.35rem}
 footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
 footer a{color:var(--gold);text-decoration:none}
-/* Animation Overlay */
+
+/* Animation Overlay - Updated to match card style */
 .animate-overlay{position:fixed;inset:0;background:var(--void);z-index:2000;display:none;flex-direction:column;align-items:center;justify-content:center}
 .animate-overlay.active{display:flex}
 .animate-scene{position:relative;width:100%;max-width:400px;aspect-ratio:9/16;overflow:hidden}
 .animate-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.3;filter:grayscale(100%)}
-.animate-card{position:absolute;bottom:8%;left:5%;right:5%;background:rgba(8,8,8,.92);border:1px solid var(--bone-faint);padding:1.5rem;display:flex;flex-direction:column;gap:.8rem}
-.animate-meta{display:flex;justify-content:space-between;font-size:.6rem;letter-spacing:.15em;color:var(--bone-dim);padding-bottom:.6rem;border-bottom:1px solid var(--bone-faint)}
-.animate-spice{color:var(--gold)}
-.animate-subtext{font-size:.7rem;font-style:italic;color:var(--gold);opacity:0;transform:translateY(10px)}
+.animate-card{position:absolute;bottom:8%;left:5%;right:5%;background:var(--charcoal);border:1px solid var(--bone-faint);padding:1.5rem;display:flex;flex-direction:column;position:relative}
+.animate-card::before{content:'';position:absolute;top:0;left:0;width:40px;height:2px;background:var(--gold)}
+.animate-meta{display:flex;justify-content:space-between;font-size:.46rem;letter-spacing:.15em;color:var(--bone-dim);padding-bottom:.75rem;border-bottom:1px solid var(--bone-faint);margin-bottom:1rem;opacity:.6}
+.animate-spice{color:var(--gold);letter-spacing:.1em}
+.animate-subtext{font-size:.5rem;letter-spacing:.08em;color:var(--gold);margin-bottom:1.1rem;font-style:italic;opacity:0;transform:translateY(10px)}
+.animate-subtext::before{content:'SUBTEXT: ';opacity:.5;font-style:normal}
 .animate-subtext.show{animation:fadeUp .6s ease forwards}
-.animate-trigger{display:flex;flex-direction:column;gap:.25rem}
-.animate-label{font-size:.55rem;letter-spacing:.15em;color:var(--bone-dim)}
-.animate-trigger-text{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--bone);opacity:0}
+.animate-trigger-wrapper{margin-bottom:.95rem}
+.animate-label{display:block;font-size:.46rem;opacity:.4;margin-bottom:.28rem;letter-spacing:.2em;color:var(--bone)}
+.animate-trigger-text{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--bone-dim);letter-spacing:.05em;line-height:1.6;opacity:0}
 .animate-trigger-text.show{animation:fadeUp .5s ease forwards}
-.animate-response{display:flex;flex-direction:column;gap:.35rem}
-.animate-response-text{font-family:'Playfair Display',serif;font-size:1.4rem;line-height:1.35;color:var(--cream);min-height:2.8rem}
+.animate-response-wrapper{margin-bottom:1.3rem}
+.animate-label-gold{font-size:.46rem;color:var(--gold);margin-bottom:.55rem;letter-spacing:.2em}
+.animate-response-text{font-family:'Playfair Display',serif;font-size:1.4rem;line-height:1.4;color:var(--cream);min-height:2.8rem}
 .animate-response-text .char{opacity:0;display:inline-block}
 .animate-response-text .char.show{animation:charIn .05s ease forwards}
-.animate-footer{display:flex;justify-content:space-between;font-size:.5rem;letter-spacing:.15em;color:var(--bone-dim);opacity:.5;padding-top:.6rem;border-top:1px solid var(--bone-faint)}
+.animate-footer{display:flex;justify-content:space-between;font-size:.46rem;letter-spacing:.15em;color:var(--bone-dim);opacity:.25;padding-top:.95rem;border-top:1px solid var(--bone-faint)}
 .animate-controls{display:flex;gap:1rem;margin-top:1.5rem}
 .animate-hint{font-size:.6rem;letter-spacing:.15em;color:var(--bone-dim);opacity:.5;margin-top:1rem}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes charIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
 @media(max-width:900px){
 .logo-sub{display:none}
 .main-content{flex-direction:column}
@@ -357,12 +362,12 @@ footer a{color:var(--gold);text-decoration:none}
 <span class="animate-spice" id="animSpice"></span>
 </div>
 <div class="animate-subtext" id="animSubtext"></div>
-<div class="animate-trigger">
+<div class="animate-trigger-wrapper">
 <span class="animate-label">THEY SAID:</span>
 <span class="animate-trigger-text" id="animTrigger"></span>
 </div>
-<div class="animate-response">
-<div class="animate-label">YOU SAY:</div>
+<div class="animate-response-wrapper">
+<div class="animate-label-gold">YOU SAY:</div>
 <div class="animate-response-text" id="animResponse"></div>
 </div>
 <div class="animate-footer">
@@ -620,7 +625,7 @@ function playAnimation(){
   document.getElementById('animateBg').style.backgroundImage=`url('${currentImageUrl}')`;
   document.getElementById('animContext').textContent=CONTEXT_LABELS[context];
   document.getElementById('animSpice').textContent=SPICE_LABELS[spice];
-  document.getElementById('animSubtext').textContent=currentSubtext;
+  document.getElementById('animSubtext').textContent=currentSubtext; // Prefix handled by CSS
   document.getElementById('animTrigger').textContent=currentTrigger;
   
   // Wrap response in character spans
