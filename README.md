@@ -2,7 +2,7 @@
 
 **A response toolkit for the infertility and childlessness community.**
 
-When someone says "just relax" or "have you tried adopting?" — you'll have words ready.
+When someone says "just relax" or "have you tried adopting?", you'll have words ready.
 
 ---
 
@@ -16,7 +16,7 @@ It provides calibrated responses across:
 - **2 perspectives**: I (individual) or We (couple)
 - **4 contexts**: Stranger, Family, Colleague, Medical
 
-The goal isn't to blow up relationships — it's to educate, set boundaries, and help people feel seen.
+The goal isn't to blow up relationships, it's to educate, set boundaries, and help people feel seen.
 
 ---
 
@@ -126,7 +126,7 @@ Each trigger in `triggers.json` follows this schema:
 | Field | Description | Required |
 |-------|-------------|----------|
 | `triggers` | Array of phrases that match this trigger (first is primary) | ✅ Yes |
-| `subtext` | The implied meaning — what they're really saying | ✅ Yes |
+| `subtext` | The implied meaning, what they're really saying | ✅ Yes |
 | `image` | Unsplash URL for background (grayscale filtered in app) | ✅ Yes |
 | `why_it_hurts` | Explanation for the "Why this hurts" education card | ⚠️ Optional* |
 | `what_to_know` | What helps instead, for the education card | ⚠️ Optional* |
@@ -301,7 +301,7 @@ Add a new object to the `triggers.json` array:
 
 ## Deployment
 
-The Protocol is static HTML/CSS/JS — no server required.
+The Protocol is static HTML/CSS/JS, no server required.
 
 ### Options
 
@@ -361,7 +361,7 @@ The responses are designed to:
 
 ### The Subtext Matters
 
-Every trigger includes a "subtext" — the hidden meaning. This helps users understand *why* the comment stings, not just *that* it does.
+Every trigger includes a "subtext", the hidden meaning. This helps users understand *why* the comment stings, not just *that* it does.
 
 ### Multiple Valid Responses
 
