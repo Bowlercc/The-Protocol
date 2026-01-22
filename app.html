@@ -58,7 +58,11 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .trigger-input::placeholder{color:rgba(232,228,223,.2);font-style:italic}
 .trigger-input:focus{border-bottom-color:var(--bone-dim)}
 .triggers-section{display:flex;flex-direction:column;gap:.4rem}
-.triggers-grid{display:flex;flex-wrap:wrap;gap:.28rem}
+.triggers-grid{display:flex;flex-wrap:wrap;gap:.28rem;max-height:120px;overflow-y:auto;padding-right:.3rem}
+.triggers-grid::-webkit-scrollbar{width:4px}
+.triggers-grid::-webkit-scrollbar-track{background:var(--bone-ghost);border-radius:2px}
+.triggers-grid::-webkit-scrollbar-thumb{background:var(--bone-faint);border-radius:2px}
+.triggers-grid::-webkit-scrollbar-thumb:hover{background:var(--bone-dim)}
 .trigger-chip{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.38rem .55rem;font-size:.62rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace}
 .trigger-chip:hover{background:var(--bone-faint);color:var(--bone)}
 .config-row{display:flex;gap:.6rem;flex-wrap:wrap}
@@ -136,10 +140,6 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .caption-item{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.6rem .8rem;font-size:.58rem;line-height:1.5;cursor:pointer;transition:all .2s;color:var(--bone-dim)}
 .caption-item:hover{background:var(--bone-faint);color:var(--bone);border-color:var(--bone-dim)}
 .caption-item.copied{border-color:var(--gold);color:var(--gold)}
-.hashtag-row{display:flex;flex-wrap:wrap;gap:.3rem}
-.hashtag{background:transparent;border:1px solid var(--bone-faint);padding:.3rem .5rem;font-size:.5rem;cursor:pointer;transition:all .2s;color:var(--bone-dim)}
-.hashtag:hover{background:var(--bone-ghost);color:var(--bone)}
-.hashtag.copied{border-color:var(--gold);color:var(--gold)}
 .toast{position:fixed;bottom:1.3rem;left:50%;transform:translateX(-50%) translateY(150%);background:var(--void);border:1px solid var(--gold);color:var(--bone);padding:.8rem 1.1rem;font-size:.5rem;letter-spacing:.1em;z-index:1001;transition:transform .4s;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast a{color:var(--gold);text-decoration:none;margin-left:.35rem}
@@ -562,7 +562,32 @@ document.getElementById('surpriseBtn').addEventListener('click',()=>{
   const randomTrigger=TRIGGERS[Math.floor(Math.random()*TRIGGERS.length)];
   const randomPhrase=randomTrigger.triggers[Math.floor(Math.random()*randomTrigger.triggers.length)];
   document.getElementById('triggerInput').value=randomPhrase;
-  // Auto-generate with random tone
+  
+  // Randomize context
+  const contexts=['stranger','family','colleague','medical'];
+  const randomContext=contexts[Math.floor(Math.random()*contexts.length)];
+  context=randomContext;
+  document.querySelectorAll('#contextGroup .toggle-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.context===randomContext);
+  });
+  
+  // Randomize spice
+  const spices=['mild','medium','hot'];
+  const randomSpice=spices[Math.floor(Math.random()*spices.length)];
+  spice=randomSpice;
+  document.querySelectorAll('#spiceGroup .spice-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.spice===randomSpice);
+  });
+  
+  // Randomize perspective
+  const perspectives=['i','we'];
+  const randomPerspective=perspectives[Math.floor(Math.random()*perspectives.length)];
+  perspective=randomPerspective;
+  document.querySelectorAll('#perspectiveGroup .toggle-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.perspective===randomPerspective);
+  });
+  
+  // Randomize tone and generate
   const tones=['diplomat','critic','absurdist','realist'];
   const randomTone=tones[Math.floor(Math.random()*tones.length)];
   document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));
@@ -601,14 +626,21 @@ function generateCaptions(){
   const selected=shuffled.slice(0,3);
   
   const container=document.getElementById('captionSuggestions');
-  container.innerHTML=selected.map(c=>`<div class="caption-item" onclick="copyCaption(this,'${c.replace(/'/g,"\\'")} #matterhood')">${c}</div>`).join('');
-}
-
-function copyCaption(el,text){
-  navigator.clipboard.writeText(text).then(()=>{
-    document.querySelectorAll('.caption-item').forEach(c=>c.classList.remove('copied'));
-    el.classList.add('copied');
-    showToast('CAPTION COPIED');
+  container.innerHTML=selected.map((c,i)=>`<div class="caption-item" data-caption-index="${i}">${c}</div>`).join('');
+  
+  // Store captions for copying
+  container.captionData=selected;
+  
+  // Add click handlers
+  container.querySelectorAll('.caption-item').forEach((el,i)=>{
+    el.addEventListener('click',()=>{
+      const text=selected[i]+' #matterhood';
+      navigator.clipboard.writeText(text).then(()=>{
+        container.querySelectorAll('.caption-item').forEach(c=>c.classList.remove('copied'));
+        el.classList.add('copied');
+        showToast('CAPTION COPIED');
+      });
+    });
   });
 }
 
