@@ -16,7 +16,6 @@ body{font-family:'Space Mono',monospace;background:var(--void);color:var(--bone)
 .film-grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .4s steps(1) infinite}
 [data-theme="light"] .film-grain{opacity:0.015}
 @keyframes grain{0%,100%{transform:translate(0)}25%{transform:translate(-2%,-2%)}50%{transform:translate(2%,2%)}75%{transform:translate(-2%,2%)}}
-/* ... [Tutorial Styles Omitted for Brevity - Keeping Existing] ... */
 .tutorial-overlay{position:fixed;inset:0;background:var(--void);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .5s,background .3s}
 .tutorial-overlay.hidden{opacity:0;pointer-events:none}
 .tutorial-content{max-width:540px;padding:2.5rem;text-align:center}
@@ -35,7 +34,6 @@ body{font-family:'Space Mono',monospace;background:var(--void);color:var(--bone)
 .tutorial-dots{display:flex;justify-content:center;gap:.38rem;margin-top:1.35rem}
 .tutorial-dot{width:5px;height:5px;border-radius:50%;background:var(--bone-faint)}
 .tutorial-dot.active{background:var(--gold)}
-
 .container{min-height:100vh;display:flex;flex-direction:column}
 header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--void);backdrop-filter:blur(12px);z-index:100;transition:background .3s}
 [data-theme="light"] header{background:rgba(248,246,243,.95)}
@@ -144,7 +142,6 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .script-card.style-noir .script-subtext { color: #fff; opacity: 0.6; }
 .script-card.style-noir .script-footer { border-top: 1px solid #333; color: #666; }
 
-
 .script-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bone-faint)}
 .script-context{font-size:.46rem;letter-spacing:.15em;opacity:.4}
 .script-spice{font-size:.46rem;letter-spacing:.1em;color:var(--gold)}
@@ -193,7 +190,7 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
 footer a{color:var(--gold);text-decoration:none}
 
-/* Animation Overlay - Fixed Centering & Layout & Word Wrapping */
+/* Animation Overlay - Fixed Centering & Styling */
 .animate-overlay {
     position: fixed;
     inset: 0;
@@ -523,12 +520,16 @@ footer a{color:var(--gold);text-decoration:none}
 </div>
 <div class="config-row">
 <div class="config-group">
-<div class="section-label">CONTEXT:</div>
-<div class="toggle-group" id="stanceGroup">
-<button class="toggle-btn active" data-stance="involuntary">CIRCUMSTANCE</button>
-<button class="toggle-btn" data-stance="voluntary">CHOICE</button>
+<div class="section-label">THEY ARE:</div>
+<div class="toggle-group" id="contextGroup">
+<button class="toggle-btn active" data-context="stranger">STRANGER</button>
+<button class="toggle-btn" data-context="family">FAMILY</button>
+<button class="toggle-btn" data-context="colleague">COLLEAGUE</button>
+<button class="toggle-btn" data-context="medical">MEDICAL</button>
 </div>
 </div>
+</div>
+<div class="config-row">
 <div class="config-group">
 <div class="section-label">STYLE:</div>
 <div class="toggle-group" id="styleGroup">
@@ -685,7 +686,7 @@ const CONTEXT_LABELS={stranger:"STRANGER",family:"FAMILY",colleague:"COLLEAGUE",
 const SPICE_LABELS={mild:"MILD",medium:"MEDIUM",hot:"HOT"};
 
 let currentTone=null,currentTrigger=null,currentResponse=null,currentImageUrl='',currentSubtext='',currentMatchedTrigger=null;
-let context='stranger',spice='medium',perspective='we',stance='involuntary',currentStyle='protocol';
+let context='stranger',spice='medium',perspective='we',currentStyle='protocol';
 let usedResponses={};
 
 // Check tutorial on init
@@ -804,7 +805,7 @@ return text.replace(/\{We're\}/g,"We're").replace(/\{we're\}/g,"we're").replace(
 }}
 
 // Get response key
-function getResponseKey(trigger,tone,spiceLevel){return `${trigger.triggers[0]}-${tone}-${spiceLevel}-${stance}`;}
+function getResponseKey(trigger,tone,spiceLevel){return `${trigger.triggers[0]}-${tone}-${spiceLevel}`;}
 
 // Get random response
 function getRandomResponse(variants,key){
@@ -824,23 +825,15 @@ const input=document.getElementById('triggerInput').value.trim();
 if(!input){document.getElementById('triggerInput').focus();return;}
 currentTone=tone;
 const match=findMatch(input);
-
+currentMatchedTrigger=match;
 if(match){
-  const content = match['content_' + stance] || match['content_involuntary'];
-  currentSubtext = content.why_it_hurts || match.subtext;
-  
-  currentMatchedTrigger = {
-      ...match,
-      why_it_hurts: content.why_it_hurts,
-      what_to_know: content.what_to_know
-  };
-
-  const toneResponses = content.responses[tone];
-  const variants = toneResponses[spice] || toneResponses.medium;
-  const key = getResponseKey(match, tone, spice);
-  const rawResponse = Array.isArray(variants) ? getRandomResponse(variants, key) : variants;
-  currentResponse = swapPerspective(rawResponse);
-  setBackground(match.image);
+currentSubtext=match.subtext;
+const toneResponses=match.responses[tone];
+const variants=toneResponses[spice]||toneResponses.medium;
+const key=getResponseKey(match,tone,spice);
+const rawResponse=Array.isArray(variants)?getRandomResponse(variants,key):variants;
+currentResponse=swapPerspective(rawResponse);
+setBackground(match.image);
 }else{
 currentSubtext="A question that doesn't deserve this much thought.";
 const fallbacks=["Some questions don't deserve answers. This is one of them.","Not every question deserves {our} energy.","That one's not in {our} script. For good reason.","{We} don't have a rehearsed response for that."];
@@ -868,16 +861,18 @@ document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).for
 btn.addEventListener('click',()=>{
 document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(b=>b.classList.remove('active'));
 btn.classList.add('active');
-callback(btn.dataset.context||btn.dataset.spice||btn.dataset.perspective||btn.dataset.stance||btn.dataset.style);
+callback(btn.dataset.context||btn.dataset.spice||btn.dataset.perspective||btn.dataset.style);
 });});}
 setupToggles('contextGroup',v=>{context=v;});
-setupToggles('stanceGroup',v=>{stance=v;});
 setupToggles('spiceGroup',v=>{spice=v;});
 setupToggles('perspectiveGroup',v=>{perspective=v;});
 setupToggles('styleGroup',v=>{
     currentStyle=v;
     document.getElementById('scriptCard').className = `script-card active style-${v}`;
-    document.getElementById('animateCard').className = `animate-card style-${v}`;
+    // Remove clean-mode when changing style to ensure controls are visible
+    const animateOverlay = document.getElementById('animateOverlay');
+    animateOverlay.className = `animate-overlay active style-${v}`; 
+    document.querySelector('.animate-card').className = `animate-card style-${v}`;
 });
 
 // Chips
@@ -948,7 +943,10 @@ function playAnimation(){
 }
 
 document.getElementById('animateBtn').addEventListener('click',()=>{
-  document.getElementById('animateOverlay').classList.add('active');
+  const overlay = document.getElementById('animateOverlay');
+  overlay.classList.add('active');
+  // Ensure overlay has current style class
+  overlay.className = `animate-overlay active style-${currentStyle}`;
   playAnimation();
 });
 document.getElementById('replayBtn').addEventListener('click',playAnimation);
@@ -974,14 +972,6 @@ document.getElementById('surpriseBtn').addEventListener('click',()=>{
     b.classList.toggle('active',b.dataset.context===randomContext);
   });
   
-  // Randomize stance
-  const stances=['involuntary','voluntary'];
-  const randomStance=stances[Math.floor(Math.random()*stances.length)];
-  stance=randomStance;
-  document.querySelectorAll('#stanceGroup .toggle-btn').forEach(b=>{
-    b.classList.toggle('active',b.dataset.stance===randomStance);
-  });
-  
   // Randomize spice
   const spices=['mild','medium','hot'];
   const randomSpice=spices[Math.floor(Math.random()*spices.length)];
@@ -999,7 +989,7 @@ document.getElementById('surpriseBtn').addEventListener('click',()=>{
   });
   // Update card classes
   document.getElementById('scriptCard').className = `script-card active style-${randomStyle}`;
-  document.getElementById('animateCard').className = `animate-card style-${randomStyle}`;
+  document.querySelector('.animate-card').className = `animate-card style-${randomStyle}`;
   
   // Randomize perspective
   const perspectives=['i','we'];
@@ -1285,6 +1275,7 @@ async function drawResponseCard(ctx,areaW,areaH){
   
   ctx.font=`italic ${subtextSize}px ${theme.fontMain}`;
   subtextLines.forEach((line,i)=>{
+    // First line gets "SUBTEXT: " prefix styling
     ctx.fillText(line,contentX,y+subtextSize);
     y+=subtextSize*1.6;
   });
@@ -1353,7 +1344,19 @@ link1.download=`protocol-${currentStyle}-${format}-response-${Date.now()}.png`;
 link1.href=canvas1.toDataURL('image/png');
 link1.click();
 
-showToast('EXPORTED');
+// Export education card if dual mode
+if(includeDual){
+  await new Promise(r=>setTimeout(r,500)); // Delay between downloads
+  const {canvas:canvas2,ctx:ctx2}=await createBaseCanvas();
+  await drawEducationCard(ctx2,w,h);
+  const link2=document.createElement('a');
+  link2.download=`protocol-${format}-why-${Date.now()}.png`;
+  link2.href=canvas2.toDataURL('image/png');
+  link2.click();
+  showToast('EXPORTED 2 IMAGES');
+}else{
+  showToast('EXPORTED');
+}
 }
 
 function wrapText(ctx,text,maxW){const words=text.split(' '),lines=[];let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else{line=test;}}if(line)lines.push(line);return lines;}
