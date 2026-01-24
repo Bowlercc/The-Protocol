@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>THE PROTOCOL — Matterhood Archive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&family=Special+Elite&family=Prata&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&family=Special+Elite&family=Prata&family=Inter:wght@400;700&family=Lexend+Mega:wght@400;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
@@ -16,6 +16,8 @@ body{font-family:'Space Mono',monospace;background:var(--void);color:var(--bone)
 .film-grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .4s steps(1) infinite}
 [data-theme="light"] .film-grain{opacity:0.015}
 @keyframes grain{0%,100%{transform:translate(0)}25%{transform:translate(-2%,-2%)}50%{transform:translate(2%,2%)}75%{transform:translate(-2%,2%)}}
+
+/* ... [Tutorial Styles Omitted for Brevity - Keeping Existing] ... */
 .tutorial-overlay{position:fixed;inset:0;background:var(--void);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .5s,background .3s}
 .tutorial-overlay.hidden{opacity:0;pointer-events:none}
 .tutorial-content{max-width:540px;padding:2.5rem;text-align:center}
@@ -34,6 +36,7 @@ body{font-family:'Space Mono',monospace;background:var(--void);color:var(--bone)
 .tutorial-dots{display:flex;justify-content:center;gap:.38rem;margin-top:1.35rem}
 .tutorial-dot{width:5px;height:5px;border-radius:50%;background:var(--bone-faint)}
 .tutorial-dot.active{background:var(--gold)}
+
 .container{min-height:100vh;display:flex;flex-direction:column}
 header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--void);backdrop-filter:blur(12px);z-index:100;transition:background .3s}
 [data-theme="light"] header{background:rgba(248,246,243,.95)}
@@ -101,46 +104,65 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .script-card::before{content:'';position:absolute;top:0;left:0;width:40px;height:2px;background:var(--gold)}
 
 /* STYLE: ARCHIVE */
-.script-card.style-archive {
-    background: #f0f0f0; /* Paper color */
-    border: 1px dashed #333;
-    color: #1a1a1a;
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-}
-.script-card.style-archive::before { background: #C41E1E; width: 60px; height: 3px; } /* Red stamped look */
+.script-card.style-archive {background: #f0f0f0; border: 1px dashed #333; color: #1a1a1a; box-shadow: 2px 2px 0px rgba(0,0,0,0.1);}
+.script-card.style-archive::before { background: #C41E1E; width: 60px; height: 3px; }
 .script-card.style-archive .script-meta { border-bottom: 1px solid #ccc; }
-.script-card.style-archive .script-context, 
-.script-card.style-archive .script-trigger-label, 
-.script-card.style-archive .script-response-label { 
-    font-family: 'Special Elite', monospace; color: #555; letter-spacing: 0.05em; 
-}
+.script-card.style-archive .script-context, .script-card.style-archive .script-trigger-label, .script-card.style-archive .script-response-label { font-family: 'Special Elite', monospace; color: #555; letter-spacing: 0.05em; }
 .script-card.style-archive .script-response-label { color: #C41E1E; }
 .script-card.style-archive .script-spice { color: #C41E1E; }
-.script-card.style-archive .script-text { 
-    font-family: 'Special Elite', monospace; color: #111; line-height: 1.6; font-size: 1.1rem;
-}
+.script-card.style-archive .script-text { font-family: 'Special Elite', monospace; color: #111; line-height: 1.6; font-size: 1.1rem; }
 .script-card.style-archive .script-trigger { font-family: 'Special Elite', monospace; color: #444; }
 .script-card.style-archive .script-subtext { color: #555; font-family: 'Space Mono', monospace; }
 .script-card.style-archive .script-footer { border-top: 1px solid #ccc; color: #555; }
 
 /* STYLE: NOIR */
-.script-card.style-noir {
-    background: #000;
-    border: 4px solid #fff;
-    color: #fff;
-}
-.script-card.style-noir::before { display: none; } /* No accent bar */
+.script-card.style-noir { background: #000; border: 4px solid #fff; color: #fff; }
+.script-card.style-noir::before { display: none; }
 .script-card.style-noir .script-meta { border-bottom: 1px solid #333; }
 .script-card.style-noir .script-context { font-family: 'Prata', serif; font-size: 0.6rem; color: #fff; }
 .script-card.style-noir .script-spice { color: #fff; font-style: italic; font-family: 'Prata', serif; }
 .script-card.style-noir .script-trigger { color: #999; font-family: 'Prata', serif; font-style: italic; }
-.script-card.style-noir .script-trigger-label,
-.script-card.style-noir .script-response-label { font-family: 'Space Mono', monospace; color: #666; }
-.script-card.style-noir .script-text { 
-    font-family: 'Prata', serif; font-size: 1.8rem; line-height: 1.2; color: #fff; 
-}
+.script-card.style-noir .script-trigger-label, .script-card.style-noir .script-response-label { font-family: 'Space Mono', monospace; color: #666; }
+.script-card.style-noir .script-text { font-family: 'Prata', serif; font-size: 1.8rem; line-height: 1.2; color: #fff; }
 .script-card.style-noir .script-subtext { color: #fff; opacity: 0.6; }
 .script-card.style-noir .script-footer { border-top: 1px solid #333; color: #666; }
+
+/* STYLE: SWISS (Haptic/Orange) */
+.script-card.style-swiss { background: #FF4400; border: none; color: #fff; border-radius: 0; }
+.script-card.style-swiss::before { display: none; }
+.script-card.style-swiss .script-meta { border-bottom: 2px solid #fff; }
+.script-card.style-swiss .script-context { font-family: 'Inter', sans-serif; font-weight: 700; color: #fff; opacity: 1; }
+.script-card.style-swiss .script-spice { font-family: 'Inter', sans-serif; color: #000; background: #fff; padding: 2px 6px; font-weight: 700; }
+.script-card.style-swiss .script-trigger { font-family: 'Inter', sans-serif; color: #000; background: rgba(255,255,255,0.9); padding: 10px; font-weight: 500; }
+.script-card.style-swiss .script-trigger-label, .script-card.style-swiss .script-response-label { font-family: 'Inter', sans-serif; font-weight: 700; color: #fff; opacity: 0.8; }
+.script-card.style-swiss .script-text { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.04em; color: #fff; line-height: 1.1; }
+.script-card.style-swiss .script-subtext { color: #000; font-family: 'Inter', sans-serif; font-weight: 600; }
+.script-card.style-swiss .script-footer { border-top: 2px solid #fff; color: #fff; opacity: 1; font-weight: 700; }
+
+/* STYLE: BRUTAL (Page Break/Blue+Green) */
+.script-card.style-brutal { background: #0033FF; border: 4px solid #000; color: #000; box-shadow: 8px 8px 0px #000; }
+.script-card.style-brutal::before { display: none; }
+.script-card.style-brutal .script-meta { border-bottom: 4px solid #000; background: #CCFF00; margin: -1.8rem -1.8rem 1rem -1.8rem; padding: 1rem; }
+.script-card.style-brutal .script-context { font-family: 'Lexend Mega', sans-serif; color: #000; opacity: 1; font-weight: 700; }
+.script-card.style-brutal .script-spice { font-family: 'Lexend Mega', sans-serif; color: #0033FF; font-weight: 700; }
+.script-card.style-brutal .script-trigger { font-family: 'Lexend Mega', sans-serif; color: #CCFF00; font-size: 0.7rem; }
+.script-card.style-brutal .script-trigger-label, .script-card.style-brutal .script-response-label { font-family: 'Lexend Mega', sans-serif; color: #000; opacity: 1; background: #CCFF00; display: inline-block; padding: 2px 5px; }
+.script-card.style-brutal .script-text { font-family: 'Lexend Mega', sans-serif; color: #CCFF00; text-transform: uppercase; line-height: 1.2; text-shadow: 2px 2px 0px #000; }
+.script-card.style-brutal .script-subtext { color: #000; font-family: 'Lexend Mega', sans-serif; background: #fff; display: inline-block; padding: 2px; }
+.script-card.style-brutal .script-footer { border-top: 4px solid #000; background: #CCFF00; margin: 1rem -1.8rem -1.8rem -1.8rem; padding: 1rem; color: #000; font-family: 'Lexend Mega', sans-serif; opacity: 1; }
+
+/* STYLE: VAPOR (Comet/Gradient) */
+.script-card.style-vapor { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); backdrop-filter: blur(8px); color: #fff; }
+.script-card.style-vapor::before { display: none; }
+.script-card.style-vapor .script-meta { border-bottom: 1px solid rgba(255,255,255,0.1); }
+.script-card.style-vapor .script-context { font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
+.script-card.style-vapor .script-spice { font-family: 'DM Sans', sans-serif; background: linear-gradient(90deg, #ff8a00, #e52e71); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+.script-card.style-vapor .script-trigger { font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.8); }
+.script-card.style-vapor .script-trigger-label, .script-card.style-vapor .script-response-label { font-family: 'DM Sans', sans-serif; color: #8F94FB; letter-spacing: 2px; font-size: 0.5rem; }
+.script-card.style-vapor .script-text { font-family: 'DM Sans', sans-serif; font-weight: 400; color: #fff; line-height: 1.5; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+.script-card.style-vapor .script-subtext { color: #4E54C8; font-family: 'DM Sans', sans-serif; }
+.script-card.style-vapor .script-footer { border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-family: 'DM Sans', sans-serif; }
+
 
 .script-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bone-faint)}
 .script-context{font-size:.46rem;letter-spacing:.15em;opacity:.4}
@@ -190,7 +212,7 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
 footer a{color:var(--gold);text-decoration:none}
 
-/* Animation Overlay - Fixed Centering & Styling */
+/* Animation Overlay - Fixed Centering & Layout & Word Wrapping */
 .animate-overlay {
     position: fixed;
     inset: 0;
@@ -266,6 +288,44 @@ footer a{color:var(--gold);text-decoration:none}
 .animate-card.style-noir .animate-subtext { color: #fff; opacity: 0.7; }
 .animate-card.style-noir .animate-response-text { color: #fff; font-family: 'Prata', serif; }
 .animate-card.style-noir .animate-footer { border-top: 1px solid #333; color: #666; }
+
+/* Swiss */
+.animate-card.style-swiss { background: #FF4400; border: none; box-shadow: none; border-radius: 0; }
+.animate-card.style-swiss::before { display: none; }
+.animate-card.style-swiss .animate-meta { border-bottom: 2px solid #fff; color: #fff; }
+.animate-card.style-swiss .animate-context { font-family: 'Inter', sans-serif; font-weight: 700; opacity: 1; }
+.animate-card.style-swiss .animate-spice { font-family: 'Inter', sans-serif; background: #fff; color: #000; padding: 2px 6px; font-weight: 700; }
+.animate-card.style-swiss .animate-label { font-family: 'Inter', sans-serif; color: #fff; opacity: 0.8; font-weight: 700; }
+.animate-card.style-swiss .animate-trigger-text { font-family: 'Inter', sans-serif; color: #000; background: rgba(255,255,255,0.9); padding: 10px; font-weight: 500; }
+.animate-card.style-swiss .animate-label-gold { font-family: 'Inter', sans-serif; color: #fff; font-weight: 700; }
+.animate-card.style-swiss .animate-subtext { font-family: 'Inter', sans-serif; color: #000; font-weight: 600; }
+.animate-card.style-swiss .animate-response-text { font-family: 'Inter', sans-serif; color: #fff; font-weight: 700; letter-spacing: -0.04em; }
+.animate-card.style-swiss .animate-footer { border-top: 2px solid #fff; color: #fff; font-weight: 700; opacity: 1; }
+
+/* Brutal */
+.animate-card.style-brutal { background: #0033FF; border: 4px solid #000; box-shadow: 8px 8px 0px #000; }
+.animate-card.style-brutal::before { display: none; }
+.animate-card.style-brutal .animate-meta { background: #CCFF00; margin: -1.8rem -1.8rem 1rem -1.8rem; padding: 1rem; border-bottom: 4px solid #000; }
+.animate-card.style-brutal .animate-context { font-family: 'Lexend Mega', sans-serif; color: #000; opacity: 1; font-weight: 700; }
+.animate-card.style-brutal .animate-spice { font-family: 'Lexend Mega', sans-serif; color: #0033FF; font-weight: 700; }
+.animate-card.style-brutal .animate-label { font-family: 'Lexend Mega', sans-serif; color: #000; background: #CCFF00; display: inline-block; padding: 2px 5px; opacity: 1; }
+.animate-card.style-brutal .animate-trigger-text { font-family: 'Lexend Mega', sans-serif; color: #CCFF00; font-size: 0.7rem; }
+.animate-card.style-brutal .animate-label-gold { font-family: 'Lexend Mega', sans-serif; color: #000; background: #CCFF00; display: inline-block; padding: 2px 5px; }
+.animate-card.style-brutal .animate-subtext { font-family: 'Lexend Mega', sans-serif; color: #000; background: #fff; display: inline-block; padding: 2px; }
+.animate-card.style-brutal .animate-response-text { font-family: 'Lexend Mega', sans-serif; color: #CCFF00; text-transform: uppercase; text-shadow: 2px 2px 0px #000; }
+.animate-card.style-brutal .animate-footer { background: #CCFF00; margin: 1rem -1.8rem -1.8rem -1.8rem; padding: 1rem; border-top: 4px solid #000; color: #000; font-family: 'Lexend Mega', sans-serif; opacity: 1; }
+
+/* Vapor */
+.animate-card.style-vapor { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); backdrop-filter: blur(8px); }
+.animate-card.style-vapor::before { display: none; }
+.animate-card.style-vapor .animate-meta { border-bottom: 1px solid rgba(255,255,255,0.1); }
+.animate-card.style-vapor .animate-context { font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
+.animate-card.style-vapor .animate-spice { font-family: 'DM Sans', sans-serif; background: linear-gradient(90deg, #ff8a00, #e52e71); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+.animate-card.style-vapor .animate-label, .animate-card.style-vapor .animate-label-gold { font-family: 'DM Sans', sans-serif; color: #8F94FB; letter-spacing: 2px; font-size: 0.5rem; }
+.animate-card.style-vapor .animate-trigger-text { font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.8); }
+.animate-card.style-vapor .animate-subtext { font-family: 'DM Sans', sans-serif; color: #4E54C8; }
+.animate-card.style-vapor .animate-response-text { font-family: 'DM Sans', sans-serif; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+.animate-card.style-vapor .animate-footer { border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-family: 'DM Sans', sans-serif; }
 
 
 .animate-card::before {
@@ -536,6 +596,9 @@ footer a{color:var(--gold);text-decoration:none}
 <button class="toggle-btn active" data-style="protocol">PROTOCOL</button>
 <button class="toggle-btn" data-style="archive">ARCHIVE</button>
 <button class="toggle-btn" data-style="noir">NOIR</button>
+<button class="toggle-btn" data-style="swiss">SWISS</button>
+<button class="toggle-btn" data-style="brutal">BRUTAL</button>
+<button class="toggle-btn" data-style="vapor">VAPOR</button>
 </div>
 </div>
 </div>
@@ -869,10 +932,11 @@ setupToggles('perspectiveGroup',v=>{perspective=v;});
 setupToggles('styleGroup',v=>{
     currentStyle=v;
     document.getElementById('scriptCard').className = `script-card active style-${v}`;
-    // Remove clean-mode when changing style to ensure controls are visible
     const animateOverlay = document.getElementById('animateOverlay');
-    animateOverlay.className = `animate-overlay active style-${v}`; 
+    animateOverlay.className = `animate-overlay active style-${v}`;
     document.querySelector('.animate-card').className = `animate-card style-${v}`;
+    // Force re-render if card is visible to ensure style applies
+    if(currentTone) generateScene(currentTone);
 });
 
 // Chips
@@ -945,7 +1009,6 @@ function playAnimation(){
 document.getElementById('animateBtn').addEventListener('click',()=>{
   const overlay = document.getElementById('animateOverlay');
   overlay.classList.add('active');
-  // Ensure overlay has current style class
   overlay.className = `animate-overlay active style-${currentStyle}`;
   playAnimation();
 });
@@ -981,7 +1044,7 @@ document.getElementById('surpriseBtn').addEventListener('click',()=>{
   });
   
   // Randomize style
-  const styles=['protocol','archive','noir'];
+  const styles=['protocol','archive','noir', 'swiss', 'brutal', 'vapor'];
   const randomStyle=styles[Math.floor(Math.random()*styles.length)];
   currentStyle=randomStyle;
   document.querySelectorAll('#styleGroup .toggle-btn').forEach(b=>{
@@ -1119,6 +1182,51 @@ const THEMES = {
         borderWidth: 4,
         borderStyle: [],
         shadow: false
+    },
+    swiss: {
+        bgColor: '#FF4400',
+        frameBg: '#FF4400',
+        textColor: '#ffffff',
+        textDim: 'rgba(255,255,255,0.8)',
+        labelColor: '#ffffff',
+        borderColor: '#ffffff',
+        goldColor: '#000000', // Used for spice/contrast
+        fontMain: "'Inter', sans-serif",
+        fontSerif: "'Inter', sans-serif",
+        goldBar: false,
+        borderWidth: 2,
+        borderStyle: [],
+        shadow: false
+    },
+    brutal: {
+        bgColor: '#0033FF',
+        frameBg: '#0033FF',
+        textColor: '#CCFF00', // Neon green text
+        textDim: '#CCFF00',
+        labelColor: '#000000',
+        borderColor: '#000000',
+        goldColor: '#000000',
+        fontMain: "'Lexend Mega', sans-serif",
+        fontSerif: "'Lexend Mega', sans-serif",
+        goldBar: false,
+        borderWidth: 4,
+        borderStyle: [],
+        shadow: true
+    },
+    vapor: {
+        bgColor: '#16213e',
+        frameBg: 'rgba(255,255,255,0.1)', // Glass
+        textColor: '#ffffff',
+        textDim: 'rgba(255,255,255,0.7)',
+        labelColor: '#8F94FB',
+        borderColor: 'rgba(255,255,255,0.2)',
+        goldColor: '#e52e71',
+        fontMain: "'DM Sans', sans-serif",
+        fontSerif: "'DM Sans', sans-serif",
+        goldBar: false,
+        borderWidth: 1,
+        borderStyle: [],
+        shadow: false
     }
 };
 
@@ -1158,7 +1266,16 @@ async function createBaseCanvas(){
   const canvas=document.createElement('canvas');
   canvas.width=w;canvas.height=h;
   const ctx=canvas.getContext('2d');
-  ctx.fillStyle=theme.bgColor;
+  
+  // Custom background fills
+  if (currentStyle === 'vapor') {
+      const grad = ctx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, '#1a1a2e');
+      grad.addColorStop(1, '#16213e');
+      ctx.fillStyle = grad;
+  } else {
+      ctx.fillStyle = theme.bgColor;
+  }
   ctx.fillRect(0,0,w,h);
   
   if(currentImageUrl){
@@ -1175,6 +1292,15 @@ async function createBaseCanvas(){
       } else if (currentStyle === 'archive') {
           ctx.filter='sepia(50%) contrast(0.9) brightness(1.1)';
           ctx.globalAlpha=0.15;
+      } else if (currentStyle === 'swiss') {
+          ctx.filter='grayscale(100%) contrast(1.2)';
+          ctx.globalAlpha=0.2;
+      } else if (currentStyle === 'brutal') {
+          ctx.filter='grayscale(100%) contrast(1.5)';
+          ctx.globalAlpha=0.1; // Subtle texture
+      } else if (currentStyle === 'vapor') {
+           ctx.filter='contrast(1.1) brightness(0.8) hue-rotate(15deg)';
+           ctx.globalAlpha=0.3;
       } else {
           ctx.globalAlpha=isLight?0.12:0.25;
           ctx.filter='grayscale(100%) contrast(1.1)';
@@ -1191,15 +1317,21 @@ async function createBaseCanvas(){
 async function drawResponseCard(ctx,areaW,areaH){
   // Calculate content height first
   let contentH=0;
+  
+  // Different spacing for Brutal
+  if (currentStyle === 'brutal') contentH += padding; 
+
   contentH+=metaSize+padding*0.5+padding*0.4;
   
   ctx.font=`italic ${subtextSize}px ${theme.fontMain}`;
+  // Swiss/Brutal remove italic usually
+  if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`${subtextSize}px ${theme.fontMain}`;
+  
   const subtextLines=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW);
   contentH+=subtextLines.length*subtextSize*1.6+padding*0.6;
   
   contentH+=triggerLabelSize+padding*0.15;
   ctx.font=`${triggerSize}px ${theme.fontMain}`;
-  // Noir italicizes trigger
   if(currentStyle === 'noir') ctx.font=`italic ${triggerSize}px ${theme.fontMain}`;
   
   const triggerLines=wrapText(ctx,currentTrigger,textW);
@@ -1207,6 +1339,9 @@ async function drawResponseCard(ctx,areaW,areaH){
   
   contentH+=responseLabelSize+padding*0.35;
   ctx.font=`400 ${responseSize}px ${theme.fontSerif}`;
+  // Brutal/Swiss often bold
+  if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`700 ${responseSize}px ${theme.fontSerif}`;
+
   const responseLines=wrapText(ctx,currentResponse,textW);
   contentH+=responseLines.length*responseSize*1.35+padding*0.7;
   
@@ -1218,12 +1353,18 @@ async function drawResponseCard(ctx,areaW,areaH){
   const frameX=(areaW-frameW)/2;
   const frameY=(areaH-frameH)/2;
 
+  // Shadow for Brutal
+  if(currentStyle === 'brutal') {
+      ctx.fillStyle = "#000";
+      ctx.fillRect(frameX + 15, frameY + 15, frameW, frameH);
+  }
+
   // Frame background
   ctx.fillStyle=theme.frameBg;
   ctx.fillRect(frameX,frameY,frameW,frameH);
   
-  // Shadow for archive
-  if(theme.shadow) {
+  // Shadow for archive/vapor
+  if(theme.shadow && currentStyle !== 'brutal') {
       ctx.shadowColor = "rgba(0,0,0,0.1)";
       ctx.shadowBlur = 10;
       ctx.shadowOffsetX = 5;
@@ -1231,67 +1372,132 @@ async function drawResponseCard(ctx,areaW,areaH){
   }
   
   // Frame border
-  ctx.strokeStyle=theme.borderColor;
-  ctx.lineWidth=theme.borderWidth;
-  if(theme.borderStyle.length) ctx.setLineDash(theme.borderStyle);
-  ctx.strokeRect(frameX,frameY,frameW,frameH);
-  ctx.setLineDash([]);
+  if(theme.borderWidth > 0) {
+      ctx.strokeStyle=theme.borderColor;
+      ctx.lineWidth=theme.borderWidth;
+      if(theme.borderStyle.length) ctx.setLineDash(theme.borderStyle);
+      ctx.strokeRect(frameX,frameY,frameW,frameH);
+      ctx.setLineDash([]);
+  }
   ctx.shadowColor = "transparent";
   
-  // Accent bar
+  // Accent bar (Protocol/Archive only)
   if(theme.goldBar) {
       ctx.fillStyle=theme.goldColor;
-      ctx.fillRect(frameX,frameY,Math.round(40*scale),3); // Thicker for archive
+      ctx.fillRect(frameX,frameY,Math.round(40*scale),3); 
   }
 
   const contentX=frameX+padding;
   const contentRight=frameX+frameW-padding;
   let y=frameY+padding;
 
+  // --- STYLE SPECIFIC DRAWING ---
+
+  // BRUTAL META HEADER
+  if(currentStyle === 'brutal') {
+      ctx.fillStyle = "#CCFF00"; // Neon green header
+      ctx.fillRect(frameX, frameY, frameW, metaSize * 4);
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(frameX, frameY + metaSize * 4);
+      ctx.lineTo(frameX + frameW, frameY + metaSize * 4);
+      ctx.stroke();
+      y += padding * 0.5; // push content down
+  }
+
   // === META ROW ===
   ctx.font=`${metaSize}px ${theme.fontMain}`;
+  if(currentStyle === 'swiss') ctx.font=`700 ${metaSize}px ${theme.fontMain}`;
+
   ctx.textAlign='left';
   ctx.fillStyle=theme.labelColor;
+  // Brutal specific colors
+  if(currentStyle === 'brutal') ctx.fillStyle = "#000"; 
+  if(currentStyle === 'swiss') ctx.fillStyle = "#fff";
+
   ctx.fillText(CONTEXT_LABELS[context],contentX,y+metaSize);
+  
   ctx.textAlign='right';
   ctx.fillStyle=spice==='hot'?alertColor:theme.goldColor;
-  // Archive/Noir treat spice color differently
-  if(currentStyle === 'noir') ctx.fillStyle = '#fff'; 
-  ctx.fillText(SPICE_LABELS[spice],contentRight,y+metaSize);
+  if(currentStyle === 'noir') ctx.fillStyle = '#fff';
+  if(currentStyle === 'brutal') ctx.fillStyle = '#0033FF'; 
+  if(currentStyle === 'swiss') {
+      // Draw white badge for spice
+      const spiceW = ctx.measureText(SPICE_LABELS[spice]).width;
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(contentRight - spiceW - 10, y, spiceW + 20, metaSize + 4);
+      ctx.fillStyle = "#000";
+      ctx.fillText(SPICE_LABELS[spice],contentRight - 5,y+metaSize);
+  } else {
+      ctx.fillText(SPICE_LABELS[spice],contentRight,y+metaSize);
+  }
+  
   y+=metaSize+padding*0.5;
   
   // Meta border-bottom
-  ctx.strokeStyle=theme.borderColor;
-  ctx.beginPath();
-  ctx.moveTo(contentX,y);
-  ctx.lineTo(contentRight,y);
-  ctx.stroke();
+  if(currentStyle !== 'brutal') {
+      ctx.strokeStyle=theme.borderColor;
+      ctx.lineWidth = currentStyle === 'swiss' ? 2 : theme.borderWidth;
+      ctx.beginPath();
+      ctx.moveTo(contentX,y);
+      ctx.lineTo(contentRight,y);
+      ctx.stroke();
+  }
   y+=padding*0.4;
 
   // === SUBTEXT ===
   ctx.textAlign='left';
   ctx.fillStyle=theme.goldColor;
-  if(currentStyle === 'noir') ctx.fillStyle = theme.textColor; // Noir uses white
+  if(currentStyle === 'noir') ctx.fillStyle = theme.textColor;
+  if(currentStyle === 'swiss') ctx.fillStyle = "#000";
+  if(currentStyle === 'brutal') {
+     // Brutal Highlight effect
+     ctx.fillStyle = "#fff"; // Background
+  }
   
   ctx.font=`italic ${subtextSize}px ${theme.fontMain}`;
+  if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`${subtextSize}px ${theme.fontMain}`;
+
   subtextLines.forEach((line,i)=>{
-    // First line gets "SUBTEXT: " prefix styling
-    ctx.fillText(line,contentX,y+subtextSize);
+    if(currentStyle === 'brutal') {
+         const w = ctx.measureText(line).width;
+         ctx.fillStyle = "#fff";
+         ctx.fillRect(contentX, y, w + 10, subtextSize + 10);
+         ctx.fillStyle = "#000";
+         ctx.fillText(line,contentX + 5,y+subtextSize + 5);
+    } else {
+        ctx.fillText(line,contentX,y+subtextSize);
+    }
     y+=subtextSize*1.6;
   });
   y+=padding*0.6;
 
   // === THEY SAID ===
   ctx.fillStyle=theme.labelColor;
+  if(currentStyle === 'brutal') { ctx.fillStyle = "#000"; ctx.fillRect(contentX, y, 120, triggerLabelSize + 8); ctx.fillStyle = "#CCFF00"; } 
+  if(currentStyle === 'swiss') ctx.fillStyle = "#fff"; 
+
   ctx.font=`${triggerLabelSize}px ${theme.fontMain}`;
-  ctx.fillText('THEY SAID:',contentX,y+triggerLabelSize);
+  if(currentStyle === 'swiss') ctx.font=`700 ${triggerLabelSize}px ${theme.fontMain}`;
+
+  ctx.fillText('THEY SAID:',contentX + (currentStyle==='brutal'?5:0),y+triggerLabelSize + (currentStyle==='brutal'?4:0));
   y+=triggerLabelSize+padding*0.15;
   
   ctx.fillStyle=theme.textDim;
   ctx.font=`${triggerSize}px ${theme.fontMain}`;
   if(currentStyle === 'noir') ctx.font=`italic ${triggerSize}px ${theme.fontMain}`;
-  
+  if(currentStyle === 'brutal') { ctx.fillStyle = "#CCFF00"; }
+  if(currentStyle === 'swiss') { ctx.fillStyle = "#000"; ctx.font=`500 ${triggerSize}px ${theme.fontMain}`; }
+
   triggerLines.forEach(line=>{
+    if(currentStyle === 'swiss') {
+        // Semi-transparent bg for readability on orange
+        const w = ctx.measureText(line).width;
+        ctx.fillStyle = "rgba(255,255,255,0.9)";
+        ctx.fillRect(contentX - 5, y - triggerSize + 5, w + 10, triggerSize + 10);
+        ctx.fillStyle = "#000";
+    }
     ctx.fillText(line,contentX,y+triggerSize);
     y+=triggerSize*1.6;
   });
@@ -1299,13 +1505,27 @@ async function drawResponseCard(ctx,areaW,areaH){
 
   // === YOU SAY ===
   ctx.fillStyle=theme.goldColor;
+  if(currentStyle === 'brutal') { ctx.fillStyle = "#000"; ctx.fillRect(contentX, y, 100, responseLabelSize + 8); ctx.fillStyle = "#CCFF00"; }
+  if(currentStyle === 'swiss') { ctx.fillStyle = "#fff"; }
+
   ctx.font=`${responseLabelSize}px ${theme.fontMain}`;
-  ctx.fillText('YOU SAY:',contentX,y+responseLabelSize);
+  if(currentStyle === 'swiss') ctx.font=`700 ${responseLabelSize}px ${theme.fontMain}`;
+
+  ctx.fillText('YOU SAY:',contentX + (currentStyle==='brutal'?5:0),y+responseLabelSize + (currentStyle==='brutal'?4:0));
   y+=responseLabelSize+padding*0.35;
   
   ctx.fillStyle=theme.textColor;
   ctx.font=`400 ${responseSize}px ${theme.fontSerif}`;
+  if(currentStyle === 'swiss') ctx.font=`700 ${responseSize}px ${theme.fontMain}`;
+  if(currentStyle === 'brutal') { ctx.font=`700 ${responseSize}px ${theme.fontMain}`; ctx.fillStyle = "#CCFF00"; }
+
   responseLines.forEach(line=>{
+      if(currentStyle === 'brutal') {
+          // Hard shadow for text
+          ctx.fillStyle = "#000";
+          ctx.fillText(line,contentX + 2,y+responseSize*0.85 + 2);
+          ctx.fillStyle = "#CCFF00";
+      }
     ctx.fillText(line,contentX,y+responseSize*0.85);
     y+=responseSize*1.35;
   });
@@ -1321,15 +1541,33 @@ async function drawResponseCard(ctx,areaW,areaH){
   }
 
   // === FOOTER ===
-  ctx.strokeStyle=theme.borderColor;
-  ctx.beginPath();
-  ctx.moveTo(contentX,y);
-  ctx.lineTo(contentRight,y);
-  ctx.stroke();
-  y+=padding*0.5;
+  if(currentStyle === 'brutal') {
+      ctx.fillStyle = "#CCFF00";
+      ctx.fillRect(frameX, y, frameW, 60);
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(frameX, y);
+      ctx.lineTo(frameX + frameW, y);
+      ctx.stroke();
+      y += 20;
+      ctx.fillStyle = "#000";
+  } else {
+    ctx.strokeStyle=theme.borderColor;
+    if(currentStyle === 'swiss') ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(contentX,y);
+    ctx.lineTo(contentRight,y);
+    ctx.stroke();
+    y+=padding*0.5;
+    ctx.fillStyle=theme.labelColor;
+    if(currentStyle === 'swiss') ctx.fillStyle = "#fff";
+  }
   
-  ctx.fillStyle=theme.labelColor;
+  
   ctx.font=`${footerSize}px ${theme.fontMain}`;
+  if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`700 ${footerSize}px ${theme.fontMain}`;
+  
   ctx.textAlign='left';
   ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
   ctx.textAlign='right';
