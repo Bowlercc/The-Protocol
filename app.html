@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>THE PROTOCOL — Matterhood Archive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&family=Special+Elite&family=Prata&family=Inter:wght@400;700&family=Lexend+Mega:wght@400;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&family=Special+Elite&family=Prata&family=Inter:wght@400;700&family=Lexend+Mega:wght@400;700&family=DM+Sans:wght@400;700&family=IBM+Plex+Mono:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
@@ -103,7 +103,12 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 @keyframes cardReveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .script-card::before{content:'';position:absolute;top:0;left:0;width:40px;height:2px;background:var(--gold)}
 
-/* STYLE: ARCHIVE */
+/* --- STYLE VARIATIONS --- */
+
+/* PROTOCOL (Default) */
+/* Inherits base styles */
+
+/* ARCHIVE */
 .script-card.style-archive {background: #f0f0f0; border: 1px dashed #333; color: #1a1a1a; box-shadow: 2px 2px 0px rgba(0,0,0,0.1);}
 .script-card.style-archive::before { background: #C41E1E; width: 60px; height: 3px; }
 .script-card.style-archive .script-meta { border-bottom: 1px solid #ccc; }
@@ -115,7 +120,7 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .script-card.style-archive .script-subtext { color: #555; font-family: 'Space Mono', monospace; }
 .script-card.style-archive .script-footer { border-top: 1px solid #ccc; color: #555; }
 
-/* STYLE: NOIR */
+/* NOIR */
 .script-card.style-noir { background: #000; border: 4px solid #fff; color: #fff; }
 .script-card.style-noir::before { display: none; }
 .script-card.style-noir .script-meta { border-bottom: 1px solid #333; }
@@ -127,22 +132,22 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .script-card.style-noir .script-subtext { color: #fff; opacity: 0.6; }
 .script-card.style-noir .script-footer { border-top: 1px solid #333; color: #666; }
 
-/* STYLE: SWISS (Haptic/Orange) */
-.script-card.style-swiss { background: #FF4400; border: none; color: #fff; border-radius: 0; }
-.script-card.style-swiss::before { display: none; }
-.script-card.style-swiss .script-meta { border-bottom: 2px solid #fff; }
-.script-card.style-swiss .script-context { font-family: 'Inter', sans-serif; font-weight: 700; color: #fff; opacity: 1; }
-.script-card.style-swiss .script-spice { font-family: 'Inter', sans-serif; color: #000; background: #fff; padding: 2px 6px; font-weight: 700; }
-.script-card.style-swiss .script-trigger { font-family: 'Inter', sans-serif; color: #000; background: rgba(255,255,255,0.9); padding: 10px; font-weight: 500; }
-.script-card.style-swiss .script-trigger-label, .script-card.style-swiss .script-response-label { font-family: 'Inter', sans-serif; font-weight: 700; color: #fff; opacity: 0.8; }
-.script-card.style-swiss .script-text { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.04em; color: #fff; line-height: 1.1; }
-.script-card.style-swiss .script-subtext { color: #000; font-family: 'Inter', sans-serif; font-weight: 600; }
-.script-card.style-swiss .script-footer { border-top: 2px solid #fff; color: #fff; opacity: 1; font-weight: 700; }
+/* SWISS */
+.script-card.style-swiss { background: #F2F2F2; border: none; color: #000; }
+.script-card.style-swiss::before { background: #FF4400; width: 100%; height: 6px; top:0; left:0; }
+.script-card.style-swiss .script-meta { border-bottom: 2px solid #000; color: #000; }
+.script-card.style-swiss .script-context { font-family: 'Inter', sans-serif; font-weight: 700; color: #000; opacity: 1; letter-spacing: -0.02em; }
+.script-card.style-swiss .script-spice { font-family: 'Inter', sans-serif; background: #FF4400; color: #fff; padding: 2px 6px; font-weight: 700; }
+.script-card.style-swiss .script-trigger { font-family: 'Inter', sans-serif; color: #333; font-weight: 500; }
+.script-card.style-swiss .script-trigger-label, .script-card.style-swiss .script-response-label { font-family: 'Inter', sans-serif; font-weight: 700; color: #000; opacity: 1; }
+.script-card.style-swiss .script-text { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.04em; color: #000; line-height: 1.1; }
+.script-card.style-swiss .script-subtext { color: #FF4400; font-family: 'Inter', sans-serif; font-weight: 600; }
+.script-card.style-swiss .script-footer { border-top: 2px solid #000; color: #000; font-weight: 700; opacity: 1; }
 
-/* STYLE: BRUTAL (Page Break/Blue+Green) */
-.script-card.style-brutal { background: #0033FF; border: 4px solid #000; color: #000; box-shadow: 8px 8px 0px #000; }
+/* BRUTAL */
+.script-card.style-brutal { background: #0033FF; border: 4px solid #000; color: #CCFF00; box-shadow: 8px 8px 0px #000; }
 .script-card.style-brutal::before { display: none; }
-.script-card.style-brutal .script-meta { border-bottom: 4px solid #000; background: #CCFF00; margin: -1.8rem -1.8rem 1rem -1.8rem; padding: 1rem; }
+.script-card.style-brutal .script-meta { background: #CCFF00; margin: -1.8rem -1.8rem 1rem -1.8rem; padding: 1rem; border-bottom: 4px solid #000; }
 .script-card.style-brutal .script-context { font-family: 'Lexend Mega', sans-serif; color: #000; opacity: 1; font-weight: 700; }
 .script-card.style-brutal .script-spice { font-family: 'Lexend Mega', sans-serif; color: #0033FF; font-weight: 700; }
 .script-card.style-brutal .script-trigger { font-family: 'Lexend Mega', sans-serif; color: #CCFF00; font-size: 0.7rem; }
@@ -151,17 +156,29 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 .script-card.style-brutal .script-subtext { color: #000; font-family: 'Lexend Mega', sans-serif; background: #fff; display: inline-block; padding: 2px; }
 .script-card.style-brutal .script-footer { border-top: 4px solid #000; background: #CCFF00; margin: 1rem -1.8rem -1.8rem -1.8rem; padding: 1rem; color: #000; font-family: 'Lexend Mega', sans-serif; opacity: 1; }
 
-/* STYLE: VAPOR (Comet/Gradient) */
-.script-card.style-vapor { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); backdrop-filter: blur(8px); color: #fff; }
-.script-card.style-vapor::before { display: none; }
-.script-card.style-vapor .script-meta { border-bottom: 1px solid rgba(255,255,255,0.1); }
-.script-card.style-vapor .script-context { font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
-.script-card.style-vapor .script-spice { font-family: 'DM Sans', sans-serif; background: linear-gradient(90deg, #ff8a00, #e52e71); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
-.script-card.style-vapor .script-trigger { font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.8); }
-.script-card.style-vapor .script-trigger-label, .script-card.style-vapor .script-response-label { font-family: 'DM Sans', sans-serif; color: #8F94FB; letter-spacing: 2px; font-size: 0.5rem; }
-.script-card.style-vapor .script-text { font-family: 'DM Sans', sans-serif; font-weight: 400; color: #fff; line-height: 1.5; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
-.script-card.style-vapor .script-subtext { color: #4E54C8; font-family: 'DM Sans', sans-serif; }
-.script-card.style-vapor .script-footer { border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-family: 'DM Sans', sans-serif; }
+/* SOLAR (Low-Tech) */
+.script-card.style-solar { background: #FFC857; border: 1px solid #333; color: #000; box-shadow: none; border-radius: 0; }
+.script-card.style-solar::before { display: none; }
+.script-card.style-solar .script-meta { border-bottom: 1px dashed #333; }
+.script-card.style-solar .script-context { font-family: 'IBM Plex Mono', monospace; color: #333; font-weight: 600; }
+.script-card.style-solar .script-spice { font-family: 'IBM Plex Mono', monospace; color: #333; font-weight: 600; text-decoration: underline; }
+.script-card.style-solar .script-trigger { font-family: 'IBM Plex Mono', monospace; color: #333; }
+.script-card.style-solar .script-trigger-label, .script-card.style-solar .script-response-label { font-family: 'IBM Plex Mono', monospace; color: #555; }
+.script-card.style-solar .script-text { font-family: 'IBM Plex Mono', monospace; color: #000; line-height: 1.4; }
+.script-card.style-solar .script-subtext { color: #555; font-family: 'IBM Plex Mono', monospace; font-style: italic; }
+.script-card.style-solar .script-footer { border-top: 1px dashed #333; color: #333; font-family: 'IBM Plex Mono', monospace; }
+
+/* ESSAY (Journal) */
+.script-card.style-essay { background: #FAF9F6; border: none; padding: 2.5rem; color: #333; }
+.script-card.style-essay::before { display: none; }
+.script-card.style-essay .script-meta { border-bottom: none; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+.script-card.style-essay .script-context { font-family: 'Libre Baskerville', serif; color: #999; font-style: italic; letter-spacing: 0; text-transform: lowercase; }
+.script-card.style-essay .script-spice { font-family: 'Libre Baskerville', serif; color: #999; font-style: italic; letter-spacing: 0; text-transform: lowercase; }
+.script-card.style-essay .script-trigger { font-family: 'Libre Baskerville', serif; color: #555; text-align: center; font-style: italic; }
+.script-card.style-essay .script-trigger-label, .script-card.style-essay .script-response-label { display: none; } /* Hidden labels for essay style */
+.script-card.style-essay .script-text { font-family: 'Libre Baskerville', serif; color: #111; line-height: 1.8; text-align: center; font-size: 1.3rem; }
+.script-card.style-essay .script-subtext { color: #999; font-family: 'Libre Baskerville', serif; text-align: center; display: block; margin-top: 0; }
+.script-card.style-essay .script-footer { border-top: none; justify-content: center; gap: 2rem; color: #ccc; font-family: 'Libre Baskerville', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2rem; }
 
 
 .script-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bone-faint)}
@@ -212,7 +229,7 @@ header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:
 footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
 footer a{color:var(--gold);text-decoration:none}
 
-/* Animation Overlay - Fixed Centering & Layout & Word Wrapping */
+/* Animation Overlay - Fixed Centering & Styling */
 .animate-overlay {
     position: fixed;
     inset: 0;
@@ -290,17 +307,17 @@ footer a{color:var(--gold);text-decoration:none}
 .animate-card.style-noir .animate-footer { border-top: 1px solid #333; color: #666; }
 
 /* Swiss */
-.animate-card.style-swiss { background: #FF4400; border: none; box-shadow: none; border-radius: 0; }
-.animate-card.style-swiss::before { display: none; }
-.animate-card.style-swiss .animate-meta { border-bottom: 2px solid #fff; color: #fff; }
+.animate-card.style-swiss { background: #F2F2F2; border: none; box-shadow: none; border-radius: 0; }
+.animate-card.style-swiss::before { background: #FF4400; width: 100%; height: 6px; top:0; left:0; }
+.animate-card.style-swiss .animate-meta { border-bottom: 2px solid #000; color: #000; }
 .animate-card.style-swiss .animate-context { font-family: 'Inter', sans-serif; font-weight: 700; opacity: 1; }
-.animate-card.style-swiss .animate-spice { font-family: 'Inter', sans-serif; background: #fff; color: #000; padding: 2px 6px; font-weight: 700; }
-.animate-card.style-swiss .animate-label { font-family: 'Inter', sans-serif; color: #fff; opacity: 0.8; font-weight: 700; }
+.animate-card.style-swiss .animate-spice { font-family: 'Inter', sans-serif; background: #FF4400; color: #fff; padding: 2px 6px; font-weight: 700; }
+.animate-card.style-swiss .animate-label { font-family: 'Inter', sans-serif; color: #000; opacity: 0.8; font-weight: 700; }
 .animate-card.style-swiss .animate-trigger-text { font-family: 'Inter', sans-serif; color: #000; background: rgba(255,255,255,0.9); padding: 10px; font-weight: 500; }
-.animate-card.style-swiss .animate-label-gold { font-family: 'Inter', sans-serif; color: #fff; font-weight: 700; }
-.animate-card.style-swiss .animate-subtext { font-family: 'Inter', sans-serif; color: #000; font-weight: 600; }
-.animate-card.style-swiss .animate-response-text { font-family: 'Inter', sans-serif; color: #fff; font-weight: 700; letter-spacing: -0.04em; }
-.animate-card.style-swiss .animate-footer { border-top: 2px solid #fff; color: #fff; font-weight: 700; opacity: 1; }
+.animate-card.style-swiss .animate-label-gold { font-family: 'Inter', sans-serif; color: #000; font-weight: 700; }
+.animate-card.style-swiss .animate-subtext { font-family: 'Inter', sans-serif; color: #FF4400; font-weight: 600; }
+.animate-card.style-swiss .animate-response-text { font-family: 'Inter', sans-serif; color: #000; font-weight: 700; letter-spacing: -0.04em; }
+.animate-card.style-swiss .animate-footer { border-top: 2px solid #000; color: #000; font-weight: 700; opacity: 1; }
 
 /* Brutal */
 .animate-card.style-brutal { background: #0033FF; border: 4px solid #000; box-shadow: 8px 8px 0px #000; }
@@ -315,17 +332,29 @@ footer a{color:var(--gold);text-decoration:none}
 .animate-card.style-brutal .animate-response-text { font-family: 'Lexend Mega', sans-serif; color: #CCFF00; text-transform: uppercase; text-shadow: 2px 2px 0px #000; }
 .animate-card.style-brutal .animate-footer { background: #CCFF00; margin: 1rem -1.8rem -1.8rem -1.8rem; padding: 1rem; border-top: 4px solid #000; color: #000; font-family: 'Lexend Mega', sans-serif; opacity: 1; }
 
-/* Vapor */
-.animate-card.style-vapor { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); backdrop-filter: blur(8px); }
-.animate-card.style-vapor::before { display: none; }
-.animate-card.style-vapor .animate-meta { border-bottom: 1px solid rgba(255,255,255,0.1); }
-.animate-card.style-vapor .animate-context { font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
-.animate-card.style-vapor .animate-spice { font-family: 'DM Sans', sans-serif; background: linear-gradient(90deg, #ff8a00, #e52e71); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
-.animate-card.style-vapor .animate-label, .animate-card.style-vapor .animate-label-gold { font-family: 'DM Sans', sans-serif; color: #8F94FB; letter-spacing: 2px; font-size: 0.5rem; }
-.animate-card.style-vapor .animate-trigger-text { font-family: 'DM Sans', sans-serif; color: rgba(255,255,255,0.8); }
-.animate-card.style-vapor .animate-subtext { font-family: 'DM Sans', sans-serif; color: #4E54C8; }
-.animate-card.style-vapor .animate-response-text { font-family: 'DM Sans', sans-serif; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
-.animate-card.style-vapor .animate-footer { border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-family: 'DM Sans', sans-serif; }
+/* Solar (Low Tech) */
+.animate-card.style-solar { background: #FFC857; border: 1px solid #333; box-shadow: none; border-radius: 0; }
+.animate-card.style-solar::before { display: none; }
+.animate-card.style-solar .animate-meta { border-bottom: 1px dashed #333; }
+.animate-card.style-solar .animate-context { font-family: 'IBM Plex Mono', monospace; color: #333; font-weight: 600; }
+.animate-card.style-solar .animate-spice { font-family: 'IBM Plex Mono', monospace; color: #333; font-weight: 600; text-decoration: underline; }
+.animate-card.style-solar .animate-label { font-family: 'IBM Plex Mono', monospace; color: #555; }
+.animate-card.style-solar .animate-trigger-text { font-family: 'IBM Plex Mono', monospace; color: #333; }
+.animate-card.style-solar .animate-label-gold { font-family: 'IBM Plex Mono', monospace; color: #555; }
+.animate-card.style-solar .animate-subtext { font-family: 'IBM Plex Mono', monospace; color: #555; font-style: italic; }
+.animate-card.style-solar .animate-response-text { font-family: 'IBM Plex Mono', monospace; color: #000; line-height: 1.4; }
+.animate-card.style-solar .animate-footer { border-top: 1px dashed #333; color: #333; font-family: 'IBM Plex Mono', monospace; }
+
+/* Essay */
+.animate-card.style-essay { background: #FAF9F6; border: none; padding: 2.5rem; }
+.animate-card.style-essay::before { display: none; }
+.animate-card.style-essay .animate-meta { border-bottom: none; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+.animate-card.style-essay .animate-context, .animate-card.style-essay .animate-spice { font-family: 'Libre Baskerville', serif; color: #999; font-style: italic; letter-spacing: 0; text-transform: lowercase; }
+.animate-card.style-essay .animate-label, .animate-card.style-essay .animate-label-gold { display: none; }
+.animate-card.style-essay .animate-trigger-text { font-family: 'Libre Baskerville', serif; color: #555; text-align: center; font-style: italic; }
+.animate-card.style-essay .animate-subtext { font-family: 'Libre Baskerville', serif; color: #999; text-align: center; }
+.animate-card.style-essay .animate-response-text { font-family: 'Libre Baskerville', serif; color: #111; line-height: 1.8; text-align: center; font-size: 1.3rem; }
+.animate-card.style-essay .animate-footer { border-top: none; justify-content: center; gap: 2rem; color: #ccc; font-family: 'Libre Baskerville', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2rem; }
 
 
 .animate-card::before {
@@ -598,7 +627,8 @@ footer a{color:var(--gold);text-decoration:none}
 <button class="toggle-btn" data-style="noir">NOIR</button>
 <button class="toggle-btn" data-style="swiss">SWISS</button>
 <button class="toggle-btn" data-style="brutal">BRUTAL</button>
-<button class="toggle-btn" data-style="vapor">VAPOR</button>
+<button class="toggle-btn" data-style="solar">SOLAR</button>
+<button class="toggle-btn" data-style="essay">ESSAY</button>
 </div>
 </div>
 </div>
@@ -930,12 +960,23 @@ setupToggles('contextGroup',v=>{context=v;});
 setupToggles('spiceGroup',v=>{spice=v;});
 setupToggles('perspectiveGroup',v=>{perspective=v;});
 setupToggles('styleGroup',v=>{
-    currentStyle=v;
-    document.getElementById('scriptCard').className = `script-card active style-${v}`;
+    // Remove previous style from ALL styled elements
+    const oldStyle = currentStyle;
+    currentStyle = v;
+    
+    const card = document.getElementById('scriptCard');
+    card.classList.remove(`style-${oldStyle}`);
+    card.classList.add(`style-${v}`);
+    
     const animateOverlay = document.getElementById('animateOverlay');
-    animateOverlay.className = `animate-overlay active style-${v}`;
-    document.querySelector('.animate-card').className = `animate-card style-${v}`;
-    // Force re-render if card is visible to ensure style applies
+    animateOverlay.classList.remove(`style-${oldStyle}`);
+    animateOverlay.classList.add(`style-${v}`);
+    
+    const animateCard = document.querySelector('.animate-card');
+    animateCard.classList.remove(`style-${oldStyle}`);
+    animateCard.classList.add(`style-${v}`);
+
+    // Force re-render if visible
     if(currentTone) generateScene(currentTone);
 });
 
@@ -1009,7 +1050,9 @@ function playAnimation(){
 document.getElementById('animateBtn').addEventListener('click',()=>{
   const overlay = document.getElementById('animateOverlay');
   overlay.classList.add('active');
-  overlay.className = `animate-overlay active style-${currentStyle}`;
+  // Ensure the current style is applied
+  overlay.classList.remove(...Array.from(overlay.classList).filter(c => c.startsWith('style-')));
+  overlay.classList.add(`style-${currentStyle}`);
   playAnimation();
 });
 document.getElementById('replayBtn').addEventListener('click',playAnimation);
@@ -1044,15 +1087,27 @@ document.getElementById('surpriseBtn').addEventListener('click',()=>{
   });
   
   // Randomize style
-  const styles=['protocol','archive','noir', 'swiss', 'brutal', 'vapor'];
+  const styles=['protocol','archive','noir','swiss','brutal','solar','essay'];
   const randomStyle=styles[Math.floor(Math.random()*styles.length)];
-  currentStyle=randomStyle;
-  document.querySelectorAll('#styleGroup .toggle-btn').forEach(b=>{
-    b.classList.toggle('active',b.dataset.style===randomStyle);
+  // Use the setupToggles callback logic directly
+  document.querySelectorAll('#styleGroup .toggle-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.style === randomStyle);
   });
-  // Update card classes
-  document.getElementById('scriptCard').className = `script-card active style-${randomStyle}`;
-  document.querySelector('.animate-card').className = `animate-card style-${randomStyle}`;
+  // Manually trigger the style update
+  const oldStyle = currentStyle;
+  currentStyle = randomStyle;
+  
+  const card = document.getElementById('scriptCard');
+  card.classList.remove(`style-${oldStyle}`);
+  card.classList.add(`style-${randomStyle}`);
+  
+  const animateOverlay = document.getElementById('animateOverlay');
+  animateOverlay.classList.remove(`style-${oldStyle}`);
+  animateOverlay.classList.add(`style-${randomStyle}`);
+  
+  const animateCard = document.querySelector('.animate-card');
+  animateCard.classList.remove(`style-${oldStyle}`);
+  animateCard.classList.add(`style-${randomStyle}`);
   
   // Randomize perspective
   const perspectives=['i','we'];
@@ -1213,18 +1268,33 @@ const THEMES = {
         borderStyle: [],
         shadow: true
     },
-    vapor: {
-        bgColor: '#16213e',
-        frameBg: 'rgba(255,255,255,0.1)', // Glass
-        textColor: '#ffffff',
-        textDim: 'rgba(255,255,255,0.7)',
-        labelColor: '#8F94FB',
-        borderColor: 'rgba(255,255,255,0.2)',
-        goldColor: '#e52e71',
-        fontMain: "'DM Sans', sans-serif",
-        fontSerif: "'DM Sans', sans-serif",
+    solar: {
+        bgColor: '#FFC857',
+        frameBg: '#FFC857',
+        textColor: '#000000',
+        textDim: '#333333',
+        labelColor: '#444444',
+        borderColor: '#333333',
+        goldColor: '#333333',
+        fontMain: "'IBM Plex Mono', monospace",
+        fontSerif: "'IBM Plex Mono', monospace",
         goldBar: false,
         borderWidth: 1,
+        borderStyle: [2, 2], // Dot/Dash
+        shadow: false
+    },
+    essay: {
+        bgColor: '#FAF9F6',
+        frameBg: '#FAF9F6',
+        textColor: '#111111',
+        textDim: '#666666',
+        labelColor: '#999999',
+        borderColor: 'transparent',
+        goldColor: '#999999',
+        fontMain: "'Libre Baskerville', serif",
+        fontSerif: "'Libre Baskerville', serif",
+        goldBar: false,
+        borderWidth: 0,
         borderStyle: [],
         shadow: false
     }
@@ -1267,15 +1337,7 @@ async function createBaseCanvas(){
   canvas.width=w;canvas.height=h;
   const ctx=canvas.getContext('2d');
   
-  // Custom background fills
-  if (currentStyle === 'vapor') {
-      const grad = ctx.createLinearGradient(0, 0, w, h);
-      grad.addColorStop(0, '#1a1a2e');
-      grad.addColorStop(1, '#16213e');
-      ctx.fillStyle = grad;
-  } else {
-      ctx.fillStyle = theme.bgColor;
-  }
+  ctx.fillStyle = theme.bgColor;
   ctx.fillRect(0,0,w,h);
   
   if(currentImageUrl){
@@ -1298,9 +1360,12 @@ async function createBaseCanvas(){
       } else if (currentStyle === 'brutal') {
           ctx.filter='grayscale(100%) contrast(1.5)';
           ctx.globalAlpha=0.1; // Subtle texture
-      } else if (currentStyle === 'vapor') {
-           ctx.filter='contrast(1.1) brightness(0.8) hue-rotate(15deg)';
-           ctx.globalAlpha=0.3;
+      } else if (currentStyle === 'solar') {
+           ctx.filter='grayscale(100%) contrast(2.0)'; // High contrast dither look
+           ctx.globalAlpha=0.15;
+      } else if (currentStyle === 'essay') {
+           ctx.filter='grayscale(100%) opacity(30%)';
+           ctx.globalAlpha=0.1;
       } else {
           ctx.globalAlpha=isLight?0.12:0.25;
           ctx.filter='grayscale(100%) contrast(1.1)';
@@ -1318,14 +1383,12 @@ async function drawResponseCard(ctx,areaW,areaH){
   // Calculate content height first
   let contentH=0;
   
-  // Different spacing for Brutal
   if (currentStyle === 'brutal') contentH += padding; 
 
   contentH+=metaSize+padding*0.5+padding*0.4;
   
   ctx.font=`italic ${subtextSize}px ${theme.fontMain}`;
-  // Swiss/Brutal remove italic usually
-  if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`${subtextSize}px ${theme.fontMain}`;
+  if(currentStyle === 'swiss' || currentStyle === 'brutal' || currentStyle === 'solar') ctx.font=`${subtextSize}px ${theme.fontMain}`;
   
   const subtextLines=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW);
   contentH+=subtextLines.length*subtextSize*1.6+padding*0.6;
@@ -1333,14 +1396,14 @@ async function drawResponseCard(ctx,areaW,areaH){
   contentH+=triggerLabelSize+padding*0.15;
   ctx.font=`${triggerSize}px ${theme.fontMain}`;
   if(currentStyle === 'noir') ctx.font=`italic ${triggerSize}px ${theme.fontMain}`;
+  if(currentStyle === 'essay') ctx.font=`italic ${triggerSize}px ${theme.fontSerif}`;
   
   const triggerLines=wrapText(ctx,currentTrigger,textW);
   contentH+=triggerLines.length*triggerSize*1.6+padding*0.5;
   
   contentH+=responseLabelSize+padding*0.35;
   ctx.font=`400 ${responseSize}px ${theme.fontSerif}`;
-  // Brutal/Swiss often bold
-  if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`700 ${responseSize}px ${theme.fontSerif}`;
+  if(currentStyle === 'swiss' || currentStyle === 'brutal' || currentStyle === 'solar') ctx.font=`700 ${responseSize}px ${theme.fontSerif}`;
 
   const responseLines=wrapText(ctx,currentResponse,textW);
   contentH+=responseLines.length*responseSize*1.35+padding*0.7;
@@ -1363,7 +1426,7 @@ async function drawResponseCard(ctx,areaW,areaH){
   ctx.fillStyle=theme.frameBg;
   ctx.fillRect(frameX,frameY,frameW,frameH);
   
-  // Shadow for archive/vapor
+  // Shadow for archive
   if(theme.shadow && currentStyle !== 'brutal') {
       ctx.shadowColor = "rgba(0,0,0,0.1)";
       ctx.shadowBlur = 10;
@@ -1372,7 +1435,7 @@ async function drawResponseCard(ctx,areaW,areaH){
   }
   
   // Frame border
-  if(theme.borderWidth > 0) {
+  if(theme.borderWidth > 0 || currentStyle === 'solar') {
       ctx.strokeStyle=theme.borderColor;
       ctx.lineWidth=theme.borderWidth;
       if(theme.borderStyle.length) ctx.setLineDash(theme.borderStyle);
@@ -1409,55 +1472,67 @@ async function drawResponseCard(ctx,areaW,areaH){
   // === META ROW ===
   ctx.font=`${metaSize}px ${theme.fontMain}`;
   if(currentStyle === 'swiss') ctx.font=`700 ${metaSize}px ${theme.fontMain}`;
+  if(currentStyle === 'essay') { ctx.font=`italic ${metaSize}px ${theme.fontSerif}`; ctx.textAlign='center'; }
 
-  ctx.textAlign='left';
-  ctx.fillStyle=theme.labelColor;
-  // Brutal specific colors
-  if(currentStyle === 'brutal') ctx.fillStyle = "#000"; 
-  if(currentStyle === 'swiss') ctx.fillStyle = "#fff";
-
-  ctx.fillText(CONTEXT_LABELS[context],contentX,y+metaSize);
-  
-  ctx.textAlign='right';
-  ctx.fillStyle=spice==='hot'?alertColor:theme.goldColor;
-  if(currentStyle === 'noir') ctx.fillStyle = '#fff';
-  if(currentStyle === 'brutal') ctx.fillStyle = '#0033FF'; 
-  if(currentStyle === 'swiss') {
-      // Draw white badge for spice
-      const spiceW = ctx.measureText(SPICE_LABELS[spice]).width;
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(contentRight - spiceW - 10, y, spiceW + 20, metaSize + 4);
-      ctx.fillStyle = "#000";
-      ctx.fillText(SPICE_LABELS[spice],contentRight - 5,y+metaSize);
+  if(currentStyle !== 'essay') {
+      ctx.textAlign='left';
+      ctx.fillStyle=theme.labelColor;
+      if(currentStyle === 'brutal') ctx.fillStyle = "#000"; 
+      if(currentStyle === 'swiss') ctx.fillStyle = "#fff";
+      ctx.fillText(CONTEXT_LABELS[context],contentX,y+metaSize);
+      
+      ctx.textAlign='right';
+      ctx.fillStyle=spice==='hot'?alertColor:theme.goldColor;
+      if(currentStyle === 'noir') ctx.fillStyle = '#fff';
+      if(currentStyle === 'brutal') ctx.fillStyle = '#0033FF'; 
+      if(currentStyle === 'solar') ctx.fillStyle = '#333';
+      if(currentStyle === 'swiss') {
+          const spiceW = ctx.measureText(SPICE_LABELS[spice]).width;
+          ctx.fillStyle = "#fff";
+          ctx.fillRect(contentRight - spiceW - 10, y, spiceW + 20, metaSize + 4);
+          ctx.fillStyle = "#000";
+          ctx.fillText(SPICE_LABELS[spice],contentRight - 5,y+metaSize);
+      } else {
+          ctx.fillText(SPICE_LABELS[spice],contentRight,y+metaSize);
+      }
   } else {
-      ctx.fillText(SPICE_LABELS[spice],contentRight,y+metaSize);
+      // ESSAY META (Centered)
+      ctx.fillStyle = theme.labelColor;
+      ctx.fillText(`${CONTEXT_LABELS[context]} · ${SPICE_LABELS[spice]}`, frameX + frameW/2, y+metaSize);
   }
   
   y+=metaSize+padding*0.5;
   
   // Meta border-bottom
-  if(currentStyle !== 'brutal') {
+  if(currentStyle !== 'brutal' && currentStyle !== 'essay') {
       ctx.strokeStyle=theme.borderColor;
       ctx.lineWidth = currentStyle === 'swiss' ? 2 : theme.borderWidth;
+      if(currentStyle === 'solar') ctx.setLineDash([2, 2]);
       ctx.beginPath();
       ctx.moveTo(contentX,y);
       ctx.lineTo(contentRight,y);
       ctx.stroke();
+      ctx.setLineDash([]);
   }
   y+=padding*0.4;
 
   // === SUBTEXT ===
-  ctx.textAlign='left';
-  ctx.fillStyle=theme.goldColor;
-  if(currentStyle === 'noir') ctx.fillStyle = theme.textColor;
-  if(currentStyle === 'swiss') ctx.fillStyle = "#000";
-  if(currentStyle === 'brutal') {
-     // Brutal Highlight effect
-     ctx.fillStyle = "#fff"; // Background
+  if(currentStyle !== 'essay') {
+    ctx.textAlign='left';
+    ctx.fillStyle=theme.goldColor;
+    if(currentStyle === 'noir') ctx.fillStyle = theme.textColor;
+    if(currentStyle === 'swiss') ctx.fillStyle = "#000";
+    if(currentStyle === 'brutal') {
+         ctx.fillStyle = "#fff"; // Background
+    }
+  } else {
+    ctx.textAlign='center';
+    ctx.fillStyle = theme.labelColor;
   }
   
   ctx.font=`italic ${subtextSize}px ${theme.fontMain}`;
-  if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`${subtextSize}px ${theme.fontMain}`;
+  if(currentStyle === 'swiss' || currentStyle === 'brutal' || currentStyle === 'solar') ctx.font=`${subtextSize}px ${theme.fontMain}`;
+  if(currentStyle === 'essay') ctx.font=`${subtextSize}px ${theme.fontSerif}`;
 
   subtextLines.forEach((line,i)=>{
     if(currentStyle === 'brutal') {
@@ -1466,6 +1541,8 @@ async function drawResponseCard(ctx,areaW,areaH){
          ctx.fillRect(contentX, y, w + 10, subtextSize + 10);
          ctx.fillStyle = "#000";
          ctx.fillText(line,contentX + 5,y+subtextSize + 5);
+    } else if(currentStyle === 'essay') {
+         ctx.fillText(line, frameX + frameW/2, y+subtextSize);
     } else {
         ctx.fillText(line,contentX,y+subtextSize);
     }
@@ -1474,59 +1551,78 @@ async function drawResponseCard(ctx,areaW,areaH){
   y+=padding*0.6;
 
   // === THEY SAID ===
-  ctx.fillStyle=theme.labelColor;
-  if(currentStyle === 'brutal') { ctx.fillStyle = "#000"; ctx.fillRect(contentX, y, 120, triggerLabelSize + 8); ctx.fillStyle = "#CCFF00"; } 
-  if(currentStyle === 'swiss') ctx.fillStyle = "#fff"; 
+  if(currentStyle !== 'essay') {
+      ctx.textAlign = 'left';
+      ctx.fillStyle=theme.labelColor;
+      if(currentStyle === 'brutal') { ctx.fillStyle = "#000"; ctx.fillRect(contentX, y, 120, triggerLabelSize + 8); ctx.fillStyle = "#CCFF00"; } 
+      if(currentStyle === 'swiss') ctx.fillStyle = "#fff"; 
 
-  ctx.font=`${triggerLabelSize}px ${theme.fontMain}`;
-  if(currentStyle === 'swiss') ctx.font=`700 ${triggerLabelSize}px ${theme.fontMain}`;
+      ctx.font=`${triggerLabelSize}px ${theme.fontMain}`;
+      if(currentStyle === 'swiss') ctx.font=`700 ${triggerLabelSize}px ${theme.fontMain}`;
 
-  ctx.fillText('THEY SAID:',contentX + (currentStyle==='brutal'?5:0),y+triggerLabelSize + (currentStyle==='brutal'?4:0));
-  y+=triggerLabelSize+padding*0.15;
+      ctx.fillText('THEY SAID:',contentX + (currentStyle==='brutal'?5:0),y+triggerLabelSize + (currentStyle==='brutal'?4:0));
+      y+=triggerLabelSize+padding*0.15;
+  }
   
   ctx.fillStyle=theme.textDim;
   ctx.font=`${triggerSize}px ${theme.fontMain}`;
   if(currentStyle === 'noir') ctx.font=`italic ${triggerSize}px ${theme.fontMain}`;
   if(currentStyle === 'brutal') { ctx.fillStyle = "#CCFF00"; }
   if(currentStyle === 'swiss') { ctx.fillStyle = "#000"; ctx.font=`500 ${triggerSize}px ${theme.fontMain}`; }
+  if(currentStyle === 'essay') { 
+      ctx.textAlign = 'center'; 
+      ctx.font=`italic ${triggerSize}px ${theme.fontSerif}`;
+      ctx.fillStyle = theme.labelColor;
+  }
 
   triggerLines.forEach(line=>{
     if(currentStyle === 'swiss') {
-        // Semi-transparent bg for readability on orange
         const w = ctx.measureText(line).width;
         ctx.fillStyle = "rgba(255,255,255,0.9)";
         ctx.fillRect(contentX - 5, y - triggerSize + 5, w + 10, triggerSize + 10);
         ctx.fillStyle = "#000";
     }
-    ctx.fillText(line,contentX,y+triggerSize);
+    if(currentStyle === 'essay') {
+        ctx.fillText(`"${line}"`, frameX + frameW/2, y+triggerSize);
+    } else {
+        ctx.fillText(line,contentX,y+triggerSize);
+    }
     y+=triggerSize*1.6;
   });
   y+=padding*0.5;
 
   // === YOU SAY ===
-  ctx.fillStyle=theme.goldColor;
-  if(currentStyle === 'brutal') { ctx.fillStyle = "#000"; ctx.fillRect(contentX, y, 100, responseLabelSize + 8); ctx.fillStyle = "#CCFF00"; }
-  if(currentStyle === 'swiss') { ctx.fillStyle = "#fff"; }
+  if(currentStyle !== 'essay') {
+      ctx.textAlign = 'left';
+      ctx.fillStyle=theme.goldColor;
+      if(currentStyle === 'brutal') { ctx.fillStyle = "#000"; ctx.fillRect(contentX, y, 100, responseLabelSize + 8); ctx.fillStyle = "#CCFF00"; }
+      if(currentStyle === 'swiss') { ctx.fillStyle = "#fff"; }
 
-  ctx.font=`${responseLabelSize}px ${theme.fontMain}`;
-  if(currentStyle === 'swiss') ctx.font=`700 ${responseLabelSize}px ${theme.fontMain}`;
+      ctx.font=`${responseLabelSize}px ${theme.fontMain}`;
+      if(currentStyle === 'swiss') ctx.font=`700 ${responseLabelSize}px ${theme.fontMain}`;
 
-  ctx.fillText('YOU SAY:',contentX + (currentStyle==='brutal'?5:0),y+responseLabelSize + (currentStyle==='brutal'?4:0));
-  y+=responseLabelSize+padding*0.35;
+      ctx.fillText('YOU SAY:',contentX + (currentStyle==='brutal'?5:0),y+responseLabelSize + (currentStyle==='brutal'?4:0));
+      y+=responseLabelSize+padding*0.35;
+  }
   
   ctx.fillStyle=theme.textColor;
   ctx.font=`400 ${responseSize}px ${theme.fontSerif}`;
   if(currentStyle === 'swiss') ctx.font=`700 ${responseSize}px ${theme.fontMain}`;
   if(currentStyle === 'brutal') { ctx.font=`700 ${responseSize}px ${theme.fontMain}`; ctx.fillStyle = "#CCFF00"; }
+  if(currentStyle === 'solar') { ctx.font=`400 ${responseSize}px ${theme.fontMain}`; }
+  if(currentStyle === 'essay') { ctx.textAlign = 'center'; }
 
   responseLines.forEach(line=>{
       if(currentStyle === 'brutal') {
-          // Hard shadow for text
           ctx.fillStyle = "#000";
           ctx.fillText(line,contentX + 2,y+responseSize*0.85 + 2);
           ctx.fillStyle = "#CCFF00";
       }
-    ctx.fillText(line,contentX,y+responseSize*0.85);
+    if(currentStyle === 'essay') {
+        ctx.fillText(line, frameX + frameW/2, y+responseSize*0.85);
+    } else {
+        ctx.fillText(line,contentX,y+responseSize*0.85);
+    }
     y+=responseSize*1.35;
   });
   y+=padding*0.7;
@@ -1535,6 +1631,7 @@ async function drawResponseCard(ctx,areaW,areaH){
   if(includeQR&&qrDataUrl){
     const qrImg=new Image();
     await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
+    // For essay, center QR? No, keep it subtle.
     const qrX=contentRight-qrSize;
     ctx.drawImage(qrImg,qrX,y,qrSize,qrSize);
     y+=qrSize+padding*0.4;
@@ -1552,26 +1649,34 @@ async function drawResponseCard(ctx,areaW,areaH){
       ctx.stroke();
       y += 20;
       ctx.fillStyle = "#000";
-  } else {
+  } else if (currentStyle !== 'essay') {
     ctx.strokeStyle=theme.borderColor;
     if(currentStyle === 'swiss') ctx.lineWidth = 2;
+    if(currentStyle === 'solar') ctx.setLineDash([2, 2]);
     ctx.beginPath();
     ctx.moveTo(contentX,y);
     ctx.lineTo(contentRight,y);
     ctx.stroke();
+    ctx.setLineDash([]);
     y+=padding*0.5;
     ctx.fillStyle=theme.labelColor;
     if(currentStyle === 'swiss') ctx.fillStyle = "#fff";
   }
   
-  
-  ctx.font=`${footerSize}px ${theme.fontMain}`;
-  if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`700 ${footerSize}px ${theme.fontMain}`;
-  
-  ctx.textAlign='left';
-  ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
-  ctx.textAlign='right';
-  ctx.fillText('MATTERHOOD',contentRight,y+footerSize);
+  if(currentStyle === 'essay') {
+      ctx.textAlign = 'center';
+      ctx.font = `italic ${footerSize}px ${theme.fontSerif}`;
+      ctx.fillStyle = theme.labelColor;
+      ctx.fillText('THE PROTOCOL · MATTERHOOD', frameX + frameW/2, y+footerSize);
+  } else {
+      ctx.font=`${footerSize}px ${theme.fontMain}`;
+      if(currentStyle === 'swiss' || currentStyle === 'brutal') ctx.font=`700 ${footerSize}px ${theme.fontMain}`;
+      
+      ctx.textAlign='left';
+      ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
+      ctx.textAlign='right';
+      ctx.fillText('MATTERHOOD',contentRight,y+footerSize);
+  }
 }
 
 // Draw based on updated logic
