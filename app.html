@@ -389,43 +389,41 @@ animation: charIn 0.05s ease forwards;
 <div class="tutorial-content">
 <div class="tutorial-step active" data-step="1">
 <div class="tutorial-title">The Protocol</div>
-<div class="tutorial-text">Scripts for the moments you didn't ask for.<br><br>When someone intrudes on your fertility, your family, or your choices — this tool helps you rewrite the scene.</div>
-<button class="tutorial-btn" onclick="goToStep(2)">BEGIN</button>
-<button class="tutorial-skip" onclick="completeTutorial()">Skip intro</button>
+<div class="tutorial-text">A script library for unsolicited opinions.<br><br>When someone intrudes on your fertility, your family, or your choices — you'll have words ready. Sharp ones.</div>
+<button class="tutorial-btn" onclick="goToStep(2)">ARM YOURSELF</button>
+<button class="tutorial-skip" onclick="completeTutorial()">Skip, I'm ready</button>
 </div>
 <div class="tutorial-step" data-step="2">
-<div class="tutorial-title">The Trigger</div>
-<div class="tutorial-text">Enter what they said — or choose from common triggers.</div>
-<div class="tutorial-text">Enter what they said, choose a common trigger, or hit 🎲 for a random scenario.</div>
+<div class="tutorial-title">The Audacity</div>
+<div class="tutorial-text">Enter what they actually said. Or browse the greatest hits — we've heard them all.</div>
 <div class="tutorial-example">
-<div class="tutorial-example-label">THEY SAID:</div>
+<div class="tutorial-example-label">EXHIBIT A:</div>
 <div class="tutorial-example-text">"You just need to relax and it will happen."</div>
 </div>
 <button class="tutorial-btn" onclick="goToStep(3)">NEXT</button>
 </div>
 <div class="tutorial-step" data-step="3">
 <div class="tutorial-title">The Calibration</div>
-<div class="tutorial-text">Tell us who said it, how spicy you want to go, and whether you speak as "I" or "We".</div>
+<div class="tutorial-text">Who said it? How much damage are you willing to do? Flying solo or as a unit?</div>
 <div class="tutorial-example">
 <div class="tutorial-example-label">SETTINGS:</div>
-<div class="tutorial-example-text">Context: Family / Stranger / Colleague / Medical<br>Spice: Mild / Medium / Hot<br>Perspective: I / We</div>
+<div class="tutorial-example-text">Target: Stranger / Family / Colleague / Medical<br>Spice: Civil / Risky / Nuclear<br>Perspective: I / We</div>
 </div>
 <button class="tutorial-btn" onclick="goToStep(4)">NEXT</button>
 </div>
 <div class="tutorial-step" data-step="4">
 <div class="tutorial-title">The Voice</div>
-<div class="tutorial-text">Choose your tone. Diplomat deflects gracefully. Critic cuts clean. Absurdist finds the dark humour. Realist speaks plain truth.</div>
+<div class="tutorial-text">Choose your weapon. Each has its own way of making them regret asking.</div>
 <div class="tutorial-example">
-<div class="tutorial-example-label">THE VOICES:</div>
-<div class="tutorial-example-text">Diplomat — Graceful boundary<br>Critic — Sharp truth<br>Absurdist — Deadpan weird<br>Realist — Honest acceptance</div>
+<div class="tutorial-example-label">YOUR OPTIONS:</div>
+<div class="tutorial-example-text">Diplomat — Kill them with kindness<br>Critic — Actually, you're wrong<br>Absurdist — Confuse them into silence<br>Realist — Trauma, served straight</div>
 </div>
 <button class="tutorial-btn" onclick="goToStep(5)">NEXT</button>
 </div>
 <div class="tutorial-step" data-step="5">
-<div class="tutorial-title">The Export</div>
-<div class="tutorial-text">Save your scene as an image. Hit "New Take" for variations. Instagram Stories, feed posts, or just for you.</div>
-<div class="tutorial-text">Export as an image, or hit <strong>ANIMATE</strong> to create a video for your Story. Use "New Take" for variations.</div>
-<button class="tutorial-btn" onclick="completeTutorial()">START</button>
+<div class="tutorial-title">The Receipts</div>
+<div class="tutorial-text">Export your response as an image. Hit DRAMATIZE to make it a video. Send it, post it, or just read it alone in your car. We don't judge.</div>
+<button class="tutorial-btn" onclick="completeTutorial()">LET'S GO</button>
 </div>
 <div class="tutorial-dots">
 <div class="tutorial-dot active" data-dot="1"></div>
@@ -450,17 +448,17 @@ animation: charIn 0.05s ease forwards;
 <div class="input-section">
 <div class="section-label">THEY SAID:</div>
 <div class="input-row">
-<input type="text" class="trigger-input" id="triggerInput" placeholder="Type what they said...">
+<input type="text" class="trigger-input" id="triggerInput" placeholder="Enter the audacity...">
 <button class="surprise-btn" id="surpriseBtn" title="Random trigger">🎲</button>
 </div>
 </div>
 <div class="triggers-section">
-<div class="section-label">COMMON TRIGGERS:</div>
+<div class="section-label">GREATEST HITS:</div>
 <div class="triggers-grid" id="triggersGrid"></div>
 </div>
 <div class="config-row">
 <div class="config-group">
-<div class="section-label">THEY ARE:</div>
+<div class="section-label">THE OFFENDER:</div>
 <div class="toggle-group" id="contextGroup">
 <button class="toggle-btn active" data-context="stranger">STRANGER</button>
 <button class="toggle-btn" data-context="family">FAMILY</button>
@@ -471,11 +469,11 @@ animation: charIn 0.05s ease forwards;
 </div>
 <div class="config-row">
 <div class="config-group">
-<div class="section-label">SPICE LEVEL:</div>
+<div class="section-label">DAMAGE LEVEL:</div>
 <div class="spice-toggle" id="spiceGroup">
-<button class="spice-btn" data-spice="mild">MILD</button>
-<button class="spice-btn active" data-spice="medium">MEDIUM</button>
-<button class="spice-btn" data-spice="hot">HOT</button>
+<button class="spice-btn" data-spice="mild">CIVIL</button>
+<button class="spice-btn active" data-spice="medium">RISKY</button>
+<button class="spice-btn" data-spice="hot">NUCLEAR</button>
 </div>
 </div>
 <div class="config-group">
@@ -487,12 +485,12 @@ animation: charIn 0.05s ease forwards;
 </div>
 </div>
 <div class="tone-section">
-<div class="section-label">YOUR VOICE:</div>
+<div class="section-label">CHOOSE YOUR WEAPON:</div>
 <div class="tone-buttons">
-<button class="tone-btn" data-tone="diplomat"><span>DIPLOMAT</span><span class="tone-desc">Graceful</span></button>
-<button class="tone-btn" data-tone="critic"><span>CRITIC</span><span class="tone-desc">Sharp</span></button>
-<button class="tone-btn" data-tone="absurdist"><span>ABSURDIST</span><span class="tone-desc">Deadpan</span></button>
-<button class="tone-btn" data-tone="realist"><span>REALIST</span><span class="tone-desc">Honest</span></button>
+<button class="tone-btn" data-tone="diplomat"><span>DIPLOMAT</span><span class="tone-desc">Kill them with kindness</span></button>
+<button class="tone-btn" data-tone="critic"><span>CRITIC</span><span class="tone-desc">Actually, you're wrong</span></button>
+<button class="tone-btn" data-tone="absurdist"><span>ABSURDIST</span><span class="tone-desc">Confuse them into silence</span></button>
+<button class="tone-btn" data-tone="realist"><span>REALIST</span><span class="tone-desc">Trauma, served straight</span></button>
 </div>
 </div>
 </div>
@@ -501,7 +499,7 @@ animation: charIn 0.05s ease forwards;
 <button class="control-btn mobile-only back-btn" id="backBtn" style="display:none">← BACK</button>
 <div class="script-display">
 <div class="placeholder-card" id="placeholderCard">
-<div class="placeholder-text"><span>Enter what they said.</span><span>Calibrate your response.</span><span>Choose your voice.</span></div>
+<div class="placeholder-text"><span>Enter the audacity.</span><span>Choose your damage level.</span><span>Pick your weapon.</span></div>
 </div>
 <div class="script-card" id="scriptCard">
 <div class="script-meta">
@@ -514,26 +512,26 @@ animation: charIn 0.05s ease forwards;
 <div class="script-footer"><span>THE PROTOCOL</span><span>MATTERHOOD</span></div>
 </div>
 <div class="controls">
-<button class="control-btn" id="newTakeBtn" disabled>NEW TAKE</button>
+<button class="control-btn" id="newTakeBtn" disabled>ANOTHER</button>
 <button class="control-btn" id="copyBtn" disabled>COPY</button>
-<button class="control-btn" id="animateBtn" disabled>ANIMATE</button>
-<button class="control-btn primary" id="exportBtn" disabled>EXPORT</button>
+<button class="control-btn" id="animateBtn" disabled>DRAMATIZE</button>
+<button class="control-btn primary" id="exportBtn" disabled>GET RECEIPTS</button>
 </div>
 </div>
 </div>
 </div>
 <div class="export-options" id="exportOptions">
 <div class="export-modal">
-<div class="export-title">Export Scene</div>
-<div class="export-subtitle">Choose your format</div>
+<div class="export-title">Get Your Receipts</div>
+<div class="export-subtitle">Choose your weapon format</div>
 <div class="export-formats">
 <button class="export-format-btn" data-format="story"><span class="export-format-name">STORY</span><span class="export-format-size">1080 × 1920</span></button>
 <button class="export-format-btn" data-format="square"><span class="export-format-name">SQUARE</span><span class="export-format-size">1080 × 1080</span></button>
 <button class="export-format-btn" data-format="wide"><span class="export-format-name">WIDE</span><span class="export-format-size">1200 × 675</span></button>
 </div>
 <div class="export-toggles">
-<label class="export-toggle"><input type="checkbox" id="toggleQR" checked><span class="toggle-label">Include QR code</span></label>
-<label class="export-toggle"><input type="checkbox" id="toggleDual"><span class="toggle-label">Add "Why this hurts" card</span></label>
+<label class="export-toggle"><input type="checkbox" id="toggleQR" checked><span class="toggle-label">Add QR code (spread the word)</span></label>
+<label class="export-toggle"><input type="checkbox" id="toggleDual"><span class="toggle-label">Add "Why this hurts" card (educate the offender)</span></label>
 </div>
 <div class="caption-section">
 <div class="caption-label">CAPTION (tap to copy)</div>
@@ -613,7 +611,7 @@ function initApp() {
 
 const COMMON_TRIGGERS=["Just relax","Why don't you adopt?","Have you tried IVF?","Everything happens for a reason","My cousin stopped trying","At least you have freedom","Who's the problem?","Tick tock","You'll regret it","You wouldn't understand","Must be nice to sleep in","At least you have each other"];
 const CONTEXT_LABELS={stranger:"STRANGER",family:"FAMILY",colleague:"COLLEAGUE",medical:"MEDICAL"};
-const SPICE_LABELS={mild:"MILD",medium:"MEDIUM",hot:"HOT"};
+const SPICE_LABELS={mild:"CIVIL",medium:"RISKY",hot:"NUCLEAR"};
 
 let currentTone=null,currentTrigger=null,currentResponse=null,currentImageUrl='',currentSubtext='',currentMatchedTrigger=null;
 let context='stranger',spice='medium',perspective='we';
@@ -805,7 +803,7 @@ document.querySelectorAll('.tone-btn').forEach(btn=>{btn.addEventListener('click
 
 // Controls
 document.getElementById('newTakeBtn').addEventListener('click',()=>{if(currentTone)generateScene(currentTone);});
-document.getElementById('copyBtn').addEventListener('click',()=>{if(currentResponse){navigator.clipboard.writeText(currentResponse).then(()=>showToast('COPIED'));}});
+document.getElementById('copyBtn').addEventListener('click',()=>{if(currentResponse){navigator.clipboard.writeText(currentResponse).then(()=>showToast('copy'));}});
 document.getElementById('exportBtn').addEventListener('click',()=>{
 generateCaptions();
 document.getElementById('exportOptions').classList.add('active');
@@ -917,24 +915,24 @@ generateScene(randomTone);
 
 // Caption suggestions
 const CAPTIONS=[
-"Things people actually say to us. Here's what we wish we'd said back.",
-"Filed under: comments that don't help.",
-"For everyone who's heard this one before.",
-"Words we've been saving.",
-"What I wanted to say vs. what I said: finally aligned.",
-"This one's for the well-meaning but clueless.",
-"Boundaries, but make it articulate.",
-"The script I needed years ago.",
-"Not all comments deserve a polite response.",
-"Sharing because someone needs to hear this isn't okay."
+"Things people actually say. Here's what we wish we'd said.",
+"Filed under: audacity.",
+"For everyone who's heard this one too many times.",
+"The script I needed at Thanksgiving.",
+"Finally saying what I actually meant.",
+"For the well-meaning but wildly unhelpful.",
+"Boundaries. In writing. You're welcome.",
+"Not all comments deserve grace.",
+"This one's been in the drafts for years.",
+"Receipts: collected."
 ];
 
 const CAPTIONS_EDUCATIONAL=[
-"Sharing this to help people understand, not to call anyone out.",
-"For those who want to support someone going through this—here's what actually helps.",
-"Swipe to see why this comment hurts more than it helps.",
-"Well-meaning doesn't always mean helpful. Here's what to know.",
-"If you've said this, you're not alone. Here's how to do better."
+"Sharing this to educate, not to start a war. Okay, maybe a small war.",
+"For those who want to do better — here's your cheat sheet.",
+"Swipe for why this comment missed the mark.",
+"Good intentions ≠ good impact. A guide.",
+"If you've said this, here's your redemption arc."
 ];
 
 function generateCaptions(){
@@ -958,7 +956,7 @@ const text=selected[i]+' #matterhood';
 navigator.clipboard.writeText(text).then(()=>{
 container.querySelectorAll('.caption-item').forEach(c=>c.classList.remove('copied'));
 el.classList.add('copied');
-showToast('CAPTION COPIED');
+showToast('caption');
 });
 });
 });
@@ -1309,14 +1307,25 @@ const link2=document.createElement('a');
 link2.download=`protocol-${format}-why-${Date.now()}.png`;
 link2.href=canvas2.toDataURL('image/png');
 link2.click();
-showToast('EXPORTED 2 IMAGES');
+showToast('export');
 }else{
-showToast('EXPORTED');
+showToast('export');
 }
 }
 
 function wrapText(ctx,text,maxW){const words=text.split(' '),lines=[];let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else{line=test;}}if(line)lines.push(line);return lines;}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+const SNARKY_TOASTS={
+  copy:['WEAPONISED','LOCKED & LOADED','MIC DROP READY','SAVED FOR LATER','AMMUNITION STORED'],
+  export:['RECEIPTS ACQUIRED','EVIDENCE SECURED','GO RUIN DINNER','CHOOSE VIOLENCE','READY TO DEPLOY'],
+  caption:['CAPTION ARMED','WORDS WEAPONISED','READY TO FIRE']
+};
+function showToast(type){
+  const t=document.getElementById('toast');
+  const messages=SNARKY_TOASTS[type]||[type];
+  t.textContent=messages[Math.floor(Math.random()*messages.length)];
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
 
 // Mobile
 document.getElementById('backBtn').addEventListener('click',()=>{document.getElementById('controlPanel').classList.remove('hidden');document.getElementById('displayPanel').classList.add('hidden');document.getElementById('backBtn').style.display='none';});
