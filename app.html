@@ -3,1352 +3,232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE PROTOCOL — Matterhood Archive</title>
+<title>THE PROTOCOL</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-:root{--void:#080808;--charcoal:#121212;--bone:#E8E4DF;--cream:#F5F2ED;--bone-dim:rgba(232,228,223,0.7);--bone-faint:rgba(232,228,223,0.15);--bone-ghost:rgba(232,228,223,0.06);--alert:#C41E1E;--gold:#B8956A;--gold-dim:rgba(184,149,106,0.4);--bg:var(--void);--bg-secondary:var(--charcoal);--text:var(--bone);--text-primary:var(--cream);--border:var(--bone-faint)}
-[data-theme="light"]{--void:#FAFAF8;--charcoal:#F0EDE8;--bone:#1A1A1A;--cream:#0A0A0A;--bone-dim:rgba(10,10,10,0.75);--bone-faint:rgba(10,10,10,0.18);--bone-ghost:rgba(10,10,10,0.08);--gold:#7A6545;--bg:var(--void);--bg-secondary:var(--charcoal);--text:var(--bone);--text-primary:var(--cream);--border:var(--bone-faint)}
+:root{--white:#FFFFFF;--black:#000000;--gray-50:#FAFAFA;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-300:#D4D4D4;--gray-400:#A3A3A3;--gray-500:#737373;--gray-600:#525252;--gray-800:#262626;--gray-900:#171717}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Space Mono',monospace;background:var(--void);color:var(--bone);min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
-.film-grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .4s steps(1) infinite}
-[data-theme="light"] .film-grain{opacity:0.015}
-@keyframes grain{0%,100%{transform:translate(0)}25%{transform:translate(-2%,-2%)}50%{transform:translate(2%,2%)}75%{transform:translate(-2%,2%)}}
-.tutorial-overlay{position:fixed;inset:0;background:var(--void);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .5s,background .3s}
-.tutorial-overlay.hidden{opacity:0;pointer-events:none}
-.tutorial-content{max-width:540px;padding:2.5rem;text-align:center}
-.tutorial-step{display:none;animation:fadeUp .5s ease forwards}
-.tutorial-step.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.tutorial-title{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1.2rem;color:var(--cream)}
-.tutorial-text{font-size:.76rem;line-height:1.85;opacity:.6;margin-bottom:1.8rem}
-.tutorial-example{background:var(--charcoal);border:1px solid var(--bone-faint);padding:1.15rem;margin:1.3rem 0;text-align:left}
-.tutorial-example-label{font-size:.5rem;letter-spacing:.2em;opacity:.4;margin-bottom:.45rem}
-.tutorial-example-text{font-family:'Playfair Display',serif;font-size:.92rem;font-style:italic;color:var(--bone-dim);line-height:1.6}
-.tutorial-btn{background:var(--bone);color:var(--void);border:none;padding:.82rem 1.7rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s}
-.tutorial-btn:hover{background:var(--cream)}
-.tutorial-skip{display:block;margin-top:1.15rem;background:none;border:none;color:var(--bone-dim);font-family:'Space Mono',monospace;font-size:.55rem;cursor:pointer;opacity:.4}
-.tutorial-skip:hover{opacity:1}
-.tutorial-dots{display:flex;justify-content:center;gap:.38rem;margin-top:1.35rem}
-.tutorial-dot{width:5px;height:5px;border-radius:50%;background:var(--bone-faint)}
-.tutorial-dot.active{background:var(--gold)}
-.container{min-height:100vh;display:flex;flex-direction:column}
-header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--void);backdrop-filter:blur(12px);z-index:100;transition:background .3s}
-[data-theme="light"] header{background:rgba(248,246,243,.95)}
-.header-left{display:flex;align-items:center;gap:1.15rem}
-.logo{font-size:.65rem;font-weight:700;letter-spacing:.3em}
-.logo-sub{font-size:.46rem;letter-spacing:.15em;opacity:.3;margin-left:.55rem}
-.header-actions{display:flex;align-items:center;gap:.65rem}
-.icon-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);width:28px;height:28px;font-family:'Space Mono',monospace;font-size:.55rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center}
-.icon-btn:hover{background:var(--bone);color:var(--void)}
-.rec-indicator{display:flex;align-items:center;gap:.38rem;font-size:.5rem;letter-spacing:.15em}
-.rec-dot{width:5px;height:5px;background:var(--alert);border-radius:50%;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.main-content{flex:1;display:flex}
-.control-panel{width:355px;min-width:355px;border-right:1px solid var(--bone-faint);padding:1.5rem 1.15rem;display:flex;flex-direction:column;gap:1.1rem;background:var(--charcoal);overflow-y:auto;transition:background .3s}
-.section-label{font-size:.46rem;letter-spacing:.2em;opacity:.4;margin-bottom:.4rem}
-.input-section{display:flex;flex-direction:column;gap:.4rem}
-.input-row{display:flex;gap:.5rem;align-items:flex-end}
-.input-row .trigger-input{flex:1}
-.surprise-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);color:var(--bone);width:36px;height:36px;font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.surprise-btn:hover{background:var(--gold-dim);border-color:var(--gold)}
-.trigger-input{background:transparent;color:var(--bone);border:none;border-bottom:1px solid var(--bone-faint);padding:.65rem 0;font-family:'Space Mono',monospace;font-size:.8rem;outline:none;transition:border-color .3s}
-.trigger-input::placeholder{color:rgba(232,228,223,.2);font-style:italic}
-.trigger-input:focus{border-bottom-color:var(--bone-dim)}
-.triggers-section{display:flex;flex-direction:column;gap:.4rem}
-.triggers-grid{display:flex;flex-wrap:wrap;gap:.28rem;max-height:120px;overflow-y:auto;padding-right:.3rem}
-.triggers-grid::-webkit-scrollbar{width:4px}
-.triggers-grid::-webkit-scrollbar-track{background:var(--bone-ghost);border-radius:2px}
-.triggers-grid::-webkit-scrollbar-thumb{background:var(--bone-faint);border-radius:2px}
-.triggers-grid::-webkit-scrollbar-thumb:hover{background:var(--bone-dim)}
-.trigger-chip{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.38rem .55rem;font-size:.62rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace}
-.trigger-chip:hover{background:var(--bone-faint);color:var(--bone)}
-.config-row{display:flex;gap:.6rem;flex-wrap:wrap}
-.config-group{flex:1;min-width:140px;display:flex;flex-direction:column;gap:.35rem}
-.toggle-group{display:flex;gap:.2rem;flex-wrap:wrap}
-.toggle-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.4rem .55rem;font-size:.6rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace;letter-spacing:.05em}
-.toggle-btn:hover{background:var(--bone-faint);color:var(--bone)}
-.toggle-btn.active{background:var(--bone);color:var(--void);border-color:var(--bone)}
-.spice-toggle{display:flex;gap:.2rem}
-.spice-btn{flex:1;background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.4rem .3rem;font-size:.58rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace;text-align:center}
-.spice-btn:hover{background:var(--bone-faint);color:var(--bone)}
-.spice-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
-.spice-btn.active[data-spice="hot"]{border-color:var(--alert);color:var(--alert);background:rgba(196,30,30,0.15)}
-.tone-section{display:flex;flex-direction:column;gap:.4rem}
-.tone-buttons{display:flex;flex-direction:column;gap:.28rem}
-.tone-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);padding:.75rem .9rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;cursor:pointer;transition:all .25s;text-align:left;position:relative;display:flex;justify-content:space-between}
-.tone-btn::before{content:'';position:absolute;left:0;top:0;width:2px;height:100%;background:var(--gold);transform:scaleY(0);transition:transform .25s}
-.tone-btn:hover{background:var(--bone-ghost);padding-left:1rem}
-.tone-btn.active{background:var(--bone);color:var(--void)}
-.tone-btn.active::before{background:var(--void);transform:scaleY(1)}
-.tone-desc{font-size:.46rem;opacity:.5}
-.tone-btn.active .tone-desc{opacity:.7}
-.display-panel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden}
-.scene-bg{position:absolute;inset:0;opacity:0;transition:opacity 1s;background-size:cover;background-position:center;filter:grayscale(100%) contrast(1.1)}
-.scene-bg.active{opacity:1}
-.scene-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.78) 0%,rgba(10,10,10,.6) 50%,rgba(10,10,10,.78) 100%)}
-.script-display{max-width:600px;width:100%;position:relative;z-index:10}
-.placeholder-card{text-align:center;padding:2.5rem 1.3rem}
-.placeholder-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;opacity:.2;line-height:1.8}
-.placeholder-text span{display:block}
-.script-card{display:none;padding:1.8rem;background:var(--charcoal);border:1px solid var(--bone-faint);position:relative;transition:background .3s}
-.script-card.active{display:block;animation:cardReveal .6s ease forwards}
-@keyframes cardReveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.script-card::before{content:'';position:absolute;top:0;left:0;width:40px;height:2px;background:var(--gold)}
-.script-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bone-faint)}
-.script-context{font-size:.46rem;letter-spacing:.15em;opacity:.4}
-.script-spice{font-size:.46rem;letter-spacing:.1em;color:var(--gold)}
-.script-spice.hot{color:var(--alert)}
-.script-subtext{font-size:.5rem;letter-spacing:.08em;color:var(--gold);margin-bottom:1.1rem;font-style:italic}
-.script-subtext::before{content:'SUBTEXT: ';opacity:.5;font-style:normal}
-.script-trigger{font-size:.6rem;color:var(--bone-dim);letter-spacing:.05em;margin-bottom:.95rem;line-height:1.6}
-.script-trigger-label{display:block;font-size:.46rem;opacity:.4;margin-bottom:.28rem;letter-spacing:.2em}
-.script-response{margin-bottom:1.3rem}
-.script-response-label{font-size:.46rem;color:var(--gold);margin-bottom:.55rem;letter-spacing:.2em}
-.script-text{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.3vw,1.65rem);line-height:1.4;color:var(--cream)}
-.script-footer{font-size:.46rem;letter-spacing:.15em;opacity:.25;padding-top:.95rem;border-top:1px solid var(--bone-faint);display:flex;justify-content:space-between}
-.controls{display:flex;gap:.35rem;justify-content:center;margin-top:1.3rem;flex-wrap:wrap}
-.control-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);padding:.58rem .95rem;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;cursor:pointer;transition:all .25s}
-.control-btn:hover:not(:disabled){background:var(--bone-ghost);border-color:var(--bone-dim)}
-.control-btn:disabled{opacity:.15;cursor:not-allowed}
-.control-btn.primary{background:var(--bone);color:var(--void)}
-.control-btn.primary:hover:not(:disabled){background:var(--cream)}
-.export-options{display:none;position:fixed;inset:0;background:rgba(10,10,10,.95);z-index:1000;align-items:center;justify-content:center}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--white);color:var(--black);min-height:100vh;-webkit-font-smoothing:antialiased}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:var(--white);border-bottom:1px solid var(--gray-200)}
+.logo{font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase}
+.logo a{color:inherit;text-decoration:none}
+.header-actions{display:flex;gap:.5rem}
+.icon-btn{width:32px;height:32px;border:1px solid var(--gray-200);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .15s}
+.icon-btn:hover{background:var(--gray-100);border-color:var(--gray-300)}
+.main-content{display:flex;min-height:100vh;padding-top:57px}
+.control-panel{width:380px;min-width:380px;border-right:1px solid var(--gray-200);padding:2rem;display:flex;flex-direction:column;gap:2rem;overflow-y:auto;background:var(--gray-50)}
+.section-label{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.75rem}
+.input-row{display:flex;gap:.5rem}
+.trigger-input{flex:1;padding:.875rem 0;border:none;border-bottom:1px solid var(--gray-300);background:transparent;font-family:inherit;font-size:1rem;outline:none;transition:border-color .15s}
+.trigger-input::placeholder{color:var(--gray-400)}
+.trigger-input:focus{border-color:var(--black)}
+.surprise-btn{width:44px;height:44px;border:1px solid var(--gray-200);background:var(--white);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.surprise-btn:hover{background:var(--gray-100);border-color:var(--gray-300)}
+.triggers-grid{display:flex;flex-wrap:wrap;gap:.5rem;max-height:140px;overflow-y:auto}
+.trigger-chip{padding:.5rem .875rem;border:1px solid var(--gray-200);background:var(--white);font-family:inherit;font-size:.75rem;cursor:pointer;transition:all .15s}
+.trigger-chip:hover{background:var(--gray-100);border-color:var(--gray-300)}
+.toggle-group{display:flex;gap:.25rem;flex-wrap:wrap}
+.toggle-btn{padding:.625rem 1rem;border:1px solid var(--gray-200);background:var(--white);font-family:inherit;font-size:.7rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .15s}
+.toggle-btn:hover{background:var(--gray-100)}
+.toggle-btn.active{background:var(--black);color:var(--white);border-color:var(--black)}
+.spice-toggle{display:flex;gap:.25rem}
+.spice-btn{flex:1;padding:.625rem .5rem;border:1px solid var(--gray-200);background:var(--white);font-family:inherit;font-size:.7rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .15s;text-align:center}
+.spice-btn:hover{background:var(--gray-100)}
+.spice-btn.active{background:var(--black);color:var(--white);border-color:var(--black)}
+.config-row{display:flex;gap:1.5rem}
+.config-group{flex:1}
+.tone-buttons{display:flex;flex-direction:column;gap:.5rem}
+.tone-btn{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;border:1px solid var(--gray-200);background:var(--white);font-family:inherit;cursor:pointer;transition:all .15s;text-align:left}
+.tone-btn:hover{background:var(--gray-100);border-color:var(--gray-300)}
+.tone-btn.active{background:var(--black);color:var(--white);border-color:var(--black)}
+.tone-btn span:first-child{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.tone-desc{font-size:.75rem;color:var(--gray-500)}
+.tone-btn.active .tone-desc{color:var(--gray-400)}
+.display-panel{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem;position:relative;background:var(--white)}
+.placeholder-card{text-align:center;color:var(--gray-400)}
+.placeholder-card span{display:block;font-size:.85rem;margin-bottom:.5rem}
+.script-card{width:100%;max-width:520px;border:1px solid var(--gray-200);padding:2.5rem;display:none;animation:fadeIn .3s ease}
+.script-card.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.script-meta{display:flex;justify-content:space-between;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);padding-bottom:1.25rem;margin-bottom:1.25rem;border-bottom:1px solid var(--gray-200)}
+.script-spice{color:var(--gray-600)}
+.script-spice.hot{color:var(--gray-900);font-weight:600}
+.script-subtext{font-size:.85rem;font-style:italic;color:var(--gray-500);margin-bottom:1.5rem;line-height:1.6}
+.script-trigger{margin-bottom:1.5rem}
+.script-trigger-label{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);display:block;margin-bottom:.5rem}
+#triggerDisplay{font-size:1rem;color:var(--gray-600)}
+.script-response{margin-bottom:2rem}
+.script-response-label{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.75rem}
+.script-text{font-size:1.5rem;line-height:1.4;letter-spacing:-.01em}
+.script-footer{display:flex;justify-content:space-between;font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);padding-top:1.25rem;border-top:1px solid var(--gray-200)}
+.controls{display:flex;gap:.5rem;margin-top:2rem}
+.control-btn{flex:1;padding:.875rem 1.5rem;border:1px solid var(--gray-200);background:var(--white);font-family:inherit;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s}
+.control-btn:hover:not(:disabled){background:var(--gray-100);border-color:var(--gray-300)}
+.control-btn:disabled{opacity:.4;cursor:not-allowed}
+.control-btn.primary{background:var(--black);color:var(--white);border-color:var(--black)}
+.control-btn.primary:hover:not(:disabled){opacity:.8}
+.export-options{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:1000}
 .export-options.active{display:flex}
-.export-modal{background:var(--charcoal);border:1px solid var(--bone-faint);padding:1.8rem;max-width:400px;width:90%;transition:background .3s}
-.export-title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.35rem}
-.export-subtitle{font-size:.55rem;opacity:.5;margin-bottom:1.3rem;letter-spacing:.1em}
-.export-formats{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.3rem}
-.export-format-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.95rem 1.1rem;cursor:pointer;transition:all .25s;display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono',monospace;color:var(--bone)}
-.export-format-btn:hover{background:var(--bone-faint);border-color:var(--bone-dim)}
-.export-format-name{font-size:.62rem;letter-spacing:.1em}
-.export-format-size{font-size:.5rem;opacity:.4}
-.export-close{background:none;border:1px solid var(--bone-faint);color:var(--bone-dim);padding:.55rem 1.1rem;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.1em;cursor:pointer;width:100%}
-.export-close:hover{border-color:var(--bone-dim);color:var(--bone)}
-.export-toggles{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.3rem;padding-top:1rem;border-top:1px solid var(--bone-faint)}
-.export-toggle{display:flex;align-items:center;gap:.6rem;cursor:pointer;font-size:.58rem;letter-spacing:.05em;color:var(--bone-dim)}
-.export-toggle input{appearance:none;width:14px;height:14px;border:1px solid var(--bone-faint);background:transparent;cursor:pointer;position:relative}
-.export-toggle input:checked{border-color:var(--gold);background:var(--gold)}
-.export-toggle input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;color:var(--void)}
-.export-toggle:hover{color:var(--bone)}
-.caption-section{border-top:1px solid var(--bone-faint);padding-top:1rem;margin-bottom:1rem}
-.caption-label{font-size:.5rem;letter-spacing:.15em;opacity:.5;margin-bottom:.6rem}
-.caption-suggestions{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.6rem}
-.caption-item{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.6rem .8rem;font-size:.58rem;line-height:1.5;cursor:pointer;transition:all .2s;color:var(--bone-dim)}
-.caption-item:hover{background:var(--bone-faint);color:var(--bone);border-color:var(--bone-dim)}
-.caption-item.copied{border-color:var(--gold);color:var(--gold)}
-.toast{position:fixed;bottom:1.3rem;left:50%;transform:translateX(-50%) translateY(150%);background:var(--void);border:1px solid var(--gold);color:var(--bone);padding:.8rem 1.1rem;font-size:.5rem;letter-spacing:.1em;z-index:1001;transition:transform .4s;text-align:center}
+.export-modal{background:var(--white);padding:2.5rem;width:90%;max-width:440px}
+.export-title{font-size:1.5rem;font-weight:400;margin-bottom:.5rem}
+.export-subtitle{font-size:.85rem;color:var(--gray-500);margin-bottom:2rem}
+.export-formats{display:flex;gap:.5rem;margin-bottom:1.5rem}
+.export-format-btn{flex:1;padding:1.25rem 1rem;border:1px solid var(--gray-200);background:var(--white);cursor:pointer;text-align:center;transition:all .15s}
+.export-format-btn:hover{background:var(--gray-100);border-color:var(--gray-300)}
+.export-format-name{display:block;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}
+.export-format-size{font-size:.7rem;color:var(--gray-400)}
+.export-toggles{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--gray-200)}
+.export-toggle{display:flex;align-items:center;gap:.75rem;font-size:.8rem;color:var(--gray-600);cursor:pointer}
+.export-toggle input{width:16px;height:16px}
+.caption-section{margin-bottom:1.5rem}
+.caption-label{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.75rem}
+.caption-suggestions{display:flex;flex-direction:column;gap:.5rem}
+.caption-item{padding:.75rem 1rem;border:1px solid var(--gray-200);font-size:.8rem;color:var(--gray-600);cursor:pointer;transition:all .15s;line-height:1.5}
+.caption-item:hover{background:var(--gray-100);border-color:var(--gray-300)}
+.caption-item.copied{background:var(--gray-100);border-color:var(--black)}
+.export-close{width:100%;padding:.875rem;border:1px solid var(--gray-200);background:var(--white);font-family:inherit;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s}
+.export-close:hover{background:var(--gray-100)}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--black);color:var(--white);padding:.875rem 1.5rem;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;transition:transform .3s;z-index:1001}
 .toast.show{transform:translateX(-50%) translateY(0)}
-.toast a{color:var(--gold);text-decoration:none;margin-left:.35rem}
-footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
-footer a{color:var(--gold);text-decoration:none}
-
-/* Animation Overlay - Fixed Centering & Layout & Word Wrapping */
-.animate-overlay {
-position: fixed;
-inset: 0;
-background: var(--void);
-z-index: 2000;
-display: none;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-}
-
-.animate-overlay.active {
-display: flex;
-}
-
-.animate-scene {
-position: relative;
-width: 100%;
-height: 100%; 
-    max-width: 450px;
-    max-width: 450px; /* Slightly wider to match main card feel */
-aspect-ratio: 9/16;
-    display: flex;
-    display: flex; /* Use flex to center the card */
-align-items: center;
-justify-content: center;
-overflow: hidden;
-}
-
-.animate-bg {
-position: absolute;
-inset: 0;
-background-size: cover;
-background-position: center;
-opacity: 0.3;
-filter: grayscale(100%);
-z-index: 0;
-}
-
-.animate-card {
-position: relative;
-    width: 88%;
-    width: 88%; /* Consistent width */
-background: var(--charcoal);
-border: 1px solid var(--bone-faint);
-    padding: 1.8rem;
-    padding: 1.8rem; /* Match script-card padding */
-display: flex;
-flex-direction: column;
-z-index: 10;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5); /* Add depth */
-}
-
-/* Gold Bar match */
-.animate-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 40px;
-height: 2px;
-background: var(--gold);
-}
-
-/* Typography matching main site exactly */
-.animate-meta {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 1rem;
-padding-bottom: 0.75rem;
-border-bottom: 1px solid var(--bone-faint);
-}
-
-.animate-context {
-font-size: 0.46rem;
-letter-spacing: 0.15em;
-opacity: 0.4;
-text-transform: uppercase;
-}
-
-.animate-spice {
-font-size: 0.46rem;
-letter-spacing: 0.1em;
-color: var(--gold);
-text-transform: uppercase;
-}
-
-.animate-subtext {
-font-size: 0.5rem;
-letter-spacing: 0.08em;
-color: var(--gold);
-margin-bottom: 1.1rem;
-font-style: italic;
-opacity: 0;
-transform: translateY(10px);
-}
-
-.animate-subtext::before {
-content: 'SUBTEXT: ';
-opacity: 0.5;
-font-style: normal;
-}
-
-.animate-trigger-wrapper {
-margin-bottom: 0.95rem;
-}
-
-.animate-label {
-display: block;
-font-size: 0.46rem;
-opacity: 0.4;
-margin-bottom: 0.28rem;
-letter-spacing: 0.2em;
-color: var(--bone);
-text-transform: uppercase;
-}
-
-.animate-trigger-text {
-font-family: 'Space Mono', monospace;
-font-size: 0.6rem;
-color: var(--bone-dim);
-letter-spacing: 0.05em;
-line-height: 1.6;
-opacity: 0;
-display: block;
-}
-
-.animate-response-wrapper {
-margin-bottom: 1.3rem;
-}
-
-.animate-label-gold {
-font-size: 0.46rem;
-color: var(--gold);
-margin-bottom: 0.55rem;
-letter-spacing: 0.2em;
-text-transform: uppercase;
-}
-
-/* Response Text - Larger and sharper like main site */
-.animate-response-text {
-font-family: 'Playfair Display', serif;
-    font-size: clamp(1.2rem, 2.3vw, 1.65rem);
-    font-size: clamp(1.2rem, 2.3vw, 1.65rem); /* Matches .script-text */
-line-height: 1.4;
-color: var(--cream);
-min-height: 2.8rem;
-}
-
-/* Word wrapping logic */
-/* Word wrapping fix */
-.animate-response-text .word {
-display: inline-block;
-white-space: nowrap;
-margin-right: 0.25em;
-}
-
-.animate-response-text .char {
-opacity: 0;
-display: inline-block;
-}
-
-.animate-footer {
-font-size: 0.46rem;
-letter-spacing: 0.15em;
-opacity: 0.25;
-padding-top: 0.95rem;
-border-top: 1px solid var(--bone-faint);
-display: flex;
-justify-content: space-between;
-}
-
-/* Controls at bottom of screen */
-.animate-controls {
-position: absolute;
-bottom: 2rem;
-display: flex;
-gap: 1rem;
-z-index: 20;
-transition: opacity 0.5s ease;
-}
-
-.animate-hint {
-position: absolute;
-bottom: 5rem;
-font-size: 0.6rem;
-letter-spacing: 0.15em;
-color: var(--bone-dim);
-opacity: 0.5;
-z-index: 20;
-text-transform: uppercase;
-transition: opacity 0.5s ease;
-}
-
-/* Clean mode for recording */
-.animate-overlay.clean-mode .animate-controls,
-.animate-overlay.clean-mode .animate-hint {
-opacity: 0;
-pointer-events: none;
-}
-
-/* Animations */
-.animate-subtext.show, .animate-trigger-text.show {
-animation: fadeUp 0.6s ease forwards;
-}
-
-.animate-response-text .char.show {
-animation: charIn 0.05s ease forwards;
-}
-
-@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes charIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-@media(max-width:900px){
-.logo-sub{display:none}
-.main-content{flex-direction:column}
-.control-panel{width:100%;min-width:0;border-right:none;border-bottom:1px solid var(--bone-faint);padding:1.1rem;max-height:none}
-.control-panel.hidden{display:none}
-.config-row{flex-direction:column;gap:.5rem}
-.config-group{min-width:100%}
-.triggers-grid{max-height:none;overflow-y:visible}
-.tone-buttons{flex-direction:row;flex-wrap:wrap}
-.tone-btn{flex:1 1 calc(50% - .15rem);text-align:center;padding:.6rem .35rem;font-size:.62rem;flex-direction:column;gap:.15rem}
-.tone-desc{display:none}
-.display-panel{padding:1.1rem;min-height:50vh}
-.display-panel.hidden{display:none}
-.script-card{padding:1.3rem 1.1rem}
-.back-btn{position:absolute;top:.8rem;left:.8rem;z-index:20}
-.controls{flex-direction:column;width:100%}
-.control-btn{width:100%}
-}
+.animate-overlay{position:fixed;inset:0;background:var(--black);z-index:2000;display:none;flex-direction:column;align-items:center;justify-content:center}
+.animate-overlay.active{display:flex}
+.animate-scene{width:100%;max-width:400px;aspect-ratio:9/16;background:var(--white);position:relative;overflow:hidden}
+.animate-card{position:absolute;inset:2rem;display:flex;flex-direction:column;padding:2rem;border:1px solid var(--gray-200)}
+.animate-meta{display:flex;justify-content:space-between;font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);padding-bottom:1rem;margin-bottom:1rem;border-bottom:1px solid var(--gray-200)}
+.animate-subtext{font-size:.8rem;font-style:italic;color:var(--gray-500);margin-bottom:1.5rem;opacity:0;transform:translateY(10px)}
+.animate-subtext.show{animation:fadeUp .5s ease forwards}
+.animate-trigger-wrapper{margin-bottom:1.5rem}
+.animate-label{font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);display:block;margin-bottom:.5rem}
+.animate-trigger-text{font-size:.9rem;color:var(--gray-600);opacity:0}
+.animate-trigger-text.show{animation:fadeUp .4s ease forwards}
+.animate-response-wrapper{flex:1}
+.animate-response-text{font-size:1.25rem;line-height:1.4}
+.animate-response-text .word{display:inline-block;white-space:nowrap;margin-right:.25em}
+.animate-response-text .char{opacity:0;display:inline-block}
+.animate-response-text .char.show{animation:charIn .04s ease forwards}
+.animate-footer{display:flex;justify-content:space-between;font-size:.55rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);padding-top:1rem;border-top:1px solid var(--gray-200)}
+.animate-controls{display:flex;gap:1rem;margin-top:1.5rem}
+.animate-hint{font-size:.7rem;color:var(--gray-500);margin-top:1rem;letter-spacing:.05em}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes charIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+.tutorial-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:3000;display:flex;align-items:center;justify-content:center}
+.tutorial-overlay.hidden{display:none}
+@media(max-width:900px){.main-content{flex-direction:column}.control-panel{width:100%;min-width:0;border-right:none;border-bottom:1px solid var(--gray-200);max-height:none;padding:1.5rem}.control-panel.hidden{display:none}.display-panel{padding:1.5rem;min-height:60vh}.display-panel.hidden{display:none}.config-row{flex-direction:column;gap:1.5rem}.tone-buttons{flex-direction:row;flex-wrap:wrap}.tone-btn{flex:1 1 calc(50% - .25rem);flex-direction:column;align-items:flex-start;gap:.25rem;padding:.875rem 1rem}.tone-desc{display:none}.controls{flex-direction:column}.back-btn{margin-bottom:1rem}}
 @media(min-width:901px){.mobile-only{display:none!important}}
-.script-card:not(.active){display:none}
 </style>
 </head>
 <body>
-<div class="film-grain"></div>
-<div class="tutorial-overlay" id="tutorialOverlay">
-<div class="tutorial-content">
-<div class="tutorial-step active" data-step="1">
-<div class="tutorial-title">The Protocol</div>
-<div class="tutorial-text">A script library for unsolicited opinions.<br><br>When someone intrudes on your fertility, your family, or your choices — you'll have words ready. Sharp ones.</div>
-<button class="tutorial-btn" onclick="goToStep(2)">ARM YOURSELF</button>
-<button class="tutorial-skip" onclick="completeTutorial()">Skip, I'm ready</button>
-</div>
-<div class="tutorial-step" data-step="2">
-<div class="tutorial-title">The Audacity</div>
-<div class="tutorial-text">Enter what they actually said. Or browse the greatest hits — we've heard them all.</div>
-<div class="tutorial-example">
-<div class="tutorial-example-label">EXHIBIT A:</div>
-<div class="tutorial-example-text">"You just need to relax and it will happen."</div>
-</div>
-<button class="tutorial-btn" onclick="goToStep(3)">NEXT</button>
-</div>
-<div class="tutorial-step" data-step="3">
-<div class="tutorial-title">The Calibration</div>
-<div class="tutorial-text">Who said it? How much damage are you willing to do? Flying solo or as a unit?</div>
-<div class="tutorial-example">
-<div class="tutorial-example-label">SETTINGS:</div>
-<div class="tutorial-example-text">Target: Stranger / Family / Colleague / Medical<br>Spice: Civil / Risky / Nuclear<br>Perspective: I / We</div>
-</div>
-<button class="tutorial-btn" onclick="goToStep(4)">NEXT</button>
-</div>
-<div class="tutorial-step" data-step="4">
-<div class="tutorial-title">The Voice</div>
-<div class="tutorial-text">Choose your weapon. Each has its own way of making them regret asking.</div>
-<div class="tutorial-example">
-<div class="tutorial-example-label">YOUR OPTIONS:</div>
-<div class="tutorial-example-text">Diplomat — Kill them with kindness<br>Critic — Actually, you're wrong<br>Absurdist — Confuse them into silence<br>Realist — Trauma, served straight</div>
-</div>
-<button class="tutorial-btn" onclick="goToStep(5)">NEXT</button>
-</div>
-<div class="tutorial-step" data-step="5">
-<div class="tutorial-title">The Receipts</div>
-<div class="tutorial-text">Export your response as an image. Hit DRAMATIZE to make it a video. Send it, post it, or just read it alone in your car. We don't judge.</div>
-<button class="tutorial-btn" onclick="completeTutorial()">LET'S GO</button>
-</div>
-<div class="tutorial-dots">
-<div class="tutorial-dot active" data-dot="1"></div>
-<div class="tutorial-dot" data-dot="2"></div>
-<div class="tutorial-dot" data-dot="3"></div>
-<div class="tutorial-dot" data-dot="4"></div>
-<div class="tutorial-dot" data-dot="5"></div>
-</div>
-</div>
-</div>
-<div class="container">
 <header>
-<div class="header-left"><div class="logo">THE PROTOCOL<span class="logo-sub">MATTERHOOD</span></div></div>
-<div class="header-actions">
-<button class="icon-btn" id="themeToggle" title="Toggle light/dark mode">☀</button>
-<button class="icon-btn" onclick="showTutorial()" title="Help">?</button>
-<div class="rec-indicator"><div class="rec-dot"></div><span>REC</span></div>
-</div>
+<div class="logo"><a href="index.html">The Protocol</a></div>
+<div class="header-actions"><button class="icon-btn" onclick="showTutorial()" title="Help">?</button></div>
 </header>
 <div class="main-content">
 <div class="control-panel" id="controlPanel">
-<div class="input-section">
-<div class="section-label">THEY SAID:</div>
-<div class="input-row">
-<input type="text" class="trigger-input" id="triggerInput" placeholder="Enter the audacity...">
-<button class="surprise-btn" id="surpriseBtn" title="Random trigger">🎲</button>
-</div>
-</div>
-<div class="triggers-section">
-<div class="section-label">GREATEST HITS:</div>
-<div class="triggers-grid" id="triggersGrid"></div>
-</div>
-<div class="config-row">
-<div class="config-group">
-<div class="section-label">THE OFFENDER:</div>
-<div class="toggle-group" id="contextGroup">
-<button class="toggle-btn active" data-context="stranger">STRANGER</button>
-<button class="toggle-btn" data-context="family">FAMILY</button>
-<button class="toggle-btn" data-context="colleague">COLLEAGUE</button>
-<button class="toggle-btn" data-context="medical">MEDICAL</button>
-</div>
-</div>
-</div>
-<div class="config-row">
-<div class="config-group">
-<div class="section-label">DAMAGE LEVEL:</div>
-<div class="spice-toggle" id="spiceGroup">
-<button class="spice-btn" data-spice="mild">CIVIL</button>
-<button class="spice-btn active" data-spice="medium">RISKY</button>
-<button class="spice-btn" data-spice="hot">NUCLEAR</button>
-</div>
-</div>
-<div class="config-group">
-<div class="section-label">PERSPECTIVE:</div>
-<div class="toggle-group" id="perspectiveGroup">
-<button class="toggle-btn" data-perspective="i">I</button>
-<button class="toggle-btn active" data-perspective="we">WE</button>
-</div>
-</div>
-</div>
-<div class="tone-section">
-<div class="section-label">CHOOSE YOUR WEAPON:</div>
-<div class="tone-buttons">
-<button class="tone-btn" data-tone="diplomat"><span>DIPLOMAT</span><span class="tone-desc">Kill them with kindness</span></button>
-<button class="tone-btn" data-tone="critic"><span>CRITIC</span><span class="tone-desc">Actually, you're wrong</span></button>
-<button class="tone-btn" data-tone="absurdist"><span>ABSURDIST</span><span class="tone-desc">Confuse them into silence</span></button>
-<button class="tone-btn" data-tone="realist"><span>REALIST</span><span class="tone-desc">Trauma, served straight</span></button>
-</div>
-</div>
+<div><div class="section-label">They Said</div><div class="input-row"><input type="text" class="trigger-input" id="triggerInput" placeholder="Enter the audacity..."><button class="surprise-btn" id="surpriseBtn" title="Random">🎲</button></div></div>
+<div><div class="section-label">Greatest Hits</div><div class="triggers-grid" id="triggersGrid"></div></div>
+<div class="config-row"><div class="config-group"><div class="section-label">The Offender</div><div class="toggle-group" id="contextGroup"><button class="toggle-btn active" data-context="stranger">Stranger</button><button class="toggle-btn" data-context="family">Family</button><button class="toggle-btn" data-context="colleague">Colleague</button><button class="toggle-btn" data-context="medical">Medical</button></div></div></div>
+<div class="config-row"><div class="config-group"><div class="section-label">Damage Level</div><div class="spice-toggle" id="spiceGroup"><button class="spice-btn" data-spice="mild">Civil</button><button class="spice-btn active" data-spice="medium">Risky</button><button class="spice-btn" data-spice="hot">Nuclear</button></div></div><div class="config-group"><div class="section-label">Perspective</div><div class="toggle-group" id="perspectiveGroup"><button class="toggle-btn" data-perspective="i">I</button><button class="toggle-btn active" data-perspective="we">We</button></div></div></div>
+<div><div class="section-label">Choose Your Weapon</div><div class="tone-buttons"><button class="tone-btn" data-tone="diplomat"><span>Diplomat</span><span class="tone-desc">Kill them with kindness</span></button><button class="tone-btn" data-tone="critic"><span>Critic</span><span class="tone-desc">Actually, you're wrong</span></button><button class="tone-btn" data-tone="absurdist"><span>Absurdist</span><span class="tone-desc">Confuse them into silence</span></button><button class="tone-btn" data-tone="realist"><span>Realist</span><span class="tone-desc">Trauma, served straight</span></button></div></div>
 </div>
 <div class="display-panel" id="displayPanel">
-<div class="scene-bg" id="sceneBg"></div>
-<button class="control-btn mobile-only back-btn" id="backBtn" style="display:none">← BACK</button>
-<div class="script-display">
-<div class="placeholder-card" id="placeholderCard">
-<div class="placeholder-text"><span>Enter the audacity.</span><span>Choose your damage level.</span><span>Pick your weapon.</span></div>
-</div>
+<div>
+<button class="control-btn mobile-only back-btn" id="backBtn" style="display:none">← Back</button>
+<div class="placeholder-card" id="placeholderCard"><span>Enter the audacity.</span><span>Choose your damage level.</span><span>Pick your weapon.</span></div>
 <div class="script-card" id="scriptCard">
-<div class="script-meta">
-<span class="script-context" id="contextDisplay">STRANGER</span>
-<span class="script-spice" id="spiceDisplay">MEDIUM</span>
-</div>
+<div class="script-meta"><span class="script-context" id="contextDisplay">STRANGER</span><span class="script-spice" id="spiceDisplay">RISKY</span></div>
 <div class="script-subtext" id="subtextDisplay"></div>
-<div class="script-trigger"><span class="script-trigger-label">THEY SAID:</span><span id="triggerDisplay"></span></div>
-<div class="script-response"><div class="script-response-label">YOU SAY:</div><div class="script-text" id="scriptText"></div></div>
-<div class="script-footer"><span>THE PROTOCOL</span><span>MATTERHOOD</span></div>
+<div class="script-trigger"><span class="script-trigger-label">They Said:</span><span id="triggerDisplay"></span></div>
+<div class="script-response"><div class="script-response-label">You Say:</div><div class="script-text" id="scriptText"></div></div>
+<div class="script-footer"><span>The Protocol</span><span>Matterhood</span></div>
 </div>
-<div class="controls">
-<button class="control-btn" id="newTakeBtn" disabled>ANOTHER</button>
-<button class="control-btn" id="copyBtn" disabled>COPY</button>
-<button class="control-btn" id="animateBtn" disabled>DRAMATIZE</button>
-<button class="control-btn primary" id="exportBtn" disabled>GET RECEIPTS</button>
-</div>
+<div class="controls"><button class="control-btn" id="newTakeBtn" disabled>Another</button><button class="control-btn" id="copyBtn" disabled>Copy</button><button class="control-btn" id="animateBtn" disabled>Dramatize</button><button class="control-btn primary" id="exportBtn" disabled>Get Receipts</button></div>
 </div>
 </div>
 </div>
 <div class="export-options" id="exportOptions">
 <div class="export-modal">
 <div class="export-title">Get Your Receipts</div>
-<div class="export-subtitle">Choose your weapon format</div>
-<div class="export-formats">
-<button class="export-format-btn" data-format="story"><span class="export-format-name">STORY</span><span class="export-format-size">1080 × 1920</span></button>
-<button class="export-format-btn" data-format="square"><span class="export-format-name">SQUARE</span><span class="export-format-size">1080 × 1080</span></button>
-<button class="export-format-btn" data-format="wide"><span class="export-format-name">WIDE</span><span class="export-format-size">1200 × 675</span></button>
-</div>
-<div class="export-toggles">
-<label class="export-toggle"><input type="checkbox" id="toggleQR" checked><span class="toggle-label">Add QR code (spread the word)</span></label>
-<label class="export-toggle"><input type="checkbox" id="toggleDual"><span class="toggle-label">Add "Why this hurts" card (educate the offender)</span></label>
-</div>
-<div class="caption-section">
-<div class="caption-label">CAPTION (tap to copy)</div>
-<div class="caption-suggestions" id="captionSuggestions"></div>
-</div>
-<button class="export-close" id="exportClose">CANCEL</button>
+<div class="export-subtitle">Choose your format</div>
+<div class="export-formats"><button class="export-format-btn" data-format="story"><span class="export-format-name">Story</span><span class="export-format-size">1080 × 1920</span></button><button class="export-format-btn" data-format="square"><span class="export-format-name">Square</span><span class="export-format-size">1080 × 1080</span></button><button class="export-format-btn" data-format="wide"><span class="export-format-name">Wide</span><span class="export-format-size">1200 × 675</span></button></div>
+<div class="export-toggles"><label class="export-toggle"><input type="checkbox" id="toggleQR" checked><span>Add QR code</span></label><label class="export-toggle"><input type="checkbox" id="toggleDual"><span>Add "Why this hurts" card</span></label></div>
+<div class="caption-section"><div class="caption-label">Caption (tap to copy)</div><div class="caption-suggestions" id="captionSuggestions"></div></div>
+<button class="export-close" id="exportClose">Cancel</button>
 </div>
 </div>
-<div class="toast" id="toast">EXPORTED</div>
+<div class="toast" id="toast"></div>
 <div class="animate-overlay" id="animateOverlay">
-<div class="animate-scene" id="animateScene">
-<div class="animate-bg" id="animateBg"></div>
-
-<div class="animate-card">
-<div class="animate-meta">
-<span class="animate-context" id="animContext">STRANGER</span>
-<span class="animate-spice" id="animSpice">HOT</span>
-</div>
-
+<div class="animate-scene" id="animateScene"><div class="animate-card">
+<div class="animate-meta"><span id="animContext">STRANGER</span><span id="animSpice">RISKY</span></div>
 <div class="animate-subtext" id="animSubtext"></div>
-
-<div class="animate-trigger-wrapper">
-<span class="animate-label">THEY SAID:</span>
-<span class="animate-trigger-text" id="animTrigger"></span>
-</div>
-
-<div class="animate-response-wrapper">
-<div class="animate-label-gold">YOU SAY:</div>
-<div class="animate-response-text" id="animResponse"></div>
-</div>
-
-<div class="animate-footer">
-<span>THE PROTOCOL</span>
-<span>MATTERHOOD</span>
-</div>
-</div>
-</div>
-
+<div class="animate-trigger-wrapper"><span class="animate-label">They Said:</span><span class="animate-trigger-text" id="animTrigger"></span></div>
+<div class="animate-response-wrapper"><div class="animate-label">You Say:</div><div class="animate-response-text" id="animResponse"></div></div>
+<div class="animate-footer"><span>The Protocol</span><span>Matterhood</span></div>
+</div></div>
+<div class="animate-controls"><button class="control-btn" id="replayBtn">Replay</button><button class="control-btn" id="animCloseBtn">Close</button></div>
 <div class="animate-hint">Screen record this for your story</div>
-
-<div class="animate-controls">
-<button class="control-btn" id="replayBtn">REPLAY</button>
-<button class="control-btn" id="animCloseBtn">CLOSE</button>
+</div>
+<div class="tutorial-overlay hidden" id="tutorialOverlay">
+<div style="background:white;padding:3rem;max-width:500px;text-align:center;">
+<h2 style="font-size:1.5rem;margin-bottom:1rem;">The Protocol</h2>
+<p style="color:#525252;margin-bottom:2rem;line-height:1.7;">Enter what they said. Choose your damage level. Pick your weapon. Get your receipts.</p>
+<button onclick="completeTutorial()" style="padding:.875rem 2rem;background:black;color:white;border:none;font-family:inherit;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">Got It</button>
 </div>
 </div>
-</div>
-<footer>CRAIG & COURTNEY — <a href="#">BUY US A CHIP</a></footer>
 <script>
-// THE PROTOCOL v2.1 — Expanded Variation Engine
-// Triggers loaded from external JSON
-
-let TRIGGERS = [];
-
-// Tutorial (global scope for onclick handlers)
-function goToStep(n){document.querySelectorAll('.tutorial-step').forEach(s=>s.classList.remove('active'));document.querySelector(`.tutorial-step[data-step="${n}"]`)?.classList.add('active');document.querySelectorAll('.tutorial-dot').forEach(d=>d.classList.remove('active'));document.querySelector(`.tutorial-dot[data-dot="${n}"]`)?.classList.add('active');}
-function completeTutorial(){localStorage.setItem('protocol_tutorial_v4','true');document.getElementById('tutorialOverlay').classList.add('hidden');}
-function showTutorial(){document.getElementById('tutorialOverlay').classList.remove('hidden');goToStep(1);}
-
-// Load triggers from JSON
-async function loadTriggers() {
-try {
-const response = await fetch('triggers.json');
-TRIGGERS = await response.json();
-console.log(`Loaded ${TRIGGERS.length} triggers`);
-initApp();
-} catch (err) {
-console.error('Failed to load triggers:', err);
-document.body.innerHTML = '<div style="padding:2rem;color:#c41e1e;">Failed to load response data. Please refresh.</div>';
-}
-}
-
-function initApp() {
-
-// ============================================================================
-// COMMON TRIGGERS DISPLAY + ENGINE
-// ============================================================================
-
+let TRIGGERS=[];
+function goToStep(n){}
+function completeTutorial(){localStorage.setItem('protocol_tutorial_v5','true');document.getElementById('tutorialOverlay').classList.add('hidden');}
+function showTutorial(){document.getElementById('tutorialOverlay').classList.remove('hidden');}
+async function loadTriggers(){try{const response=await fetch('triggers.json');TRIGGERS=await response.json();console.log(`Loaded ${TRIGGERS.length} triggers`);initApp();}catch(err){console.error('Failed to load triggers:',err);document.body.innerHTML='<div style="padding:3rem;text-align:center;">Failed to load data. Please refresh.</div>';}}
+function initApp(){
 const COMMON_TRIGGERS=["Just relax","Why don't you adopt?","Have you tried IVF?","Everything happens for a reason","My cousin stopped trying","At least you have freedom","Who's the problem?","Tick tock","You'll regret it","You wouldn't understand","Must be nice to sleep in","At least you have each other"];
 const CONTEXT_LABELS={stranger:"STRANGER",family:"FAMILY",colleague:"COLLEAGUE",medical:"MEDICAL"};
 const SPICE_LABELS={mild:"CIVIL",medium:"RISKY",hot:"NUCLEAR"};
-
 let currentTone=null,currentTrigger=null,currentResponse=null,currentImageUrl='',currentSubtext='',currentMatchedTrigger=null;
 let context='stranger',spice='medium',perspective='we';
 let usedResponses={};
-
-// Check tutorial on init
-if(localStorage.getItem('protocol_tutorial_v4'))document.getElementById('tutorialOverlay').classList.add('hidden');
-
-// Matching - Fuzzy search with multiple strategies
+if(localStorage.getItem('protocol_tutorial_v5'))document.getElementById('tutorialOverlay').classList.add('hidden');
 function normalize(t){return t.toLowerCase().replace(/['']/g,"'").replace(/[""]/g,'"').replace(/[?!.,;:]/g,'').replace(/\s+/g,' ').trim();}
-
-// Common filler words to ignore when matching
 const FILLER_WORDS=new Set(['a','an','the','you','your','i','my','we','our','just','really','actually','maybe','perhaps','ever','even','so','very','like','know','think','well','oh','um','uh','hey','but','and','or','if','then','have','has','had','do','does','did','should','could','would','can','will','been','being','gonna','gotta','wanna','dont','didnt','cant','wont','youre','youve','youll','ive','im','were','weve','thats','its','hes','shes','theyre','theyve']);
-
-// Remove filler words from text
-function removeFillers(text){
-return text.split(' ').filter(w=>!FILLER_WORDS.has(w)).join(' ');
-}
-
-// Calculate similarity between two strings (0-1)
-function similarity(a,b){
-if(a===b)return 1;
-if(a.length<2||b.length<2)return 0;
-
-// Bigram similarity
-const bigramsA=new Map();
-for(let i=0;i<a.length-1;i++){
-const bg=a.substring(i,i+2);
-bigramsA.set(bg,(bigramsA.get(bg)||0)+1);
-}
-
-let matches=0;
-for(let i=0;i<b.length-1;i++){
-const bg=b.substring(i,i+2);
-if(bigramsA.get(bg)>0){
-matches++;
-bigramsA.set(bg,bigramsA.get(bg)-1);
-}
-}
-
-return (2*matches)/(a.length+b.length-2);
-}
-
-// Find best matching trigger
-function findMatch(input){
-const n=normalize(input);
-if(!n)return null;
-
-const nNoFill=removeFillers(n);
-
-let bestMatch=null;
-let bestScore=0;
-
-for(const t of TRIGGERS){
-for(const p of t.triggers){
-const pattern=normalize(p);
-const patternNoFill=removeFillers(pattern);
-
-// Strategy 1: Exact substring match (highest confidence)
-if(n.includes(pattern)){
-return t; // Exact match, return immediately
-}
-
-// Strategy 2: Input contains pattern without fillers
-if(nNoFill.includes(patternNoFill)&&patternNoFill.length>3){
-const score=0.95;
-if(score>bestScore){bestScore=score;bestMatch=t;}
-continue;
-}
-
-// Strategy 3: Pattern contained in input (user typed more)
-if(n.includes(patternNoFill)&&patternNoFill.length>3){
-const score=0.9;
-if(score>bestScore){bestScore=score;bestMatch=t;}
-continue;
-}
-
-// Strategy 4: Word overlap scoring
-const patternWords=patternNoFill.split(' ').filter(w=>w.length>2);
-const inputWords=nNoFill.split(' ').filter(w=>w.length>2);
-
-if(patternWords.length>0){
-let wordMatches=0;
-for(const pw of patternWords){
-for(const iw of inputWords){
-// Exact word match
-if(pw===iw){wordMatches++;break;}
-// Fuzzy word match (for typos)
-if(pw.length>3&&iw.length>3&&similarity(pw,iw)>0.7){
-wordMatches+=0.8;break;
-}
-}
-}
-const score=wordMatches/patternWords.length;
-if(score>bestScore&&score>=0.5){
-bestScore=score;
-bestMatch=t;
-}
-}
-
-// Strategy 5: Overall string similarity (catches typos)
-const sim=similarity(nNoFill,patternNoFill);
-if(sim>bestScore&&sim>=0.6){
-bestScore=sim;
-bestMatch=t;
-}
-}
-}
-
-return bestMatch;
-}
-
-// Perspective swap
-function swapPerspective(text){
-if(perspective==='i'){
-return text.replace(/\{We're\}/g,"I'm").replace(/\{we're\}/g,"I'm").replace(/\{We've\}/g,"I've").replace(/\{we've\}/g,"I've").replace(/\{We'll\}/g,"I'll").replace(/\{we'll\}/g,"I'll").replace(/\{We'd\}/g,"I'd").replace(/\{we'd\}/g,"I'd").replace(/\{We\}/g,"I").replace(/\{we\}/g,"I").replace(/\{Our\}/g,"My").replace(/\{our\}/g,"my").replace(/\{us\}/g,"me").replace(/\{Us\}/g,"Me").replace(/\{I\}'m/g,"I'm").replace(/\{I\}'ve/g,"I've").replace(/\{I\}'ll/g,"I'll").replace(/\{I\}'d/g,"I'd").replace(/\{I\}/g,"I").replace(/\{I'm\}/g,"I'm").replace(/\{My\}/g,"My").replace(/\{my\}/g,"my").replace(/\{me\}/g,"me");
-}else{
-return text.replace(/\{We're\}/g,"We're").replace(/\{we're\}/g,"we're").replace(/\{We've\}/g,"We've").replace(/\{we've\}/g,"we've").replace(/\{We'll\}/g,"We'll").replace(/\{we'll\}/g,"we'll").replace(/\{We'd\}/g,"We'd").replace(/\{we'd\}/g,"we'd").replace(/\{We\}/g,"We").replace(/\{we\}/g,"we").replace(/\{Our\}/g,"Our").replace(/\{our\}/g,"our").replace(/\{us\}/g,"us").replace(/\{Us\}/g,"Us").replace(/\{I\}'m/g,"We're").replace(/\{I\}'ve/g,"We've").replace(/\{I\}'ll/g,"We'll").replace(/\{I\}'d/g,"We'd").replace(/\{I\}/g,"We").replace(/\{I'm\}/g,"We're").replace(/\{My\}/g,"Our").replace(/\{my\}/g,"our").replace(/\{me\}/g,"us");
-}}
-
-// Get response key
+function removeFillers(text){return text.split(' ').filter(w=>!FILLER_WORDS.has(w)).join(' ');}
+function similarity(a,b){if(a===b)return 1;if(a.length<2||b.length<2)return 0;const bigramsA=new Map();for(let i=0;i<a.length-1;i++){const bg=a.substring(i,i+2);bigramsA.set(bg,(bigramsA.get(bg)||0)+1);}let matches=0;for(let i=0;i<b.length-1;i++){const bg=b.substring(i,i+2);if(bigramsA.get(bg)>0){matches++;bigramsA.set(bg,bigramsA.get(bg)-1);}}return(2*matches)/(a.length+b.length-2);}
+function findMatch(input){const n=normalize(input);if(!n)return null;const nNoFill=removeFillers(n);let bestMatch=null,bestScore=0;for(const t of TRIGGERS){for(const p of t.triggers){const pattern=normalize(p),patternNoFill=removeFillers(pattern);if(n.includes(pattern))return t;if(nNoFill.includes(patternNoFill)&&patternNoFill.length>3){if(0.95>bestScore){bestScore=0.95;bestMatch=t;}continue;}if(n.includes(patternNoFill)&&patternNoFill.length>3){if(0.9>bestScore){bestScore=0.9;bestMatch=t;}continue;}const patternWords=patternNoFill.split(' ').filter(w=>w.length>2),inputWords=nNoFill.split(' ').filter(w=>w.length>2);if(patternWords.length>0){let wordMatches=0;for(const pw of patternWords){for(const iw of inputWords){if(pw===iw){wordMatches++;break;}if(pw.length>3&&iw.length>3&&similarity(pw,iw)>0.7){wordMatches+=0.8;break;}}}const score=wordMatches/patternWords.length;if(score>bestScore&&score>=0.5){bestScore=score;bestMatch=t;}}const sim=similarity(nNoFill,patternNoFill);if(sim>bestScore&&sim>=0.6){bestScore=sim;bestMatch=t;}}}return bestMatch;}
+function swapPerspective(text){if(perspective==='i'){return text.replace(/\{We're\}/g,"I'm").replace(/\{we're\}/g,"I'm").replace(/\{We've\}/g,"I've").replace(/\{we've\}/g,"I've").replace(/\{We'll\}/g,"I'll").replace(/\{we'll\}/g,"I'll").replace(/\{We'd\}/g,"I'd").replace(/\{we'd\}/g,"I'd").replace(/\{We\}/g,"I").replace(/\{we\}/g,"I").replace(/\{Our\}/g,"My").replace(/\{our\}/g,"my").replace(/\{us\}/g,"me").replace(/\{Us\}/g,"Me").replace(/\{I\}'m/g,"I'm").replace(/\{I\}'ve/g,"I've").replace(/\{I\}'ll/g,"I'll").replace(/\{I\}'d/g,"I'd").replace(/\{I\}/g,"I").replace(/\{I'm\}/g,"I'm").replace(/\{My\}/g,"My").replace(/\{my\}/g,"my").replace(/\{me\}/g,"me");}return text.replace(/\{We're\}/g,"We're").replace(/\{we're\}/g,"we're").replace(/\{We've\}/g,"We've").replace(/\{we've\}/g,"we've").replace(/\{We'll\}/g,"We'll").replace(/\{we'll\}/g,"we'll").replace(/\{We'd\}/g,"We'd").replace(/\{we'd\}/g,"we'd").replace(/\{We\}/g,"We").replace(/\{we\}/g,"we").replace(/\{Our\}/g,"Our").replace(/\{our\}/g,"our").replace(/\{us\}/g,"us").replace(/\{Us\}/g,"Us").replace(/\{I\}'m/g,"We're").replace(/\{I\}'ve/g,"We've").replace(/\{I\}'ll/g,"We'll").replace(/\{I\}'d/g,"We'd").replace(/\{I\}/g,"We").replace(/\{I'm\}/g,"We're").replace(/\{My\}/g,"Our").replace(/\{my\}/g,"our").replace(/\{me\}/g,"us");}
 function getResponseKey(trigger,tone,spiceLevel){return `${trigger.triggers[0]}-${tone}-${spiceLevel}`;}
-
-// Get random response
-function getRandomResponse(variants,key){
-if(!usedResponses[key])usedResponses[key]=[];
-const available=variants.filter((_,i)=>!usedResponses[key].includes(i));
-if(available.length===0){usedResponses[key]=[];return variants[Math.floor(Math.random()*variants.length)];}
-const idx=variants.indexOf(available[Math.floor(Math.random()*available.length)]);
-usedResponses[key].push(idx);
-return variants[idx];
-}
-
-// Scene
-function setBackground(url){currentImageUrl=url;const bg=document.getElementById('sceneBg');bg.classList.remove('active');const img=new Image();img.onload=()=>{setTimeout(()=>{bg.style.backgroundImage=`url('${url}')`;bg.classList.add('active');},100);};img.src=url;}
-
-function generateScene(tone){
-const input=document.getElementById('triggerInput').value.trim();
-if(!input){document.getElementById('triggerInput').focus();return;}
-currentTone=tone;
-const match=findMatch(input);
-currentMatchedTrigger=match;
-if(match){
-currentSubtext=match.subtext;
-const toneResponses=match.responses[tone];
-const variants=toneResponses[spice]||toneResponses.medium;
-const key=getResponseKey(match,tone,spice);
-const rawResponse=Array.isArray(variants)?getRandomResponse(variants,key):variants;
-currentResponse=swapPerspective(rawResponse);
-setBackground(match.image);
-}else{
-currentSubtext="A question that doesn't deserve this much thought.";
-const fallbacks=["Some questions don't deserve answers. This is one of them.","Not every question deserves {our} energy.","That one's not in {our} script. For good reason.","{We} don't have a rehearsed response for that."];
-currentResponse=swapPerspective(fallbacks[Math.floor(Math.random()*fallbacks.length)]);
-setBackground('https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=1600&q=80');
-}
-currentTrigger=input;
-document.getElementById('subtextDisplay').textContent=currentSubtext;
-document.getElementById('triggerDisplay').textContent=input;
-document.getElementById('scriptText').textContent=currentResponse;
-document.getElementById('contextDisplay').textContent=CONTEXT_LABELS[context];
-document.getElementById('spiceDisplay').textContent=SPICE_LABELS[spice];
-document.getElementById('spiceDisplay').className='script-spice'+(spice==='hot'?' hot':'');
-document.getElementById('placeholderCard').style.display='none';
-const card=document.getElementById('scriptCard');card.classList.remove('active');void card.offsetWidth;card.classList.add('active');
-document.getElementById('newTakeBtn').disabled=false;
-document.getElementById('copyBtn').disabled=false;
-document.getElementById('animateBtn').disabled=false;
-document.getElementById('exportBtn').disabled=false;
-if(window.innerWidth<=900){document.getElementById('controlPanel').classList.add('hidden');document.getElementById('displayPanel').classList.remove('hidden');document.getElementById('backBtn').style.display='block';}}
-
-// Toggle handlers
-function setupToggles(groupId,callback){
-document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(btn=>{
-btn.addEventListener('click',()=>{
-document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-callback(btn.dataset.context||btn.dataset.spice||btn.dataset.perspective);
-});});}
+function getRandomResponse(variants,key){if(!usedResponses[key])usedResponses[key]=[];const available=variants.filter((_,i)=>!usedResponses[key].includes(i));if(available.length===0){usedResponses[key]=[];return variants[Math.floor(Math.random()*variants.length)];}const idx=variants.indexOf(available[Math.floor(Math.random()*available.length)]);usedResponses[key].push(idx);return variants[idx];}
+function generateScene(tone){const input=document.getElementById('triggerInput').value.trim();if(!input){document.getElementById('triggerInput').focus();return;}currentTone=tone;const match=findMatch(input);currentMatchedTrigger=match;if(match){currentSubtext=match.subtext;currentImageUrl=match.image;const toneResponses=match.responses[tone];const variants=toneResponses[spice]||toneResponses.medium;const key=getResponseKey(match,tone,spice);const rawResponse=Array.isArray(variants)?getRandomResponse(variants,key):variants;currentResponse=swapPerspective(rawResponse);}else{currentSubtext="A question that doesn't deserve this much thought.";currentImageUrl='';const fallbacks=["Some questions don't deserve answers.","Not every comment deserves a response.","That one's not in the script."];currentResponse=swapPerspective(fallbacks[Math.floor(Math.random()*fallbacks.length)]);}currentTrigger=input;document.getElementById('subtextDisplay').textContent=currentSubtext;document.getElementById('triggerDisplay').textContent=input;document.getElementById('scriptText').textContent=currentResponse;document.getElementById('contextDisplay').textContent=CONTEXT_LABELS[context];document.getElementById('spiceDisplay').textContent=SPICE_LABELS[spice];document.getElementById('spiceDisplay').className='script-spice'+(spice==='hot'?' hot':'');document.getElementById('placeholderCard').style.display='none';const card=document.getElementById('scriptCard');card.classList.remove('active');void card.offsetWidth;card.classList.add('active');document.getElementById('newTakeBtn').disabled=false;document.getElementById('copyBtn').disabled=false;document.getElementById('animateBtn').disabled=false;document.getElementById('exportBtn').disabled=false;if(window.innerWidth<=900){document.getElementById('controlPanel').classList.add('hidden');document.getElementById('displayPanel').classList.remove('hidden');document.getElementById('backBtn').style.display='block';}}
+function setupToggles(groupId,callback){document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(b=>b.classList.remove('active'));btn.classList.add('active');callback(btn.dataset.context||btn.dataset.spice||btn.dataset.perspective);});});}
 setupToggles('contextGroup',v=>{context=v;});
 setupToggles('spiceGroup',v=>{spice=v;});
 setupToggles('perspectiveGroup',v=>{perspective=v;});
-
-// Chips
 COMMON_TRIGGERS.forEach(t=>{const c=document.createElement('button');c.className='trigger-chip';c.textContent=t;c.onclick=()=>{document.getElementById('triggerInput').value=t;};document.getElementById('triggersGrid').appendChild(c);});
-
-// Tone buttons
 document.querySelectorAll('.tone-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');generateScene(btn.dataset.tone);});});
-
-// Controls
 document.getElementById('newTakeBtn').addEventListener('click',()=>{if(currentTone)generateScene(currentTone);});
 document.getElementById('copyBtn').addEventListener('click',()=>{if(currentResponse){navigator.clipboard.writeText(currentResponse).then(()=>showToast('copy'));}});
-document.getElementById('exportBtn').addEventListener('click',()=>{
-generateCaptions();
-document.getElementById('exportOptions').classList.add('active');
-});
+document.getElementById('exportBtn').addEventListener('click',()=>{generateCaptions();document.getElementById('exportOptions').classList.add('active');});
 document.getElementById('exportClose').addEventListener('click',()=>document.getElementById('exportOptions').classList.remove('active'));
-
-// Animation mode
-let animationTimeout = null;
-let uiTimeout = null;
-
-function playAnimation(){
-// Clear any running animation
-if(animationTimeout)clearTimeout(animationTimeout);
-if(uiTimeout)clearTimeout(uiTimeout);
-
-// Enter clean mode (hide UI)
-const overlay = document.getElementById('animateOverlay');
-overlay.classList.add('clean-mode');
-
-// Set up scene
-document.getElementById('animateBg').style.backgroundImage=`url('${currentImageUrl}')`;
-document.getElementById('animContext').textContent=CONTEXT_LABELS[context];
-document.getElementById('animSpice').textContent=SPICE_LABELS[spice];
-document.getElementById('animSubtext').textContent=currentSubtext; // Prefix handled by CSS
-document.getElementById('animTrigger').textContent=currentTrigger;
-
-// Wrap response in words, then character spans
-const responseEl = document.getElementById('animResponse');
-const words = currentResponse.split(' ');
-const html = words.map(word => {
-const chars = word.split('').map(c => `<span class="char">${c}</span>`).join('');
-return `<span class="word">${chars}</span>`;
-}).join(' ');
-
-responseEl.innerHTML = html;
-
-// Reset states
-document.getElementById('animSubtext').classList.remove('show');
-document.getElementById('animTrigger').classList.remove('show');
-responseEl.querySelectorAll('.char').forEach(c=>c.classList.remove('show'));
-
-// Animate sequence
-setTimeout(()=>document.getElementById('animSubtext').classList.add('show'),300);
-setTimeout(()=>document.getElementById('animTrigger').classList.add('show'),900);
-
-// Type out response
-const chars=responseEl.querySelectorAll('.char');
-chars.forEach((char,i)=>{
-animationTimeout=setTimeout(()=>char.classList.add('show'),1400+i*35);
-});
-
-// Exit clean mode after animation + buffer
-const totalDuration = 1400 + (chars.length * 35) + 1500;
-uiTimeout = setTimeout(() => {
-overlay.classList.remove('clean-mode');
-}, totalDuration);
-}
-
-document.getElementById('animateBtn').addEventListener('click',()=>{
-document.getElementById('animateOverlay').classList.add('active');
-playAnimation();
-});
-document.getElementById('replayBtn').addEventListener('click',playAnimation);
-document.getElementById('animCloseBtn').addEventListener('click',()=>{
-document.getElementById('animateOverlay').classList.remove('active');
-if(animationTimeout)clearTimeout(animationTimeout);
-if(uiTimeout)clearTimeout(uiTimeout);
-document.getElementById('animateOverlay').classList.remove('clean-mode');
-});
 document.getElementById('exportOptions').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
-
-// Surprise me button
-document.getElementById('surpriseBtn').addEventListener('click',()=>{
-const randomTrigger=TRIGGERS[Math.floor(Math.random()*TRIGGERS.length)];
-const randomPhrase=randomTrigger.triggers[Math.floor(Math.random()*randomTrigger.triggers.length)];
-document.getElementById('triggerInput').value=randomPhrase;
-
-// Randomize context
-const contexts=['stranger','family','colleague','medical'];
-const randomContext=contexts[Math.floor(Math.random()*contexts.length)];
-context=randomContext;
-document.querySelectorAll('#contextGroup .toggle-btn').forEach(b=>{
-b.classList.toggle('active',b.dataset.context===randomContext);
-});
-
-// Randomize spice
-const spices=['mild','medium','hot'];
-const randomSpice=spices[Math.floor(Math.random()*spices.length)];
-spice=randomSpice;
-document.querySelectorAll('#spiceGroup .spice-btn').forEach(b=>{
-b.classList.toggle('active',b.dataset.spice===randomSpice);
-});
-
-// Randomize perspective
-const perspectives=['i','we'];
-const randomPerspective=perspectives[Math.floor(Math.random()*perspectives.length)];
-perspective=randomPerspective;
-document.querySelectorAll('#perspectiveGroup .toggle-btn').forEach(b=>{
-b.classList.toggle('active',b.dataset.perspective===randomPerspective);
-});
-
-// Randomize tone and generate
-const tones=['diplomat','critic','absurdist','realist'];
-const randomTone=tones[Math.floor(Math.random()*tones.length)];
-document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));
-document.querySelector(`.tone-btn[data-tone="${randomTone}"]`).classList.add('active');
-generateScene(randomTone);
-});
-
-// Caption suggestions
-const CAPTIONS=[
-"Things people actually say. Here's what we wish we'd said.",
-"Filed under: audacity.",
-"For everyone who's heard this one too many times.",
-"The script I needed at Thanksgiving.",
-"Finally saying what I actually meant.",
-"For the well-meaning but wildly unhelpful.",
-"Boundaries. In writing. You're welcome.",
-"Not all comments deserve grace.",
-"This one's been in the drafts for years.",
-"Receipts: collected."
-];
-
-const CAPTIONS_EDUCATIONAL=[
-"Sharing this to educate, not to start a war. Okay, maybe a small war.",
-"For those who want to do better — here's your cheat sheet.",
-"Swipe for why this comment missed the mark.",
-"Good intentions ≠ good impact. A guide.",
-"If you've said this, here's your redemption arc."
-];
-
-function generateCaptions(){
-const isDual=document.getElementById('toggleDual').checked;
-const captionPool=isDual?[...CAPTIONS_EDUCATIONAL,...CAPTIONS.slice(0,3)]:CAPTIONS;
-
-// Pick 3 random captions
-const shuffled=[...captionPool].sort(()=>Math.random()-0.5);
-const selected=shuffled.slice(0,3);
-
-const container=document.getElementById('captionSuggestions');
-container.innerHTML=selected.map((c,i)=>`<div class="caption-item" data-caption-index="${i}">${c}</div>`).join('');
-
-// Store captions for copying
-container.captionData=selected;
-
-// Add click handlers
-container.querySelectorAll('.caption-item').forEach((el,i)=>{
-el.addEventListener('click',()=>{
-const text=selected[i]+' #matterhood';
-navigator.clipboard.writeText(text).then(()=>{
-container.querySelectorAll('.caption-item').forEach(c=>c.classList.remove('copied'));
-el.classList.add('copied');
-showToast('caption');
-});
-});
-});
-}
-
-// Regenerate captions when dual toggle changes
+document.getElementById('surpriseBtn').addEventListener('click',()=>{const randomTrigger=TRIGGERS[Math.floor(Math.random()*TRIGGERS.length)];const randomPhrase=randomTrigger.triggers[Math.floor(Math.random()*randomTrigger.triggers.length)];document.getElementById('triggerInput').value=randomPhrase;const contexts=['stranger','family','colleague','medical'];const randomContext=contexts[Math.floor(Math.random()*contexts.length)];context=randomContext;document.querySelectorAll('#contextGroup .toggle-btn').forEach(b=>{b.classList.toggle('active',b.dataset.context===randomContext);});const spices=['mild','medium','hot'];const randomSpice=spices[Math.floor(Math.random()*spices.length)];spice=randomSpice;document.querySelectorAll('#spiceGroup .spice-btn').forEach(b=>{b.classList.toggle('active',b.dataset.spice===randomSpice);});const perspectives=['i','we'];const randomPerspective=perspectives[Math.floor(Math.random()*perspectives.length)];perspective=randomPerspective;document.querySelectorAll('#perspectiveGroup .toggle-btn').forEach(b=>{b.classList.toggle('active',b.dataset.perspective===randomPerspective);});const tones=['diplomat','critic','absurdist','realist'];const randomTone=tones[Math.floor(Math.random()*tones.length)];document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));document.querySelector(`.tone-btn[data-tone="${randomTone}"]`).classList.add('active');generateScene(randomTone);});
+const CAPTIONS=["Things people actually say. Here's what we wish we'd said.","Filed under: audacity.","For everyone who's heard this one too many times.","The script I needed at Thanksgiving.","Finally saying what I actually meant.","For the well-meaning but wildly unhelpful.","Boundaries. In writing.","Not all comments deserve grace.","This one's been in the drafts for years.","Receipts: collected."];
+const CAPTIONS_EDUCATIONAL=["Sharing this to educate, not to start a war.","For those who want to do better.","Swipe for why this comment missed the mark.","Good intentions ≠ good impact.","If you've said this, here's your redemption arc."];
+function generateCaptions(){const isDual=document.getElementById('toggleDual').checked;const captionPool=isDual?[...CAPTIONS_EDUCATIONAL,...CAPTIONS.slice(0,3)]:CAPTIONS;const shuffled=[...captionPool].sort(()=>Math.random()-0.5);const selected=shuffled.slice(0,3);const container=document.getElementById('captionSuggestions');container.innerHTML=selected.map((c,i)=>`<div class="caption-item" data-caption-index="${i}">${c}</div>`).join('');container.querySelectorAll('.caption-item').forEach((el,i)=>{el.addEventListener('click',()=>{const text=selected[i]+' #matterhood';navigator.clipboard.writeText(text).then(()=>{container.querySelectorAll('.caption-item').forEach(c=>c.classList.remove('copied'));el.classList.add('copied');showToast('caption');});});});}
 document.getElementById('toggleDual').addEventListener('change',generateCaptions);
-
-// Export formats
-document.querySelectorAll('.export-format-btn').forEach(btn=>{
-btn.addEventListener('click',async()=>{
-const format=btn.dataset.format;
-const dims={story:{w:1080,h:1920},square:{w:1080,h:1080},wide:{w:1200,h:675}}[format];
-await exportImage(dims.w,dims.h,format);
-document.getElementById('exportOptions').classList.remove('active');
-});});
-
-async function exportImage(w,h,format){
-const isLight=document.documentElement.dataset.theme==='light';
-const includeQR=document.getElementById('toggleQR').checked;
-const includeDual=document.getElementById('toggleDual').checked;
-
-const bgColor=isLight?'#FAFAF8':'#080808';
-const frameBg=isLight?'#F0EDE8':'#121212';
-const textColor=isLight?'#0A0A0A':'#F5F2ED';
-const textDim=isLight?'rgba(10,10,10,0.7)':'rgba(232,228,223,0.7)';
-const labelColor=isLight?'rgba(10,10,10,0.4)':'rgba(232,228,223,0.4)';
-const borderColor=isLight?'rgba(10,10,10,0.15)':'rgba(232,228,223,0.15)';
-const goldColor=isLight?'#7A6545':'#B8956A';
-const alertColor='#C41E1E';
-
-// Scale factor for different formats
-const baseScale=format==='story'?1:format==='square'?1:1.1;
-const scale=w/1080*baseScale;
-
-// Sizes matching website (converted from rem, ~16px base)
-const metaSize=Math.round(11*scale);      // .46rem = ~7.4px, scaled up for export
-const subtextSize=Math.round(12*scale);   // .5rem
-const triggerLabelSize=Math.round(11*scale);
-const triggerSize=Math.round(14*scale);   // .6rem
-const responseLabelSize=Math.round(11*scale);
-const responseSize=Math.round(format==='wide'?32*scale:38*scale);
-const footerSize=Math.round(11*scale);
-const padding=Math.round(50*scale);
-const qrSize=Math.round(80*scale);
-const textW=Math.round(format==='wide'?w*0.65:w*0.72);
-
-// Generate QR code if needed
-let qrDataUrl=null;
-if(includeQR){
-const qrDiv=document.createElement('div');
-document.body.appendChild(qrDiv);
-new QRCode(qrDiv,{text:window.location.origin,width:qrSize*3,height:qrSize*3,colorDark:isLight?'#0A0A0A':'#E8E4DF',colorLight:'transparent',correctLevel:QRCode.CorrectLevel.M});
-await new Promise(r=>setTimeout(r,150));
-const qrCanvas=qrDiv.querySelector('canvas');
-if(qrCanvas)qrDataUrl=qrCanvas.toDataURL();
-document.body.removeChild(qrDiv);
-}
-
-// Helper to create a canvas with background
-async function createBaseCanvas(){
-const canvas=document.createElement('canvas');
-canvas.width=w;canvas.height=h;
-const ctx=canvas.getContext('2d');
-ctx.fillStyle=bgColor;ctx.fillRect(0,0,w,h);
-if(currentImageUrl){
-try{
-const img=new Image();img.crossOrigin='anonymous';
-await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=currentImageUrl;});
-const imgScale=Math.max(w/img.width,h/img.height);
-const sw=img.width*imgScale,sh=img.height*imgScale;
-ctx.globalAlpha=isLight?0.12:0.25;
-ctx.filter='grayscale(100%) contrast(1.1)';
-ctx.drawImage(img,(w-sw)/2,(h-sh)/2,sw,sh);
-ctx.globalAlpha=1;ctx.filter='none';
-}catch(e){}
-}
-return {canvas,ctx};
-}
-
-// Helper to draw response card (matching website exactly)
-async function drawResponseCard(ctx,areaW,areaH){
-// Calculate content height first
-let contentH=0;
-
-// Meta row + border
-contentH+=metaSize+padding*0.5+padding*0.4; // meta + padding-bottom + margin-bottom equivalent
-
-// Subtext
-ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
-const subtextLines=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW);
-contentH+=subtextLines.length*subtextSize*1.6+padding*0.6;
-
-// They said label + trigger
-contentH+=triggerLabelSize+padding*0.15;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-const triggerLines=wrapText(ctx,currentTrigger,textW);
-contentH+=triggerLines.length*triggerSize*1.6+padding*0.5;
-
-// You say label + response
-contentH+=responseLabelSize+padding*0.35;
-ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
-const responseLines=wrapText(ctx,currentResponse,textW);
-contentH+=responseLines.length*responseSize*1.35+padding*0.7;
-
-// QR code space (above footer line)
-if(includeQR)contentH+=qrSize+padding*0.4;
-
-// Footer (border-top + text)
-contentH+=padding*0.5+footerSize;
-
-const frameW=textW+padding*2;
-const frameH=contentH+padding*2;
-const frameX=(areaW-frameW)/2;
-const frameY=(areaH-frameH)/2;
-
-// Frame background
-ctx.fillStyle=frameBg;
-ctx.fillRect(frameX,frameY,frameW,frameH);
-
-// Frame border
-ctx.strokeStyle=borderColor;
-ctx.lineWidth=1;
-ctx.strokeRect(frameX,frameY,frameW,frameH);
-
-// Gold accent bar
-ctx.fillStyle=goldColor;
-ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
-
-const contentX=frameX+padding;
-const contentRight=frameX+frameW-padding;
-let y=frameY+padding;
-
-// === META ROW ===
-ctx.font=`${metaSize}px 'Space Mono', monospace`;
-ctx.textAlign='left';
-ctx.fillStyle=labelColor;
-ctx.fillText(CONTEXT_LABELS[context],contentX,y+metaSize);
-ctx.textAlign='right';
-ctx.fillStyle=spice==='hot'?alertColor:goldColor;
-ctx.fillText(SPICE_LABELS[spice],contentRight,y+metaSize);
-y+=metaSize+padding*0.5;
-
-// Meta border-bottom
-ctx.strokeStyle=borderColor;
-ctx.beginPath();
-ctx.moveTo(contentX,y);
-ctx.lineTo(contentRight,y);
-ctx.stroke();
-y+=padding*0.4;
-
-// === SUBTEXT ===
-ctx.textAlign='left';
-ctx.fillStyle=goldColor;
-ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
-subtextLines.forEach((line,i)=>{
-// First line gets "SUBTEXT: " prefix styling
-ctx.fillText(line,contentX,y+subtextSize);
-y+=subtextSize*1.6;
-});
-y+=padding*0.6;
-
-// === THEY SAID ===
-ctx.fillStyle=labelColor;
-ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('THEY SAID:',contentX,y+triggerLabelSize);
-y+=triggerLabelSize+padding*0.15;
-
-ctx.fillStyle=textDim;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-triggerLines.forEach(line=>{
-ctx.fillText(line,contentX,y+triggerSize);
-y+=triggerSize*1.6;
-});
-y+=padding*0.5;
-
-// === YOU SAY ===
-ctx.fillStyle=goldColor;
-ctx.font=`${responseLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('YOU SAY:',contentX,y+responseLabelSize);
-y+=responseLabelSize+padding*0.35;
-
-ctx.fillStyle=textColor;
-ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
-responseLines.forEach(line=>{
-ctx.fillText(line,contentX,y+responseSize*0.85);
-y+=responseSize*1.35;
-});
-y+=padding*0.7;
-
-// === QR CODE (above footer line) ===
-if(includeQR&&qrDataUrl){
-const qrImg=new Image();
-await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
-const qrX=contentRight-qrSize;
-ctx.drawImage(qrImg,qrX,y,qrSize,qrSize);
-y+=qrSize+padding*0.4;
-}
-
-// === FOOTER ===
-// Border-top
-ctx.strokeStyle=borderColor;
-ctx.beginPath();
-ctx.moveTo(contentX,y);
-ctx.lineTo(contentRight,y);
-ctx.stroke();
-y+=padding*0.5;
-
-// Footer text
-ctx.fillStyle=labelColor;
-ctx.font=`${footerSize}px 'Space Mono', monospace`;
-ctx.textAlign='left';
-ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
-ctx.textAlign='right';
-ctx.fillText('MATTERHOOD',contentRight,y+footerSize);
-}
-
-// Helper to draw education card
-async function drawEducationCard(ctx,areaW,areaH){
-const whyText=currentMatchedTrigger?.why_it_hurts||"This comment, though well-meaning, can minimize the deep emotional weight of infertility and childlessness. It suggests a simple solution exists when the reality is far more complex.";
-const whatText=currentMatchedTrigger?.what_to_know||"People navigating fertility challenges often hear dozens of these comments. Each one, even from a place of love, can feel like their pain is being dismissed or misunderstood.";
-
-// Calculate content height
-let contentH=0;
-
-// Title
-const titleSize=Math.round(responseSize*0.75);
-contentH+=titleSize+padding*0.5;
-
-// When they say
-contentH+=triggerLabelSize+padding*0.15;
-contentH+=triggerSize+padding*0.4;
-
-// The impact
-contentH+=triggerLabelSize+padding*0.15;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-const whyLines=wrapText(ctx,whyText,textW);
-contentH+=whyLines.length*triggerSize*1.6+padding*0.4;
-
-// What helps
-contentH+=triggerLabelSize+padding*0.15;
-const whatLines=wrapText(ctx,whatText,textW);
-contentH+=whatLines.length*triggerSize*1.6+padding*0.7;
-
-// QR
-if(includeQR)contentH+=qrSize+padding*0.4;
-
-// Footer
-contentH+=padding*0.5+footerSize;
-
-const frameW=textW+padding*2;
-const frameH=contentH+padding*2;
-const frameX=(areaW-frameW)/2;
-const frameY=(areaH-frameH)/2;
-
-ctx.fillStyle=frameBg;
-ctx.fillRect(frameX,frameY,frameW,frameH);
-ctx.strokeStyle=borderColor;
-ctx.lineWidth=1;
-ctx.strokeRect(frameX,frameY,frameW,frameH);
-ctx.fillStyle=alertColor;
-ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
-
-const contentX=frameX+padding;
-const contentRight=frameX+frameW-padding;
-let y=frameY+padding;
-
-// Title
-ctx.fillStyle=textColor;
-ctx.font=`400 ${titleSize}px 'Playfair Display', serif`;
-ctx.textAlign='left';
-ctx.fillText('Why this hurts.',contentX,y+titleSize*0.85);
-y+=titleSize+padding*0.5;
-
-// When they say
-ctx.fillStyle=labelColor;
-ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('WHEN THEY SAY:',contentX,y+triggerLabelSize);
-y+=triggerLabelSize+padding*0.15;
-ctx.fillStyle=textDim;
-ctx.font=`italic ${triggerSize}px 'Space Mono', monospace`;
-ctx.fillText('"'+currentTrigger+'"',contentX,y+triggerSize);
-y+=triggerSize+padding*0.4;
-
-// The impact
-ctx.fillStyle=goldColor;
-ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('THE IMPACT:',contentX,y+triggerLabelSize);
-y+=triggerLabelSize+padding*0.15;
-ctx.fillStyle=textDim;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-whyLines.forEach(line=>{
-ctx.fillText(line,contentX,y+triggerSize);
-y+=triggerSize*1.6;
-});
-y+=padding*0.4;
-
-// What helps
-ctx.fillStyle=goldColor;
-ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('WHAT HELPS INSTEAD:',contentX,y+triggerLabelSize);
-y+=triggerLabelSize+padding*0.15;
-ctx.fillStyle=textDim;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-whatLines.forEach(line=>{
-ctx.fillText(line,contentX,y+triggerSize);
-y+=triggerSize*1.6;
-});
-y+=padding*0.7;
-
-// QR
-if(includeQR&&qrDataUrl){
-const qrImg=new Image();
-await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
-ctx.drawImage(qrImg,contentRight-qrSize,y,qrSize,qrSize);
-y+=qrSize+padding*0.4;
-}
-
-// Footer
-ctx.strokeStyle=borderColor;
-ctx.beginPath();
-ctx.moveTo(contentX,y);
-ctx.lineTo(contentRight,y);
-ctx.stroke();
-y+=padding*0.5;
-ctx.fillStyle=labelColor;
-ctx.font=`${footerSize}px 'Space Mono', monospace`;
-ctx.textAlign='left';
-ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
-ctx.textAlign='right';
-ctx.fillText('MATTERHOOD',contentRight,y+footerSize);
-}
-
-// Export response card
-const {canvas:canvas1,ctx:ctx1}=await createBaseCanvas();
-await drawResponseCard(ctx1,w,h);
-const link1=document.createElement('a');
-link1.download=`protocol-${format}-response-${Date.now()}.png`;
-link1.href=canvas1.toDataURL('image/png');
-link1.click();
-
-// Export education card if dual mode
-if(includeDual){
-await new Promise(r=>setTimeout(r,500)); // Delay between downloads
-const {canvas:canvas2,ctx:ctx2}=await createBaseCanvas();
-await drawEducationCard(ctx2,w,h);
-const link2=document.createElement('a');
-link2.download=`protocol-${format}-why-${Date.now()}.png`;
-link2.href=canvas2.toDataURL('image/png');
-link2.click();
-showToast('export');
-}else{
-showToast('export');
-}
-}
-
-function wrapText(ctx,text,maxW){const words=text.split(' '),lines=[];let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else{line=test;}}if(line)lines.push(line);return lines;}
-const SNARKY_TOASTS={
-  copy:['WEAPONISED','LOCKED & LOADED','MIC DROP READY','SAVED FOR LATER','AMMUNITION STORED'],
-  export:['RECEIPTS ACQUIRED','EVIDENCE SECURED','GO RUIN DINNER','CHOOSE VIOLENCE','READY TO DEPLOY'],
-  caption:['CAPTION ARMED','WORDS WEAPONISED','READY TO FIRE']
-};
-function showToast(type){
-  const t=document.getElementById('toast');
-  const messages=SNARKY_TOASTS[type]||[type];
-  t.textContent=messages[Math.floor(Math.random()*messages.length)];
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
-
-// Mobile
+let animationTimeout=null;
+function playAnimation(){if(animationTimeout)clearTimeout(animationTimeout);document.getElementById('animContext').textContent=CONTEXT_LABELS[context];document.getElementById('animSpice').textContent=SPICE_LABELS[spice];document.getElementById('animSubtext').textContent=currentSubtext;document.getElementById('animTrigger').textContent=currentTrigger;const responseEl=document.getElementById('animResponse');const words=currentResponse.split(' ');responseEl.innerHTML=words.map(word=>`<span class="word">${word.split('').map(c=>`<span class="char">${c}</span>`).join('')}</span>`).join('');document.getElementById('animSubtext').classList.remove('show');document.getElementById('animTrigger').classList.remove('show');responseEl.querySelectorAll('.char').forEach(c=>c.classList.remove('show'));setTimeout(()=>document.getElementById('animSubtext').classList.add('show'),300);setTimeout(()=>document.getElementById('animTrigger').classList.add('show'),800);const chars=responseEl.querySelectorAll('.char');chars.forEach((char,i)=>{animationTimeout=setTimeout(()=>char.classList.add('show'),1200+i*30);});}
+document.getElementById('animateBtn').addEventListener('click',()=>{document.getElementById('animateOverlay').classList.add('active');playAnimation();});
+document.getElementById('replayBtn').addEventListener('click',playAnimation);
+document.getElementById('animCloseBtn').addEventListener('click',()=>{document.getElementById('animateOverlay').classList.remove('active');if(animationTimeout)clearTimeout(animationTimeout);});
+document.querySelectorAll('.export-format-btn').forEach(btn=>{btn.addEventListener('click',async()=>{const format=btn.dataset.format;const dims={story:{w:1080,h:1920},square:{w:1080,h:1080},wide:{w:1200,h:675}}[format];await exportImage(dims.w,dims.h,format);document.getElementById('exportOptions').classList.remove('active');});});
+async function exportImage(w,h,format){const includeQR=document.getElementById('toggleQR').checked;const includeDual=document.getElementById('toggleDual').checked;const scale=w/1080;const bgColor='#FFFFFF';const textColor='#000000';const labelColor='#A3A3A3';const borderColor='#E5E5E5';const metaSize=Math.round(12*scale);const subtextSize=Math.round(14*scale);const triggerLabelSize=Math.round(11*scale);const triggerSize=Math.round(16*scale);const responseLabelSize=Math.round(11*scale);const responseSize=Math.round(format==='wide'?28*scale:32*scale);const footerSize=Math.round(11*scale);const padding=Math.round(50*scale);const qrSize=Math.round(70*scale);const textW=Math.round(format==='wide'?w*0.6:w*0.7);let qrDataUrl=null;if(includeQR){const qrDiv=document.createElement('div');document.body.appendChild(qrDiv);new QRCode(qrDiv,{text:window.location.origin,width:qrSize*3,height:qrSize*3,colorDark:'#000000',colorLight:'transparent',correctLevel:QRCode.CorrectLevel.M});await new Promise(r=>setTimeout(r,150));const qrCanvas=qrDiv.querySelector('canvas');if(qrCanvas)qrDataUrl=qrCanvas.toDataURL();document.body.removeChild(qrDiv);}function wrapText(ctx,text,maxW){const words=text.split(' '),lines=[];let line='';for(const w of words){const test=line?line+' '+w:w;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=w;}else{line=test;}}if(line)lines.push(line);return lines;}async function createCanvas(){const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.fillStyle=bgColor;ctx.fillRect(0,0,w,h);return{canvas,ctx};}async function drawCard(ctx,areaW,areaH,isEducation=false){let contentH=0;const whyText=currentMatchedTrigger?.why_it_hurts||"This comment, though well-meaning, can minimize the deep emotional weight of what someone is going through.";const whatText=currentMatchedTrigger?.what_to_know||"Instead of offering advice, try listening. Sometimes presence matters more than solutions.";if(isEducation){contentH+=Math.round(responseSize*0.7)+padding*0.5;contentH+=triggerLabelSize+padding*0.15+triggerSize+padding*0.4;ctx.font=`${triggerSize}px Inter, sans-serif`;contentH+=triggerLabelSize+padding*0.15;const whyLines=wrapText(ctx,whyText,textW);contentH+=whyLines.length*triggerSize*1.6+padding*0.4;contentH+=triggerLabelSize+padding*0.15;const whatLines=wrapText(ctx,whatText,textW);contentH+=whatLines.length*triggerSize*1.6+padding*0.4;}else{contentH+=metaSize+padding*0.5+padding*0.3;ctx.font=`italic ${subtextSize}px Inter, sans-serif`;const subtextLines=wrapText(ctx,currentSubtext,textW);contentH+=subtextLines.length*subtextSize*1.6+padding*0.5;contentH+=triggerLabelSize+padding*0.15;ctx.font=`${triggerSize}px Inter, sans-serif`;const triggerLines=wrapText(ctx,currentTrigger,textW);contentH+=triggerLines.length*triggerSize*1.6+padding*0.4;contentH+=responseLabelSize+padding*0.3;ctx.font=`${responseSize}px Inter, sans-serif`;const responseLines=wrapText(ctx,currentResponse,textW);contentH+=responseLines.length*responseSize*1.35+padding*0.5;if(includeQR)contentH+=qrSize+padding*0.3;}contentH+=padding*0.4+footerSize;const frameW=textW+padding*2;const frameH=contentH+padding*2;const frameX=(areaW-frameW)/2;const frameY=(areaH-frameH)/2;ctx.fillStyle=bgColor;ctx.fillRect(frameX,frameY,frameW,frameH);ctx.strokeStyle=borderColor;ctx.lineWidth=1;ctx.strokeRect(frameX,frameY,frameW,frameH);const contentX=frameX+padding;const contentRight=frameX+frameW-padding;let y=frameY+padding;if(isEducation){ctx.font=`500 ${Math.round(responseSize*0.7)}px Inter, sans-serif`;ctx.textAlign='left';ctx.fillStyle=textColor;ctx.fillText('Why This Hurts',contentX,y+Math.round(responseSize*0.7)*0.85);y+=Math.round(responseSize*0.7)+padding*0.5;ctx.fillStyle=labelColor;ctx.font=`500 ${triggerLabelSize}px Inter, sans-serif`;ctx.fillText('WHEN THEY SAY:',contentX,y+triggerLabelSize);y+=triggerLabelSize+padding*0.15;ctx.fillStyle='#525252';ctx.font=`${triggerSize}px Inter, sans-serif`;ctx.fillText(`"${currentTrigger}"`,contentX,y+triggerSize);y+=triggerSize+padding*0.4;ctx.fillStyle=labelColor;ctx.font=`500 ${triggerLabelSize}px Inter, sans-serif`;ctx.fillText('THE IMPACT:',contentX,y+triggerLabelSize);y+=triggerLabelSize+padding*0.15;ctx.fillStyle='#525252';ctx.font=`${triggerSize}px Inter, sans-serif`;const whyLines=wrapText(ctx,whyText,textW);whyLines.forEach(line=>{ctx.fillText(line,contentX,y+triggerSize);y+=triggerSize*1.6;});y+=padding*0.4;ctx.fillStyle=labelColor;ctx.font=`500 ${triggerLabelSize}px Inter, sans-serif`;ctx.fillText('WHAT HELPS:',contentX,y+triggerLabelSize);y+=triggerLabelSize+padding*0.15;ctx.fillStyle='#525252';ctx.font=`${triggerSize}px Inter, sans-serif`;const whatLines=wrapText(ctx,whatText,textW);whatLines.forEach(line=>{ctx.fillText(line,contentX,y+triggerSize);y+=triggerSize*1.6;});y+=padding*0.4;}else{ctx.font=`500 ${metaSize}px Inter, sans-serif`;ctx.textAlign='left';ctx.fillStyle=labelColor;ctx.fillText(CONTEXT_LABELS[context],contentX,y+metaSize);ctx.textAlign='right';ctx.fillStyle=spice==='hot'?'#171717':labelColor;ctx.fillText(SPICE_LABELS[spice],contentRight,y+metaSize);y+=metaSize+padding*0.5;ctx.strokeStyle=borderColor;ctx.beginPath();ctx.moveTo(contentX,y);ctx.lineTo(contentRight,y);ctx.stroke();y+=padding*0.3;ctx.textAlign='left';ctx.fillStyle='#525252';ctx.font=`italic ${subtextSize}px Inter, sans-serif`;const subtextLines=wrapText(ctx,currentSubtext,textW);subtextLines.forEach(line=>{ctx.fillText(line,contentX,y+subtextSize);y+=subtextSize*1.6;});y+=padding*0.5;ctx.fillStyle=labelColor;ctx.font=`500 ${triggerLabelSize}px Inter, sans-serif`;ctx.fillText('THEY SAID:',contentX,y+triggerLabelSize);y+=triggerLabelSize+padding*0.15;ctx.fillStyle='#525252';ctx.font=`${triggerSize}px Inter, sans-serif`;const triggerLines=wrapText(ctx,currentTrigger,textW);triggerLines.forEach(line=>{ctx.fillText(line,contentX,y+triggerSize);y+=triggerSize*1.6;});y+=padding*0.4;ctx.fillStyle=labelColor;ctx.font=`500 ${responseLabelSize}px Inter, sans-serif`;ctx.fillText('YOU SAY:',contentX,y+responseLabelSize);y+=responseLabelSize+padding*0.3;ctx.fillStyle=textColor;ctx.font=`${responseSize}px Inter, sans-serif`;const responseLines=wrapText(ctx,currentResponse,textW);responseLines.forEach(line=>{ctx.fillText(line,contentX,y+responseSize*0.85);y+=responseSize*1.35;});y+=padding*0.5;if(includeQR&&qrDataUrl){const qrImg=new Image();await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});ctx.drawImage(qrImg,contentRight-qrSize,y,qrSize,qrSize);y+=qrSize+padding*0.3;}}ctx.strokeStyle=borderColor;ctx.beginPath();ctx.moveTo(contentX,y);ctx.lineTo(contentRight,y);ctx.stroke();y+=padding*0.4;ctx.fillStyle=labelColor;ctx.font=`500 ${footerSize}px Inter, sans-serif`;ctx.textAlign='left';ctx.fillText('THE PROTOCOL',contentX,y+footerSize);ctx.textAlign='right';ctx.fillText('MATTERHOOD',contentRight,y+footerSize);}const{canvas:canvas1,ctx:ctx1}=await createCanvas();await drawCard(ctx1,w,h,false);function download(canvas,suffix=''){const link=document.createElement('a');link.download=`protocol-${format}${suffix}.png`;link.href=canvas.toDataURL('image/png');link.click();}download(canvas1);if(includeDual){const{canvas:canvas2,ctx:ctx2}=await createCanvas();await drawCard(ctx2,w,h,true);setTimeout(()=>download(canvas2,'-education'),500);showToast('export');}else{showToast('export');}}
+const SNARKY_TOASTS={copy:['WEAPONIZED','LOCKED & LOADED','MIC DROP READY','SAVED FOR LATER','AMMUNITION STORED'],export:['RECEIPTS ACQUIRED','EVIDENCE SECURED','GO RUIN DINNER','CHOOSE VIOLENCE','READY TO DEPLOY'],caption:['CAPTION ARMED','WORDS WEAPONIZED','READY TO FIRE']};
+function showToast(type){const t=document.getElementById('toast');const messages=SNARKY_TOASTS[type]||[type];t.textContent=messages[Math.floor(Math.random()*messages.length)];t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 document.getElementById('backBtn').addEventListener('click',()=>{document.getElementById('controlPanel').classList.remove('hidden');document.getElementById('displayPanel').classList.add('hidden');document.getElementById('backBtn').style.display='none';});
-
-// Theme toggle
-const themeToggle=document.getElementById('themeToggle');
-function setTheme(theme){
-document.documentElement.dataset.theme=theme;
-themeToggle.textContent=theme==='light'?'☾':'☀';
-localStorage.setItem('protocol_theme',theme);
-}
-themeToggle.addEventListener('click',()=>{
-const current=document.documentElement.dataset.theme;
-setTheme(current==='light'?'dark':'light');
-});
-const savedTheme=localStorage.getItem('protocol_theme')||'dark';
-setTheme(savedTheme);
-
-// Enter key
 document.getElementById('triggerInput').addEventListener('keydown',e=>{if(e.key==='Enter'){const activeTone=document.querySelector('.tone-btn.active');if(activeTone){generateScene(activeTone.dataset.tone);}else{document.querySelector('.tone-btn[data-tone="diplomat"]').click();}}});
 }
-
-// Start the app
 loadTriggers();
 </script>
 </body>
+</html>
