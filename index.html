@@ -3,848 +3,377 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE PROTOCOL</title>
-<meta name="description" content="Scripts for unsolicited opinions. A response library for the infertility and childlessness community.">
+<title>THE PROTOCOL | Words When Theirs Fall Short</title>
+<meta name="description" content="A response toolkit for the infertility and childlessness community. When someone says 'just relax', you'll have words ready.">
+<meta property="og:title" content="THE PROTOCOL">
+<meta property="og:description" content="Words for when theirs fall short. A response toolkit for the infertility and childlessness community.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --white: #FFFFFF;
-  --off-white: #FAFAF8;
-  --black: #0A0A0A;
-  --gray-100: #F5F5F3;
-  --gray-200: #E8E6E3;
-  --gray-300: #D4D2CF;
-  --gray-400: #A3A19E;
-  --gray-500: #737270;
-  --gray-600: #525150;
-  --gray-800: #262625;
-  --accent: #8B7355;
-  --accent-light: rgba(139, 115, 85, 0.1);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--off-white);
-  color: var(--black);
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-/* Subtle texture overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 10000;
-  opacity: 0.3;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Header */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem 2.5rem;
-  background: transparent;
-  mix-blend-mode: difference;
-}
-
-header.scrolled {
-  background: var(--off-white);
-  mix-blend-mode: normal;
-  border-bottom: 1px solid var(--gray-200);
-}
-
-.logo {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--white);
-}
-
-header.scrolled .logo {
-  color: var(--black);
-}
-
-.header-cta {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 0.7rem 1.25rem;
-  border: 1px solid var(--white);
-  color: var(--white);
-  transition: all 0.3s;
-}
-
-header.scrolled .header-cta {
-  border-color: var(--black);
-  color: var(--black);
-}
-
-.header-cta:hover {
-  background: var(--white);
-  color: var(--black);
-}
-
-header.scrolled .header-cta:hover {
-  background: var(--black);
-  color: var(--white);
-}
-
-/* Hero */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-end;
-  position: relative;
-  background: var(--black);
-  overflow: hidden;
-}
-
-.hero-image {
-  position: absolute;
-  inset: 0;
-  background: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1800&q=80') center/cover;
-  opacity: 0.5;
-  filter: grayscale(100%);
-}
-
-.hero-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, var(--black) 0%, transparent 60%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-  padding: 0 2.5rem 6rem;
-  max-width: 1000px;
-  color: var(--white);
-}
-
-.hero-label {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.hero-label::before {
-  content: '';
-  width: 40px;
-  height: 1px;
-  background: var(--accent);
-}
-
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 9vw, 6.5rem);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 2rem;
-}
-
-.hero-title em {
-  font-style: italic;
-  color: var(--gray-300);
-}
-
-.hero-subtitle {
-  font-size: 1rem;
-  color: var(--gray-400);
-  max-width: 420px;
-  line-height: 1.8;
-  margin-bottom: 2.5rem;
-}
-
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--white);
-  transition: gap 0.3s;
-}
-
-.hero-cta:hover {
-  gap: 1.5rem;
-}
-
-.hero-cta span {
-  width: 50px;
-  height: 1px;
-  background: var(--white);
-  transition: width 0.3s;
-}
-
-.hero-cta:hover span {
-  width: 70px;
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  right: 2.5rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: var(--gray-500);
-  writing-mode: vertical-rl;
-  animation: float 2s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
-}
-
-/* Sections */
-section {
-  padding: 8rem 2.5rem;
-}
-
-.section-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.section-label::before {
-  content: '';
-  width: 30px;
-  height: 1px;
-  background: var(--accent);
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  margin-bottom: 1.5rem;
-  max-width: 600px;
-}
-
-.section-text {
-  font-size: 0.95rem;
-  color: var(--gray-600);
-  max-width: 480px;
-  line-height: 1.9;
-}
-
-/* Quotes Section - The Showpiece */
-.quotes-section {
-  padding: 0;
-  background: var(--black);
-  color: var(--white);
-  position: relative;
-  overflow: hidden;
-}
-
-.quotes-header {
-  padding: 6rem 2.5rem 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.quotes-header .section-label {
-  color: var(--accent);
-}
-
-.quotes-header .section-label::before {
-  background: var(--accent);
-}
-
-.quotes-header .section-title {
-  color: var(--white);
-}
-
-.quotes-scroll {
-  display: flex;
-  gap: 1px;
-  background: var(--gray-800);
-}
-
-.quote-card {
-  flex: 0 0 calc(100vw / 3);
-  min-width: 350px;
-  aspect-ratio: 4/5;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.quote-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%);
-  z-index: 1;
-}
-
-.quote-image {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: grayscale(100%);
-  transition: transform 0.6s ease, filter 0.6s ease;
-}
-
-.quote-card:hover .quote-image {
-  transform: scale(1.05);
-  filter: grayscale(50%);
-}
-
-.quote-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2.5rem;
-  z-index: 2;
-}
-
-.quote-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.75rem;
-  font-style: italic;
-  line-height: 1.35;
-  margin-bottom: 1.5rem;
-  color: var(--white);
-}
-
-.quote-subtext {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.quote-subtext::before {
-  content: '';
-  width: 20px;
-  height: 1px;
-  background: var(--accent);
-}
-
-/* Features */
-.features-section {
-  background: var(--white);
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  margin-top: 4rem;
-  align-items: start;
-}
-
-.features-image {
-  aspect-ratio: 4/5;
-  background: url('https://images.unsplash.com/photo-1494253109108-2e30c049369b?w=800&q=80') center/cover;
-  filter: grayscale(100%);
-  position: relative;
-}
-
-.features-image::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--accent-light) 0%, transparent 50%);
-}
-
-.features-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  padding-top: 2rem;
-}
-
-.feature {
-  padding-left: 2rem;
-  border-left: 1px solid var(--gray-300);
-}
-
-.feature-title {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.feature-text {
-  font-size: 0.95rem;
-  color: var(--gray-600);
-  line-height: 1.8;
-}
-
-/* How It Works */
-.steps-section {
-  background: var(--gray-100);
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--gray-300);
-  margin-top: 4rem;
-}
-
-.step {
-  background: var(--gray-100);
-  padding: 3rem;
-  position: relative;
-}
-
-.step-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 4rem;
-  font-weight: 400;
-  color: var(--gray-300);
-  line-height: 1;
-  margin-bottom: 1.5rem;
-}
-
-.step-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  letter-spacing: -0.01em;
-}
-
-.step-text {
-  font-size: 0.9rem;
-  color: var(--gray-600);
-  line-height: 1.8;
-}
-
-/* Tones */
-.tones-section {
-  background: var(--white);
-}
-
-.tones-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  margin-top: 4rem;
-}
-
-.tone-card {
-  padding: 2.5rem 2rem;
-  background: var(--off-white);
-  border: 1px solid var(--gray-200);
-  transition: all 0.3s;
-}
-
-.tone-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
-}
-
-.tone-name {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.tone-tagline {
-  font-size: 0.85rem;
-  color: var(--gray-500);
-  margin-bottom: 2rem;
-}
-
-.tone-example {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  font-style: italic;
-  line-height: 1.5;
-  color: var(--gray-800);
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--gray-200);
-}
-
-/* CTA Section */
-.cta-section {
-  background: var(--black);
-  color: var(--white);
-  text-align: center;
-  padding: 10rem 2.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-section::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
-  opacity: 0.5;
-}
-
-.cta-content {
-  position: relative;
-  z-index: 1;
-}
-
-.cta-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 400;
-  margin-bottom: 1.5rem;
-}
-
-.cta-text {
-  font-size: 0.95rem;
-  color: var(--gray-400);
-  max-width: 400px;
-  margin: 0 auto 3rem;
-  line-height: 1.8;
-}
-
-.cta-btn {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 1.25rem 3rem;
-  background: var(--white);
-  color: var(--black);
-  transition: all 0.3s;
-}
-
-.cta-btn:hover {
-  background: var(--accent);
-  color: var(--white);
-}
+:root{--void:#080808;--charcoal:#121212;--bone:#E8E4DF;--cream:#F5F2ED;--bone-dim:rgba(232,228,223,0.7);--bone-faint:rgba(232,228,223,0.15);--bone-ghost:rgba(232,228,223,0.06);--alert:#C41E1E;--gold:#B8956A;--gold-dim:rgba(184,149,106,0.25)}
+[data-theme="light"]{--void:#FAFAF8;--charcoal:#F0EDE8;--bone:#1A1A1A;--cream:#0A0A0A;--bone-dim:rgba(10,10,10,0.7);--bone-faint:rgba(10,10,10,0.12);--bone-ghost:rgba(10,10,10,0.05);--alert:#B01818;--gold:#7A6545;--gold-dim:rgba(122,101,69,0.15)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Space Mono',monospace;background:var(--void);color:var(--bone);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
+
+/* Film grain overlay */
+.film-grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+[data-theme="light"] .film-grain{opacity:0.015}
+
+/* Persistent Header */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:.8rem 2rem;background:rgba(8,8,8,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--bone-faint);transition:background .3s}
+[data-theme="light"] .site-header{background:rgba(250,250,248,.9)}
+.header-logo{font-size:.72rem;font-weight:700;letter-spacing:.3em}
+.header-right{display:flex;align-items:center;gap:1rem}
+.theme-toggle{background:transparent;border:1px solid var(--bone-faint);color:var(--bone);width:36px;height:36px;font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.theme-toggle:hover{background:var(--bone-ghost);border-color:var(--bone-dim)}
+.header-cta{font-size:.67rem;letter-spacing:.15em;color:var(--void);background:var(--bone);padding:.6rem 1.2rem;text-decoration:none;transition:all .2s}
+.header-cta:hover{background:var(--cream)}
+
+/* Hero Section */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5rem 2rem 2rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1920&q=80') center/cover;opacity:0.15;filter:grayscale(100%)}
+[data-theme="light"] .hero-bg{opacity:0.08}
+.hero-gradient{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,var(--void) 70%)}
+.hero-content{position:relative;z-index:10;max-width:800px}
+.hero-badge{font-size:.67rem;letter-spacing:.3em;color:var(--gold);margin-bottom:2rem;opacity:.8}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,8vw,5rem);font-weight:400;line-height:1.1;margin-bottom:1.5rem;color:var(--cream)}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-subtitle{font-size:clamp(.87rem,2vw,1.12rem);line-height:1.8;opacity:.6;max-width:550px;margin:0 auto 1.5rem}
+.hero-subtext{font-size:.77rem;line-height:1.7;opacity:.4;max-width:500px;margin:0 auto 3rem;font-style:italic}
+.hero-cta{display:inline-block;background:var(--bone);color:var(--void);padding:1rem 2.5rem;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-decoration:none;transition:all .3s;border:1px solid var(--bone)}
+.hero-cta:hover{background:var(--cream);transform:translateY(-2px)}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.2em;opacity:.3;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.scroll-hint::after{content:'↓';font-size:1rem;animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* Section base */
+section{padding:8rem 2rem;position:relative}
+.section-inner{max-width:1000px;margin:0 auto}
+.section-label{font-size:.62rem;letter-spacing:.3em;color:var(--gold);margin-bottom:1.5rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:2rem;color:var(--cream)}
+.section-text{font-size:.87rem;line-height:1.9;opacity:.6;max-width:600px}
+
+/* The Problem Section */
+.problem{background:var(--charcoal)}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:4rem}
+.problem-content{}
+.problem-quotes{display:flex;flex-direction:column;gap:1.5rem}
+.trigger-quote{background:var(--void);border-left:2px solid var(--alert);padding:1.2rem 1.5rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--bone-dim);position:relative;opacity:0;animation:slideIn .6s ease forwards}
+.trigger-quote:nth-child(1){animation-delay:.2s}
+.trigger-quote:nth-child(2){animation-delay:.4s}
+.trigger-quote:nth-child(3){animation-delay:.6s}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.trigger-quote::after{content:'';position:absolute;right:1rem;top:50%;transform:translateY(-50%);font-size:.5rem;letter-spacing:.1em;color:var(--alert);opacity:.5}
+.trigger-translation{display:block;font-family:'Space Mono',monospace;font-size:.62rem;font-style:normal;color:var(--gold);margin-top:.5rem;opacity:.7}
+.trigger-translation::before{content:'↳ '}
+.trigger-quote:nth-child(1)::after{content:'STRANGER'}
+.trigger-quote:nth-child(2)::after{content:'FAMILY'}
+.trigger-quote:nth-child(3)::after{content:'COLLEAGUE'}
+
+/* What This Is Section */
+.what-this-is{border-top:1px solid var(--bone-faint)}
+.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:4rem}
+.value-card{padding:2rem;border:1px solid var(--bone-faint);transition:all .3s}
+.value-card:hover{border-color:var(--gold);background:var(--bone-ghost)}
+.value-icon{font-size:1.5rem;margin-bottom:1rem;opacity:.6}
+.value-title{font-size:.82rem;letter-spacing:.15em;margin-bottom:1rem;color:var(--cream)}
+.value-text{font-size:.72rem;line-height:1.8;opacity:.5}
+
+/* How It Works Section */
+.how-it-works{background:var(--charcoal)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:4rem}
+.step{text-align:center;padding:2.5rem 1.5rem}
+.step-number{font-family:'Playfair Display',serif;font-size:3rem;color:var(--gold);opacity:.3;margin-bottom:1rem}
+.step-title{font-size:.82rem;letter-spacing:.15em;margin-bottom:1rem;color:var(--cream)}
+.step-text{font-size:.72rem;line-height:1.7;opacity:.5}
+.step-visual{margin-top:1.5rem;padding:1rem;background:var(--void);border:1px solid var(--bone-faint);font-size:.67rem;color:var(--bone-dim)}
+.step-visual em{color:var(--gold);font-style:normal}
+
+/* Tones Preview */
+.tones-preview{border-top:1px solid var(--bone-faint)}
+.tones-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem}
+.tone-card{padding:2rem;border:1px solid var(--bone-faint);text-align:center;transition:all .3s}
+.tone-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.tone-name{font-size:.77rem;letter-spacing:.2em;margin-bottom:.75rem;color:var(--cream)}
+.tone-desc{font-size:.62rem;opacity:.5;margin-bottom:1.25rem;line-height:1.6}
+.tone-example{font-family:'Playfair Display',serif;font-size:.8rem;font-style:italic;color:var(--bone-dim);padding-top:1rem;border-top:1px solid var(--bone-faint)}
+
+/* Community Section */
+.community{background:linear-gradient(180deg,var(--void) 0%,var(--charcoal) 100%);text-align:center}
+.community .section-text{margin:0 auto 2.5rem}
+.matterhood-link{display:inline-flex;align-items:center;gap:.75rem;color:var(--gold);text-decoration:none;font-size:.77rem;letter-spacing:.15em;padding:1rem 1.5rem;border:1px solid var(--gold-dim);transition:all .3s}
+.matterhood-link:hover{background:var(--gold-dim);border-color:var(--gold)}
+
+/* Share Section */
+.share-section{background:var(--charcoal);text-align:center}
+.share-section .section-text{margin:0 auto}
+.share-formats{display:flex;justify-content:center;gap:2.5rem;margin-top:3.5rem}
+.share-format{text-align:center;padding:2rem 2.5rem;border:1px solid var(--bone-faint);transition:all .3s}
+.share-format:hover{border-color:var(--gold)}
+.share-format-icon{font-size:2rem;margin-bottom:.75rem;opacity:.4}
+.share-format-name{font-size:.72rem;letter-spacing:.15em;color:var(--cream);margin-bottom:.25rem}
+.share-format-size{font-size:.6rem;opacity:.4}
+
+/* Disclaimer */
+.disclaimer{background:var(--void);border-top:1px solid var(--bone-faint);border-bottom:1px solid var(--bone-faint)}
+.disclaimer-content{display:flex;gap:2rem;align-items:flex-start;max-width:700px;margin:0 auto;padding:2rem 0}
+.disclaimer-icon{font-size:1.5rem;color:var(--gold);opacity:.5;flex-shrink:0}
+.disclaimer-text{font-size:.77rem;line-height:1.8;opacity:.5}
+.disclaimer-text strong{color:var(--gold);opacity:1}
+
+/* Final CTA */
+.final-cta{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden}
+.final-cta-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1508615039623-a25605d2b022?w=1920&q=80') center/cover;opacity:.1;filter:grayscale(100%)}
+[data-theme="light"] .final-cta-bg{opacity:.05}
+.final-cta-content{position:relative;z-index:10}
+.final-cta-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,4vw,2.5rem);margin-bottom:1rem;color:var(--cream)}
+.final-cta-text{font-size:.82rem;opacity:.5;margin-bottom:2.5rem;max-width:450px}
+.enter-btn{display:inline-block;background:var(--gold);color:var(--void);padding:1.2rem 3rem;font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:.2em;text-decoration:none;transition:all .3s;border:none;cursor:pointer}
+.enter-btn:hover{background:var(--cream);transform:scale(1.02)}
 
 /* Footer */
-footer {
-  padding: 3rem 2.5rem;
-  background: var(--black);
-  border-top: 1px solid var(--gray-800);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--gray-500);
-}
-
-.footer-brand {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.footer-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.footer-links a {
-  font-size: 0.7rem;
-  color: var(--gray-500);
-  transition: color 0.2s;
-}
-
-.footer-links a:hover {
-  color: var(--white);
-}
-
-.footer-credit {
-  font-size: 0.65rem;
-}
-
-/* Animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.site-footer{border-top:1px solid var(--bone-faint);padding:3rem 2rem;background:var(--charcoal)}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center}
+.footer-logo{font-size:.77rem;font-weight:700;letter-spacing:.3em;margin-bottom:.3rem}
+.footer-tagline{font-size:.67rem;opacity:.4;font-style:italic}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{font-size:.67rem;letter-spacing:.15em;color:var(--gold);text-decoration:none;transition:opacity .2s}
+.footer-links a:hover{opacity:.7}
+.footer-credit{font-size:.62rem;letter-spacing:.1em;opacity:.3}
 
 /* Responsive */
-@media (max-width: 1000px) {
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  
-  .features-image {
-    aspect-ratio: 16/9;
-  }
-  
-  .tones-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+@media(max-width:900px){
+  .site-header{padding:.8rem 1.2rem}
+  .header-logo{font-size:.55rem;letter-spacing:.2em}
+  .header-cta{font-size:.5rem;padding:.5rem 1rem}
+  .problem-grid{grid-template-columns:1fr;gap:2rem}
+  .value-grid,.steps,.tones-grid{grid-template-columns:1fr}
+  .tones-grid{grid-template-columns:repeat(2,1fr)}
+  .share-formats{flex-wrap:wrap}
+}
+@media(max-width:600px){
+  section{padding:5rem 1.5rem}
+  .tones-grid{grid-template-columns:1fr}
+  .trigger-quote::after{display:none}
+  .disclaimer-content{flex-direction:column;gap:1rem;text-align:center}
+  .footer-links{flex-direction:column;gap:1rem}
+  .share-formats{flex-direction:column;align-items:center}
+  .share-format{width:100%;max-width:200px}
 }
 
-@media (max-width: 768px) {
-  header {
-    padding: 1rem 1.5rem;
-  }
-  
-  section {
-    padding: 5rem 1.5rem;
-  }
-  
-  .hero-content {
-    padding: 0 1.5rem 4rem;
-  }
-  
-  .quotes-header {
-    padding: 4rem 1.5rem 3rem;
-  }
-  
-  .quote-card {
-    flex: 0 0 85vw;
-    min-width: 280px;
-  }
-  
-  .quotes-scroll {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  
-  .quotes-scroll::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .steps {
-    grid-template-columns: 1fr;
-  }
-  
-  .tones-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  footer {
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: center;
-  }
-}
+/* Reveal animations */
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 </style>
 </head>
 <body>
+<div class="film-grain"></div>
 
-<header id="header">
-  <div class="logo">The Protocol</div>
-  <a href="app.html" class="header-cta">Enter</a>
+<header class="site-header">
+  <div class="header-logo">THE PROTOCOL</div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀</button>
+    <a href="app.html" class="header-cta">START GENERATING</a>
+  </div>
 </header>
 
 <section class="hero">
-  <div class="hero-image"></div>
+  <div class="hero-bg"></div>
   <div class="hero-gradient"></div>
   <div class="hero-content">
-    <div class="hero-label">From Matterhood</div>
-    <h1 class="hero-title">Scripts for<br><em>unsolicited opinions</em></h1>
-    <p class="hero-subtitle">When someone comments on your fertility, your family, or your choices — you'll have words ready. Better ones.</p>
-    <a href="app.html" class="hero-cta">Arm Yourself <span></span></a>
+    <div class="hero-badge">FROM THE MATTERHOOD ARCHIVE</div>
+    <h1 class="hero-title">Words for when <em>theirs</em> fall short</h1>
+    <p class="hero-subtitle">A response toolkit for the infertility and childlessness community. When someone says "just relax", you'll have words ready. Better ones than "go fuck yourself."</p>
+    <p class="hero-subtext">And if you've ever said one of these things? This might help you understand why it landed differently than you intended.</p>
+    <a href="#learn-more" class="hero-cta">LEARN MORE</a>
   </div>
-  <div class="scroll-hint">Scroll</div>
+  <div class="scroll-hint">SCROLL</div>
 </section>
 
-<section class="quotes-section">
-  <div class="quotes-header">
-    <div class="section-label">The Audacity</div>
-    <h2 class="section-title">Things people actually say.</h2>
-  </div>
-  <div class="quotes-scroll">
-    <div class="quote-card">
-      <div class="quote-image" style="background-image: url('https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&q=80')"></div>
-      <div class="quote-content">
-        <div class="quote-text">"Just relax and it'll happen."</div>
-        <div class="quote-subtext">Translation: You're causing this</div>
-      </div>
-    </div>
-    <div class="quote-card">
-      <div class="quote-image" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80')"></div>
-      <div class="quote-content">
-        <div class="quote-text">"Why don't you just adopt?"</div>
-        <div class="quote-subtext">Translation: There's an easy fix</div>
-      </div>
-    </div>
-    <div class="quote-card">
-      <div class="quote-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80')"></div>
-      <div class="quote-content">
-        <div class="quote-text">"Everything happens for a reason."</div>
-        <div class="quote-subtext">Translation: This was meant to be</div>
-      </div>
-    </div>
-    <div class="quote-card">
-      <div class="quote-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80')"></div>
-      <div class="quote-content">
-        <div class="quote-text">"At least you can sleep in."</div>
-        <div class="quote-subtext">Translation: Count your blessings</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="features-section reveal">
+<section class="problem" id="learn-more">
   <div class="section-inner">
-    <div class="section-label">What This Is</div>
-    <h2 class="section-title">Not therapy.<br>Ammunition.</h2>
-    <p class="section-text">Calibrated responses — from diplomatic to devastating — so you can set boundaries without burning bridges. Unless you want to.</p>
-    
-    <div class="features-grid">
-      <div class="features-image"></div>
-      <div class="features-list">
-        <div class="feature">
-          <div class="feature-title">Calibrated</div>
-          <div class="feature-text">Choose your damage level. Civil for keeping the peace. Nuclear for when they've earned it.</div>
-        </div>
-        <div class="feature">
-          <div class="feature-title">Contextual</div>
-          <div class="feature-text">Different targets need different tactics. What works on a stranger won't work on your mother-in-law.</div>
-        </div>
-        <div class="feature">
-          <div class="feature-title">Battle-Tested</div>
-          <div class="feature-text">Every response comes from people who've been there. This is scar tissue, refined.</div>
-        </div>
+    <div class="problem-grid">
+      <div class="problem-content">
+        <div class="section-label">THE PROBLEM</div>
+        <h2 class="section-title">They mean well.<br>It still hurts.</h2>
+        <p class="section-text">
+          People say things. They think they're helping. They're not.<br><br>
+          You've heard them at family dinners, in break rooms, from strangers who think your uterus is public property.<br><br>
+          And in the moment, you freeze. Or smile. Or say "thank you" while your soul leaves your body.<br><br>
+          <strong>You're not overreacting.</strong> These comments hurt because they dismiss something real. Something heavy. Something that doesn't get the space it deserves.
+        </p>
+      </div>
+      <div class="problem-quotes">
+        <div class="trigger-quote">"Just relax and it'll happen."<span class="trigger-translation">You're causing this.</span></div>
+        <div class="trigger-quote">"Why don't you just adopt?"<span class="trigger-translation">There's an easy fix you're ignoring.</span></div>
+        <div class="trigger-quote">"Everything happens for a reason."<span class="trigger-translation">This is meant to be.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="steps-section reveal">
+<section class="what-this-is reveal">
   <div class="section-inner">
-    <div class="section-label">How It Works</div>
-    <h2 class="section-title">Three steps.</h2>
-    
+    <div class="section-label">WHAT THIS IS</div>
+    <h2 class="section-title">Not a venting tool.<br>A communication toolkit.</h2>
+    <p class="section-text">
+      The Protocol gives you calibrated responses, from gentle to direct, so you can set boundaries without burning bridges. Unless you want to. We don't judge.
+    </p>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon">◇</div>
+        <div class="value-title">CALIBRATED</div>
+        <div class="value-text">Choose your tone and intensity. Mild for keeping the peace. Hot for when they've really earned it.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">◈</div>
+        <div class="value-title">CONTEXTUAL</div>
+        <div class="value-text">Different settings need different words. What works with a stranger won't work with your mother. Probably.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">◆</div>
+        <div class="value-title">COMMUNITY-BUILT</div>
+        <div class="value-text">Every response comes from people who've been there. This isn't theory. It's scar tissue, refined.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works reveal">
+  <div class="section-inner">
+    <div class="section-label">HOW IT WORKS</div>
+    <h2 class="section-title">Three steps to being heard.</h2>
     <div class="steps">
       <div class="step">
         <div class="step-number">01</div>
-        <div class="step-title">Enter the audacity</div>
-        <div class="step-text">Type what they said, browse the greatest hits, or hit random to discover responses you didn't know you needed.</div>
+        <div class="step-title">ENTER THE TRIGGER</div>
+        <div class="step-text">Type what they said, pick from common triggers, or hit 🎲 to discover responses you didn't know you needed.</div>
+        <div class="step-visual">"Have you tried <em>IVF</em>?"</div>
       </div>
       <div class="step">
         <div class="step-number">02</div>
-        <div class="step-title">Choose your weapon</div>
-        <div class="step-text">Pick your voice and your damage level. We have options for keeping the peace and options for choosing violence.</div>
+        <div class="step-title">CHOOSE YOUR VOICE</div>
+        <div class="step-text">Pick a tone that fits you and a spice level that fits the situation.</div>
+        <div class="step-visual"><em>ABSURDIST</em> · MEDIUM</div>
       </div>
       <div class="step">
         <div class="step-number">03</div>
-        <div class="step-title">Get your receipts</div>
-        <div class="step-text">Export as a shareable card or video. Send it, post it, or just read it alone in your car.</div>
+        <div class="step-title">RESPOND WITH INTENTION</div>
+        <div class="step-text">Export as a cinematic card, or animate it to screen-record for your Story. Or just read it alone in your car while deep breathing.</div>
+        <div class="step-visual">"<em>We've had more needles than a sewing factory.</em>"</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="tones-section reveal">
+<section class="tones-preview reveal">
   <div class="section-inner">
-    <div class="section-label">Choose Your Weapon</div>
-    <h2 class="section-title">Four voices.</h2>
-    
+    <div class="section-label">FIND YOUR VOICE</div>
+    <h2 class="section-title">Four tones. Your choice.</h2>
+    <p class="section-text">Different moments call for different voices. All are valid.</p>
     <div class="tones-grid">
       <div class="tone-card">
-        <div class="tone-name">Diplomat</div>
-        <div class="tone-tagline">Kill them with kindness.</div>
+        <div class="tone-name">DIPLOMAT</div>
+        <div class="tone-desc">Graceful deflection. Maintains relationships while setting boundaries.</div>
         <div class="tone-example">"Thank you. We're working with specialists on what's actually treatable."</div>
       </div>
       <div class="tone-card">
-        <div class="tone-name">Critic</div>
-        <div class="tone-tagline">Actually, you're wrong.</div>
+        <div class="tone-name">CRITIC</div>
+        <div class="tone-desc">Direct challenge. Factual, pointed, doesn't suffer fools.</div>
         <div class="tone-example">"Survivorship bias isn't medical advice."</div>
       </div>
       <div class="tone-card">
-        <div class="tone-name">Absurdist</div>
-        <div class="tone-tagline">Confuse them into silence.</div>
+        <div class="tone-name">ABSURDIST</div>
+        <div class="tone-desc">Sardonic humor. Makes the ridiculous obvious through wit.</div>
         <div class="tone-example">"I'll ask my ovaries to meditate."</div>
       </div>
       <div class="tone-card">
-        <div class="tone-name">Realist</div>
-        <div class="tone-tagline">Trauma, served straight.</div>
+        <div class="tone-name">REALIST</div>
+        <div class="tone-desc">Honest and grounded. No games, just truth.</div>
         <div class="tone-example">"The treatments failed. We didn't. But it took time to understand the difference."</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-section">
-  <div class="cta-content">
-    <h2 class="cta-title">Ready?</h2>
-    <p class="cta-text">You don't owe anyone an explanation. But if you want one ready — one that isn't just silent screaming — we've got you.</p>
-    <a href="app.html" class="cta-btn">Let's Go</a>
+<section class="community reveal">
+  <div class="section-inner">
+    <div class="section-label">YOU'RE NOT ALONE</div>
+    <h2 class="section-title">This grief is real.<br>Even if no one talks about it.</h2>
+    <p class="section-text">
+      Infertility and childlessness can feel like a loss that no one acknowledges. No funeral, no flowers, no casseroles. Just silence, or worse, advice. The Protocol is part of Matterhood, a community for people navigating this path. You don't have to explain yourself here.
+    </p>
+    <a href="https://matterhood.ghost.io/" target="_blank" class="matterhood-link">
+      <span>VISIT MATTERHOOD</span>
+      <span>→</span>
+    </a>
   </div>
 </section>
 
-<footer>
-  <div class="footer-brand">The Protocol</div>
-  <div class="footer-links">
-    <a href="app.html">Enter</a>
-    <a href="https://matterhood.ghost.io/" target="_blank">Matterhood</a>
+<section class="share-section reveal">
+  <div class="section-inner">
+    <div class="section-label">SPREAD THE WORD</div>
+    <h2 class="section-title">Share what you can't always say.</h2>
+    <p class="section-text">
+      Every response exports as a high-res image or a <strong>cinematic animation</strong> you can screen-record. Includes an optional "Why this hurts" companion card to help educate the well-meaning.
+    </p>
+    <div class="share-formats">
+      <div class="share-format">
+        <div class="share-format-icon">▯</div>
+        <div class="share-format-name">STORY</div>
+        <div class="share-format-size">9:16</div>
+      </div>
+      <div class="share-format">
+        <div class="share-format-icon">□</div>
+        <div class="share-format-name">SQUARE</div>
+        <div class="share-format-size">1:1</div>
+      </div>
+      <div class="share-format">
+        <div class="share-format-icon">▶</div>
+        <div class="share-format-name">ANIMATION</div>
+        <div class="share-format-size">VIDEO</div>
+      </div>
+    </div>
   </div>
-  <div class="footer-credit">Craig & Courtney</div>
+</section>
+
+<section class="disclaimer reveal">
+  <div class="section-inner">
+    <div class="disclaimer-content">
+      <div class="disclaimer-icon">※</div>
+      <div class="disclaimer-text">
+        <strong>A note:</strong> We're not therapists. We're not doctors. We're just people who've heard "everything happens for a reason" one too many times and lived to tell the tale. This is shared experience, not medical advice. If you're struggling, please talk to a professional. You deserve real support.<br><br>
+        And if you landed here because someone shared a card with you? Thank you for wanting to understand. That curiosity is a gift.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="final-cta-bg"></div>
+  <div class="final-cta-content">
+    <h2 class="final-cta-title">Ready to find your words?</h2>
+    <p class="final-cta-text">You don't owe anyone an explanation. But if you want one ready, one that doesn't start with "go fuck yourself", we've got you. And if you're here to understand? Even better.</p>
+    <a href="app.html" class="enter-btn">I'M READY</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">THE PROTOCOL</div>
+      <div class="footer-tagline">Words for when theirs fall short.</div>
+    </div>
+    <div class="footer-links">
+      <a href="app.html">Enter The Protocol</a>
+      <a href="https://matterhood.ghost.io/" target="_blank">Matterhood</a>
+    </div>
+    <div class="footer-credit">
+      Made with love and frustration by Craig & Courtney
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -860,16 +389,33 @@ const observer = new IntersectionObserver((entries) => {
 
 reveals.forEach(el => observer.observe(el));
 
-// Header scroll effect
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 100) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
-});
-</script>
+// Trigger quote animations on scroll
+const problemSection = document.querySelector('.problem');
+const quotes = document.querySelectorAll('.trigger-quote');
+const problemObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      quotes.forEach(q => q.style.animationPlayState = 'running');
+    }
+  });
+}, { threshold: 0.3 });
 
+problemObserver.observe(problemSection);
+quotes.forEach(q => q.style.animationPlayState = 'paused');
+
+// Theme toggle
+const themeToggle = document.getElementById('themeToggle');
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeToggle.textContent = theme === 'light' ? '☾' : '☀';
+  localStorage.setItem('protocol_theme', theme);
+}
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.dataset.theme;
+  setTheme(current === 'light' ? 'dark' : 'light');
+});
+const savedTheme = localStorage.getItem('protocol_theme') || 'dark';
+setTheme(savedTheme);
+</script>
 </body>
 </html>
