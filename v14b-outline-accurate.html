@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Protocol | Things People Actually Say</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral: #FF4F64;
+  --navy: #0A1628;
+  --navy-light: #152238;
+  --purple: #661F4F;
+  --teal: #14464A;
+  --pink: #CE2C36;
+  --orange: #E85D2D;
+  --cream: #FFF8F0;
+  --white: #FFFFFF;
+  --gray: #8899AA;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Floating emojis */
+.emoji-float {
+  position: absolute;
+  font-size: 2rem;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: transparent;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--white);
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.menu-btn {
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Side Menu - The Outline style */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background: var(--coral);
+  z-index: 2000;
+  padding: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.3s;
+}
+
+.side-menu.active {
+  transform: translateX(0);
+}
+
+.side-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.side-menu-logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.side-menu-close {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.side-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.side-menu-link {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.side-menu-link:hover {
+  opacity: 0.8;
+}
+
+.menu-emoji {
+  font-size: 1.25rem;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+}
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10, 22, 40, 0.4) 0%, rgba(102, 31, 79, 0.7) 100%);
+}
+
+.hero-content {
+  position: relative;
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: var(--navy-light);
+  border-left: 4px solid var(--coral);
+}
+
+.hero-category {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.hero-excerpt {
+  font-size: 0.95rem;
+  color: var(--gray);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.hero-cta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--coral);
+  text-decoration: none;
+}
+
+.hero-cta:hover {
+  text-decoration: underline;
+}
+
+/* Read More Bar */
+.read-more-bar {
+  background: var(--white);
+  color: var(--navy);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.read-more-bar img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.read-more-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Section Headers - Big Bold Text */
+.section-header-big {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.section-title-big {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.9;
+}
+
+/* Card Grid - Duotone Cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--navy);
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+/* Duotone overlays */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+
+.card.pink::after { background: linear-gradient(180deg, #661F4F 0%, #CE2C36 100%); }
+.card.teal::after { background: linear-gradient(180deg, #14464A 0%, #0A1628 100%); }
+.card.purple::after { background: linear-gradient(180deg, #3D1F5C 0%, #661F4F 100%); }
+.card.orange::after { background: linear-gradient(180deg, #E85D2D 0%, #CE2C36 100%); }
+.card.navy::after { background: linear-gradient(180deg, #0A1628 0%, #152238 100%); }
+.card.coral::after { background: linear-gradient(180deg, #CE2C36 0%, #661F4F 100%); }
+
+.card-content {
+  position: absolute;
+  inset: 0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 10;
+}
+
+.card-category {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.card-title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Large Feature Cards */
+.feature-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.feature-card {
+  position: relative;
+  min-height: 70vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.feature-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 22, 40, 0.9) 0%, transparent 60%);
+}
+
+.feature-card.duotone::after {
+  background: linear-gradient(180deg, rgba(206, 44, 54, 0.7) 0%, rgba(102, 31, 79, 0.8) 100%);
+  mix-blend-mode: multiply;
+}
+
+.feature-content {
+  position: relative;
+  z-index: 10;
+  padding: 3rem;
+  max-width: 500px;
+}
+
+.feature-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.feature-excerpt {
+  font-size: 0.9rem;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+.feature-cta {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  text-decoration: none;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--white);
+}
+
+/* Category Sections with Side Title */
+.category-section {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 80vh;
+}
+
+.category-title-side {
+  background: var(--coral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.category-title-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 4rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: rotate(180deg);
+}
+
+.category-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--navy);
+}
+
+/* Alternating color backgrounds */
+.category-section.purple .category-title-side { background: var(--purple); }
+.category-section.teal .category-title-side { background: var(--teal); }
+.category-section.orange .category-title-side { background: var(--orange); }
+
+/* Good Advice Section - Cream Background */
+.advice-section {
+  background: var(--cream);
+  color: var(--navy);
+  padding: 4rem 2rem;
+}
+
+.advice-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.advice-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.advice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.advice-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.advice-card-image {
+  aspect-ratio: 1;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.advice-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.advice-card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Final Feature */
+.final-feature {
+  min-height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.final-feature img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.final-feature::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 22, 40, 0.7) 0%, rgba(102, 31, 79, 0.8) 100%);
+}
+
+.final-content {
+  position: relative;
+  z-index: 10;
+  max-width: 700px;
+  padding: 2rem;
+}
+
+.final-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+.final-excerpt {
+  font-size: 1rem;
+  color: var(--gray);
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+
+.final-cta {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 1rem 2.5rem;
+  background: var(--coral);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.final-cta:hover {
+  background: var(--white);
+  color: var(--navy);
+}
+
+/* Footer */
+footer {
+  background: var(--navy-light);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-nav a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gray);
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  color: var(--coral);
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.footer-social a {
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.footer-credit {
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .hero-main {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-image {
+    height: 50vh;
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .feature-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-title-side {
+    writing-mode: horizontal-tb;
+    padding: 2rem;
+  }
+  
+  .category-title-text {
+    transform: none;
+  }
+  
+  .category-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .advice-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-grid,
+  .category-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .side-menu {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">The Protocol</a>
+  <button class="menu-btn" onclick="toggleMenu()">✕</button>
+</header>
+
+<!-- Side Menu -->
+<nav class="side-menu" id="sideMenu">
+  <div class="side-menu-header">
+    <div class="side-menu-logo">The Protocol</div>
+    <button class="side-menu-close" onclick="toggleMenu()">✕</button>
+  </div>
+  <div class="side-menu-nav">
+    <a href="#" class="side-menu-link"><span class="menu-emoji">📞</span> RECENT</a>
+    <a href="#" class="side-menu-link"><span class="menu-emoji">💪</span> POWER</a>
+    <a href="#" class="side-menu-link"><span class="menu-emoji">🎭</span> CULTURE</a>
+    <a href="#" class="side-menu-link"><span class="menu-emoji">🔮</span> FUTURE</a>
+  </div>
+  <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+    <a href="#" class="side-menu-link">ABOUT</a>
+    <a href="#" class="side-menu-link">MATTERHOOD</a>
+    <a href="app.html" class="side-menu-link" style="background: var(--white); color: var(--coral); margin-top: 1rem; padding: 1rem; text-align: center;">ENTER ARCHIVE</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-main">
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80" alt="">
+    </div>
+    <div class="hero-content">
+      <div class="hero-category">Culture · Jan 27</div>
+      <h1 class="hero-title">The Things People Say</h1>
+      <p class="hero-excerpt">
+        We started collecting the wild comments people make about fertility and childlessness. Then we wrote responses. Now it's a whole archive of socially acceptable nonsense.
+      </p>
+      <a href="app.html" class="hero-cta">Read More →</a>
+    </div>
+  </div>
+  <div class="read-more-bar">
+    <img src="https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?w=100&q=80" alt="">
+    <span class="read-more-text">Read More</span>
+  </div>
+</section>
+
+<!-- Very Online Section -->
+<div class="section-header-big">
+  <h2 class="section-title-big">Very Online</h2>
+</div>
+
+<div class="card-grid">
+  <a href="app.html" class="card pink">
+    <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=600&q=80" alt="">
+    <div class="card-content">
+      <div class="card-category">Classic</div>
+      <h3 class="card-title">"Just relax and it'll happen"</h3>
+    </div>
+  </a>
+  <a href="app.html" class="card teal">
+    <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600&q=80" alt="">
+    <div class="card-content">
+      <div class="card-category">Fan Favorite</div>
+      <h3 class="card-title">"Why don't you <em>just</em> adopt?"</h3>
+    </div>
+  </a>
+  <a href="app.html" class="card purple">
+    <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=600&q=80" alt="">
+    <div class="card-content">
+      <div class="card-category">Philosophy</div>
+      <h3 class="card-title">"Everything happens for a reason"</h3>
+    </div>
+  </a>
+  <a href="app.html" class="card orange">
+    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt="">
+    <div class="card-content">
+      <div class="card-category">Unsolicited</div>
+      <h3 class="card-title">"You're still young!"</h3>
+    </div>
+  </a>
+</div>
+
+<!-- Must Reads -->
+<div class="section-header-big">
+  <h2 class="section-title-big">Must</h2>
+</div>
+
+<div class="feature-section">
+  <a href="app.html" class="feature-card">
+    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1000&q=80" alt="">
+    <div class="feature-content">
+      <h3 class="feature-title">It shouldn't take a pandemic for everyone to stop asking invasive questions</h3>
+      <p class="feature-excerpt">But here we are.</p>
+      <span class="feature-cta">Read More</span>
+    </div>
+  </a>
+  <a href="app.html" class="feature-card duotone">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1000&q=80" alt="">
+    <div class="feature-content">
+      <h3 class="feature-title">Now is not the time for talk of your miracle cure</h3>
+      <p class="feature-excerpt">Relaxing is like getting your flu shot — it doesn't actually cure infertility.</p>
+      <span class="feature-cta">Read More</span>
+    </div>
+  </a>
+</div>
+
+<div class="section-header-big">
+  <h2 class="section-title-big">Reads</h2>
+</div>
+
+<!-- Power Section -->
+<section class="category-section">
+  <div class="category-title-side">
+    <span class="category-title-text">Power</span>
+  </div>
+  <div class="category-content">
+    <a href="app.html" class="card navy">
+      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="">
+      <div class="card-content">
+        <h3 class="card-title">The Diplomat response</h3>
+      </div>
+    </a>
+    <a href="app.html" class="card pink">
+      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt="">
+      <div class="card-content">
+        <h3 class="card-title">The Critic response</h3>
+      </div>
+    </a>
+    <a href="app.html" class="card teal">
+      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="">
+      <div class="card-content">
+        <h3 class="card-title">The Absurdist response</h3>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Culture Section -->
+<section class="category-section purple">
+  <div class="category-title-side">
+    <span class="category-title-text">Culture</span>
+  </div>
+  <div class="category-content">
+    <a href="app.html" class="card coral">
+      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&q=80" alt="">
+      <div class="card-content">
+        <h3 class="card-title">"Have you tried yoga?"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="card purple">
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80" alt="">
+      <div class="card-content">
+        <h3 class="card-title">"My cousin tried for years and then—"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="card orange">
+      <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=600&q=80" alt="">
+      <div class="card-content">
+        <h3 class="card-title">"At least you can sleep in!"</h3>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Good Advice Section -->
+<section class="advice-section">
+  <div class="advice-header">
+    <h2 class="advice-title">Good<br>Advice</h2>
+  </div>
+  <div class="advice-grid">
+    <a href="app.html" class="advice-card">
+      <div class="advice-card-image">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80" alt="">
+      </div>
+      <h3 class="advice-card-title">How to respond when they mean well but say it wrong</h3>
+    </a>
+    <a href="app.html" class="advice-card">
+      <div class="advice-card-image">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80" alt="">
+      </div>
+      <h3 class="advice-card-title">The art of the graceful subject change</h3>
+    </a>
+    <a href="app.html" class="advice-card">
+      <div class="advice-card-image">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&q=80" alt="">
+      </div>
+      <h3 class="advice-card-title">When to deploy the absurdist response</h3>
+    </a>
+  </div>
+</section>
+
+<!-- Final Feature -->
+<section class="final-feature">
+  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&q=80" alt="">
+  <div class="final-content">
+    <h2 class="final-title">I would love to respond to people who can't read the room</h2>
+    <p class="final-excerpt">
+      Some of us are still trying to have some fun before we die and, I'm sorry, unsolicited fertility advice is very rarely fun.
+    </p>
+    <a href="app.html" class="final-cta">Enter the Archive</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">The Protocol</div>
+  <nav class="footer-nav">
+    <a href="app.html">Archive</a>
+    <a href="https://matterhood.ghost.io/">Matterhood</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+  <div class="footer-social">
+    <a href="#">🦋</a>
+    <a href="#">📸</a>
+    <a href="#">𝕏</a>
+  </div>
+  <div class="footer-credit">Made by Craig & Courtney</div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('sideMenu').classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
