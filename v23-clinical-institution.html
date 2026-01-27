@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Protocol — A Documentation Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --white: #FFFFFF;
+  --cream: #F8F6F2;
+  --gray-100: #F5F5F5;
+  --gray-200: #E8E8E8;
+  --gray-400: #A0A0A0;
+  --gray-600: #666666;
+  
+  /* The Protocol Blue - Clinical, Institutional */
+  --protocol-blue: #0052CC;
+  --protocol-blue-light: #E6F0FF;
+  
+  /* Warning Red - For stamps */
+  --protocol-red: #CC0000;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   THE PROTOCOL STAMP
+   The signature element. Institutional. Serious.
+   ============================================ */
+.protocol-stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border: 3px solid var(--protocol-red);
+  border-radius: 50%;
+  padding: 8px;
+  transform: rotate(-12deg);
+  position: relative;
+}
+
+.protocol-stamp::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--protocol-red);
+  border-radius: 50%;
+}
+
+.protocol-stamp-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--protocol-red);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.protocol-stamp-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--protocol-red);
+}
+
+/* Small inline stamp */
+.stamp-inline {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--protocol-red);
+  border: 2px solid var(--protocol-red);
+  padding: 0.2rem 0.5rem;
+  transform: rotate(-3deg);
+}
+
+/* ============================================
+   HEADER - Institutional, Minimal
+   ============================================ */
+header {
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.logo-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.header-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.header-nav a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.header-nav a:hover {
+  color: var(--black);
+}
+
+.header-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.header-cta:hover {
+  background: var(--protocol-blue);
+}
+
+/* ============================================
+   HERO - Clinical, Authoritative
+   ============================================ */
+.hero {
+  padding: 6rem 3rem;
+  max-width: 1000px;
+  position: relative;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-meta .dot {
+  width: 4px;
+  height: 4px;
+  background: var(--gray-400);
+  border-radius: 50%;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  max-width: 550px;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-primary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--protocol-blue);
+}
+
+.btn-secondary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: var(--black);
+  text-decoration: none;
+  border: 1px solid var(--gray-200);
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--black);
+}
+
+/* The floating stamp */
+.hero-stamp {
+  position: absolute;
+  top: 5rem;
+  right: 3rem;
+}
+
+/* ============================================
+   STATS BAR - Clinical Data
+   ============================================ */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.stat-item {
+  padding: 2rem 3rem;
+  border-right: 1px solid var(--gray-200);
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+/* ============================================
+   SECTION HEADER
+   ============================================ */
+.section-header {
+  padding: 3rem 3rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+.section-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--protocol-blue);
+  text-decoration: none;
+}
+
+.section-link:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   SPECIMEN CARDS - The Documentation System
+   ============================================ */
+.specimens-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 3rem 4rem;
+  gap: 1px;
+  background: var(--gray-200);
+}
+
+.specimen-card {
+  background: var(--white);
+  padding: 2rem;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.specimen-card:hover {
+  background: var(--cream);
+}
+
+.specimen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.specimen-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--gray-400);
+}
+
+.specimen-stamp {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--protocol-red);
+  border: 1.5px solid var(--protocol-red);
+  padding: 0.15rem 0.4rem;
+  transform: rotate(-3deg);
+}
+
+.specimen-quote {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  min-height: 80px;
+}
+
+.specimen-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.specimen-category {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+.specimen-responses {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--protocol-blue);
+}
+
+/* Featured Specimen */
+.specimen-card.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.specimen-card.featured .specimen-quote {
+  font-size: 2.5rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: auto;
+}
+
+/* ============================================
+   RESPONSE TYPES - Clinical Categories
+   ============================================ */
+.responses-section {
+  background: var(--cream);
+  padding: 5rem 3rem;
+}
+
+.responses-header {
+  max-width: 600px;
+  margin-bottom: 4rem;
+}
+
+.responses-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.responses-desc {
+  color: var(--gray-600);
+  line-height: 1.8;
+}
+
+.responses-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--gray-200);
+}
+
+.response-card {
+  background: var(--white);
+  padding: 2rem;
+  transition: all 0.3s;
+}
+
+.response-card:hover {
+  background: var(--protocol-blue-light);
+}
+
+.response-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--gray-400);
+  margin-bottom: 1rem;
+}
+
+.response-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.response-desc {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.response-example {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  padding: 1rem;
+  background: var(--cream);
+  border-left: 2px solid var(--protocol-blue);
+  line-height: 1.6;
+}
+
+/* ============================================
+   CTA SECTION - Institutional
+   ============================================ */
+.cta-section {
+  padding: 6rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.cta-content {
+  max-width: 500px;
+}
+
+.cta-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.cta-desc {
+  color: var(--gray-600);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.cta-stamp {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* ============================================
+   FORM FIELD CARD - Medical Intake Style
+   ============================================ */
+.intake-card {
+  background: var(--cream);
+  padding: 3rem;
+  max-width: 400px;
+}
+
+.intake-header {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.intake-field {
+  margin-bottom: 1.5rem;
+}
+
+.intake-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.intake-label .required {
+  color: var(--protocol-red);
+}
+
+.intake-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-200);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  background: var(--white);
+}
+
+.intake-input:focus {
+  outline: none;
+  border-color: var(--protocol-blue);
+}
+
+.intake-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.intake-checkbox input {
+  margin-top: 0.25rem;
+}
+
+.intake-checkbox label {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+.intake-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.intake-submit:hover {
+  background: var(--protocol-blue);
+}
+
+/* ============================================
+   FOOTER - Minimal, Institutional
+   ============================================ */
+footer {
+  padding: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo {
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--gray-400);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: var(--gray-400);
+}
+
+.footer-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--gray-400);
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gray-400);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--black);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1000px) {
+  .specimens-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .specimen-card.featured {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  
+  .responses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stat-item {
+    border-bottom: 1px solid var(--gray-200);
+  }
+  
+  .cta-section {
+    flex-direction: column;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .cta-stamp {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .hero-stamp {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .header-nav {
+    display: none;
+  }
+  
+  .hero {
+    padding: 3rem 1.5rem;
+  }
+  
+  .specimens-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem 2rem;
+  }
+  
+  .specimen-card.featured {
+    grid-column: span 1;
+  }
+  
+  .responses-section {
+    padding: 3rem 1.5rem;
+  }
+  
+  .responses-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-header {
+    padding: 2rem 1.5rem 1rem;
+  }
+  
+  .stats-bar {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-item {
+    border-right: none;
+  }
+  
+  .cta-section {
+    padding: 3rem 1.5rem;
+  }
+  
+  footer {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+.specimen-card:focus-visible,
+.response-card:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--protocol-blue);
+  outline-offset: 2px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">TP</div>
+    <span class="logo-text">The Protocol</span>
+  </div>
+  <nav class="header-nav">
+    <a href="#">Archive</a>
+    <a href="#">About</a>
+    <a href="#">Submit</a>
+    <a href="app.html" class="header-cta">Enter Archive</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-meta">
+    <span>Est. 2024</span>
+    <span class="dot"></span>
+    <span>A Documentation Project</span>
+    <span class="dot"></span>
+    <span>Matterhood</span>
+  </div>
+  <h1 class="hero-title">A catalog of things people actually say about fertility.</h1>
+  <p class="hero-subtitle">
+    Documented, classified, and paired with calibrated responses ranging from diplomatic to unhinged. Because sometimes "just relax" isn't helpful.
+  </p>
+  <div class="hero-actions">
+    <a href="app.html" class="btn-primary">Browse Archive</a>
+    <a href="#" class="btn-secondary">Submit a Specimen</a>
+  </div>
+  
+  <div class="hero-stamp">
+    <div class="protocol-stamp">
+      <span class="protocol-stamp-text">The<br>Protocol</span>
+      <span class="protocol-stamp-number">№38</span>
+      <span class="protocol-stamp-text">Documented</span>
+    </div>
+  </div>
+</section>
+
+<section class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-number">38</div>
+    <div class="stat-label">Documented Specimens</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">4</div>
+    <div class="stat-label">Response Categories</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">∞</div>
+    <div class="stat-label">Awkward Silences Prevented</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">0</div>
+    <div class="stat-label">Medical Cures Discovered</div>
+  </div>
+</section>
+
+<div class="section-header">
+  <span class="section-title">Selected Specimens</span>
+  <a href="app.html" class="section-link">View Complete Archive →</a>
+</div>
+
+<section class="specimens-grid">
+  
+  <!-- Featured Specimen -->
+  <article class="specimen-card featured" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 001</span>
+      <span class="specimen-stamp">Documented</span>
+    </div>
+    <blockquote class="specimen-quote">"Just relax and it'll happen."</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Medical Advice</span>
+      <span class="specimen-responses">4 responses available</span>
+    </div>
+  </article>
+  
+  <article class="specimen-card" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 002</span>
+      <span class="specimen-stamp">Verified</span>
+    </div>
+    <blockquote class="specimen-quote">"Why don't you just adopt?"</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Simple Solutions</span>
+      <span class="specimen-responses">4 responses</span>
+    </div>
+  </article>
+  
+  <article class="specimen-card" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 003</span>
+      <span class="specimen-stamp">Documented</span>
+    </div>
+    <blockquote class="specimen-quote">"Everything happens for a reason."</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Cosmic Explanations</span>
+      <span class="specimen-responses">4 responses</span>
+    </div>
+  </article>
+  
+  <article class="specimen-card" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 004</span>
+      <span class="specimen-stamp">Verified</span>
+    </div>
+    <blockquote class="specimen-quote">"You're still young!"</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Unsolicited Optimism</span>
+      <span class="specimen-responses">4 responses</span>
+    </div>
+  </article>
+  
+  <article class="specimen-card" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 005</span>
+      <span class="specimen-stamp">Documented</span>
+    </div>
+    <blockquote class="specimen-quote">"Have you tried yoga?"</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Alternative Medicine</span>
+      <span class="specimen-responses">4 responses</span>
+    </div>
+  </article>
+  
+  <article class="specimen-card" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 006</span>
+      <span class="specimen-stamp">Verified</span>
+    </div>
+    <blockquote class="specimen-quote">"My cousin tried for years and then—Loss!"</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Anecdotal Evidence</span>
+      <span class="specimen-responses">4 responses</span>
+    </div>
+  </article>
+  
+  <article class="specimen-card" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 007</span>
+      <span class="specimen-stamp">Documented</span>
+    </div>
+    <blockquote class="specimen-quote">"When are you giving us grandchildren?"</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Family Gatherings</span>
+      <span class="specimen-responses">4 responses</span>
+    </div>
+  </article>
+  
+  <article class="specimen-card" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 008</span>
+      <span class="specimen-stamp">Verified</span>
+    </div>
+    <blockquote class="specimen-quote">"At least you can sleep in on weekends!"</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Silver Linings</span>
+      <span class="specimen-responses">4 responses</span>
+    </div>
+  </article>
+  
+  <article class="specimen-card" tabindex="0">
+    <div class="specimen-header">
+      <span class="specimen-id">SPECIMEN NO. 009</span>
+      <span class="specimen-stamp">Documented</span>
+    </div>
+    <blockquote class="specimen-quote">"Maybe it's God's plan."</blockquote>
+    <div class="specimen-footer">
+      <span class="specimen-category">Classification: Divine Logistics</span>
+      <span class="specimen-responses">4 responses</span>
+    </div>
+  </article>
+  
+</section>
+
+<section class="responses-section">
+  <div class="section-header" style="padding-left: 0; padding-right: 0;">
+    <span class="section-title">Response Categories</span>
+  </div>
+  <div class="responses-header">
+    <h2 class="responses-title">Four calibrated response types for every documented specimen.</h2>
+    <p class="responses-desc">Each response has been developed to address different social contexts, relationship dynamics, and personal energy levels.</p>
+  </div>
+  <div class="responses-grid">
+    <div class="response-card" tabindex="0">
+      <div class="response-number">TYPE 01</div>
+      <h3 class="response-name">The Diplomat</h3>
+      <p class="response-desc">For preserving relationships you still need. Graceful deflection with minimal collateral damage.</p>
+      <div class="response-example">"Thank you for thinking of us. We're navigating this the best we can."</div>
+    </div>
+    <div class="response-card" tabindex="0">
+      <div class="response-number">TYPE 02</div>
+      <h3 class="response-name">The Educator</h3>
+      <p class="response-desc">For when facts need stating. Informative without being condescending.</p>
+      <div class="response-example">"Infertility is a medical condition. Relaxation doesn't resolve blocked fallopian tubes."</div>
+    </div>
+    <div class="response-card" tabindex="0">
+      <div class="response-number">TYPE 03</div>
+      <h3 class="response-name">The Absurdist</h3>
+      <p class="response-desc">For matching the energy. When the comment is so absurd, only absurdity will do.</p>
+      <div class="response-example">"You're right. I'll ask my ovaries to meditate and visualize success."</div>
+    </div>
+    <div class="response-card" tabindex="0">
+      <div class="response-number">TYPE 04</div>
+      <h3 class="response-name">The Realist</h3>
+      <p class="response-desc">For when you're done. Direct, honest, and unapologetic about boundaries.</p>
+      <div class="response-example">"This isn't something I'm able to discuss casually. Let's change the subject."</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-content">
+    <h2 class="cta-title">Contribute to the archive.</h2>
+    <p class="cta-desc">Have you heard something that belongs in The Protocol? Submit it for documentation and help build the most comprehensive catalog of fertility-related commentary.</p>
+    <a href="#" class="btn-primary">Submit a Specimen</a>
+  </div>
+  
+  <div class="intake-card">
+    <div class="intake-header">Specimen Submission Form</div>
+    <div class="intake-field">
+      <label class="intake-label">The Comment <span class="required">*</span></label>
+      <input type="text" class="intake-input" placeholder="What did they say?">
+    </div>
+    <div class="intake-field">
+      <label class="intake-label">Context</label>
+      <input type="text" class="intake-input" placeholder="Who said it? Where?">
+    </div>
+    <div class="intake-checkbox">
+      <input type="checkbox" id="anonymous">
+      <label for="anonymous">Submit anonymously. Your story matters, your identity doesn't have to.</label>
+    </div>
+    <button class="intake-submit">Submit for Review</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">
+    <div class="footer-logo">TP</div>
+    <span class="footer-text">The Protocol — A Matterhood Project — 2024</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://matterhood.ghost.io/" target="_blank">Matterhood</a>
+    <a href="#">About</a>
+    <a href="#">Privacy</a>
+  </div>
+</footer>
+
+</body>
+</html>
