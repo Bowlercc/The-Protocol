@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --white: #FAFAFA;
+  --red: #FF3B30;
+  --yellow: #FFD60A;
+  --blue: #0A84FF;
+  --pink: #FF375F;
+  --green: #30D158;
+  --orange: #FF9500;
+  --purple: #BF5AF2;
+  --cyan: #64D2FF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   HEADER - Stark, functional
+   ============================================ */
+header {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.header-cta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 400;
+  padding: 0.6rem 1.2rem;
+  background: var(--white);
+  color: var(--black);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
+}
+
+.header-cta:hover {
+  background: var(--yellow);
+}
+
+/* ============================================
+   HERO - The Statement
+   ============================================ */
+.hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  opacity: 0.4;
+  margin-bottom: 2rem;
+}
+
+.hero-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 400;
+  line-height: 0.95;
+  max-width: 900px;
+  position: relative;
+}
+
+/* Glitch offset effect on hero */
+.hero-title::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -4px;
+  top: 2px;
+  color: var(--cyan);
+  opacity: 0.7;
+  z-index: -1;
+}
+
+.hero-title::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 4px;
+  top: -2px;
+  color: var(--pink);
+  opacity: 0.7;
+  z-index: -1;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  max-width: 500px;
+  margin-top: 2rem;
+  opacity: 0.6;
+  line-height: 1.8;
+}
+
+/* ============================================
+   CARD GRID
+   ============================================ */
+.section-header {
+  padding: 3rem 2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.section-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.section-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  opacity: 0.4;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 0 2rem 4rem;
+}
+
+/* ============================================
+   THE CARDS - Multiple Visual Systems
+   ============================================ */
+
+.card {
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  position: relative;
+}
+
+/* ============================================
+   STYLE 1: KNOCKOUT
+   Text cuts through solid color
+   ============================================ */
+.card.knockout {
+  background: var(--white);
+}
+
+.card.knockout .card-inner {
+  background: inherit;
+}
+
+.card.knockout .card-quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--black);
+  mix-blend-mode: normal;
+  background: var(--black);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card.knockout .card-meta {
+  color: var(--black);
+  opacity: 0.4;
+}
+
+.card.knockout.red { background: var(--red); }
+.card.knockout.yellow { background: var(--yellow); }
+.card.knockout.blue { background: var(--blue); }
+.card.knockout.pink { background: var(--pink); }
+.card.knockout.green { background: var(--green); }
+.card.knockout.cyan { background: var(--cyan); }
+
+.card.knockout.red .card-quote,
+.card.knockout.blue .card-quote,
+.card.knockout.pink .card-quote { 
+  background: var(--white);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.card.knockout.red .card-meta,
+.card.knockout.blue .card-meta,
+.card.knockout.pink .card-meta { 
+  color: var(--white);
+}
+
+/* ============================================
+   STYLE 2: GLITCH/OFFSET
+   Layered text creating tension
+   ============================================ */
+.card.glitch {
+  background: var(--black);
+}
+
+.card.glitch .card-quote-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.card.glitch .card-quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white);
+  position: relative;
+}
+
+.card.glitch .card-quote::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -3px;
+  top: 2px;
+  color: var(--cyan);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.card.glitch .card-quote::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 3px;
+  top: -2px;
+  color: var(--pink);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.card.glitch .card-meta {
+  color: var(--white);
+  opacity: 0.3;
+}
+
+/* ============================================
+   STYLE 3: EVIDENCE/SPECIMEN
+   Clinical documentation aesthetic
+   ============================================ */
+.card.evidence {
+  background: var(--white);
+  border: 2px solid var(--black);
+}
+
+.card.evidence .card-inner {
+  padding: 1rem;
+}
+
+.card.evidence .evidence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--black);
+}
+
+.card.evidence .evidence-id {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: 0.1em;
+}
+
+.card.evidence .evidence-stamp {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--red);
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card.evidence .card-quote {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--black);
+  flex: 1;
+}
+
+.card.evidence .evidence-footer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.card.evidence .evidence-category {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--black);
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================
+   STYLE 4: BLEED/RISOGRAPH
+   Misregistered, zine-like
+   ============================================ */
+.card.riso {
+  background: #F5F0E8;
+  position: relative;
+}
+
+.card.riso::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+  pointer-events: none;
+}
+
+.card.riso .card-quote-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.card.riso .card-quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--black);
+  position: relative;
+}
+
+/* Misregistration effect */
+.card.riso .card-quote::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  top: 1px;
+  color: var(--pink);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.card.riso .card-meta {
+  color: var(--black);
+  opacity: 0.4;
+}
+
+.card.riso .riso-number {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--pink);
+  opacity: 0.15;
+}
+
+/* ============================================
+   STYLE 5: INVERSION
+   Blend mode magic
+   ============================================ */
+.card.invert {
+  background: linear-gradient(135deg, var(--pink) 0%, var(--orange) 50%, var(--yellow) 100%);
+  position: relative;
+}
+
+.card.invert .card-quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white);
+  mix-blend-mode: difference;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.card.invert .card-meta {
+  color: var(--white);
+  mix-blend-mode: difference;
+  opacity: 0.6;
+}
+
+/* ============================================
+   STYLE 6: BRUTAL BORDER
+   Neo-brutalist with hard shadow
+   ============================================ */
+.card.brutal {
+  background: var(--white);
+  border: 3px solid var(--black);
+  box-shadow: 8px 8px 0 var(--black);
+  margin: 4px;
+}
+
+.card.brutal .card-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.card.brutal .brutal-header {
+  background: var(--black);
+  color: var(--white);
+  margin: -1.5rem -1.5rem 1rem -1.5rem;
+  padding: 0.5rem 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.card.brutal .card-quote {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--black);
+  flex: 1;
+}
+
+.card.brutal .card-meta {
+  color: var(--black);
+  opacity: 0.4;
+  margin-top: auto;
+}
+
+/* Colored brutal variants */
+.card.brutal.yellow-brutal {
+  background: var(--yellow);
+}
+
+.card.brutal.pink-brutal {
+  background: var(--pink);
+}
+
+.card.brutal.pink-brutal .card-quote,
+.card.brutal.pink-brutal .card-meta {
+  color: var(--white);
+}
+
+/* ============================================
+   COMMON META STYLES
+   ============================================ */
+.card-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   RESPONSE TYPES SECTION
+   ============================================ */
+.responses-section {
+  padding: 4rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.responses-header {
+  margin-bottom: 3rem;
+}
+
+.responses-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.responses-subtitle {
+  font-size: 1rem;
+  opacity: 0.5;
+}
+
+.responses-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+.response-card {
+  background: rgba(255,255,255,0.03);
+  padding: 2rem 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s;
+}
+
+.response-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.response-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.response-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.response-desc {
+  font-size: 0.85rem;
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.response-example {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 0.8;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ============================================
+   STATS SECTION
+   ============================================ */
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat {
+  padding: 3rem 2rem;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat:last-child {
+  border-right: none;
+}
+
+.stat-number {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.cta-section {
+  padding: 6rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(180deg, var(--black) 0%, #1a1a1a 100%);
+}
+
+.cta-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  padding: 1rem 2.5rem;
+  background: var(--white);
+  color: var(--black);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.2s;
+}
+
+.cta-btn:hover {
+  background: var(--yellow);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--white);
+  text-decoration: none;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1000px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .responses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stat {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+}
+
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 2rem;
+  }
+  
+  .card {
+    aspect-ratio: 4/5;
+  }
+  
+  .responses-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat {
+    border-right: none;
+  }
+  
+  footer {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .card, .response-card, .cta-btn, .header-cta {
+    transition: none;
+  }
+  
+  .card.glitch .card-quote::before,
+  .card.glitch .card-quote::after,
+  .hero-title::before,
+  .hero-title::after {
+    display: none;
+  }
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 4px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">The Protocol</div>
+  <a href="app.html" class="header-cta">Enter Archive</a>
+</header>
+
+<section class="hero">
+  <div class="hero-number">38 DOCUMENTED SPECIMENS</div>
+  <h1 class="hero-title" data-text="Things people actually say.">Things people actually say.</h1>
+  <p class="hero-subtitle">
+    The quiet violence of ordinary words. Documented. Cataloged. With responses calibrated from diplomatic to unhinged.
+  </p>
+</section>
+
+<div class="section-header">
+  <span class="section-title">Selected Evidence</span>
+  <span class="section-count">12 of 38</span>
+</div>
+
+<section class="card-grid">
+  
+  <!-- KNOCKOUT: Bold color with punchy text -->
+  <div class="card knockout red" tabindex="0">
+    <div class="card-inner">
+      <div class="card-quote">"Just relax and it'll happen."</div>
+      <div class="card-meta">No. 001 — Medical Advice</div>
+    </div>
+  </div>
+  
+  <!-- GLITCH: Tension through offset layers -->
+  <div class="card glitch" tabindex="0">
+    <div class="card-inner">
+      <div class="card-quote-wrapper">
+        <div class="card-quote" data-text=""Why don't you just adopt?"">"Why don't you just adopt?"</div>
+      </div>
+      <div class="card-meta">No. 002 — Simple Solutions</div>
+    </div>
+  </div>
+  
+  <!-- EVIDENCE: Clinical documentation -->
+  <div class="card evidence" tabindex="0">
+    <div class="card-inner">
+      <div class="evidence-header">
+        <span class="evidence-id">EXHIBIT 003</span>
+        <span class="evidence-stamp">Documented</span>
+      </div>
+      <div class="card-quote">"Everything happens for a reason."</div>
+      <div class="evidence-footer">
+        <span class="evidence-category">Filed: Cosmic Explanations</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- KNOCKOUT: Yellow -->
+  <div class="card knockout yellow" tabindex="0">
+    <div class="card-inner">
+      <div class="card-quote">"You're still young!"</div>
+      <div class="card-meta">No. 004 — Optimism</div>
+    </div>
+  </div>
+  
+  <!-- RISO: Zine-like misregistration -->
+  <div class="card riso" tabindex="0">
+    <div class="card-inner">
+      <span class="riso-number">05</span>
+      <div class="card-quote-wrapper">
+        <div class="card-quote" data-text=""Have you tried yoga?"">"Have you tried yoga?"</div>
+      </div>
+      <div class="card-meta">No. 005 — Alternative Medicine</div>
+    </div>
+  </div>
+  
+  <!-- BRUTAL: Neo-brutalist with shadow -->
+  <div class="card brutal" tabindex="0">
+    <div class="card-inner">
+      <div class="brutal-header">Specimen No. 006</div>
+      <div class="card-quote">"My cousin tried for years and then — boom!"</div>
+      <div class="card-meta">Sample Size: 1</div>
+    </div>
+  </div>
+  
+  <!-- INVERT: Blend mode gradient -->
+  <div class="card invert" tabindex="0">
+    <div class="card-inner">
+      <div class="card-quote">"When are you giving us grandchildren?"</div>
+      <div class="card-meta">No. 007 — Family Gatherings</div>
+    </div>
+  </div>
+  
+  <!-- KNOCKOUT: Blue -->
+  <div class="card knockout blue" tabindex="0">
+    <div class="card-inner">
+      <div class="card-quote">"At least you can sleep in!"</div>
+      <div class="card-meta">No. 008 — Silver Linings</div>
+    </div>
+  </div>
+  
+  <!-- GLITCH variant -->
+  <div class="card glitch" tabindex="0">
+    <div class="card-inner">
+      <div class="card-quote-wrapper">
+        <div class="card-quote" data-text=""Maybe it's God's plan."">"Maybe it's God's plan."</div>
+      </div>
+      <div class="card-meta">No. 009 — Divine Logistics</div>
+    </div>
+  </div>
+  
+  <!-- BRUTAL: Yellow variant -->
+  <div class="card brutal yellow-brutal" tabindex="0">
+    <div class="card-inner">
+      <div class="brutal-header">Specimen No. 010</div>
+      <div class="card-quote">"You'd be such a great parent!"</div>
+      <div class="card-meta">Helpful Information</div>
+    </div>
+  </div>
+  
+  <!-- KNOCKOUT: Pink -->
+  <div class="card knockout pink" tabindex="0">
+    <div class="card-inner">
+      <div class="card-quote">"Don't worry, it'll happen when you least expect it."</div>
+      <div class="card-meta">No. 011 — Comfort</div>
+    </div>
+  </div>
+  
+  <!-- EVIDENCE variant -->
+  <div class="card evidence" tabindex="0">
+    <div class="card-inner">
+      <div class="evidence-header">
+        <span class="evidence-id">EXHIBIT 012</span>
+        <span class="evidence-stamp">Verified</span>
+      </div>
+      <div class="card-quote">"You can always just do IVF."</div>
+      <div class="evidence-footer">
+        <span class="evidence-category">Filed: Simple Solutions</span>
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+<section class="stats-section">
+  <div class="stat">
+    <div class="stat-number">38</div>
+    <div class="stat-label">Documented</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">4</div>
+    <div class="stat-label">Response Tones</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">∞</div>
+    <div class="stat-label">Awkward Dinners</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">0</div>
+    <div class="stat-label">Cures Found</div>
+  </div>
+</section>
+
+<section class="responses-section">
+  <div class="responses-header">
+    <h2 class="responses-title">Choose your weapon.</h2>
+    <p class="responses-subtitle">Four calibrated tones. For every situation.</p>
+  </div>
+  <div class="responses-grid">
+    <div class="response-card">
+      <div class="response-emoji">😇</div>
+      <h3 class="response-name">The Diplomat</h3>
+      <p class="response-desc">For preserving relationships you still need.</p>
+      <p class="response-example">"Thank you for thinking of us."</p>
+    </div>
+    <div class="response-card">
+      <div class="response-emoji">🤓</div>
+      <h3 class="response-name">The Critic</h3>
+      <p class="response-desc">For when facts need stating.</p>
+      <p class="response-example">"Survivorship bias isn't medical advice."</p>
+    </div>
+    <div class="response-card">
+      <div class="response-emoji">🤪</div>
+      <h3 class="response-name">The Absurdist</h3>
+      <p class="response-desc">For matching the energy.</p>
+      <p class="response-example">"I'll ask my ovaries to meditate."</p>
+    </div>
+    <div class="response-card">
+      <div class="response-emoji">😐</div>
+      <h3 class="response-name">The Realist</h3>
+      <p class="response-desc">For when you're done.</p>
+      <p class="response-example">"The treatments failed. We didn't."</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2 class="cta-title">Ready to find your responses?</h2>
+  <a href="app.html" class="cta-btn">Enter the Archive</a>
+</section>
+
+<footer>
+  <div class="footer-brand">The Protocol — 2024</div>
+  <div class="footer-links">
+    <a href="https://matterhood.ghost.io/" target="_blank">Matterhood</a>
+    <a href="#">About</a>
+    <a href="#">Submit</a>
+  </div>
+</footer>
+
+</body>
+</html>
