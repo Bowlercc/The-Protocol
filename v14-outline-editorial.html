@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Protocol | Things People Actually Say</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral: #FF4F64;
+  --coral-dark: #E8374C;
+  --navy: #04284A;
+  --purple: #661F4F;
+  --teal: #14464A;
+  --cream: #FFF8F0;
+  --white: #FFFFFF;
+  --black: #1A1A1A;
+  --gray-100: #F5F5F5;
+  --gray-200: #E8E8E8;
+  --gray-400: #999999;
+  --gray-600: #666666;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.serif {
+  font-family: 'Libre Baskerville', Georgia, serif;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--black);
+  text-decoration: none;
+}
+
+.header-cta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.6rem 1.25rem;
+  background: var(--coral);
+  color: var(--white);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.header-cta:hover {
+  background: var(--coral-dark);
+}
+
+.header-nav {
+  display: flex;
+  border-top: 1px solid var(--gray-200);
+}
+
+.nav-link {
+  flex: 1;
+  text-align: center;
+  padding: 0.875rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--black);
+  border-right: 1px solid var(--gray-200);
+  transition: all 0.2s;
+}
+
+.nav-link:last-child {
+  border-right: none;
+}
+
+.nav-link:hover {
+  background: var(--coral);
+  color: var(--white);
+}
+
+.nav-link.active {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* Main Layout */
+main {
+  padding-top: 110px;
+}
+
+/* Hero Feature */
+.hero-feature {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  min-height: 70vh;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Duotone effect */
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--coral) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+
+.hero-content {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--cream);
+}
+
+.hero-category {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 0.5rem;
+}
+
+.hero-date {
+  font-size: 0.7rem;
+  color: var(--gray-400);
+  margin-left: 0.5rem;
+}
+
+.hero-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.hero-excerpt {
+  font-size: 1rem;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.hero-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--coral);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-link:hover {
+  text-decoration: underline;
+}
+
+/* Article Grid */
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.article-card {
+  padding: 2rem;
+  border-right: 1px solid var(--gray-200);
+  display: flex;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+
+.article-card:nth-child(3n) {
+  border-right: none;
+}
+
+.article-card:hover {
+  background: var(--gray-100);
+}
+
+.article-thumb {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.article-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-content {
+  flex: 1;
+}
+
+.article-category {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.article-category.culture { color: var(--purple); }
+.article-category.power { color: var(--coral); }
+.article-category.future { color: var(--teal); }
+.article-category.absurdist { color: var(--navy); }
+
+.article-date {
+  font-size: 0.65rem;
+  color: var(--gray-400);
+  margin-left: 0.4rem;
+}
+
+.article-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* Section Header */
+.section-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.section-link {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--coral);
+  text-decoration: none;
+}
+
+.section-link:hover {
+  text-decoration: underline;
+}
+
+/* Feature Cards with Duotone */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.feature-card {
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.feature-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.feature-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Different duotone colors */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+  transition: opacity 0.3s;
+}
+
+.feature-card:nth-child(1)::after { background: linear-gradient(135deg, var(--navy) 0%, var(--coral) 100%); }
+.feature-card:nth-child(2)::after { background: linear-gradient(135deg, var(--purple) 0%, var(--coral) 100%); }
+.feature-card:nth-child(3)::after { background: linear-gradient(135deg, var(--teal) 0%, var(--navy) 100%); }
+.feature-card:nth-child(4)::after { background: linear-gradient(135deg, var(--coral) 0%, var(--purple) 100%); }
+
+.feature-card:hover::after {
+  opacity: 0.7;
+}
+
+.feature-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  z-index: 10;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+}
+
+.feature-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* Two Column Section */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.column {
+  border-right: 1px solid var(--gray-200);
+}
+
+.column:last-child {
+  border-right: none;
+}
+
+.column-header {
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.column-item {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  gap: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+
+.column-item:last-child {
+  border-bottom: none;
+}
+
+.column-item:hover {
+  background: var(--gray-100);
+}
+
+.column-thumb {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.column-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.column-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+
+.column-excerpt {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* CTA Banner */
+.cta-banner {
+  background: var(--coral);
+  color: var(--white);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.cta-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.cta-text {
+  font-size: 1rem;
+  opacity: 0.9;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 1rem 2.5rem;
+  background: var(--white);
+  color: var(--coral);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.cta-btn:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* Footer */
+footer {
+  padding: 2rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.footer-logo {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-nav a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  color: var(--coral);
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-social a {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.footer-social a:hover {
+  background: var(--coral);
+  color: var(--white);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+
+/* Mobile Menu */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .hero-feature {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-image {
+    height: 40vh;
+  }
+  
+  .article-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .article-card {
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  
+  .article-card:last-child {
+    border-bottom: none;
+  }
+  
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+  
+  .column {
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+  }
+}
+
+@media (max-width: 600px) {
+  .header-nav {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-top {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .footer-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <a href="#" class="logo">The Protocol</a>
+    <button class="menu-toggle">☰</button>
+    <a href="app.html" class="header-cta">Enter Archive</a>
+  </div>
+  <nav class="header-nav">
+    <a href="#" class="nav-link active">Recent</a>
+    <a href="#diplomat" class="nav-link">Diplomat</a>
+    <a href="#critic" class="nav-link">Critic</a>
+    <a href="#absurdist" class="nav-link">Absurdist</a>
+    <a href="#realist" class="nav-link">Realist</a>
+  </nav>
+</header>
+
+<main>
+  <!-- Hero Feature -->
+  <section class="hero-feature">
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80" alt="People talking">
+    </div>
+    <div class="hero-content">
+      <div>
+        <span class="hero-category">Culture</span>
+        <span class="hero-date">Jan 27</span>
+      </div>
+      <h1 class="hero-title">Things People Actually Say About Fertility and Childlessness</h1>
+      <p class="hero-excerpt">
+        A curated archive of wild comments — the kind that make you wonder if you're living in a simulation. Paired with responses across the spectrum from diplomatic to absolutely unhinged.
+      </p>
+      <a href="app.html" class="hero-link">
+        Explore the Archive →
+      </a>
+    </div>
+  </section>
+
+  <!-- Article Grid - Top Quotes -->
+  <section class="section-header">
+    <h2 class="section-title">Greatest Hits</h2>
+    <a href="app.html" class="section-link">View All →</a>
+  </section>
+  
+  <div class="article-grid">
+    <a href="app.html" class="article-card">
+      <div class="article-thumb">
+        <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=200&q=80" alt="">
+      </div>
+      <div class="article-content">
+        <div>
+          <span class="article-category culture">Classic</span>
+          <span class="article-date">Forever</span>
+        </div>
+        <h3 class="article-title">"Just relax and it'll happen."</h3>
+      </div>
+    </a>
+    <a href="app.html" class="article-card">
+      <div class="article-thumb">
+        <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=200&q=80" alt="">
+      </div>
+      <div class="article-content">
+        <div>
+          <span class="article-category power">Fan Favorite</span>
+          <span class="article-date">Always</span>
+        </div>
+        <h3 class="article-title">"Why don't you just adopt?"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="article-card">
+      <div class="article-thumb">
+        <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=200&q=80" alt="">
+      </div>
+      <div class="article-content">
+        <div>
+          <span class="article-category future">Philosophy</span>
+          <span class="article-date">Eternal</span>
+        </div>
+        <h3 class="article-title">"Everything happens for a reason."</h3>
+      </div>
+    </a>
+  </div>
+
+  <!-- Feature Grid with Duotone -->
+  <section class="section-header">
+    <h2 class="section-title">Response Styles</h2>
+  </section>
+  
+  <div class="feature-grid">
+    <a href="app.html" class="feature-card">
+      <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80" alt="">
+      <div class="feature-content">
+        <h3 class="feature-title">The Diplomat: "Thank you. We're working with specialists."</h3>
+      </div>
+    </a>
+    <a href="app.html" class="feature-card">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="">
+      <div class="feature-content">
+        <h3 class="feature-title">The Critic: "Survivorship bias isn't medical advice."</h3>
+      </div>
+    </a>
+    <a href="app.html" class="feature-card">
+      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="">
+      <div class="feature-content">
+        <h3 class="feature-title">The Absurdist: "I'll ask my ovaries to meditate."</h3>
+      </div>
+    </a>
+    <a href="app.html" class="feature-card">
+      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt="">
+      <div class="feature-content">
+        <h3 class="feature-title">The Realist: "The treatments failed. We didn't."</h3>
+      </div>
+    </a>
+  </div>
+
+  <!-- Two Column Section -->
+  <div class="two-column">
+    <div class="column">
+      <div class="column-header">From Strangers</div>
+      <a href="app.html" class="column-item">
+        <div class="column-thumb">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&q=80" alt="">
+        </div>
+        <div>
+          <h3 class="column-title">"You're still young, don't worry about it."</h3>
+          <p class="column-excerpt">Biology appreciates the optimism but would like a word.</p>
+        </div>
+      </a>
+      <a href="app.html" class="column-item">
+        <div class="column-thumb">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="">
+        </div>
+        <div>
+          <h3 class="column-title">"Have you tried yoga?"</h3>
+          <p class="column-excerpt">The ancient fertility treatment Big Pharma doesn't want you to know about.</p>
+        </div>
+      </a>
+      <a href="app.html" class="column-item">
+        <div class="column-thumb">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="">
+        </div>
+        <div>
+          <h3 class="column-title">"My cousin tried for years and then—boom!"</h3>
+          <p class="column-excerpt">Anecdotal evidence is not a clinical trial but go off.</p>
+        </div>
+      </a>
+    </div>
+    <div class="column">
+      <div class="column-header">From Family</div>
+      <a href="app.html" class="column-item">
+        <div class="column-thumb">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" alt="">
+        </div>
+        <div>
+          <h3 class="column-title">"When are you going to give us grandchildren?"</h3>
+          <p class="column-excerpt">The question that ruins every holiday dinner.</p>
+        </div>
+      </a>
+      <a href="app.html" class="column-item">
+        <div class="column-thumb">
+          <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=200&q=80" alt="">
+        </div>
+        <div>
+          <h3 class="column-title">"You'd be such a good parent though!"</h3>
+          <p class="column-excerpt">Thank you, this is very helpful information.</p>
+        </div>
+      </a>
+      <a href="app.html" class="column-item">
+        <div class="column-thumb">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80" alt="">
+        </div>
+        <div>
+          <h3 class="column-title">"Maybe it's God's plan."</h3>
+          <p class="column-excerpt">Please forward me God's contact information.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <h2 class="cta-title">Want to see the full collection?</h2>
+    <p class="cta-text">
+      Browse 38+ documented comments. Generate responses. Export and share with people who get it.
+    </p>
+    <a href="app.html" class="cta-btn">Enter the Archive</a>
+  </section>
+
+  <!-- More Articles -->
+  <section class="section-header">
+    <h2 class="section-title">More From The Archive</h2>
+    <a href="app.html" class="section-link">View All →</a>
+  </section>
+  
+  <div class="article-grid">
+    <a href="app.html" class="article-card">
+      <div class="article-thumb">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=200&q=80" alt="">
+      </div>
+      <div class="article-content">
+        <div>
+          <span class="article-category absurdist">Workplace</span>
+        </div>
+        <h3 class="article-title">"You should enjoy your freedom while you can!"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="article-card">
+      <div class="article-thumb">
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=200&q=80" alt="">
+      </div>
+      <div class="article-content">
+        <div>
+          <span class="article-category culture">Medical</span>
+        </div>
+        <h3 class="article-title">"Have you considered that maybe you're too stressed?"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="article-card">
+      <div class="article-thumb">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&q=80" alt="">
+      </div>
+      <div class="article-content">
+        <div>
+          <span class="article-category power">Classic</span>
+        </div>
+        <h3 class="article-title">"At least you can sleep in on weekends!"</h3>
+      </div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">The Protocol</div>
+    <nav class="footer-nav">
+      <a href="app.html">Archive</a>
+      <a href="https://matterhood.ghost.io/" target="_blank">Matterhood</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="footer-social">
+      <a href="#">𝕏</a>
+      <a href="#">📸</a>
+      <a href="#">🦋</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>Part of the <a href="https://matterhood.ghost.io/" style="color: var(--coral);">Matterhood</a> project</div>
+    <div>Made by Craig & Courtney</div>
+  </div>
+</footer>
+
+</body>
+</html>
