@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the protocol ★</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #FFEB00;
+  --green: #00D26A;
+  --pink: #FF1493;
+  --pink-light: #FFB6C1;
+  --blue: #00BFFF;
+  --purple: #B57EDC;
+  --orange: #FF6B35;
+  --black: #000000;
+  --white: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--black);
+  color: var(--black);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Announcement Bar */
+.announcement {
+  background: var(--black);
+  color: var(--green);
+  text-align: center;
+  padding: 0.6rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.announcement a {
+  color: var(--yellow);
+}
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.sidebar-logo {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  transform: rotate(180deg);
+  margin-bottom: auto;
+}
+
+.sidebar-icon {
+  font-size: 1.5rem;
+  margin-top: auto;
+}
+
+/* Main Grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(180px, auto);
+  gap: 3px;
+  background: var(--black);
+  padding: 3px;
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(0.98);
+}
+
+/* Card Colors */
+.card.yellow { background: var(--yellow); }
+.card.green { background: var(--green); }
+.card.pink { background: var(--pink); color: var(--white); }
+.card.pink-light { background: var(--pink-light); }
+.card.blue { background: var(--blue); }
+.card.purple { background: var(--purple); }
+.card.orange { background: var(--orange); }
+.card.white { background: var(--white); }
+.card.black { background: var(--black); color: var(--white); }
+
+/* Card Sizes */
+.card.tall { grid-row: span 2; }
+.card.wide { grid-column: span 2; }
+.card.big { grid-column: span 2; grid-row: span 2; }
+
+/* Menu Card */
+.menu-card {
+  justify-content: flex-start;
+  gap: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 0;
+  border-bottom: 2px solid var(--black);
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: padding-left 0.2s;
+}
+
+.menu-item:hover {
+  padding-left: 0.5rem;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-emoji {
+  font-size: 1.25rem;
+}
+
+/* Image Card */
+.image-card {
+  padding: 0;
+  position: relative;
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-card .tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--black);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+}
+
+.image-card .credit {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(0,0,0,0.6);
+  color: var(--white);
+  font-size: 0.65rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2px;
+}
+
+/* Product Card */
+.product-card {
+  justify-content: flex-end;
+}
+
+.product-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.product-desc {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-bottom: 0.75rem;
+}
+
+.product-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-add {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.5rem 0.875rem;
+  background: var(--white);
+  color: var(--black);
+  border: 2px solid var(--black);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.card.pink .btn-add,
+.card.black .btn-add {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--white);
+}
+
+.card.pink .btn-add:hover,
+.card.black .btn-add:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.price {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.6rem;
+  border: 2px solid var(--black);
+}
+
+.card.pink .price {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.heart {
+  margin-left: auto;
+  font-size: 1.25rem;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.heart:hover {
+  opacity: 1;
+}
+
+/* Quote Card */
+.quote-card {
+  justify-content: center;
+}
+
+.quote-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.quote-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* Info Card */
+.info-card {
+  justify-content: flex-start;
+}
+
+.info-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.info-text {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.info-emoji {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Award Card */
+.award-card {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.award-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.75rem;
+  border: 2px solid currentColor;
+  margin-bottom: 0.75rem;
+}
+
+.award-text {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  margin-bottom: 0.25rem;
+}
+
+.award-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* Response Card */
+.response-card {
+  justify-content: space-between;
+}
+
+.response-type {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.response-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.response-desc {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-bottom: auto;
+}
+
+.response-example {
+  font-size: 0.9rem;
+  font-style: italic;
+  padding-top: 0.75rem;
+  border-top: 2px dashed currentColor;
+  opacity: 0.9;
+}
+
+/* CTA Card */
+.cta-card {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.cta-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  background: var(--black);
+  color: var(--yellow);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cta-btn:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* Decorations */
+.stars {
+  position: absolute;
+  font-size: 0.8rem;
+  opacity: 0.3;
+}
+
+.stars.top-right { top: 1rem; right: 1rem; }
+.stars.bottom-left { bottom: 1rem; left: 1rem; }
+
+/* Footer */
+.footer {
+  grid-column: 1 / -1;
+  background: var(--white);
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.footer-brand h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand p {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+.footer-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-input input {
+  padding: 0.75rem;
+  border: 2px solid var(--black);
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.footer-input button {
+  padding: 0.75rem;
+  background: var(--black);
+  color: var(--white);
+  border: 2px solid var(--black);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.footer-input button:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.footer-col h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer-col a {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--black);
+  text-decoration: none;
+  padding: 0.3rem 0;
+  opacity: 0.7;
+}
+
+.footer-col a:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 2px solid var(--black);
+}
+
+.footer-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.25rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .main-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .card.wide {
+    grid-column: span 1;
+  }
+  
+  .card.big {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  
+  .footer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    display: none;
+  }
+  
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card.wide,
+  .card.big {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  .footer {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Announcement -->
+<div class="announcement">
+  ★ things people actually say about fertility & childlessness. <a href="app.html">enter the archive →</a>
+</div>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <button class="menu-btn">☰</button>
+    <div class="sidebar-logo">THE PROTOCOL</div>
+    <div class="sidebar-icon">☺</div>
+  </aside>
+
+  <!-- Main Grid -->
+  <main class="main-grid">
+    
+    <!-- Menu Card -->
+    <div class="card green menu-card">
+      <a href="app.html" class="menu-item">
+        <span class="menu-emoji">🔥</span>
+        <span>greatest hits</span>
+      </a>
+      <a href="app.html" class="menu-item">
+        <span class="menu-emoji">😇</span>
+        <span>diplomat</span>
+      </a>
+      <a href="app.html" class="menu-item">
+        <span class="menu-emoji">🤓</span>
+        <span>critic</span>
+      </a>
+      <a href="app.html" class="menu-item">
+        <span class="menu-emoji">🤪</span>
+        <span>absurdist</span>
+      </a>
+      <a href="app.html" class="menu-item">
+        <span class="menu-emoji">😐</span>
+        <span>realist</span>
+      </a>
+    </div>
+
+    <!-- Hero Image -->
+    <a href="app.html" class="card image-card">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="">
+      <span class="credit">ft. everyone</span>
+    </a>
+
+    <!-- Featured Quote -->
+    <a href="app.html" class="card pink product-card">
+      <span class="stars top-right">✦ ★ ✦</span>
+      <h3 class="product-title">"just relax"</h3>
+      <p class="product-desc">the classic. the og. the one that started it all.</p>
+      <div class="product-actions">
+        <button class="btn-add">read more</button>
+        <span class="heart">♡</span>
+      </div>
+    </a>
+
+    <!-- Yellow Quote Card -->
+    <a href="app.html" class="card yellow quote-card tall">
+      <span class="stars bottom-left">★ ✦ ★</span>
+      <div class="quote-text">"why don't you just adopt?"</div>
+      <div class="quote-tag">fan favorite</div>
+    </a>
+
+    <!-- Product Card -->
+    <a href="app.html" class="card blue product-card">
+      <h3 class="product-title">the diplomat</h3>
+      <p class="product-desc">for when you still need to see them at christmas.</p>
+      <div class="product-actions">
+        <button class="btn-add">view</button>
+        <span class="price">polite</span>
+        <span class="heart">♡</span>
+      </div>
+    </a>
+
+    <!-- Pink Light Card -->
+    <a href="app.html" class="card pink-light product-card">
+      <span class="stars top-right">✦ ✦</span>
+      <h3 class="product-title">response bundle</h3>
+      <p class="product-desc">all four tones + educational context for each.</p>
+      <div class="product-actions">
+        <button class="btn-add">explore</button>
+        <span class="price">free</span>
+        <span class="heart">♡</span>
+      </div>
+    </a>
+
+    <!-- Green Card with Image -->
+    <a href="app.html" class="card green product-card tall">
+      <h3 class="product-title">the absurdist</h3>
+      <p class="product-desc">"i'll ask my ovaries to meditate."</p>
+      <div class="product-actions">
+        <button class="btn-add">view</button>
+        <span class="price">unhinged</span>
+        <span class="heart">♡</span>
+      </div>
+    </a>
+
+    <!-- Yellow Info Card -->
+    <a href="app.html" class="card yellow info-card">
+      <div class="info-emoji">☺</div>
+      <h3 class="info-title">omg hi :)</h3>
+      <p class="info-text">
+        we're the protocol! we collect the wild things people say about fertility + pair them with responses. 
+        <br><br>
+        just wanted 2 say ur a star ★ hope u have the best day ever bff &lt;3
+      </p>
+    </a>
+
+    <!-- Pink Quote -->
+    <a href="app.html" class="card pink quote-card">
+      <div class="quote-text">"everything happens for a reason"</div>
+      <div class="quote-tag">philosophy</div>
+    </a>
+
+    <!-- Purple Response Card -->
+    <a href="app.html" class="card purple response-card" style="color: white;">
+      <div class="response-type">response style</div>
+      <div class="response-name">the critic</div>
+      <div class="response-desc">for when facts need stating.</div>
+      <div class="response-example">"survivorship bias isn't medical advice."</div>
+    </a>
+
+    <!-- Award Cards -->
+    <a href="app.html" class="card white award-card">
+      <div class="award-badge">★ CURATED</div>
+      <div class="award-text">matterhood project</div>
+      <div class="award-title">38+ documented quotes</div>
+    </a>
+
+    <a href="app.html" class="card pink-light award-card">
+      <div class="award-badge">♡ COMMUNITY</div>
+      <div class="award-text">for those who get it</div>
+      <div class="award-title">part satire, part survival</div>
+    </a>
+
+    <!-- Image Cards -->
+    <a href="app.html" class="card image-card">
+      <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" alt="">
+    </a>
+
+    <a href="app.html" class="card image-card">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="">
+    </a>
+
+    <a href="app.html" class="card image-card">
+      <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80" alt="">
+    </a>
+
+    <!-- CTA Card -->
+    <a href="app.html" class="card black cta-card wide">
+      <h3 class="cta-title">ready? ☺</h3>
+      <button class="cta-btn">enter the archive →</button>
+    </a>
+
+    <!-- More Response Cards -->
+    <a href="app.html" class="card orange response-card" style="color: white;">
+      <div class="response-type">response style</div>
+      <div class="response-name">the realist</div>
+      <div class="response-desc">for telling it straight.</div>
+      <div class="response-example">"the treatments failed. we didn't."</div>
+    </a>
+
+    <a href="app.html" class="card green quote-card">
+      <div class="quote-text">"you're still young!"</div>
+      <div class="quote-tag">unsolicited</div>
+    </a>
+
+    <a href="app.html" class="card blue quote-card">
+      <div class="quote-text">"have you tried yoga?"</div>
+      <div class="quote-tag">medical advice</div>
+    </a>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-brand">
+        <h3>treat me<br>like a star</h3>
+        <p>be the first to hear about new stuff from the protocol</p>
+        <div class="footer-input">
+          <input type="email" placeholder="email address">
+          <button>sign up</button>
+        </div>
+      </div>
+      
+      <div class="footer-col">
+        <h4>info</h4>
+        <a href="#">about us</a>
+        <a href="https://matterhood.ghost.io/">matterhood</a>
+        <a href="#">how it works</a>
+        <a href="#">contact us</a>
+      </div>
+      
+      <div class="footer-col">
+        <h4>browse</h4>
+        <a href="app.html">all quotes</a>
+        <a href="app.html">responses</a>
+        <a href="app.html">export</a>
+      </div>
+      
+      <div class="footer-col">
+        <h4>tones</h4>
+        <a href="app.html">diplomat</a>
+        <a href="app.html">critic</a>
+        <a href="app.html">absurdist</a>
+        <a href="app.html">realist</a>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-logo">THE PROTOCOL</div>
+        <div class="footer-social">
+          <a href="#">🦋</a>
+          <a href="#">📸</a>
+          <a href="#">𝕏</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

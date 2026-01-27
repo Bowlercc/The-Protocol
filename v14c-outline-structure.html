@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #04284A;
+  --navy-dark: #021A32;
+  --coral: #CE2C36;
+  --coral-light: #FF4F5A;
+  --purple: #7D3C9E;
+  --purple-dark: #661F4F;
+  --teal: #14464A;
+  --cream: #FFF8F0;
+  --white: #FFFFFF;
+  --gray: #8899AA;
+  --gray-light: #C0C8D0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--navy-dark);
+  color: var(--white);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.menu-toggle {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  background: none;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.menu-toggle:hover {
+  background: var(--white);
+  color: var(--navy);
+}
+
+/* Slide-out Menu */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  bottom: 0;
+  width: 320px;
+  background: var(--coral);
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu.active {
+  right: 0;
+}
+
+.side-menu-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.side-menu-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.side-menu-close {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.side-menu-nav {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.side-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  transition: background 0.2s;
+}
+
+.side-menu-link:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.side-menu-link .emoji {
+  font-size: 1.1rem;
+}
+
+.side-menu-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.side-menu-cta {
+  display: block;
+  text-align: center;
+  padding: 0.875rem;
+  background: var(--white);
+  color: var(--coral);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.side-menu-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hero-image {
+  position: relative;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--purple-dark) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.hero-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+}
+
+.hero-image-content {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-image-category {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.hero-image-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.hero-content {
+  background: var(--navy);
+  padding: 4rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-left: 3px solid var(--coral);
+}
+
+.hero-category {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 0.75rem;
+}
+
+.hero-category span {
+  color: var(--gray);
+  margin-left: 0.5rem;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.hero-excerpt {
+  font-size: 0.9rem;
+  color: var(--gray);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.hero-link {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--coral);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-link:hover {
+  text-decoration: underline;
+}
+
+/* Article List - Compact */
+.article-list {
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.article-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: background 0.2s;
+}
+
+.article-item:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.article-thumb {
+  width: 80px;
+  height: 80px;
+  background: var(--purple-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.article-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+}
+
+.article-meta {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.article-meta .cat {
+  color: var(--coral);
+}
+
+.article-meta .date {
+  color: var(--gray);
+  margin-left: 0.5rem;
+}
+
+.article-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* Read More Bar */
+.read-more-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--white);
+  color: var(--navy);
+}
+
+.read-more-bar img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.read-more-bar span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Section Title - Big */
+.section-title-big {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.section-title-big h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Card Grid - Mixed Sizes */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+}
+
+.card {
+  position: relative;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 280px;
+  transition: all 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Card Colors */
+.card.purple { background: var(--purple-dark); }
+.card.purple::before { background: var(--purple); }
+
+.card.teal { background: var(--teal); }
+.card.teal::before { background: #1A5A5E; }
+
+.card.coral { background: var(--coral); }
+.card.coral::before { background: var(--coral-light); }
+
+.card.navy { background: var(--navy); }
+.card.navy::before { background: var(--navy-dark); }
+
+.card-content {
+  position: relative;
+  z-index: 10;
+}
+
+.card-category {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.card-title em {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.card-image {
+  position: absolute;
+  inset: 0;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+/* Featured Articles - 2 Column */
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.featured-card {
+  position: relative;
+  min-height: 50vh;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.featured-card.has-image {
+  background: var(--navy);
+}
+
+.featured-card.has-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-card.has-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4, 40, 74, 0.95) 0%, rgba(4, 40, 74, 0.3) 100%);
+}
+
+.featured-card.duotone {
+  background: linear-gradient(135deg, var(--coral) 0%, var(--purple-dark) 100%);
+}
+
+.featured-card.duotone img {
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+.featured-card.duotone::after {
+  display: none;
+}
+
+.featured-content {
+  position: relative;
+  z-index: 10;
+  max-width: 400px;
+}
+
+.featured-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.featured-excerpt {
+  font-size: 0.85rem;
+  color: var(--gray-light);
+  line-height: 1.6;
+}
+
+.featured-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--white);
+}
+
+/* Category Section with Side Title */
+.category-section {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+}
+
+.category-sidebar {
+  background: var(--coral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  padding: 2rem 1rem;
+}
+
+.category-sidebar h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: rotate(180deg);
+}
+
+.category-sidebar.purple { background: var(--purple); }
+.category-sidebar.teal { background: var(--teal); }
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.category-card {
+  padding: 1.5rem;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.category-card:hover::before {
+  opacity: 1;
+}
+
+.category-card.c1 { background: var(--navy); }
+.category-card.c1::before { background: var(--navy-dark); }
+
+.category-card.c2 { background: var(--purple-dark); }
+.category-card.c2::before { background: var(--purple); }
+
+.category-card.c3 { background: var(--teal); }
+.category-card.c3::before { background: #1A5A5E; }
+
+.category-card.c4 { background: var(--coral); }
+.category-card.c4::before { background: var(--coral-light); }
+
+.category-card-content {
+  position: relative;
+  z-index: 10;
+}
+
+.category-card-image {
+  position: absolute;
+  inset: 0;
+}
+
+.category-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+
+/* Cream Section */
+.cream-section {
+  background: var(--cream);
+  color: var(--navy);
+  padding: 4rem 2rem;
+}
+
+.cream-title {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 3rem;
+}
+
+.cream-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cream-card {
+  cursor: pointer;
+}
+
+.cream-card-image {
+  aspect-ratio: 1;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.cream-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.cream-card:hover .cream-card-image img {
+  transform: scale(1.05);
+}
+
+.cream-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Final CTA */
+.final-cta {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--purple-dark) 100%);
+  overflow: hidden;
+}
+
+.final-cta img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+
+.final-cta-content {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.final-cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.final-cta-excerpt {
+  font-size: 0.95rem;
+  color: var(--gray-light);
+  margin-bottom: 2rem;
+}
+
+.final-cta-btn {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: var(--coral);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+
+.final-cta-btn:hover {
+  background: var(--white);
+  color: var(--navy);
+}
+
+/* Footer */
+footer {
+  background: var(--navy-dark);
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-nav a {
+  font-size: 0.75rem;
+  color: var(--gray);
+  transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+  color: var(--coral);
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-credit {
+  font-size: 0.7rem;
+  color: var(--gray);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-main {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-image {
+    min-height: 50vh;
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-sidebar {
+    writing-mode: horizontal-tb;
+    padding: 1.5rem;
+  }
+  
+  .category-sidebar h2 {
+    transform: none;
+  }
+  
+  .cream-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-grid,
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .article-item {
+    grid-template-columns: 60px 1fr;
+    padding: 1rem 1.5rem;
+  }
+  
+  .article-thumb {
+    width: 60px;
+    height: 60px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a href="#" class="logo">The Protocol</a>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+</header>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- Side Menu -->
+<nav class="side-menu" id="sideMenu">
+  <div class="side-menu-header">
+    <div class="side-menu-logo">The Protocol</div>
+    <button class="side-menu-close" onclick="toggleMenu()">✕</button>
+  </div>
+  <div class="side-menu-nav">
+    <a href="#" class="side-menu-link"><span class="emoji">📞</span> Recent</a>
+    <a href="#" class="side-menu-link"><span class="emoji">💪</span> Power</a>
+    <a href="#" class="side-menu-link"><span class="emoji">🎭</span> Culture</a>
+    <a href="#" class="side-menu-link"><span class="emoji">🔮</span> Future</a>
+  </div>
+  <div class="side-menu-footer">
+    <a href="#" class="side-menu-link">About</a>
+    <a href="#" class="side-menu-link">Matterhood</a>
+    <a href="app.html" class="side-menu-cta">ENTER ARCHIVE</a>
+    <div class="side-menu-social">
+      <a href="#">🦋</a>
+      <a href="#">📸</a>
+      <a href="#">𝕏</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-main">
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="">
+      <div class="hero-image-content">
+        <div class="hero-image-category">Culture · Jan 27</div>
+        <h2 class="hero-image-title">The Things People Say</h2>
+      </div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-category">Culture <span>Jan 27</span></div>
+      <h1 class="hero-title">We started collecting wild comments about fertility. Now it's a whole archive.</h1>
+      <p class="hero-excerpt">
+        The remarks people make—out loud, to other humans, often at dinner parties. Paired with responses from diplomatic to absolutely unhinged.
+      </p>
+      <a href="app.html" class="hero-link">Read More →</a>
+    </div>
+  </div>
+  
+  <!-- Article List -->
+  <div class="article-list">
+    <a href="app.html" class="article-item">
+      <div class="article-thumb" style="background: var(--teal);">
+        <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=200&q=80" alt="">
+      </div>
+      <div>
+        <div class="article-meta"><span class="cat">Classic</span><span class="date">Forever</span></div>
+        <h3 class="article-title">"Just relax and it'll happen."</h3>
+      </div>
+    </a>
+    <a href="app.html" class="article-item">
+      <div class="article-thumb" style="background: var(--purple-dark);">
+        <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=200&q=80" alt="">
+      </div>
+      <div>
+        <div class="article-meta"><span class="cat">Fan Favorite</span><span class="date">Always</span></div>
+        <h3 class="article-title">"Why don't you just adopt?"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="article-item">
+      <div class="article-thumb" style="background: var(--coral);">
+        <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=200&q=80" alt="">
+      </div>
+      <div>
+        <div class="article-meta"><span class="cat">Philosophy</span><span class="date">Eternal</span></div>
+        <h3 class="article-title">"Everything happens for a reason."</h3>
+      </div>
+    </a>
+  </div>
+  
+  <a href="app.html" class="read-more-bar">
+    <img src="https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?w=100&q=80" alt="">
+    <span>Read More</span>
+  </a>
+</section>
+
+<!-- Very Online -->
+<div class="section-title-big">
+  <h2>Very Online</h2>
+</div>
+
+<div class="card-grid">
+  <a href="app.html" class="card purple">
+    <div class="card-content">
+      <div class="card-category">Classic</div>
+      <h3 class="card-title">"Just relax and it'll happen"</h3>
+    </div>
+  </a>
+  <a href="app.html" class="card teal">
+    <div class="card-image"><img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=400&q=80" alt=""></div>
+    <div class="card-content">
+      <div class="card-category">Fan Favorite</div>
+      <h3 class="card-title">"Why don't you <em>just</em> adopt?"</h3>
+    </div>
+  </a>
+  <a href="app.html" class="card coral">
+    <div class="card-content">
+      <div class="card-category">Philosophy</div>
+      <h3 class="card-title">"Everything happens for a reason"</h3>
+    </div>
+  </a>
+  <a href="app.html" class="card navy">
+    <div class="card-image"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80" alt=""></div>
+    <div class="card-content">
+      <div class="card-category">Unsolicited</div>
+      <h3 class="card-title">"You're still young!"</h3>
+    </div>
+  </a>
+</div>
+
+<!-- Must Reads -->
+<div class="section-title-big">
+  <h2>Must</h2>
+</div>
+
+<div class="featured-grid">
+  <a href="app.html" class="featured-card has-image">
+    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80" alt="">
+    <div class="featured-content">
+      <h3 class="featured-title">It shouldn't take a pandemic for everyone to stop asking invasive questions</h3>
+      <p class="featured-excerpt">But here we are.</p>
+      <span class="featured-link">Read More</span>
+    </div>
+  </a>
+  <a href="app.html" class="featured-card duotone">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="">
+    <div class="featured-content">
+      <h3 class="featured-title">Now is not the time for talk of your miracle cure</h3>
+      <p class="featured-excerpt">Relaxing is like getting your flu shot — it doesn't actually cure infertility.</p>
+      <span class="featured-link">Read More</span>
+    </div>
+  </a>
+</div>
+
+<div class="section-title-big">
+  <h2>Reads</h2>
+</div>
+
+<!-- Power Section -->
+<section class="category-section">
+  <div class="category-sidebar">
+    <h2>Power</h2>
+  </div>
+  <div class="category-grid">
+    <a href="app.html" class="category-card c1">
+      <div class="category-card-image"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" alt=""></div>
+      <div class="category-card-content">
+        <div class="card-category">Response</div>
+        <h3 class="card-title">The Diplomat</h3>
+      </div>
+    </a>
+    <a href="app.html" class="category-card c2">
+      <div class="category-card-content">
+        <div class="card-category">Response</div>
+        <h3 class="card-title">The Critic</h3>
+      </div>
+    </a>
+    <a href="app.html" class="category-card c3">
+      <div class="category-card-content">
+        <div class="card-category">Response</div>
+        <h3 class="card-title">The Absurdist</h3>
+      </div>
+    </a>
+    <a href="app.html" class="category-card c4">
+      <div class="category-card-image"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80" alt=""></div>
+      <div class="category-card-content">
+        <div class="card-category">Response</div>
+        <h3 class="card-title">The Realist</h3>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Culture Section -->
+<section class="category-section">
+  <div class="category-sidebar purple">
+    <h2>Culture</h2>
+  </div>
+  <div class="category-grid">
+    <a href="app.html" class="category-card c2">
+      <div class="category-card-content">
+        <div class="card-category">Medical</div>
+        <h3 class="card-title">"Have you tried yoga?"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="category-card c1">
+      <div class="category-card-image"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80" alt=""></div>
+      <div class="category-card-content">
+        <div class="card-category">Anecdote</div>
+        <h3 class="card-title">"My cousin tried for years—"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="category-card c4">
+      <div class="category-card-content">
+        <div class="card-category">Silver Lining</div>
+        <h3 class="card-title">"At least you can sleep in!"</h3>
+      </div>
+    </a>
+    <a href="app.html" class="category-card c3">
+      <div class="category-card-content">
+        <div class="card-category">Family</div>
+        <h3 class="card-title">"When are you giving us grandchildren?"</h3>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Good Advice -->
+<section class="cream-section">
+  <h2 class="cream-title">Good<br>Advice</h2>
+  <div class="cream-grid">
+    <a href="app.html" class="cream-card">
+      <div class="cream-card-image">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80" alt="">
+      </div>
+      <h3 class="cream-card-title">How to respond when they mean well but say it wrong</h3>
+    </a>
+    <a href="app.html" class="cream-card">
+      <div class="cream-card-image">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80" alt="">
+      </div>
+      <h3 class="cream-card-title">The art of the graceful subject change</h3>
+    </a>
+    <a href="app.html" class="cream-card">
+      <div class="cream-card-image">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&q=80" alt="">
+      </div>
+      <h3 class="cream-card-title">When to deploy the absurdist response</h3>
+    </a>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80" alt="">
+  <div class="final-cta-content">
+    <h2 class="final-cta-title">I would love to respond to people who can't read the room</h2>
+    <p class="final-cta-excerpt">
+      Some of us are still trying to navigate these conversations with grace and, I'm sorry, unsolicited fertility advice is very rarely helpful.
+    </p>
+    <a href="app.html" class="final-cta-btn">Enter the Archive</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">The Protocol</div>
+  <nav class="footer-nav">
+    <a href="app.html">Archive</a>
+    <a href="https://matterhood.ghost.io/">Matterhood</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+  <div class="footer-social">
+    <a href="#">🦋</a>
+    <a href="#">📸</a>
+    <a href="#">𝕏</a>
+  </div>
+  <div class="footer-credit">Made by Craig & Courtney</div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('sideMenu').classList.toggle('active');
+  document.getElementById('overlay').classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
