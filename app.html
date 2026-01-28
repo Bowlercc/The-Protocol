@@ -149,7 +149,7 @@ body {
 
 .tutorial-btn:hover {
   background: var(--card-yellow);
-  color: var(--black);
+  color: #0A0A0A;
   border-color: var(--black);
 }
 
@@ -308,19 +308,23 @@ header {
   gap: 0.4rem;
 }
 
+/* Input row - aligned heights */
 .input-row {
   display: flex;
   gap: 0.5rem;
-  align-items: flex-end;
+  align-items: stretch; /* Key for equal heights */
 }
 
-.input-row .trigger-input { flex: 1; }
+.input-row .trigger-input {
+  flex: 1;
+  height: 44px; /* Fixed height */
+}
 
 .trigger-input {
   background: var(--bg);
   color: var(--text);
   border: 2px solid var(--border);
-  padding: 0.65rem;
+  padding: 0 0.75rem;
   font-family: 'Space Mono', monospace;
   font-size: 0.8rem;
   outline: none;
@@ -336,21 +340,25 @@ header {
   box-shadow: 3px 3px 0 var(--black);
 }
 
+/* Random button - same height as input */
 .surprise-btn {
   background: var(--bg);
   border: 2px solid var(--border);
   color: var(--text);
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px; /* Match input height */
   font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.15s;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .surprise-btn:hover {
   background: var(--card-yellow);
-  border-color: var(--black);
+  border-color: #0A0A0A;
 }
 
 .triggers-section {
@@ -465,7 +473,7 @@ header {
 .spice-btn.active[data-spice="hot"] {
   background: var(--card-red);
   border-color: var(--card-red);
-  color: var(--white);
+  color: #FFFFFF;
 }
 
 .tone-section {
@@ -519,7 +527,7 @@ header {
 }
 
 /* ============================================
-   DISPLAY PANEL
+   DISPLAY PANEL - Abstract Pattern Background
    ============================================ */
 .display-panel {
   flex: 1;
@@ -533,19 +541,49 @@ header {
   background: var(--bg);
 }
 
-.scene-bg {
+/* Abstract geometric pattern background */
+.pattern-bg {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 1s;
-  background-size: cover;
-  background-position: center;
-  filter: grayscale(100%) contrast(1.1);
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: 
+    /* Large circles */
+    radial-gradient(circle at 20% 30%, var(--text) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, var(--text) 1px, transparent 1px),
+    /* Grid dots */
+    radial-gradient(circle, var(--text) 1px, transparent 1px);
+  background-size: 
+    400px 400px,
+    400px 400px,
+    24px 24px;
+  background-position:
+    0 0,
+    200px 200px,
+    0 0;
 }
 
-.scene-bg.active { opacity: 0.15; }
+/* Floating quote marks decoration */
+.quote-decoration {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 15rem;
+  opacity: 0.03;
+  pointer-events: none;
+  color: var(--text);
+  line-height: 1;
+}
 
-[data-theme="dark"] .scene-bg.active { opacity: 0.25; }
+.quote-decoration.top-left {
+  top: -2rem;
+  left: 5%;
+}
+
+.quote-decoration.bottom-right {
+  bottom: -4rem;
+  right: 5%;
+  transform: rotate(180deg);
+}
 
 .script-display {
   max-width: 550px;
@@ -571,12 +609,17 @@ header {
 
 /* ============================================
    THE RESPONSE CARD - Bold Colored
+   All text on colored backgrounds is BLACK
    ============================================ */
 .script-card {
   display: none;
-  border: 3px solid var(--black);
+  border: 3px solid #0A0A0A;
   position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
+}
+
+[data-theme="dark"] .script-card {
+  border-color: #F5F5F5;
 }
 
 .script-card.active {
@@ -593,23 +636,29 @@ header {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Card top - colored section */
+/* Card top - colored section - ALWAYS black text */
 .script-card-top {
   padding: 1.5rem;
   background: var(--card-yellow);
-  color: var(--black);
+  color: #0A0A0A !important;
   position: relative;
 }
 
-/* Card color variants */
+/* Card color variants - all have black text */
 .script-card.color-yellow .script-card-top { background: var(--card-yellow); }
 .script-card.color-pink .script-card-top { background: var(--card-pink); }
 .script-card.color-blue .script-card-top { background: var(--card-blue); }
 .script-card.color-orange .script-card-top { background: var(--card-orange); }
-.script-card.color-purple .script-card-top { background: var(--card-purple); color: var(--white); }
-.script-card.color-red .script-card-top { background: var(--card-red); color: var(--white); }
+.script-card.color-purple .script-card-top { background: var(--card-purple); }
+.script-card.color-red .script-card-top { background: var(--card-red); }
 .script-card.color-green .script-card-top { background: var(--card-green); }
 .script-card.color-mint .script-card-top { background: var(--card-mint); }
+
+/* Force all text in colored top to be black */
+.script-card-top,
+.script-card-top * {
+  color: #0A0A0A !important;
+}
 
 .script-stamp {
   position: absolute;
@@ -619,7 +668,7 @@ header {
   font-weight: 700;
   letter-spacing: 0.15em;
   padding: 0.25rem 0.5rem;
-  border: 1.5px solid currentColor;
+  border: 1.5px solid #0A0A0A;
   opacity: 0.7;
 }
 
@@ -677,7 +726,11 @@ header {
 .script-card-bottom {
   padding: 1.25rem 1.5rem;
   background: var(--bg);
-  border-top: 3px solid var(--black);
+  border-top: 3px solid #0A0A0A;
+}
+
+[data-theme="dark"] .script-card-bottom {
+  border-top-color: #F5F5F5;
 }
 
 .script-response-header {
@@ -694,6 +747,7 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--text);
 }
 
 .script-response-type {
@@ -768,8 +822,8 @@ header {
 
 .control-btn.primary:hover:not(:disabled) {
   background: var(--card-yellow);
-  color: var(--black);
-  border-color: var(--black);
+  color: #0A0A0A;
+  border-color: #0A0A0A;
 }
 
 /* ============================================
@@ -789,10 +843,14 @@ header {
 
 .export-modal {
   background: var(--bg);
-  border: 3px solid var(--black);
+  border: 3px solid #0A0A0A;
   padding: 1.75rem;
   max-width: 400px;
   width: 90%;
+}
+
+[data-theme="dark"] .export-modal {
+  border-color: #F5F5F5;
 }
 
 .export-title {
@@ -875,8 +933,13 @@ header {
 }
 
 .export-toggle input:checked {
-  border-color: var(--black);
-  background: var(--black);
+  border-color: #0A0A0A;
+  background: #0A0A0A;
+}
+
+[data-theme="dark"] .export-toggle input:checked {
+  border-color: #F5F5F5;
+  background: #F5F5F5;
 }
 
 .export-toggle input:checked::after {
@@ -887,6 +950,10 @@ header {
   transform: translate(-50%, -50%);
   font-size: 10px;
   color: var(--white);
+}
+
+[data-theme="dark"] .export-toggle input:checked::after {
+  color: #0A0A0A;
 }
 
 .export-toggle:hover { color: var(--text); }
@@ -930,7 +997,7 @@ header {
 .caption-item.copied {
   border-color: var(--card-green);
   background: var(--card-green);
-  color: var(--black);
+  color: #0A0A0A;
 }
 
 .export-close {
@@ -959,8 +1026,8 @@ header {
   bottom: 1.25rem;
   left: 50%;
   transform: translateX(-50%) translateY(150%);
-  background: var(--black);
-  color: var(--white);
+  background: #0A0A0A;
+  color: #F5F5F5;
   padding: 0.75rem 1.25rem;
   font-size: 0.55rem;
   font-weight: 700;
@@ -1028,29 +1095,41 @@ footer a:hover {
   overflow: hidden;
 }
 
-.animate-bg {
+/* Pattern background for animation too */
+.animate-pattern {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.2;
-  filter: grayscale(100%);
-  z-index: 0;
+  opacity: 0.03;
+  background-image: 
+    radial-gradient(circle at 20% 30%, var(--text) 1px, transparent 1px),
+    radial-gradient(circle, var(--text) 1px, transparent 1px);
+  background-size: 
+    300px 300px,
+    20px 20px;
 }
 
 .animate-card {
   position: relative;
   width: 88%;
-  border: 3px solid var(--black);
+  border: 3px solid #0A0A0A;
   z-index: 10;
   box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
+[data-theme="dark"] .animate-card {
+  border-color: #F5F5F5;
+}
+
+/* Animation card top - always black text */
 .animate-card-top {
   background: var(--card-yellow);
-  color: var(--black);
   padding: 1.5rem;
   position: relative;
+}
+
+.animate-card-top,
+.animate-card-top * {
+  color: #0A0A0A !important;
 }
 
 .animate-stamp {
@@ -1061,7 +1140,7 @@ footer a:hover {
   font-weight: 700;
   letter-spacing: 0.15em;
   padding: 0.25rem 0.5rem;
-  border: 1.5px solid currentColor;
+  border: 1.5px solid #0A0A0A;
   opacity: 0.7;
 }
 
@@ -1119,8 +1198,12 @@ footer a:hover {
 
 .animate-card-bottom {
   background: var(--bg);
-  border-top: 3px solid var(--black);
+  border-top: 3px solid #0A0A0A;
   padding: 1.25rem 1.5rem;
+}
+
+[data-theme="dark"] .animate-card-bottom {
+  border-top-color: #F5F5F5;
 }
 
 .animate-response-header {
@@ -1137,6 +1220,7 @@ footer a:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--text);
 }
 
 .animate-response-type {
@@ -1291,6 +1375,8 @@ footer a:hover {
   }
   
   .control-btn { width: 100%; }
+  
+  .quote-decoration { display: none; }
 }
 
 @media (min-width: 901px) {
@@ -1421,7 +1507,13 @@ footer a:hover {
     </div>
 
     <div class="display-panel" id="displayPanel">
-      <div class="scene-bg" id="sceneBg"></div>
+      <!-- Abstract pattern background -->
+      <div class="pattern-bg"></div>
+      
+      <!-- Decorative quote marks -->
+      <div class="quote-decoration top-left">"</div>
+      <div class="quote-decoration bottom-right">"</div>
+      
       <button class="control-btn mobile-only back-btn" id="backBtn" style="display:none">← BACK</button>
 
       <div class="script-display">
@@ -1493,7 +1585,7 @@ footer a:hover {
 
   <div class="animate-overlay" id="animateOverlay">
     <div class="animate-scene" id="animateScene">
-      <div class="animate-bg" id="animateBg"></div>
+      <div class="animate-pattern"></div>
       <div class="animate-card">
         <div class="animate-card-top" id="animCardTop">
           <span class="animate-stamp">MATTERHOOD</span>
@@ -1529,16 +1621,26 @@ footer a:hover {
   </div>
 </div>
 
-<footer>CRAIG & COURTNEY — <a href="#">BUY US A CHIP</a></footer>
+<footer>MADE WITH LOVE AND FRUSTRATION BY <a href="#">CRAIG & COURTNEY</a></footer>
 
 <div class="toast" id="toast">EXPORTED</div>
 
 <script>
-// THE PROTOCOL v3.0 — Bold Design System
+// THE PROTOCOL v4.0 — Bold Design System with Pattern Background
 let TRIGGERS = [];
 
 // Card colors that cycle
 const CARD_COLORS = ['color-yellow', 'color-pink', 'color-blue', 'color-orange', 'color-purple', 'color-green', 'color-mint', 'color-red'];
+const CARD_COLOR_VALUES = {
+  'color-yellow': '#FFE14D',
+  'color-pink': '#FF6B9D',
+  'color-blue': '#4ECDC4',
+  'color-orange': '#FF8C42',
+  'color-purple': '#7B4FD3',
+  'color-red': '#E84855',
+  'color-green': '#5DBB63',
+  'color-mint': '#98DFAF'
+};
 let colorIndex = 0;
 
 // Tutorial
@@ -1550,7 +1652,7 @@ function goToStep(n) {
 }
 
 function completeTutorial() {
-  localStorage.setItem('protocol_tutorial_v5', 'true');
+  localStorage.setItem('protocol_tutorial_v6', 'true');
   document.getElementById('tutorialOverlay').classList.add('hidden');
 }
 
@@ -1578,12 +1680,12 @@ function initApp() {
   const SPICE_LABELS = { mild: "🌶️", medium: "🌶️🌶️", hot: "🌶️🌶️🌶️" };
   const TONE_LABELS = { diplomat: "DIPLOMAT", critic: "CRITIC", absurdist: "ABSURDIST", realist: "REALIST" };
 
-  let currentTone = null, currentTrigger = null, currentResponse = null, currentImageUrl = '', currentSubtext = '', currentMatchedTrigger = null;
+  let currentTone = null, currentTrigger = null, currentResponse = null, currentSubtext = '', currentMatchedTrigger = null, currentCardColor = 'color-yellow';
   let context = 'stranger', spice = 'medium', perspective = 'we';
   let usedResponses = {};
 
   // Check tutorial
-  if (localStorage.getItem('protocol_tutorial_v5')) document.getElementById('tutorialOverlay').classList.add('hidden');
+  if (localStorage.getItem('protocol_tutorial_v6')) document.getElementById('tutorialOverlay').classList.add('hidden');
 
   // Matching functions
   function normalize(t) { return t.toLowerCase().replace(/['']/g, "'").replace(/[""]/g, '"').replace(/[?!.,;:]/g, '').replace(/\s+/g, ' ').trim(); }
@@ -1660,20 +1762,6 @@ function initApp() {
     return variants[idx];
   }
 
-  function setBackground(url) {
-    currentImageUrl = url;
-    const bg = document.getElementById('sceneBg');
-    bg.classList.remove('active');
-    const img = new Image();
-    img.onload = () => {
-      setTimeout(() => {
-        bg.style.backgroundImage = `url('${url}')`;
-        bg.classList.add('active');
-      }, 100);
-    };
-    img.src = url;
-  }
-
   function generateScene(tone) {
     const input = document.getElementById('triggerInput').value.trim();
     if (!input) { document.getElementById('triggerInput').focus(); return; }
@@ -1689,12 +1777,10 @@ function initApp() {
       const key = getResponseKey(match, tone, spice);
       const rawResponse = Array.isArray(variants) ? getRandomResponse(variants, key) : variants;
       currentResponse = swapPerspective(rawResponse);
-      setBackground(match.image);
     } else {
       currentSubtext = "A question that doesn't deserve this much thought.";
       const fallbacks = ["Some questions don't deserve answers. This is one of them.", "Not every question deserves {our} energy.", "That one's not in {our} script. For good reason.", "{We} don't have a rehearsed response for that."];
       currentResponse = swapPerspective(fallbacks[Math.floor(Math.random() * fallbacks.length)]);
-      setBackground('https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=1600&q=80');
     }
 
     currentTrigger = input;
@@ -1704,7 +1790,8 @@ function initApp() {
     
     // Cycle card color
     CARD_COLORS.forEach(c => card.classList.remove(c));
-    card.classList.add(CARD_COLORS[colorIndex]);
+    currentCardColor = CARD_COLORS[colorIndex];
+    card.classList.add(currentCardColor);
     colorIndex = (colorIndex + 1) % CARD_COLORS.length;
 
     document.getElementById('subtextDisplay').textContent = currentSubtext;
@@ -1793,12 +1880,8 @@ function initApp() {
 
     // Set card color
     const cardTop = document.getElementById('animCardTop');
-    const currentColor = document.getElementById('scriptCard').className.match(/color-\w+/);
-    if (currentColor) {
-      cardTop.style.background = getComputedStyle(document.documentElement).getPropertyValue(`--card-${currentColor[0].replace('color-', '')}`);
-    }
+    cardTop.style.background = CARD_COLOR_VALUES[currentCardColor] || '#FFE14D';
 
-    document.getElementById('animateBg').style.backgroundImage = `url('${currentImageUrl}')`;
     document.getElementById('animContext').textContent = CONTEXT_LABELS[context];
     document.getElementById('animSpice').textContent = SPICE_LABELS[spice];
     document.getElementById('animTone').textContent = TONE_LABELS[currentTone];
@@ -1917,7 +2000,7 @@ function initApp() {
 
   document.getElementById('toggleDual').addEventListener('change', generateCaptions);
 
-  // Export
+  // Export - Fixed to match site formatting exactly
   document.querySelectorAll('.export-format-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
       const format = btn.dataset.format;
@@ -1930,28 +2013,21 @@ function initApp() {
   async function exportImage(w, h, format) {
     const isLight = document.documentElement.dataset.theme !== 'dark';
     const includeQR = document.getElementById('toggleQR').checked;
-    const includeDual = document.getElementById('toggleDual').checked;
 
-    // Get current card color
-    const cardMatch = document.getElementById('scriptCard').className.match(/color-(\w+)/);
-    const cardColorName = cardMatch ? cardMatch[1] : 'yellow';
-    const cardColors = {
-      yellow: '#FFE14D', pink: '#FF6B9D', blue: '#4ECDC4', orange: '#FF8C42',
-      purple: '#7B4FD3', red: '#E84855', green: '#5DBB63', mint: '#98DFAF'
-    };
-    const cardColor = cardColors[cardColorName] || '#FFE14D';
-    const cardTextColor = ['purple', 'red'].includes(cardColorName) ? '#FFFFFF' : '#0A0A0A';
-
-    const bgColor = isLight ? '#FFFFFF' : '#0A0A0A';
-    const frameBg = isLight ? '#F8F8F6' : '#141414';
-    const textColor = isLight ? '#0A0A0A' : '#F5F5F5';
+    // Colors - fixed for exports
+    const cardColor = CARD_COLOR_VALUES[currentCardColor] || '#FFE14D';
+    const black = '#0A0A0A';
+    const white = '#FFFFFF';
+    const bgColor = isLight ? white : black;
+    const bottomBg = isLight ? white : '#141414';
+    const textColor = isLight ? black : '#F5F5F5';
     const textDim = isLight ? '#6B6B6B' : '#999999';
-    const borderColor = isLight ? '#0A0A0A' : '#F5F5F5';
+    const borderColor = isLight ? black : '#F5F5F5';
     const borderLight = isLight ? '#E0E0E0' : '#333333';
 
     const scale = w / 1080;
-    const padding = Math.round(50 * scale);
-    const qrSize = Math.round(70 * scale);
+    const padding = Math.round(45 * scale);
+    const qrSize = Math.round(65 * scale);
 
     let qrDataUrl = null;
     if (includeQR) {
@@ -1964,205 +2040,216 @@ function initApp() {
       document.body.removeChild(qrDiv);
     }
 
-    async function createBaseCanvas() {
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = bgColor; ctx.fillRect(0, 0, w, h);
-      if (currentImageUrl) {
-        try {
-          const img = new Image(); img.crossOrigin = 'anonymous';
-          await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = currentImageUrl; });
-          const imgScale = Math.max(w / img.width, h / img.height);
-          const sw = img.width * imgScale, sh = img.height * imgScale;
-          ctx.globalAlpha = isLight ? 0.1 : 0.2;
-          ctx.filter = 'grayscale(100%) contrast(1.1)';
-          ctx.drawImage(img, (w - sw) / 2, (h - sh) / 2, sw, sh);
-          ctx.globalAlpha = 1; ctx.filter = 'none';
-        } catch (e) {}
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+
+    // Background with pattern
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, w, h);
+
+    // Draw subtle dot pattern
+    ctx.fillStyle = textColor;
+    ctx.globalAlpha = 0.03;
+    for (let x = 0; x < w; x += 24 * scale) {
+      for (let y = 0; y < h; y += 24 * scale) {
+        ctx.beginPath();
+        ctx.arc(x, y, 1 * scale, 0, Math.PI * 2);
+        ctx.fill();
       }
-      return { canvas, ctx };
+    }
+    ctx.globalAlpha = 1;
+
+    // Font sizes
+    const fontSize = {
+      stamp: Math.round(10 * scale),
+      meta: Math.round(12 * scale),
+      triggerLabel: Math.round(12 * scale),
+      trigger: Math.round(format === 'wide' ? 26 * scale : 32 * scale),
+      subtext: Math.round(13 * scale),
+      responseLabel: Math.round(12 * scale),
+      response: Math.round(format === 'wide' ? 24 * scale : 28 * scale),
+      footer: Math.round(12 * scale)
+    };
+
+    const textW = Math.round(format === 'wide' ? w * 0.58 : w * 0.68);
+
+    // Calculate content heights
+    ctx.font = `italic ${fontSize.trigger}px 'Playfair Display', serif`;
+    const triggerLines = wrapText(ctx, currentTrigger, textW - padding);
+    
+    ctx.font = `italic ${fontSize.subtext}px 'Space Mono', monospace`;
+    const subtextLines = wrapText(ctx, 'SUBTEXT: ' + currentSubtext, textW - padding);
+
+    ctx.font = `${fontSize.response}px 'Playfair Display', serif`;
+    const responseLines = wrapText(ctx, currentResponse, textW - padding);
+
+    // Card dimensions
+    const topH = padding * 1.2 + fontSize.meta + padding * 0.4 + fontSize.triggerLabel + padding * 0.15 + 
+                 triggerLines.length * fontSize.trigger * 1.25 + padding * 0.4 + 
+                 subtextLines.length * fontSize.subtext * 1.5 + padding * 0.5;
+    
+    const bottomH = padding + fontSize.responseLabel + padding * 0.4 + 
+                    responseLines.length * fontSize.response * 1.35 + padding * 0.5 +
+                    (includeQR ? qrSize + padding * 0.3 : 0) +
+                    padding * 0.3 + fontSize.footer + padding * 0.5;
+
+    const frameW = textW + padding * 2;
+    const frameH = topH + bottomH;
+    const frameX = (w - frameW) / 2;
+    const frameY = (h - frameH) / 2;
+
+    // Draw card border
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 6 * scale;
+    ctx.strokeRect(frameX, frameY, frameW, frameH);
+
+    // Draw colored top section
+    ctx.fillStyle = cardColor;
+    ctx.fillRect(frameX + 3 * scale, frameY + 3 * scale, frameW - 6 * scale, topH - 3 * scale);
+
+    // Draw bottom section
+    ctx.fillStyle = bottomBg;
+    ctx.fillRect(frameX + 3 * scale, frameY + topH, frameW - 6 * scale, bottomH - 3 * scale);
+
+    // Divider line
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 3 * scale;
+    ctx.beginPath();
+    ctx.moveTo(frameX, frameY + topH);
+    ctx.lineTo(frameX + frameW, frameY + topH);
+    ctx.stroke();
+
+    const contentX = frameX + padding;
+    const contentRight = frameX + frameW - padding;
+    let y = frameY + padding;
+
+    // === TOP SECTION (all black text) ===
+    
+    // MATTERHOOD stamp
+    ctx.fillStyle = black;
+    ctx.globalAlpha = 0.7;
+    ctx.font = `700 ${fontSize.stamp}px 'Space Mono', monospace`;
+    ctx.textAlign = 'right';
+    const stampText = 'MATTERHOOD';
+    const stampW = ctx.measureText(stampText).width + 14 * scale;
+    ctx.strokeStyle = black;
+    ctx.lineWidth = 1.5 * scale;
+    ctx.strokeRect(contentRight - stampW, y - 2 * scale, stampW, fontSize.stamp + 6 * scale);
+    ctx.fillText(stampText, contentRight - 7 * scale, y + fontSize.stamp * 0.75);
+    ctx.globalAlpha = 1;
+
+    // Context
+    y += fontSize.stamp + padding * 0.5;
+    ctx.font = `700 ${fontSize.meta}px 'Space Mono', monospace`;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = black;
+    ctx.globalAlpha = 0.7;
+    ctx.fillText(CONTEXT_LABELS[context], contentX, y);
+    ctx.globalAlpha = 1;
+    y += fontSize.meta + padding * 0.4;
+
+    // "THEY SAID:" label
+    ctx.fillStyle = black;
+    ctx.globalAlpha = 0.6;
+    ctx.font = `700 ${fontSize.triggerLabel}px 'Space Mono', monospace`;
+    ctx.fillText('THEY SAID:', contentX, y);
+    ctx.globalAlpha = 1;
+    y += fontSize.triggerLabel + padding * 0.15;
+
+    // Trigger text
+    ctx.fillStyle = black;
+    ctx.font = `italic ${fontSize.trigger}px 'Playfair Display', serif`;
+    triggerLines.forEach(line => {
+      ctx.fillText(line, contentX, y + fontSize.trigger * 0.85);
+      y += fontSize.trigger * 1.25;
+    });
+    y += padding * 0.25;
+
+    // Subtext divider
+    ctx.strokeStyle = black;
+    ctx.globalAlpha = 0.15;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(contentX, y);
+    ctx.lineTo(contentRight - stampW - padding, y);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    y += padding * 0.35;
+
+    // Subtext
+    ctx.fillStyle = black;
+    ctx.globalAlpha = 0.7;
+    ctx.font = `italic ${fontSize.subtext}px 'Space Mono', monospace`;
+    subtextLines.forEach(line => {
+      ctx.fillText(line, contentX, y + fontSize.subtext);
+      y += fontSize.subtext * 1.5;
+    });
+    ctx.globalAlpha = 1;
+
+    // === BOTTOM SECTION ===
+    y = frameY + topH + padding;
+
+    // "RESPONSE" + tone badge
+    ctx.fillStyle = textColor;
+    ctx.font = `700 ${fontSize.responseLabel}px 'Space Mono', monospace`;
+    ctx.textAlign = 'left';
+    ctx.fillText('RESPONSE', contentX, y);
+
+    const toneText = TONE_LABELS[currentTone];
+    const responseWordW = ctx.measureText('RESPONSE ').width;
+    const toneW = ctx.measureText(toneText).width + 10 * scale;
+    
+    // Tone badge
+    ctx.fillStyle = textColor;
+    ctx.fillRect(contentX + responseWordW + 6 * scale, y - fontSize.responseLabel * 0.75, toneW, fontSize.responseLabel + 4 * scale);
+    ctx.fillStyle = bgColor;
+    ctx.font = `700 ${fontSize.responseLabel * 0.85}px 'Space Mono', monospace`;
+    ctx.fillText(toneText, contentX + responseWordW + 11 * scale, y);
+
+    // Spice emoji
+    ctx.textAlign = 'right';
+    ctx.font = `${Math.round(20 * scale)}px Arial`;
+    ctx.fillText(SPICE_LABELS[spice], contentRight, y);
+
+    y += fontSize.responseLabel + padding * 0.4;
+
+    // Response text
+    ctx.textAlign = 'left';
+    ctx.fillStyle = textColor;
+    ctx.font = `${fontSize.response}px 'Playfair Display', serif`;
+    responseLines.forEach(line => {
+      ctx.fillText(line, contentX, y + fontSize.response * 0.85);
+      y += fontSize.response * 1.35;
+    });
+    y += padding * 0.3;
+
+    // QR code
+    if (includeQR && qrDataUrl) {
+      const qrImg = new Image();
+      await new Promise(r => { qrImg.onload = r; qrImg.src = qrDataUrl; });
+      ctx.drawImage(qrImg, contentRight - qrSize, y, qrSize, qrSize);
+      y += qrSize + padding * 0.3;
     }
 
-    async function drawResponseCard(ctx, areaW, areaH) {
-      const fontSize = {
-        stamp: Math.round(10 * scale),
-        meta: Math.round(12 * scale),
-        triggerLabel: Math.round(12 * scale),
-        trigger: Math.round(format === 'wide' ? 28 * scale : 34 * scale),
-        subtext: Math.round(14 * scale),
-        responseLabel: Math.round(12 * scale),
-        response: Math.round(format === 'wide' ? 26 * scale : 32 * scale),
-        footer: Math.round(12 * scale)
-      };
+    // Footer line
+    ctx.strokeStyle = borderLight;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(contentX, y);
+    ctx.lineTo(contentRight, y);
+    ctx.stroke();
+    y += padding * 0.35;
 
-      const textW = Math.round(format === 'wide' ? areaW * 0.6 : areaW * 0.7);
+    // Footer text
+    ctx.fillStyle = textDim;
+    ctx.font = `700 ${fontSize.footer}px 'Space Mono', monospace`;
+    ctx.textAlign = 'left';
+    ctx.fillText('THE PROTOCOL', contentX, y + fontSize.footer);
+    ctx.textAlign = 'right';
+    ctx.fillText('MATTERHOOD', contentRight, y + fontSize.footer);
 
-      // Calculate heights
-      ctx.font = `italic ${fontSize.trigger}px 'Playfair Display', serif`;
-      const triggerLines = wrapText(ctx, currentTrigger, textW - padding);
-      
-      ctx.font = `${fontSize.subtext}px 'Space Mono', monospace`;
-      const subtextLines = wrapText(ctx, 'SUBTEXT: ' + currentSubtext, textW - padding);
-
-      ctx.font = `${fontSize.response}px 'Playfair Display', serif`;
-      const responseLines = wrapText(ctx, currentResponse, textW - padding);
-
-      const topH = padding + fontSize.meta + padding * 0.5 + fontSize.triggerLabel + padding * 0.2 + triggerLines.length * fontSize.trigger * 1.3 + padding * 0.5 + subtextLines.length * fontSize.subtext * 1.5 + padding * 0.5;
-      const bottomH = padding + fontSize.responseLabel + padding * 0.5 + responseLines.length * fontSize.response * 1.35 + padding + fontSize.footer + padding * 0.5;
-      
-      const frameW = textW + padding * 2;
-      const frameH = topH + bottomH + (includeQR ? qrSize + padding * 0.5 : 0);
-      const frameX = (areaW - frameW) / 2;
-      const frameY = (areaH - frameH) / 2;
-
-      // Draw border
-      ctx.strokeStyle = borderColor;
-      ctx.lineWidth = 6 * scale;
-      ctx.strokeRect(frameX, frameY, frameW, frameH);
-
-      // Draw top (colored)
-      ctx.fillStyle = cardColor;
-      ctx.fillRect(frameX + 3 * scale, frameY + 3 * scale, frameW - 6 * scale, topH - 3 * scale);
-
-      // Draw bottom (white/dark)
-      ctx.fillStyle = isLight ? '#FFFFFF' : '#141414';
-      ctx.fillRect(frameX + 3 * scale, frameY + topH, frameW - 6 * scale, frameH - topH - 3 * scale);
-
-      // Divider line
-      ctx.strokeStyle = borderColor;
-      ctx.lineWidth = 3 * scale;
-      ctx.beginPath();
-      ctx.moveTo(frameX, frameY + topH);
-      ctx.lineTo(frameX + frameW, frameY + topH);
-      ctx.stroke();
-
-      const contentX = frameX + padding;
-      const contentRight = frameX + frameW - padding;
-      let y = frameY + padding;
-
-      // STAMP
-      ctx.fillStyle = cardTextColor;
-      ctx.globalAlpha = 0.7;
-      ctx.font = `700 ${fontSize.stamp}px 'Space Mono', monospace`;
-      ctx.textAlign = 'right';
-      const stampText = 'MATTERHOOD';
-      const stampW = ctx.measureText(stampText).width + 16 * scale;
-      ctx.strokeStyle = cardTextColor;
-      ctx.lineWidth = 1.5 * scale;
-      ctx.strokeRect(contentRight - stampW, y - 4 * scale, stampW, fontSize.stamp + 8 * scale);
-      ctx.fillText(stampText, contentRight - 8 * scale, y + fontSize.stamp * 0.8);
-      ctx.globalAlpha = 1;
-
-      // META
-      y += fontSize.stamp + padding * 0.6;
-      ctx.font = `700 ${fontSize.meta}px 'Space Mono', monospace`;
-      ctx.textAlign = 'left';
-      ctx.fillStyle = cardTextColor;
-      ctx.globalAlpha = 0.7;
-      ctx.fillText(CONTEXT_LABELS[context], contentX, y);
-      ctx.globalAlpha = 1;
-      y += fontSize.meta + padding * 0.5;
-
-      // TRIGGER LABEL
-      ctx.fillStyle = cardTextColor;
-      ctx.globalAlpha = 0.6;
-      ctx.font = `700 ${fontSize.triggerLabel}px 'Space Mono', monospace`;
-      ctx.fillText('THEY SAID:', contentX, y);
-      ctx.globalAlpha = 1;
-      y += fontSize.triggerLabel + padding * 0.2;
-
-      // TRIGGER TEXT
-      ctx.fillStyle = cardTextColor;
-      ctx.font = `italic ${fontSize.trigger}px 'Playfair Display', serif`;
-      triggerLines.forEach(line => {
-        ctx.fillText(line, contentX, y + fontSize.trigger * 0.85);
-        y += fontSize.trigger * 1.3;
-      });
-      y += padding * 0.3;
-
-      // SUBTEXT
-      ctx.strokeStyle = cardTextColor;
-      ctx.globalAlpha = 0.15;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(contentX, y);
-      ctx.lineTo(contentRight - stampW - padding, y);
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-      y += padding * 0.4;
-
-      ctx.fillStyle = cardTextColor;
-      ctx.globalAlpha = 0.7;
-      ctx.font = `italic ${fontSize.subtext}px 'Space Mono', monospace`;
-      subtextLines.forEach(line => {
-        ctx.fillText(line, contentX, y + fontSize.subtext);
-        y += fontSize.subtext * 1.5;
-      });
-      ctx.globalAlpha = 1;
-
-      // BOTTOM SECTION
-      y = frameY + topH + padding;
-
-      // RESPONSE HEADER
-      ctx.fillStyle = textColor;
-      ctx.font = `700 ${fontSize.responseLabel}px 'Space Mono', monospace`;
-      ctx.textAlign = 'left';
-      ctx.fillText('RESPONSE', contentX, y);
-
-      // Tone badge
-      const toneText = TONE_LABELS[currentTone];
-      ctx.fillStyle = textColor;
-      ctx.fillRect(contentX + ctx.measureText('RESPONSE ').width + 8 * scale, y - fontSize.responseLabel * 0.7, ctx.measureText(toneText).width + 12 * scale, fontSize.responseLabel + 4 * scale);
-      ctx.fillStyle = isLight ? '#FFFFFF' : '#0A0A0A';
-      ctx.font = `700 ${fontSize.responseLabel * 0.85}px 'Space Mono', monospace`;
-      ctx.fillText(toneText, contentX + ctx.measureText('RESPONSE ').width + 14 * scale, y);
-
-      // Spice
-      ctx.textAlign = 'right';
-      ctx.font = `${Math.round(22 * scale)}px Arial`;
-      ctx.fillText(SPICE_LABELS[spice], contentRight, y);
-
-      y += fontSize.responseLabel + padding * 0.5;
-
-      // RESPONSE TEXT
-      ctx.textAlign = 'left';
-      ctx.fillStyle = textColor;
-      ctx.font = `${fontSize.response}px 'Playfair Display', serif`;
-      responseLines.forEach(line => {
-        ctx.fillText(line, contentX, y + fontSize.response * 0.85);
-        y += fontSize.response * 1.35;
-      });
-      y += padding * 0.5;
-
-      // QR
-      if (includeQR && qrDataUrl) {
-        const qrImg = new Image();
-        await new Promise(r => { qrImg.onload = r; qrImg.src = qrDataUrl; });
-        ctx.drawImage(qrImg, contentRight - qrSize, y, qrSize, qrSize);
-        y += qrSize + padding * 0.4;
-      }
-
-      // FOOTER
-      ctx.strokeStyle = borderLight;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(contentX, y);
-      ctx.lineTo(contentRight, y);
-      ctx.stroke();
-      y += padding * 0.4;
-
-      ctx.fillStyle = textDim;
-      ctx.font = `700 ${fontSize.footer}px 'Space Mono', monospace`;
-      ctx.textAlign = 'left';
-      ctx.fillText('THE PROTOCOL', contentX, y + fontSize.footer);
-      ctx.textAlign = 'right';
-      ctx.fillText('MATTERHOOD', contentRight, y + fontSize.footer);
-    }
-
-    const { canvas, ctx } = await createBaseCanvas();
-    await drawResponseCard(ctx, w, h);
-
+    // Download
     const link = document.createElement('a');
     link.download = `protocol-${format}-${Date.now()}.png`;
     link.href = canvas.toDataURL('image/png');

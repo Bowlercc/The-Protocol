@@ -39,11 +39,17 @@ body {
 }
 
 [data-theme="dark"] {
+  --bg: #0A0A0A;
+  --bg-alt: #141414;
+  --text: #F5F5F5;
+  --text-dim: #999999;
+  --border: #F5F5F5;
+  --border-light: #333333;
   --white: #0A0A0A;
   --black: #F5F5F5;
   --off-white: #141414;
   --gray: #999999;
-  --gray-light: #2A2A2A;
+  --gray-light: #333333;
   --gray-dark: #E0E0E0;
 }
 
@@ -106,7 +112,7 @@ header {
 
 .header-cta:hover {
   background: var(--card-yellow);
-  color: var(--black);
+  color: #0A0A0A;
   border-color: var(--black);
 }
 
@@ -121,6 +127,7 @@ header {
   padding: 7rem 2rem 4rem;
   max-width: 850px;
   margin: 0 auto;
+  position: relative;
 }
 
 .hero-badge {
@@ -171,7 +178,49 @@ header {
 
 .hero-cta:hover {
   background: var(--card-yellow);
-  color: var(--black);
+  color: #0A0A0A;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gray);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  animation: fadeInUp 1s ease 1s forwards;
+  opacity: 0;
+}
+
+.scroll-indicator span {
+  display: block;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid var(--gray);
+  border-bottom: 2px solid var(--gray);
+  transform: rotate(45deg);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); }
+  40% { transform: rotate(45deg) translateY(6px); }
+  60% { transform: rotate(45deg) translateY(3px); }
 }
 
 /* ============================================
@@ -308,23 +357,24 @@ section {
   box-shadow: 6px 6px 0 var(--black);
 }
 
-/* Color variants - all use black text for contrast */
-.specimen-card.yellow .specimen-top { background: var(--card-yellow); color: var(--black); }
-.specimen-card.pink .specimen-top { background: var(--card-pink); color: var(--black); }
-.specimen-card.blue .specimen-top { background: var(--card-blue); color: var(--black); }
-.specimen-card.orange .specimen-top { background: var(--card-orange); color: var(--black); }
-.specimen-card.mint .specimen-top { background: var(--card-mint); color: var(--black); }
-.specimen-card.green .specimen-top { background: var(--card-green); color: var(--black); }
-/* Dark colors use white text */
-.specimen-card.purple .specimen-top { background: var(--card-purple); color: var(--white); }
-.specimen-card.red .specimen-top { background: var(--card-red); color: var(--white); }
+/* Color variants - ALL use black text for contrast */
+.specimen-card.yellow .specimen-top { background: var(--card-yellow); }
+.specimen-card.pink .specimen-top { background: var(--card-pink); }
+.specimen-card.blue .specimen-top { background: var(--card-blue); }
+.specimen-card.orange .specimen-top { background: var(--card-orange); }
+.specimen-card.mint .specimen-top { background: var(--card-mint); }
+.specimen-card.green .specimen-top { background: var(--card-green); }
+.specimen-card.purple .specimen-top { background: var(--card-purple); }
+.specimen-card.red .specimen-top { background: var(--card-red); }
 
+/* All colored tops use black text */
 .specimen-top {
   padding: 1.5rem;
   position: relative;
+  color: #0A0A0A; /* Always black text on colored backgrounds */
 }
 
-/* Matterhood stamp on card */
+/* Matterhood stamp on card - always black */
 .specimen-stamp {
   position: absolute;
   top: 1rem;
@@ -333,7 +383,8 @@ section {
   font-weight: 700;
   letter-spacing: 0.15em;
   padding: 0.25rem 0.5rem;
-  border: 1.5px solid currentColor;
+  border: 1.5px solid #0A0A0A;
+  color: #0A0A0A;
   opacity: 0.7;
 }
 
@@ -349,6 +400,7 @@ section {
   font-weight: 700;
   letter-spacing: 0.15em;
   opacity: 0.7;
+  color: #0A0A0A;
 }
 
 .specimen-quote {
@@ -357,6 +409,7 @@ section {
   font-style: italic;
   line-height: 1.3;
   padding-right: 3rem;
+  color: #0A0A0A;
 }
 
 .specimen-bottom {
@@ -424,7 +477,7 @@ section {
 }
 
 /* ============================================
-   RESPONSE TYPES
+   RESPONSE TYPES - with hover animation
    ============================================ */
 .tones-grid {
   display: grid;
@@ -437,10 +490,21 @@ section {
 .tone {
   padding: 1.5rem;
   border-right: 2px solid var(--black);
+  transition: all 0.2s ease;
+  cursor: default;
 }
 
 .tone:last-child {
   border-right: none;
+}
+
+.tone:hover {
+  background: var(--off-white);
+  transform: translateY(-2px);
+}
+
+.tone:hover .tone-name {
+  color: var(--card-purple);
 }
 
 .tone-name {
@@ -448,6 +512,7 @@ section {
   font-weight: 700;
   letter-spacing: 0.15em;
   margin-bottom: 0.5rem;
+  transition: color 0.2s;
 }
 
 .tone-desc {
@@ -467,7 +532,7 @@ section {
 }
 
 /* ============================================
-   BINGO - Single consistent yellow
+   BINGO - Fixed for dark mode
    ============================================ */
 .bingo-wrapper {
   max-width: 520px;
@@ -533,10 +598,10 @@ section {
   background: var(--gray-light);
 }
 
-/* Single consistent yellow for marked cells */
+/* Marked cells - always yellow with BLACK text */
 .bingo-cell.marked {
   background: var(--card-yellow);
-  color: var(--black);
+  color: #0A0A0A !important; /* Force black text */
 }
 
 .bingo-cell.free {
@@ -601,17 +666,25 @@ section {
 
 .bingo-btn.primary:hover {
   background: var(--card-yellow);
-  color: var(--black);
+  color: #0A0A0A;
   border-color: var(--black);
 }
 
 /* ============================================
-   COMMUNITY
+   COMMUNITY - Fixed for dark mode
    ============================================ */
 .community-section {
-  background: var(--black);
-  color: var(--white);
+  background: #0A0A0A; /* Always dark */
+  color: #F5F5F5; /* Always light text */
   text-align: center;
+}
+
+.community-section .section-label {
+  color: #F5F5F5;
+}
+
+.community-section .section-title {
+  color: #F5F5F5;
 }
 
 .community-section .section-inner {
@@ -619,30 +692,30 @@ section {
 }
 
 .community-section .section-text {
-  color: rgba(255,255,255,0.6);
+  color: rgba(245,245,245,0.6); /* Light text with opacity */
   margin: 0 auto;
 }
 
 .matterhood-link {
   display: inline-block;
-  color: var(--white);
+  color: #F5F5F5;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   padding: 0.75rem 1.5rem;
-  border: 2px solid var(--white);
+  border: 2px solid #F5F5F5;
   text-decoration: none;
   margin-top: 2rem;
   transition: all 0.15s;
 }
 
 .matterhood-link:hover {
-  background: var(--white);
-  color: var(--black);
+  background: #F5F5F5;
+  color: #0A0A0A;
 }
 
 /* ============================================
-   SUBMIT
+   SUBMIT - with submission info
    ============================================ */
 .submit-form {
   max-width: 450px;
@@ -731,7 +804,7 @@ section {
 
 .form-submit:hover {
   background: var(--card-yellow);
-  color: var(--black);
+  color: #0A0A0A;
 }
 
 .form-note {
@@ -740,6 +813,15 @@ section {
   margin-top: 1rem;
   text-align: center;
   line-height: 1.6;
+}
+
+.form-destination {
+  font-size: 0.5rem;
+  color: var(--gray);
+  margin-top: 0.75rem;
+  text-align: center;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--gray-light);
 }
 
 /* ============================================
@@ -800,27 +882,40 @@ section {
 
 .enter-btn:hover {
   background: var(--card-yellow);
-  color: var(--black);
+  color: #0A0A0A;
   box-shadow: 4px 4px 0 var(--black);
 }
 
 /* ============================================
-   FOOTER
+   FOOTER - Updated
    ============================================ */
 footer {
   padding: 1.5rem 2rem;
   border-top: 2px solid var(--black);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.55rem;
+  text-align: center;
+}
+
+.footer-main {
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.footer-credit {
+  font-size: 0.5rem;
+  color: var(--gray);
+  font-style: italic;
+  margin-bottom: 0.75rem;
 }
 
 .footer-links {
   display: flex;
+  justify-content: center;
   gap: 1.5rem;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
 }
 
 .footer-links a {
@@ -932,12 +1027,6 @@ footer {
     gap: 1rem;
   }
   
-  footer {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-  
   .specimen-quote {
     font-size: 1.2rem;
     padding-right: 2rem;
@@ -946,6 +1035,10 @@ footer {
   .specimen-stamp {
     top: 0.75rem;
     right: 0.75rem;
+  }
+  
+  .scroll-indicator {
+    display: none;
   }
 }
 </style>
@@ -967,6 +1060,11 @@ footer {
     A catalog of the well-meaning, the clueless, and the truly unhinged things people say about fertility. Documented. And paired with responses—from diplomatic to delightfully absurd. You choose.
   </p>
   <a href="app.html" class="hero-cta">BROWSE THE ARCHIVE</a>
+  
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <div class="scroll-arrow"></div>
+  </div>
 </section>
 
 <section>
@@ -1126,6 +1224,7 @@ footer {
       </div>
       <button type="submit" class="form-submit">SUBMIT</button>
       <p class="form-note">We document the absurdity—not attack the people. All submissions reviewed.</p>
+      <p class="form-destination">Submissions go to Craig & Courtney for review. If it makes the cut, it joins the archive.</p>
     </form>
   </div>
 </section>
@@ -1150,7 +1249,8 @@ footer {
 </section>
 
 <footer>
-  <span>THE PROTOCOL — MATTERHOOD — 2024</span>
+  <div class="footer-main">THE PROTOCOL — MATTERHOOD</div>
+  <div class="footer-credit">Made with love and frustration by Craig & Courtney</div>
   <div class="footer-links">
     <a href="app.html">Archive</a>
     <a href="https://matterhood.ghost.io/">Matterhood</a>
@@ -1280,6 +1380,7 @@ document.getElementById('resetBingo').addEventListener('click', () => {
   showToast('RESET');
 });
 
+// Bingo export - matches site formatting exactly
 document.getElementById('exportBingo').addEventListener('click', () => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -1287,36 +1388,49 @@ document.getElementById('exportBingo').addEventListener('click', () => {
   canvas.width = w; canvas.height = h;
   
   const yellow = '#FFE14D';
+  const black = '#0A0A0A';
+  const white = '#FFFFFF';
+  const offWhite = '#F8F8F6';
+  const grayLight = '#E0E0E0';
   
-  ctx.fillStyle = '#FFFFFF';
+  // White background
+  ctx.fillStyle = white;
   ctx.fillRect(0, 0, w, h);
   
-  const pad = 60, headerH = 100, footerH = 60;
+  const pad = 60;
+  const headerH = 100;
+  const footerH = 70;
   const gridTop = pad + headerH;
   const gridH = h - gridTop - footerH - pad;
   const gridW = w - pad * 2;
   const cellW = gridW / 5;
   const cellH = gridH / 5;
   
-  // Border
-  ctx.strokeStyle = '#0A0A0A';
+  // Outer border - 3px like site
+  ctx.strokeStyle = black;
   ctx.lineWidth = 6;
   ctx.strokeRect(pad, pad, gridW, h - pad * 2);
   
-  // Header
-  ctx.fillStyle = '#0A0A0A';
+  // Header background
+  ctx.fillStyle = white;
+  ctx.fillRect(pad + 3, pad + 3, gridW - 6, headerH - 3);
+  
+  // Header text
+  ctx.fillStyle = black;
   ctx.font = '600 48px Playfair Display, Georgia, serif';
   ctx.textAlign = 'left';
-  ctx.fillText('BINGO', pad + 24, pad + 60);
-  ctx.font = '700 13px Space Mono, monospace';
-  ctx.textAlign = 'right';
-  ctx.fillText('THINGS PEOPLE ACTUALLY SAY', w - pad - 24, pad + 55);
+  ctx.fillText('BINGO', pad + 28, pad + 65);
   
-  // Header line
+  ctx.font = '700 14px Space Mono, monospace';
+  ctx.textAlign = 'right';
+  ctx.fillText('THINGS PEOPLE ACTUALLY SAY', w - pad - 28, pad + 58);
+  
+  // Header bottom border
+  ctx.strokeStyle = black;
+  ctx.lineWidth = 6;
   ctx.beginPath();
   ctx.moveTo(pad, gridTop);
   ctx.lineTo(w - pad, gridTop);
-  ctx.lineWidth = 3;
   ctx.stroke();
   
   const allCells = bingoGrid.querySelectorAll('.bingo-cell');
@@ -1329,23 +1443,36 @@ document.getElementById('exportBingo').addEventListener('click', () => {
     const marked = cell.classList.contains('marked');
     const free = cell.classList.contains('free');
     
-    // Cell bg
+    // Cell background
     if (marked) {
       ctx.fillStyle = yellow;
     } else if (free) {
-      ctx.fillStyle = '#F8F8F6';
+      ctx.fillStyle = offWhite;
     } else {
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = white;
     }
-    ctx.fillRect(x, y, cellW, cellH);
+    ctx.fillRect(x + 1, y + 1, cellW - 2, cellH - 2);
     
-    // Cell border
-    ctx.strokeStyle = '#E0E0E0';
+    // Cell border (light gray like site)
+    ctx.strokeStyle = grayLight;
     ctx.lineWidth = 1;
-    ctx.strokeRect(x, y, cellW, cellH);
+    // Right border (except last column)
+    if (col < 4) {
+      ctx.beginPath();
+      ctx.moveTo(x + cellW, y);
+      ctx.lineTo(x + cellW, y + cellH);
+      ctx.stroke();
+    }
+    // Bottom border (except last row)
+    if (row < 4) {
+      ctx.beginPath();
+      ctx.moveTo(x, y + cellH);
+      ctx.lineTo(x + cellW, y + cellH);
+      ctx.stroke();
+    }
     
-    // Text
-    ctx.fillStyle = '#0A0A0A';
+    // Cell text - always black
+    ctx.fillStyle = black;
     ctx.font = '700 14px Space Mono, monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -1355,30 +1482,40 @@ document.getElementById('exportBingo').addEventListener('click', () => {
     let lines = [], line = '';
     words.forEach(word => {
       const test = line ? line + ' ' + word : word;
-      if (ctx.measureText(test).width > cellW - 20 && line) { lines.push(line); line = word; }
-      else line = test;
+      if (ctx.measureText(test).width > cellW - 24 && line) { 
+        lines.push(line); 
+        line = word; 
+      } else {
+        line = test;
+      }
     });
     if (line) lines.push(line);
-    const lh = 18, startY = y + cellH/2 - (lines.length - 1) * lh / 2;
-    lines.forEach((l, li) => ctx.fillText(l, x + cellW/2, startY + li * lh));
+    
+    const lh = 20;
+    const startY = y + cellH / 2 - (lines.length - 1) * lh / 2;
+    lines.forEach((l, li) => ctx.fillText(l, x + cellW / 2, startY + li * lh));
   });
   
-  // Footer line
+  // Footer top border
   const footerY = gridTop + gridH;
-  ctx.strokeStyle = '#0A0A0A';
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = black;
+  ctx.lineWidth = 6;
   ctx.beginPath();
   ctx.moveTo(pad, footerY);
   ctx.lineTo(w - pad, footerY);
   ctx.stroke();
   
+  // Footer background
+  ctx.fillStyle = white;
+  ctx.fillRect(pad + 3, footerY + 3, gridW - 6, footerH - 6);
+  
   // Footer text
-  ctx.fillStyle = '#0A0A0A';
-  ctx.font = '700 13px Space Mono, monospace';
+  ctx.fillStyle = black;
+  ctx.font = '700 14px Space Mono, monospace';
   ctx.textAlign = 'left';
-  ctx.fillText('THE PROTOCOL', pad + 24, footerY + 38);
+  ctx.fillText('THE PROTOCOL', pad + 28, footerY + 42);
   ctx.textAlign = 'right';
-  ctx.fillText('MATTERHOOD', w - pad - 24, footerY + 38);
+  ctx.fillText('MATTERHOOD', w - pad - 28, footerY + 42);
   
   const link = document.createElement('a');
   link.download = `bingo-${Date.now()}.png`;
@@ -1387,7 +1524,7 @@ document.getElementById('exportBingo').addEventListener('click', () => {
   showToast('EXPORTED');
 });
 
-// Form
+// Form submission - stores locally and shows confirmation
 document.getElementById('submitForm').addEventListener('submit', e => {
   e.preventDefault();
   const data = {
@@ -1396,12 +1533,17 @@ document.getElementById('submitForm').addEventListener('submit', e => {
     anon: document.getElementById('submitAnon').checked,
     time: new Date().toISOString()
   };
+  
+  // Store locally (in production, this would POST to an endpoint)
   const subs = JSON.parse(localStorage.getItem('protocol_subs') || '[]');
   subs.push(data);
   localStorage.setItem('protocol_subs', JSON.stringify(subs));
+  
+  // Clear form
   document.getElementById('submitComment').value = '';
   document.getElementById('submitContext').value = '';
-  showToast('SUBMITTED');
+  
+  showToast('SUBMITTED — THANK YOU');
 });
 
 function showToast(msg) {
