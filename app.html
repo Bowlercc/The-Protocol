@@ -9,1337 +9,2221 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-:root{--void:#080808;--charcoal:#121212;--bone:#E8E4DF;--cream:#F5F2ED;--bone-dim:rgba(232,228,223,0.7);--bone-faint:rgba(232,228,223,0.15);--bone-ghost:rgba(232,228,223,0.06);--alert:#C41E1E;--gold:#B8956A;--gold-dim:rgba(184,149,106,0.4);--bg:var(--void);--bg-secondary:var(--charcoal);--text:var(--bone);--text-primary:var(--cream);--border:var(--bone-faint)}
-[data-theme="light"]{--void:#FAFAF8;--charcoal:#F0EDE8;--bone:#1A1A1A;--cream:#0A0A0A;--bone-dim:rgba(10,10,10,0.75);--bone-faint:rgba(10,10,10,0.18);--bone-ghost:rgba(10,10,10,0.08);--gold:#7A6545;--bg:var(--void);--bg-secondary:var(--charcoal);--text:var(--bone);--text-primary:var(--cream);--border:var(--bone-faint)}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Space Mono',monospace;background:var(--void);color:var(--bone);min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
-.film-grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .4s steps(1) infinite}
-[data-theme="light"] .film-grain{opacity:0.015}
-@keyframes grain{0%,100%{transform:translate(0)}25%{transform:translate(-2%,-2%)}50%{transform:translate(2%,2%)}75%{transform:translate(-2%,2%)}}
-.tutorial-overlay{position:fixed;inset:0;background:var(--void);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .5s,background .3s}
-.tutorial-overlay.hidden{opacity:0;pointer-events:none}
-.tutorial-content{max-width:540px;padding:2.5rem;text-align:center}
-.tutorial-step{display:none;animation:fadeUp .5s ease forwards}
-.tutorial-step.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.tutorial-title{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1.2rem;color:var(--cream)}
-.tutorial-text{font-size:.76rem;line-height:1.85;opacity:.6;margin-bottom:1.8rem}
-.tutorial-example{background:var(--charcoal);border:1px solid var(--bone-faint);padding:1.15rem;margin:1.3rem 0;text-align:left}
-.tutorial-example-label{font-size:.5rem;letter-spacing:.2em;opacity:.4;margin-bottom:.45rem}
-.tutorial-example-text{font-family:'Playfair Display',serif;font-size:.92rem;font-style:italic;color:var(--bone-dim);line-height:1.6}
-.tutorial-btn{background:var(--bone);color:var(--void);border:none;padding:.82rem 1.7rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s}
-.tutorial-btn:hover{background:var(--cream)}
-.tutorial-skip{display:block;margin-top:1.15rem;background:none;border:none;color:var(--bone-dim);font-family:'Space Mono',monospace;font-size:.55rem;cursor:pointer;opacity:.4}
-.tutorial-skip:hover{opacity:1}
-.tutorial-dots{display:flex;justify-content:center;gap:.38rem;margin-top:1.35rem}
-.tutorial-dot{width:5px;height:5px;border-radius:50%;background:var(--bone-faint)}
-.tutorial-dot.active{background:var(--gold)}
-.container{min-height:100vh;display:flex;flex-direction:column}
-header{border-bottom:1px solid var(--bone-faint);padding:.82rem 1.15rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--void);backdrop-filter:blur(12px);z-index:100;transition:background .3s}
-[data-theme="light"] header{background:rgba(248,246,243,.95)}
-.header-left{display:flex;align-items:center;gap:1.15rem}
-.logo{font-size:.65rem;font-weight:700;letter-spacing:.3em}
-.logo-sub{font-size:.46rem;letter-spacing:.15em;opacity:.3;margin-left:.55rem}
-.header-actions{display:flex;align-items:center;gap:.65rem}
-.icon-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);width:28px;height:28px;font-family:'Space Mono',monospace;font-size:.55rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center}
-.icon-btn:hover{background:var(--bone);color:var(--void)}
-.rec-indicator{display:flex;align-items:center;gap:.38rem;font-size:.5rem;letter-spacing:.15em}
-.rec-dot{width:5px;height:5px;background:var(--alert);border-radius:50%;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.main-content{flex:1;display:flex}
-.control-panel{width:355px;min-width:355px;border-right:1px solid var(--bone-faint);padding:1.5rem 1.15rem;display:flex;flex-direction:column;gap:1.1rem;background:var(--charcoal);overflow-y:auto;transition:background .3s}
-.section-label{font-size:.46rem;letter-spacing:.2em;opacity:.4;margin-bottom:.4rem}
-.input-section{display:flex;flex-direction:column;gap:.4rem}
-.input-row{display:flex;gap:.5rem;align-items:flex-end}
-.input-row .trigger-input{flex:1}
-.surprise-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);color:var(--bone);width:36px;height:36px;font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.surprise-btn:hover{background:var(--gold-dim);border-color:var(--gold)}
-.trigger-input{background:transparent;color:var(--bone);border:none;border-bottom:1px solid var(--bone-faint);padding:.65rem 0;font-family:'Space Mono',monospace;font-size:.8rem;outline:none;transition:border-color .3s}
-.trigger-input::placeholder{color:rgba(232,228,223,.2);font-style:italic}
-.trigger-input:focus{border-bottom-color:var(--bone-dim)}
-.triggers-section{display:flex;flex-direction:column;gap:.4rem}
-.triggers-grid{display:flex;flex-wrap:wrap;gap:.28rem;max-height:120px;overflow-y:auto;padding-right:.3rem}
-.triggers-grid::-webkit-scrollbar{width:4px}
-.triggers-grid::-webkit-scrollbar-track{background:var(--bone-ghost);border-radius:2px}
-.triggers-grid::-webkit-scrollbar-thumb{background:var(--bone-faint);border-radius:2px}
-.triggers-grid::-webkit-scrollbar-thumb:hover{background:var(--bone-dim)}
-.trigger-chip{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.38rem .55rem;font-size:.62rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace}
-.trigger-chip:hover{background:var(--bone-faint);color:var(--bone)}
-.config-row{display:flex;gap:.6rem;flex-wrap:wrap}
-.config-group{flex:1;min-width:140px;display:flex;flex-direction:column;gap:.35rem}
-.toggle-group{display:flex;gap:.2rem;flex-wrap:wrap}
-.toggle-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.4rem .55rem;font-size:.6rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace;letter-spacing:.05em}
-.toggle-btn:hover{background:var(--bone-faint);color:var(--bone)}
-.toggle-btn.active{background:var(--bone);color:var(--void);border-color:var(--bone)}
-.spice-toggle{display:flex;gap:.2rem}
-.spice-btn{flex:1;background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.4rem .3rem;font-size:.58rem;cursor:pointer;transition:all .2s;color:var(--bone-dim);font-family:'Space Mono',monospace;text-align:center}
-.spice-btn:hover{background:var(--bone-faint);color:var(--bone)}
-.spice-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
-.spice-btn.active[data-spice="hot"]{border-color:var(--alert);color:var(--alert);background:rgba(196,30,30,0.15)}
-.tone-section{display:flex;flex-direction:column;gap:.4rem}
-.tone-buttons{display:flex;flex-direction:column;gap:.28rem}
-.tone-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);padding:.75rem .9rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;cursor:pointer;transition:all .25s;text-align:left;position:relative;display:flex;justify-content:space-between}
-.tone-btn::before{content:'';position:absolute;left:0;top:0;width:2px;height:100%;background:var(--gold);transform:scaleY(0);transition:transform .25s}
-.tone-btn:hover{background:var(--bone-ghost);padding-left:1rem}
-.tone-btn.active{background:var(--bone);color:var(--void)}
-.tone-btn.active::before{background:var(--void);transform:scaleY(1)}
-.tone-desc{font-size:.46rem;opacity:.5}
-.tone-btn.active .tone-desc{opacity:.7}
-.display-panel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden}
-.scene-bg{position:absolute;inset:0;opacity:0;transition:opacity 1s;background-size:cover;background-position:center;filter:grayscale(100%) contrast(1.1)}
-.scene-bg.active{opacity:1}
-.scene-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.78) 0%,rgba(10,10,10,.6) 50%,rgba(10,10,10,.78) 100%)}
-.script-display{max-width:600px;width:100%;position:relative;z-index:10}
-.placeholder-card{text-align:center;padding:2.5rem 1.3rem}
-.placeholder-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;opacity:.2;line-height:1.8}
-.placeholder-text span{display:block}
-.script-card{display:none;padding:1.8rem;background:var(--charcoal);border:1px solid var(--bone-faint);position:relative;transition:background .3s}
-.script-card.active{display:block;animation:cardReveal .6s ease forwards}
-@keyframes cardReveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.script-card::before{content:'';position:absolute;top:0;left:0;width:40px;height:2px;background:var(--gold)}
-.script-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bone-faint)}
-.script-context{font-size:.46rem;letter-spacing:.15em;opacity:.4}
-.script-spice{font-size:.46rem;letter-spacing:.1em;color:var(--gold)}
-.script-spice.hot{color:var(--alert)}
-.script-subtext{font-size:.5rem;letter-spacing:.08em;color:var(--gold);margin-bottom:1.1rem;font-style:italic}
-.script-subtext::before{content:'SUBTEXT: ';opacity:.5;font-style:normal}
-.script-trigger{font-size:.6rem;color:var(--bone-dim);letter-spacing:.05em;margin-bottom:.95rem;line-height:1.6}
-.script-trigger-label{display:block;font-size:.46rem;opacity:.4;margin-bottom:.28rem;letter-spacing:.2em}
-.script-response{margin-bottom:1.3rem}
-.script-response-label{font-size:.46rem;color:var(--gold);margin-bottom:.55rem;letter-spacing:.2em}
-.script-text{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.3vw,1.65rem);line-height:1.4;color:var(--cream)}
-.script-footer{font-size:.46rem;letter-spacing:.15em;opacity:.25;padding-top:.95rem;border-top:1px solid var(--bone-faint);display:flex;justify-content:space-between}
-.controls{display:flex;gap:.35rem;justify-content:center;margin-top:1.3rem;flex-wrap:wrap}
-.control-btn{background:transparent;color:var(--bone);border:1px solid var(--bone-faint);padding:.58rem .95rem;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;cursor:pointer;transition:all .25s}
-.control-btn:hover:not(:disabled){background:var(--bone-ghost);border-color:var(--bone-dim)}
-.control-btn:disabled{opacity:.15;cursor:not-allowed}
-.control-btn.primary{background:var(--bone);color:var(--void)}
-.control-btn.primary:hover:not(:disabled){background:var(--cream)}
-.export-options{display:none;position:fixed;inset:0;background:rgba(10,10,10,.95);z-index:1000;align-items:center;justify-content:center}
-.export-options.active{display:flex}
-.export-modal{background:var(--charcoal);border:1px solid var(--bone-faint);padding:1.8rem;max-width:400px;width:90%;transition:background .3s}
-.export-title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.35rem}
-.export-subtitle{font-size:.55rem;opacity:.5;margin-bottom:1.3rem;letter-spacing:.1em}
-.export-formats{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.3rem}
-.export-format-btn{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.95rem 1.1rem;cursor:pointer;transition:all .25s;display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono',monospace;color:var(--bone)}
-.export-format-btn:hover{background:var(--bone-faint);border-color:var(--bone-dim)}
-.export-format-name{font-size:.62rem;letter-spacing:.1em}
-.export-format-size{font-size:.5rem;opacity:.4}
-.export-close{background:none;border:1px solid var(--bone-faint);color:var(--bone-dim);padding:.55rem 1.1rem;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.1em;cursor:pointer;width:100%}
-.export-close:hover{border-color:var(--bone-dim);color:var(--bone)}
-.export-toggles{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.3rem;padding-top:1rem;border-top:1px solid var(--bone-faint)}
-.export-toggle{display:flex;align-items:center;gap:.6rem;cursor:pointer;font-size:.58rem;letter-spacing:.05em;color:var(--bone-dim)}
-.export-toggle input{appearance:none;width:14px;height:14px;border:1px solid var(--bone-faint);background:transparent;cursor:pointer;position:relative}
-.export-toggle input:checked{border-color:var(--gold);background:var(--gold)}
-.export-toggle input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;color:var(--void)}
-.export-toggle:hover{color:var(--bone)}
-.caption-section{border-top:1px solid var(--bone-faint);padding-top:1rem;margin-bottom:1rem}
-.caption-label{font-size:.5rem;letter-spacing:.15em;opacity:.5;margin-bottom:.6rem}
-.caption-suggestions{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.6rem}
-.caption-item{background:var(--bone-ghost);border:1px solid var(--bone-faint);padding:.6rem .8rem;font-size:.58rem;line-height:1.5;cursor:pointer;transition:all .2s;color:var(--bone-dim)}
-.caption-item:hover{background:var(--bone-faint);color:var(--bone);border-color:var(--bone-dim)}
-.caption-item.copied{border-color:var(--gold);color:var(--gold)}
-.toast{position:fixed;bottom:1.3rem;left:50%;transform:translateX(-50%) translateY(150%);background:var(--void);border:1px solid var(--gold);color:var(--bone);padding:.8rem 1.1rem;font-size:.5rem;letter-spacing:.1em;z-index:1001;transition:transform .4s;text-align:center}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast a{color:var(--gold);text-decoration:none;margin-left:.35rem}
-footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--bone-faint);padding:.8rem 1.1rem;text-align:center;font-size:.46rem;letter-spacing:.15em;opacity:.35;background:var(--void);z-index:50}
-footer a{color:var(--gold);text-decoration:none}
+:root {
+  --black: #0A0A0A;
+  --white: #FFFFFF;
+  --off-white: #F8F8F6;
+  --gray: #6B6B6B;
+  --gray-light: #E0E0E0;
+  --gray-dark: #2A2A2A;
+  
+  /* Bold card colors */
+  --card-yellow: #FFE14D;
+  --card-pink: #FF6B9D;
+  --card-blue: #4ECDC4;
+  --card-orange: #FF8C42;
+  --card-purple: #7B4FD3;
+  --card-red: #E84855;
+  --card-green: #5DBB63;
+  --card-mint: #98DFAF;
+  
+  --bg: var(--white);
+  --bg-alt: var(--off-white);
+  --text: var(--black);
+  --text-dim: var(--gray);
+  --border: var(--black);
+  --border-light: var(--gray-light);
+}
 
-/* Animation Overlay - Fixed Centering & Layout & Word Wrapping */
+[data-theme="dark"] {
+  --bg: #0A0A0A;
+  --bg-alt: #141414;
+  --text: #F5F5F5;
+  --text-dim: #999999;
+  --border: #F5F5F5;
+  --border-light: #333333;
+  --white: #0A0A0A;
+  --black: #F5F5F5;
+  --off-white: #141414;
+  --gray: #999999;
+  --gray-light: #333333;
+  --gray-dark: #E0E0E0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Space Mono', monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ============================================
+   TUTORIAL
+   ============================================ */
+.tutorial-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s;
+}
+
+.tutorial-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tutorial-content {
+  max-width: 500px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.tutorial-step {
+  display: none;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.tutorial-step.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tutorial-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.tutorial-text {
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+}
+
+.tutorial-example {
+  background: var(--bg-alt);
+  border: 2px solid var(--border);
+  padding: 1rem;
+  margin: 1.25rem 0;
+  text-align: left;
+}
+
+.tutorial-example-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  margin-bottom: 0.4rem;
+}
+
+.tutorial-example-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.tutorial-btn {
+  background: var(--black);
+  color: var(--white);
+  border: 2px solid var(--black);
+  padding: 0.75rem 1.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tutorial-btn:hover {
+  background: var(--card-yellow);
+  color: var(--black);
+  border-color: var(--black);
+}
+
+.tutorial-skip {
+  display: block;
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  cursor: pointer;
+}
+
+.tutorial-skip:hover { color: var(--text); }
+
+.tutorial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+}
+
+.tutorial-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--border-light);
+}
+
+.tutorial-dot.active {
+  background: var(--black);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+}
+
+.logo-sub {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-left: 0.5rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon-btn {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--border);
+  width: 32px;
+  height: 32px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.rec-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.rec-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--card-red);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+}
+
+/* ============================================
+   CONTROL PANEL
+   ============================================ */
+.control-panel {
+  width: 340px;
+  min-width: 340px;
+  border-right: 2px solid var(--border);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--bg-alt);
+  overflow-y: auto;
+}
+
+.section-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  margin-bottom: 0.4rem;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.input-row .trigger-input { flex: 1; }
+
+.trigger-input {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--border);
+  padding: 0.65rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  outline: none;
+  transition: all 0.15s;
+}
+
+.trigger-input::placeholder {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.trigger-input:focus {
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+.surprise-btn {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.surprise-btn:hover {
+  background: var(--card-yellow);
+  border-color: var(--black);
+}
+
+.triggers-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.triggers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  max-height: 110px;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+}
+
+.triggers-grid::-webkit-scrollbar { width: 4px; }
+.triggers-grid::-webkit-scrollbar-track { background: var(--border-light); }
+.triggers-grid::-webkit-scrollbar-thumb { background: var(--text-dim); }
+
+.trigger-chip {
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  padding: 0.35rem 0.5rem;
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+}
+
+.trigger-chip:hover {
+  border-color: var(--border);
+  color: var(--text);
+  background: var(--card-yellow);
+}
+
+.config-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.config-group {
+  flex: 1;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.toggle-group {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.toggle-btn {
+  background: var(--bg);
+  border: 2px solid var(--border-light);
+  padding: 0.4rem 0.5rem;
+  font-size: 0.55rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+.toggle-btn:hover {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.toggle-btn.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+.spice-toggle {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.spice-btn {
+  flex: 1;
+  background: var(--bg);
+  border: 2px solid var(--border-light);
+  padding: 0.4rem 0.3rem;
+  font-size: 0.55rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+  text-align: center;
+}
+
+.spice-btn:hover {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.spice-btn.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+.spice-btn.active[data-spice="hot"] {
+  background: var(--card-red);
+  border-color: var(--card-red);
+  color: var(--white);
+}
+
+.tone-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tone-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.tone-btn {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--border-light);
+  padding: 0.7rem 0.85rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tone-btn:hover {
+  border-color: var(--border);
+  box-shadow: 3px 3px 0 var(--border-light);
+}
+
+.tone-btn.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+  box-shadow: 4px 4px 0 var(--border-light);
+}
+
+.tone-desc {
+  font-size: 0.5rem;
+  font-weight: 400;
+  color: var(--text-dim);
+}
+
+.tone-btn.active .tone-desc {
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============================================
+   DISPLAY PANEL
+   ============================================ */
+.display-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.scene-bg.active { opacity: 0.15; }
+
+[data-theme="dark"] .scene-bg.active { opacity: 0.25; }
+
+.script-display {
+  max-width: 550px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.placeholder-card {
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.placeholder-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 2;
+}
+
+.placeholder-text span { display: block; }
+
+/* ============================================
+   THE RESPONSE CARD - Bold Colored
+   ============================================ */
+.script-card {
+  display: none;
+  border: 3px solid var(--black);
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.script-card.active {
+  display: block;
+  animation: cardReveal 0.5s ease forwards;
+}
+
+.script-card:hover {
+  box-shadow: 6px 6px 0 var(--border-light);
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Card top - colored section */
+.script-card-top {
+  padding: 1.5rem;
+  background: var(--card-yellow);
+  color: var(--black);
+  position: relative;
+}
+
+/* Card color variants */
+.script-card.color-yellow .script-card-top { background: var(--card-yellow); }
+.script-card.color-pink .script-card-top { background: var(--card-pink); }
+.script-card.color-blue .script-card-top { background: var(--card-blue); }
+.script-card.color-orange .script-card-top { background: var(--card-orange); }
+.script-card.color-purple .script-card-top { background: var(--card-purple); color: var(--white); }
+.script-card.color-red .script-card-top { background: var(--card-red); color: var(--white); }
+.script-card.color-green .script-card-top { background: var(--card-green); }
+.script-card.color-mint .script-card-top { background: var(--card-mint); }
+
+.script-stamp {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.4rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 0.25rem 0.5rem;
+  border: 1.5px solid currentColor;
+  opacity: 0.7;
+}
+
+.script-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.script-context {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+}
+
+.script-trigger-section {
+  margin-bottom: 0.5rem;
+}
+
+.script-trigger-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  margin-bottom: 0.3rem;
+}
+
+.script-trigger-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.3;
+  padding-right: 3rem;
+}
+
+.script-subtext {
+  font-size: 0.6rem;
+  font-style: italic;
+  opacity: 0.7;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.15);
+}
+
+.script-subtext::before {
+  content: 'SUBTEXT: ';
+  font-style: normal;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+/* Card bottom - response section */
+.script-card-bottom {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg);
+  border-top: 3px solid var(--black);
+}
+
+.script-response-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.script-response-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.script-response-type {
+  background: var(--black);
+  color: var(--white);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.45rem;
+}
+
+.script-spice {
+  font-size: 0.9rem;
+  letter-spacing: -0.05em;
+}
+
+.script-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.script-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   CONTROLS
+   ============================================ */
+.controls {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--border);
+  padding: 0.6rem 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.control-btn:hover:not(:disabled) {
+  box-shadow: 3px 3px 0 var(--border-light);
+}
+
+.control-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.control-btn.primary {
+  background: var(--black);
+  color: var(--white);
+}
+
+.control-btn.primary:hover:not(:disabled) {
+  background: var(--card-yellow);
+  color: var(--black);
+  border-color: var(--black);
+}
+
+/* ============================================
+   EXPORT MODAL
+   ============================================ */
+.export-options {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.9);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.export-options.active { display: flex; }
+
+.export-modal {
+  background: var(--bg);
+  border: 3px solid var(--black);
+  padding: 1.75rem;
+  max-width: 400px;
+  width: 90%;
+}
+
+.export-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.export-subtitle {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 1.25rem;
+}
+
+.export-formats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.export-format-btn {
+  background: var(--bg-alt);
+  border: 2px solid var(--border-light);
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Space Mono', monospace;
+  color: var(--text);
+}
+
+.export-format-btn:hover {
+  border-color: var(--border);
+  box-shadow: 3px 3px 0 var(--border-light);
+}
+
+.export-format-name {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.export-format-size {
+  font-size: 0.5rem;
+  color: var(--text-dim);
+}
+
+.export-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.export-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+
+.export-toggle input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border-light);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.export-toggle input:checked {
+  border-color: var(--black);
+  background: var(--black);
+}
+
+.export-toggle input:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: var(--white);
+}
+
+.export-toggle:hover { color: var(--text); }
+
+.caption-section {
+  border-top: 1px solid var(--border-light);
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.caption-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 0.6rem;
+}
+
+.caption-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.caption-item {
+  background: var(--bg-alt);
+  border: 1px solid var(--border-light);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.6rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-dim);
+}
+
+.caption-item:hover {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.caption-item.copied {
+  border-color: var(--card-green);
+  background: var(--card-green);
+  color: var(--black);
+}
+
+.export-close {
+  width: 100%;
+  background: none;
+  border: 2px solid var(--border-light);
+  color: var(--text-dim);
+  padding: 0.6rem 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+.export-close:hover {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* ============================================
+   TOAST
+   ============================================ */
+.toast {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(150%);
+  background: var(--black);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  z-index: 1001;
+  transition: transform 0.3s;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 2px solid var(--border);
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  background: var(--bg);
+  z-index: 50;
+}
+
+footer a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   ANIMATION OVERLAY
+   ============================================ */
 .animate-overlay {
-position: fixed;
-inset: 0;
-background: var(--void);
-z-index: 2000;
-display: none;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 2000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.animate-overlay.active {
-display: flex;
-}
+.animate-overlay.active { display: flex; }
 
 .animate-scene {
-position: relative;
-width: 100%;
-height: 100%; 
-    max-width: 450px;
-    max-width: 450px; /* Slightly wider to match main card feel */
-aspect-ratio: 9/16;
-    display: flex;
-    display: flex; /* Use flex to center the card */
-align-items: center;
-justify-content: center;
-overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 450px;
+  aspect-ratio: 9/16;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .animate-bg {
-position: absolute;
-inset: 0;
-background-size: cover;
-background-position: center;
-opacity: 0.3;
-filter: grayscale(100%);
-z-index: 0;
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  filter: grayscale(100%);
+  z-index: 0;
 }
 
 .animate-card {
-position: relative;
-    width: 88%;
-    width: 88%; /* Consistent width */
-background: var(--charcoal);
-border: 1px solid var(--bone-faint);
-    padding: 1.8rem;
-    padding: 1.8rem; /* Match script-card padding */
-display: flex;
-flex-direction: column;
-z-index: 10;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5); /* Add depth */
+  position: relative;
+  width: 88%;
+  border: 3px solid var(--black);
+  z-index: 10;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
-/* Gold Bar match */
-.animate-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 40px;
-height: 2px;
-background: var(--gold);
+.animate-card-top {
+  background: var(--card-yellow);
+  color: var(--black);
+  padding: 1.5rem;
+  position: relative;
 }
 
-/* Typography matching main site exactly */
+.animate-stamp {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.4rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 0.25rem 0.5rem;
+  border: 1.5px solid currentColor;
+  opacity: 0.7;
+}
+
 .animate-meta {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 1rem;
-padding-bottom: 0.75rem;
-border-bottom: 1px solid var(--bone-faint);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
 .animate-context {
-font-size: 0.46rem;
-letter-spacing: 0.15em;
-opacity: 0.4;
-text-transform: uppercase;
-}
-
-.animate-spice {
-font-size: 0.46rem;
-letter-spacing: 0.1em;
-color: var(--gold);
-text-transform: uppercase;
-}
-
-.animate-subtext {
-font-size: 0.5rem;
-letter-spacing: 0.08em;
-color: var(--gold);
-margin-bottom: 1.1rem;
-font-style: italic;
-opacity: 0;
-transform: translateY(10px);
-}
-
-.animate-subtext::before {
-content: 'SUBTEXT: ';
-opacity: 0.5;
-font-style: normal;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
 }
 
 .animate-trigger-wrapper {
-margin-bottom: 0.95rem;
+  margin-bottom: 0.5rem;
 }
 
 .animate-label {
-display: block;
-font-size: 0.46rem;
-opacity: 0.4;
-margin-bottom: 0.28rem;
-letter-spacing: 0.2em;
-color: var(--bone);
-text-transform: uppercase;
+  display: block;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  margin-bottom: 0.3rem;
 }
 
 .animate-trigger-text {
-font-family: 'Space Mono', monospace;
-font-size: 0.6rem;
-color: var(--bone-dim);
-letter-spacing: 0.05em;
-line-height: 1.6;
-opacity: 0;
-display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.4;
+  opacity: 0;
 }
 
-.animate-response-wrapper {
-margin-bottom: 1.3rem;
+.animate-subtext {
+  font-size: 0.55rem;
+  font-style: italic;
+  opacity: 0;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.15);
+  transform: translateY(10px);
 }
 
-.animate-label-gold {
-font-size: 0.46rem;
-color: var(--gold);
-margin-bottom: 0.55rem;
-letter-spacing: 0.2em;
-text-transform: uppercase;
+.animate-subtext::before {
+  content: 'SUBTEXT: ';
+  font-style: normal;
+  font-weight: 700;
+  opacity: 0.6;
 }
 
-/* Response Text - Larger and sharper like main site */
+.animate-card-bottom {
+  background: var(--bg);
+  border-top: 3px solid var(--black);
+  padding: 1.25rem 1.5rem;
+}
+
+.animate-response-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.animate-response-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.animate-response-type {
+  background: var(--black);
+  color: var(--white);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.45rem;
+}
+
+.animate-spice {
+  font-size: 0.9rem;
+}
+
 .animate-response-text {
-font-family: 'Playfair Display', serif;
-    font-size: clamp(1.2rem, 2.3vw, 1.65rem);
-    font-size: clamp(1.2rem, 2.3vw, 1.65rem); /* Matches .script-text */
-line-height: 1.4;
-color: var(--cream);
-min-height: 2.8rem;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  line-height: 1.45;
+  color: var(--text);
+  min-height: 2.5rem;
 }
 
-/* Word wrapping logic */
-/* Word wrapping fix */
 .animate-response-text .word {
-display: inline-block;
-white-space: nowrap;
-margin-right: 0.25em;
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 0.25em;
 }
 
 .animate-response-text .char {
-opacity: 0;
-display: inline-block;
+  opacity: 0;
+  display: inline-block;
 }
 
 .animate-footer {
-font-size: 0.46rem;
-letter-spacing: 0.15em;
-opacity: 0.25;
-padding-top: 0.95rem;
-border-top: 1px solid var(--bone-faint);
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
 }
 
-/* Controls at bottom of screen */
 .animate-controls {
-position: absolute;
-bottom: 2rem;
-display: flex;
-gap: 1rem;
-z-index: 20;
-transition: opacity 0.5s ease;
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  z-index: 20;
+  transition: opacity 0.5s ease;
 }
 
 .animate-hint {
-position: absolute;
-bottom: 5rem;
-font-size: 0.6rem;
-letter-spacing: 0.15em;
-color: var(--bone-dim);
-opacity: 0.5;
-z-index: 20;
-text-transform: uppercase;
-transition: opacity 0.5s ease;
+  position: absolute;
+  bottom: 5rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  z-index: 20;
+  transition: opacity 0.5s ease;
 }
 
-/* Clean mode for recording */
 .animate-overlay.clean-mode .animate-controls,
 .animate-overlay.clean-mode .animate-hint {
-opacity: 0;
-pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Animations */
-.animate-subtext.show, .animate-trigger-text.show {
-animation: fadeUp 0.6s ease forwards;
+.animate-subtext.show,
+.animate-trigger-text.show {
+  animation: fadeUp 0.6s ease forwards;
 }
 
 .animate-response-text .char.show {
-animation: charIn 0.05s ease forwards;
+  animation: charIn 0.05s ease forwards;
 }
 
-@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes charIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-@media(max-width:900px){
-.logo-sub{display:none}
-.main-content{flex-direction:column}
-.control-panel{width:100%;min-width:0;border-right:none;border-bottom:1px solid var(--bone-faint);padding:1.1rem;max-height:none}
-.control-panel.hidden{display:none}
-.config-row{flex-direction:column;gap:.5rem}
-.config-group{min-width:100%}
-.triggers-grid{max-height:none;overflow-y:visible}
-.tone-buttons{flex-direction:row;flex-wrap:wrap}
-.tone-btn{flex:1 1 calc(50% - .15rem);text-align:center;padding:.6rem .35rem;font-size:.62rem;flex-direction:column;gap:.15rem}
-.tone-desc{display:none}
-.display-panel{padding:1.1rem;min-height:50vh}
-.display-panel.hidden{display:none}
-.script-card{padding:1.3rem 1.1rem}
-.back-btn{position:absolute;top:.8rem;left:.8rem;z-index:20}
-.controls{flex-direction:column;width:100%}
-.control-btn{width:100%}
+@keyframes charIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-@media(min-width:901px){.mobile-only{display:none!important}}
-.script-card:not(.active){display:none}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .logo-sub { display: none; }
+  
+  .main-content { flex-direction: column; }
+  
+  .control-panel {
+    width: 100%;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 2px solid var(--border);
+    padding: 1rem;
+    max-height: none;
+  }
+  
+  .control-panel.hidden { display: none; }
+  
+  .config-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .config-group { min-width: 100%; }
+  
+  .triggers-grid {
+    max-height: none;
+    overflow-y: visible;
+  }
+  
+  .tone-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .tone-btn {
+    flex: 1 1 calc(50% - 0.15rem);
+    text-align: center;
+    padding: 0.6rem 0.35rem;
+    font-size: 0.6rem;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  
+  .tone-desc { display: none; }
+  
+  .display-panel {
+    padding: 1rem;
+    min-height: 55vh;
+  }
+  
+  .display-panel.hidden { display: none; }
+  
+  .script-card-top { padding: 1.25rem; }
+  .script-card-bottom { padding: 1rem 1.25rem; }
+  
+  .back-btn {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 20;
+  }
+  
+  .controls {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .control-btn { width: 100%; }
+}
+
+@media (min-width: 901px) {
+  .mobile-only { display: none !important; }
+}
+
+.script-card:not(.active) { display: none; }
 </style>
 </head>
 <body>
-<div class="film-grain"></div>
+
 <div class="tutorial-overlay" id="tutorialOverlay">
-<div class="tutorial-content">
-<div class="tutorial-step active" data-step="1">
-<div class="tutorial-title">The Protocol</div>
-<div class="tutorial-text">Scripts for the moments you didn't ask for.<br><br>When someone intrudes on your fertility, your family, or your choices — this tool helps you rewrite the scene.</div>
-<button class="tutorial-btn" onclick="goToStep(2)">BEGIN</button>
-<button class="tutorial-skip" onclick="completeTutorial()">Skip intro</button>
+  <div class="tutorial-content">
+    <div class="tutorial-step active" data-step="1">
+      <div class="tutorial-title">The Protocol</div>
+      <div class="tutorial-text">Scripts for the moments you didn't ask for.<br><br>When someone intrudes on your fertility, your family, or your choices — this tool helps you rewrite the scene.</div>
+      <button class="tutorial-btn" onclick="goToStep(2)">BEGIN</button>
+      <button class="tutorial-skip" onclick="completeTutorial()">Skip intro</button>
+    </div>
+    <div class="tutorial-step" data-step="2">
+      <div class="tutorial-title">The Trigger</div>
+      <div class="tutorial-text">Enter what they said — or choose from common triggers.</div>
+      <div class="tutorial-example">
+        <div class="tutorial-example-label">THEY SAID:</div>
+        <div class="tutorial-example-text">"You just need to relax and it will happen."</div>
+      </div>
+      <button class="tutorial-btn" onclick="goToStep(3)">NEXT</button>
+    </div>
+    <div class="tutorial-step" data-step="3">
+      <div class="tutorial-title">The Calibration</div>
+      <div class="tutorial-text">Tell us who said it, how spicy you want to go, and whether you speak as "I" or "We".</div>
+      <div class="tutorial-example">
+        <div class="tutorial-example-label">SETTINGS:</div>
+        <div class="tutorial-example-text">Context: Family / Stranger / Colleague / Medical<br>Spice: 🌶️ Mild / 🌶️🌶️ Medium / 🌶️🌶️🌶️ Hot<br>Perspective: I / We</div>
+      </div>
+      <button class="tutorial-btn" onclick="goToStep(4)">NEXT</button>
+    </div>
+    <div class="tutorial-step" data-step="4">
+      <div class="tutorial-title">The Voice</div>
+      <div class="tutorial-text">Choose your tone. Diplomat deflects gracefully. Critic cuts clean. Absurdist finds the dark humour. Realist speaks plain truth.</div>
+      <div class="tutorial-example">
+        <div class="tutorial-example-label">THE VOICES:</div>
+        <div class="tutorial-example-text">Diplomat — Graceful boundary<br>Critic — Sharp truth<br>Absurdist — Deadpan weird<br>Realist — Honest acceptance</div>
+      </div>
+      <button class="tutorial-btn" onclick="goToStep(5)">NEXT</button>
+    </div>
+    <div class="tutorial-step" data-step="5">
+      <div class="tutorial-title">The Export</div>
+      <div class="tutorial-text">Save your scene as an image. Hit "New Take" for variations. Instagram Stories, feed posts, or just for you.</div>
+      <button class="tutorial-btn" onclick="completeTutorial()">START</button>
+    </div>
+    <div class="tutorial-dots">
+      <div class="tutorial-dot active" data-dot="1"></div>
+      <div class="tutorial-dot" data-dot="2"></div>
+      <div class="tutorial-dot" data-dot="3"></div>
+      <div class="tutorial-dot" data-dot="4"></div>
+      <div class="tutorial-dot" data-dot="5"></div>
+    </div>
+  </div>
 </div>
-<div class="tutorial-step" data-step="2">
-<div class="tutorial-title">The Trigger</div>
-<div class="tutorial-text">Enter what they said — or choose from common triggers.</div>
-<div class="tutorial-text">Enter what they said, choose a common trigger, or hit 🎲 for a random scenario.</div>
-<div class="tutorial-example">
-<div class="tutorial-example-label">THEY SAID:</div>
-<div class="tutorial-example-text">"You just need to relax and it will happen."</div>
-</div>
-<button class="tutorial-btn" onclick="goToStep(3)">NEXT</button>
-</div>
-<div class="tutorial-step" data-step="3">
-<div class="tutorial-title">The Calibration</div>
-<div class="tutorial-text">Tell us who said it, how spicy you want to go, and whether you speak as "I" or "We".</div>
-<div class="tutorial-example">
-<div class="tutorial-example-label">SETTINGS:</div>
-<div class="tutorial-example-text">Context: Family / Stranger / Colleague / Medical<br>Spice: Mild / Medium / Hot<br>Perspective: I / We</div>
-</div>
-<button class="tutorial-btn" onclick="goToStep(4)">NEXT</button>
-</div>
-<div class="tutorial-step" data-step="4">
-<div class="tutorial-title">The Voice</div>
-<div class="tutorial-text">Choose your tone. Diplomat deflects gracefully. Critic cuts clean. Absurdist finds the dark humour. Realist speaks plain truth.</div>
-<div class="tutorial-example">
-<div class="tutorial-example-label">THE VOICES:</div>
-<div class="tutorial-example-text">Diplomat — Graceful boundary<br>Critic — Sharp truth<br>Absurdist — Deadpan weird<br>Realist — Honest acceptance</div>
-</div>
-<button class="tutorial-btn" onclick="goToStep(5)">NEXT</button>
-</div>
-<div class="tutorial-step" data-step="5">
-<div class="tutorial-title">The Export</div>
-<div class="tutorial-text">Save your scene as an image. Hit "New Take" for variations. Instagram Stories, feed posts, or just for you.</div>
-<div class="tutorial-text">Export as an image, or hit <strong>ANIMATE</strong> to create a video for your Story. Use "New Take" for variations.</div>
-<button class="tutorial-btn" onclick="completeTutorial()">START</button>
-</div>
-<div class="tutorial-dots">
-<div class="tutorial-dot active" data-dot="1"></div>
-<div class="tutorial-dot" data-dot="2"></div>
-<div class="tutorial-dot" data-dot="3"></div>
-<div class="tutorial-dot" data-dot="4"></div>
-<div class="tutorial-dot" data-dot="5"></div>
-</div>
-</div>
-</div>
+
 <div class="container">
-<header>
-<div class="header-left"><div class="logo">THE PROTOCOL<span class="logo-sub">MATTERHOOD</span></div></div>
-<div class="header-actions">
-<button class="icon-btn" id="themeToggle" title="Toggle light/dark mode">☀</button>
-<button class="icon-btn" onclick="showTutorial()" title="Help">?</button>
-<div class="rec-indicator"><div class="rec-dot"></div><span>REC</span></div>
-</div>
-</header>
-<div class="main-content">
-<div class="control-panel" id="controlPanel">
-<div class="input-section">
-<div class="section-label">THEY SAID:</div>
-<div class="input-row">
-<input type="text" class="trigger-input" id="triggerInput" placeholder="Type what they said...">
-<button class="surprise-btn" id="surpriseBtn" title="Random trigger">🎲</button>
-</div>
-</div>
-<div class="triggers-section">
-<div class="section-label">COMMON TRIGGERS:</div>
-<div class="triggers-grid" id="triggersGrid"></div>
-</div>
-<div class="config-row">
-<div class="config-group">
-<div class="section-label">THEY ARE:</div>
-<div class="toggle-group" id="contextGroup">
-<button class="toggle-btn active" data-context="stranger">STRANGER</button>
-<button class="toggle-btn" data-context="family">FAMILY</button>
-<button class="toggle-btn" data-context="colleague">COLLEAGUE</button>
-<button class="toggle-btn" data-context="medical">MEDICAL</button>
-</div>
-</div>
-</div>
-<div class="config-row">
-<div class="config-group">
-<div class="section-label">SPICE LEVEL:</div>
-<div class="spice-toggle" id="spiceGroup">
-<button class="spice-btn" data-spice="mild">MILD</button>
-<button class="spice-btn active" data-spice="medium">MEDIUM</button>
-<button class="spice-btn" data-spice="hot">HOT</button>
-</div>
-</div>
-<div class="config-group">
-<div class="section-label">PERSPECTIVE:</div>
-<div class="toggle-group" id="perspectiveGroup">
-<button class="toggle-btn" data-perspective="i">I</button>
-<button class="toggle-btn active" data-perspective="we">WE</button>
-</div>
-</div>
-</div>
-<div class="tone-section">
-<div class="section-label">YOUR VOICE:</div>
-<div class="tone-buttons">
-<button class="tone-btn" data-tone="diplomat"><span>DIPLOMAT</span><span class="tone-desc">Graceful</span></button>
-<button class="tone-btn" data-tone="critic"><span>CRITIC</span><span class="tone-desc">Sharp</span></button>
-<button class="tone-btn" data-tone="absurdist"><span>ABSURDIST</span><span class="tone-desc">Deadpan</span></button>
-<button class="tone-btn" data-tone="realist"><span>REALIST</span><span class="tone-desc">Honest</span></button>
-</div>
-</div>
-</div>
-<div class="display-panel" id="displayPanel">
-<div class="scene-bg" id="sceneBg"></div>
-<button class="control-btn mobile-only back-btn" id="backBtn" style="display:none">← BACK</button>
-<div class="script-display">
-<div class="placeholder-card" id="placeholderCard">
-<div class="placeholder-text"><span>Enter what they said.</span><span>Calibrate your response.</span><span>Choose your voice.</span></div>
-</div>
-<div class="script-card" id="scriptCard">
-<div class="script-meta">
-<span class="script-context" id="contextDisplay">STRANGER</span>
-<span class="script-spice" id="spiceDisplay">MEDIUM</span>
-</div>
-<div class="script-subtext" id="subtextDisplay"></div>
-<div class="script-trigger"><span class="script-trigger-label">THEY SAID:</span><span id="triggerDisplay"></span></div>
-<div class="script-response"><div class="script-response-label">YOU SAY:</div><div class="script-text" id="scriptText"></div></div>
-<div class="script-footer"><span>THE PROTOCOL</span><span>MATTERHOOD</span></div>
-</div>
-<div class="controls">
-<button class="control-btn" id="newTakeBtn" disabled>NEW TAKE</button>
-<button class="control-btn" id="copyBtn" disabled>COPY</button>
-<button class="control-btn" id="animateBtn" disabled>ANIMATE</button>
-<button class="control-btn primary" id="exportBtn" disabled>EXPORT</button>
-</div>
-</div>
-</div>
-</div>
-<div class="export-options" id="exportOptions">
-<div class="export-modal">
-<div class="export-title">Export Scene</div>
-<div class="export-subtitle">Choose your format</div>
-<div class="export-formats">
-<button class="export-format-btn" data-format="story"><span class="export-format-name">STORY</span><span class="export-format-size">1080 × 1920</span></button>
-<button class="export-format-btn" data-format="square"><span class="export-format-name">SQUARE</span><span class="export-format-size">1080 × 1080</span></button>
-<button class="export-format-btn" data-format="wide"><span class="export-format-name">WIDE</span><span class="export-format-size">1200 × 675</span></button>
-</div>
-<div class="export-toggles">
-<label class="export-toggle"><input type="checkbox" id="toggleQR" checked><span class="toggle-label">Include QR code</span></label>
-<label class="export-toggle"><input type="checkbox" id="toggleDual"><span class="toggle-label">Add "Why this hurts" card</span></label>
-</div>
-<div class="caption-section">
-<div class="caption-label">CAPTION (tap to copy)</div>
-<div class="caption-suggestions" id="captionSuggestions"></div>
-</div>
-<button class="export-close" id="exportClose">CANCEL</button>
-</div>
-</div>
-<div class="toast" id="toast">EXPORTED</div>
-<div class="animate-overlay" id="animateOverlay">
-<div class="animate-scene" id="animateScene">
-<div class="animate-bg" id="animateBg"></div>
+  <header>
+    <div class="header-left">
+      <div class="logo">THE PROTOCOL<span class="logo-sub">MATTERHOOD</span></div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle light/dark mode">☾</button>
+      <button class="icon-btn" onclick="showTutorial()" title="Help">?</button>
+      <div class="rec-indicator"><div class="rec-dot"></div><span>REC</span></div>
+    </div>
+  </header>
 
-<div class="animate-card">
-<div class="animate-meta">
-<span class="animate-context" id="animContext">STRANGER</span>
-<span class="animate-spice" id="animSpice">HOT</span>
+  <div class="main-content">
+    <div class="control-panel" id="controlPanel">
+      <div class="input-section">
+        <div class="section-label">THEY SAID:</div>
+        <div class="input-row">
+          <input type="text" class="trigger-input" id="triggerInput" placeholder="Type what they said...">
+          <button class="surprise-btn" id="surpriseBtn" title="Random trigger">🎲</button>
+        </div>
+      </div>
+
+      <div class="triggers-section">
+        <div class="section-label">COMMON TRIGGERS:</div>
+        <div class="triggers-grid" id="triggersGrid"></div>
+      </div>
+
+      <div class="config-row">
+        <div class="config-group">
+          <div class="section-label">THEY ARE:</div>
+          <div class="toggle-group" id="contextGroup">
+            <button class="toggle-btn active" data-context="stranger">STRANGER</button>
+            <button class="toggle-btn" data-context="family">FAMILY</button>
+            <button class="toggle-btn" data-context="colleague">COLLEAGUE</button>
+            <button class="toggle-btn" data-context="medical">MEDICAL</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-row">
+        <div class="config-group">
+          <div class="section-label">SPICE LEVEL:</div>
+          <div class="spice-toggle" id="spiceGroup">
+            <button class="spice-btn" data-spice="mild">🌶️</button>
+            <button class="spice-btn active" data-spice="medium">🌶️🌶️</button>
+            <button class="spice-btn" data-spice="hot">🌶️🌶️🌶️</button>
+          </div>
+        </div>
+        <div class="config-group">
+          <div class="section-label">PERSPECTIVE:</div>
+          <div class="toggle-group" id="perspectiveGroup">
+            <button class="toggle-btn" data-perspective="i">I</button>
+            <button class="toggle-btn active" data-perspective="we">WE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tone-section">
+        <div class="section-label">YOUR VOICE:</div>
+        <div class="tone-buttons">
+          <button class="tone-btn" data-tone="diplomat"><span>DIPLOMAT</span><span class="tone-desc">Graceful</span></button>
+          <button class="tone-btn" data-tone="critic"><span>CRITIC</span><span class="tone-desc">Sharp</span></button>
+          <button class="tone-btn" data-tone="absurdist"><span>ABSURDIST</span><span class="tone-desc">Deadpan</span></button>
+          <button class="tone-btn" data-tone="realist"><span>REALIST</span><span class="tone-desc">Honest</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="display-panel" id="displayPanel">
+      <div class="scene-bg" id="sceneBg"></div>
+      <button class="control-btn mobile-only back-btn" id="backBtn" style="display:none">← BACK</button>
+
+      <div class="script-display">
+        <div class="placeholder-card" id="placeholderCard">
+          <div class="placeholder-text">
+            <span>Enter what they said.</span>
+            <span>Calibrate your response.</span>
+            <span>Choose your voice.</span>
+          </div>
+        </div>
+
+        <div class="script-card" id="scriptCard">
+          <div class="script-card-top">
+            <span class="script-stamp">MATTERHOOD</span>
+            <div class="script-meta">
+              <span class="script-context" id="contextDisplay">STRANGER</span>
+            </div>
+            <div class="script-trigger-section">
+              <div class="script-trigger-label">THEY SAID:</div>
+              <div class="script-trigger-text" id="triggerDisplay"></div>
+            </div>
+            <div class="script-subtext" id="subtextDisplay"></div>
+          </div>
+          <div class="script-card-bottom">
+            <div class="script-response-header">
+              <div class="script-response-label">
+                RESPONSE <span class="script-response-type" id="toneDisplay">DIPLOMAT</span>
+              </div>
+              <span class="script-spice" id="spiceDisplay">🌶️🌶️</span>
+            </div>
+            <div class="script-text" id="scriptText"></div>
+            <div class="script-footer">
+              <span>THE PROTOCOL</span>
+              <span>+11 MORE →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="control-btn" id="newTakeBtn" disabled>NEW TAKE</button>
+          <button class="control-btn" id="copyBtn" disabled>COPY</button>
+          <button class="control-btn" id="animateBtn" disabled>ANIMATE</button>
+          <button class="control-btn primary" id="exportBtn" disabled>EXPORT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="export-options" id="exportOptions">
+    <div class="export-modal">
+      <div class="export-title">Export Scene</div>
+      <div class="export-subtitle">CHOOSE YOUR FORMAT</div>
+      <div class="export-formats">
+        <button class="export-format-btn" data-format="story"><span class="export-format-name">STORY</span><span class="export-format-size">1080 × 1920</span></button>
+        <button class="export-format-btn" data-format="square"><span class="export-format-name">SQUARE</span><span class="export-format-size">1080 × 1080</span></button>
+        <button class="export-format-btn" data-format="wide"><span class="export-format-name">WIDE</span><span class="export-format-size">1200 × 675</span></button>
+      </div>
+      <div class="export-toggles">
+        <label class="export-toggle"><input type="checkbox" id="toggleQR" checked><span>Include QR code</span></label>
+        <label class="export-toggle"><input type="checkbox" id="toggleDual"><span>Add "Why this hurts" card</span></label>
+      </div>
+      <div class="caption-section">
+        <div class="caption-label">CAPTION (TAP TO COPY)</div>
+        <div class="caption-suggestions" id="captionSuggestions"></div>
+      </div>
+      <button class="export-close" id="exportClose">CANCEL</button>
+    </div>
+  </div>
+
+  <div class="animate-overlay" id="animateOverlay">
+    <div class="animate-scene" id="animateScene">
+      <div class="animate-bg" id="animateBg"></div>
+      <div class="animate-card">
+        <div class="animate-card-top" id="animCardTop">
+          <span class="animate-stamp">MATTERHOOD</span>
+          <div class="animate-meta">
+            <span class="animate-context" id="animContext">STRANGER</span>
+          </div>
+          <div class="animate-trigger-wrapper">
+            <span class="animate-label">THEY SAID:</span>
+            <span class="animate-trigger-text" id="animTrigger"></span>
+          </div>
+          <div class="animate-subtext" id="animSubtext"></div>
+        </div>
+        <div class="animate-card-bottom">
+          <div class="animate-response-header">
+            <div class="animate-response-label">
+              RESPONSE <span class="animate-response-type" id="animTone">DIPLOMAT</span>
+            </div>
+            <span class="animate-spice" id="animSpice">🌶️🌶️</span>
+          </div>
+          <div class="animate-response-text" id="animResponse"></div>
+          <div class="animate-footer">
+            <span>THE PROTOCOL</span>
+            <span>MATTERHOOD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="animate-hint">Screen record this for your story</div>
+    <div class="animate-controls">
+      <button class="control-btn" id="replayBtn">REPLAY</button>
+      <button class="control-btn" id="animCloseBtn">CLOSE</button>
+    </div>
+  </div>
 </div>
 
-<div class="animate-subtext" id="animSubtext"></div>
-
-<div class="animate-trigger-wrapper">
-<span class="animate-label">THEY SAID:</span>
-<span class="animate-trigger-text" id="animTrigger"></span>
-</div>
-
-<div class="animate-response-wrapper">
-<div class="animate-label-gold">YOU SAY:</div>
-<div class="animate-response-text" id="animResponse"></div>
-</div>
-
-<div class="animate-footer">
-<span>THE PROTOCOL</span>
-<span>MATTERHOOD</span>
-</div>
-</div>
-</div>
-
-<div class="animate-hint">Screen record this for your story</div>
-
-<div class="animate-controls">
-<button class="control-btn" id="replayBtn">REPLAY</button>
-<button class="control-btn" id="animCloseBtn">CLOSE</button>
-</div>
-</div>
-</div>
 <footer>CRAIG & COURTNEY — <a href="#">BUY US A CHIP</a></footer>
-<script>
-// THE PROTOCOL v2.1 — Expanded Variation Engine
-// Triggers loaded from external JSON
 
+<div class="toast" id="toast">EXPORTED</div>
+
+<script>
+// THE PROTOCOL v3.0 — Bold Design System
 let TRIGGERS = [];
 
-// Tutorial (global scope for onclick handlers)
-function goToStep(n){document.querySelectorAll('.tutorial-step').forEach(s=>s.classList.remove('active'));document.querySelector(`.tutorial-step[data-step="${n}"]`)?.classList.add('active');document.querySelectorAll('.tutorial-dot').forEach(d=>d.classList.remove('active'));document.querySelector(`.tutorial-dot[data-dot="${n}"]`)?.classList.add('active');}
-function completeTutorial(){localStorage.setItem('protocol_tutorial_v4','true');document.getElementById('tutorialOverlay').classList.add('hidden');}
-function showTutorial(){document.getElementById('tutorialOverlay').classList.remove('hidden');goToStep(1);}
+// Card colors that cycle
+const CARD_COLORS = ['color-yellow', 'color-pink', 'color-blue', 'color-orange', 'color-purple', 'color-green', 'color-mint', 'color-red'];
+let colorIndex = 0;
 
-// Load triggers from JSON
-async function loadTriggers() {
-try {
-const response = await fetch('triggers.json');
-TRIGGERS = await response.json();
-console.log(`Loaded ${TRIGGERS.length} triggers`);
-initApp();
-} catch (err) {
-console.error('Failed to load triggers:', err);
-document.body.innerHTML = '<div style="padding:2rem;color:#c41e1e;">Failed to load response data. Please refresh.</div>';
+// Tutorial
+function goToStep(n) {
+  document.querySelectorAll('.tutorial-step').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.tutorial-step[data-step="${n}"]`)?.classList.add('active');
+  document.querySelectorAll('.tutorial-dot').forEach(d => d.classList.remove('active'));
+  document.querySelector(`.tutorial-dot[data-dot="${n}"]`)?.classList.add('active');
 }
+
+function completeTutorial() {
+  localStorage.setItem('protocol_tutorial_v5', 'true');
+  document.getElementById('tutorialOverlay').classList.add('hidden');
+}
+
+function showTutorial() {
+  document.getElementById('tutorialOverlay').classList.remove('hidden');
+  goToStep(1);
+}
+
+// Load triggers
+async function loadTriggers() {
+  try {
+    const response = await fetch('triggers.json');
+    TRIGGERS = await response.json();
+    console.log(`Loaded ${TRIGGERS.length} triggers`);
+    initApp();
+  } catch (err) {
+    console.error('Failed to load triggers:', err);
+    document.body.innerHTML = '<div style="padding:2rem;color:#E84855;">Failed to load response data. Please refresh.</div>';
+  }
 }
 
 function initApp() {
+  const COMMON_TRIGGERS = ["Just relax", "Why don't you adopt?", "Have you tried IVF?", "Everything happens for a reason", "My cousin stopped trying", "At least you have freedom", "Who's the problem?", "Tick tock", "You'll regret it", "You wouldn't understand", "Must be nice to sleep in", "At least you have each other"];
+  const CONTEXT_LABELS = { stranger: "STRANGER", family: "FAMILY", colleague: "COLLEAGUE", medical: "MEDICAL" };
+  const SPICE_LABELS = { mild: "🌶️", medium: "🌶️🌶️", hot: "🌶️🌶️🌶️" };
+  const TONE_LABELS = { diplomat: "DIPLOMAT", critic: "CRITIC", absurdist: "ABSURDIST", realist: "REALIST" };
 
-// ============================================================================
-// COMMON TRIGGERS DISPLAY + ENGINE
-// ============================================================================
+  let currentTone = null, currentTrigger = null, currentResponse = null, currentImageUrl = '', currentSubtext = '', currentMatchedTrigger = null;
+  let context = 'stranger', spice = 'medium', perspective = 'we';
+  let usedResponses = {};
 
-const COMMON_TRIGGERS=["Just relax","Why don't you adopt?","Have you tried IVF?","Everything happens for a reason","My cousin stopped trying","At least you have freedom","Who's the problem?","Tick tock","You'll regret it","You wouldn't understand","Must be nice to sleep in","At least you have each other"];
-const CONTEXT_LABELS={stranger:"STRANGER",family:"FAMILY",colleague:"COLLEAGUE",medical:"MEDICAL"};
-const SPICE_LABELS={mild:"MILD",medium:"MEDIUM",hot:"HOT"};
+  // Check tutorial
+  if (localStorage.getItem('protocol_tutorial_v5')) document.getElementById('tutorialOverlay').classList.add('hidden');
 
-let currentTone=null,currentTrigger=null,currentResponse=null,currentImageUrl='',currentSubtext='',currentMatchedTrigger=null;
-let context='stranger',spice='medium',perspective='we';
-let usedResponses={};
+  // Matching functions
+  function normalize(t) { return t.toLowerCase().replace(/['']/g, "'").replace(/[""]/g, '"').replace(/[?!.,;:]/g, '').replace(/\s+/g, ' ').trim(); }
+  
+  const FILLER_WORDS = new Set(['a', 'an', 'the', 'you', 'your', 'i', 'my', 'we', 'our', 'just', 'really', 'actually', 'maybe', 'perhaps', 'ever', 'even', 'so', 'very', 'like', 'know', 'think', 'well', 'oh', 'um', 'uh', 'hey', 'but', 'and', 'or', 'if', 'then', 'have', 'has', 'had', 'do', 'does', 'did', 'should', 'could', 'would', 'can', 'will', 'been', 'being', 'gonna', 'gotta', 'wanna', 'dont', 'didnt', 'cant', 'wont', 'youre', 'youve', 'youll', 'ive', 'im', 'were', 'weve', 'thats', 'its', 'hes', 'shes', 'theyre', 'theyve']);
 
-// Check tutorial on init
-if(localStorage.getItem('protocol_tutorial_v4'))document.getElementById('tutorialOverlay').classList.add('hidden');
+  function removeFillers(text) { return text.split(' ').filter(w => !FILLER_WORDS.has(w)).join(' '); }
 
-// Matching - Fuzzy search with multiple strategies
-function normalize(t){return t.toLowerCase().replace(/['']/g,"'").replace(/[""]/g,'"').replace(/[?!.,;:]/g,'').replace(/\s+/g,' ').trim();}
+  function similarity(a, b) {
+    if (a === b) return 1;
+    if (a.length < 2 || b.length < 2) return 0;
+    const bigramsA = new Map();
+    for (let i = 0; i < a.length - 1; i++) {
+      const bg = a.substring(i, i + 2);
+      bigramsA.set(bg, (bigramsA.get(bg) || 0) + 1);
+    }
+    let matches = 0;
+    for (let i = 0; i < b.length - 1; i++) {
+      const bg = b.substring(i, i + 2);
+      if (bigramsA.get(bg) > 0) { matches++; bigramsA.set(bg, bigramsA.get(bg) - 1); }
+    }
+    return (2 * matches) / (a.length + b.length - 2);
+  }
 
-// Common filler words to ignore when matching
-const FILLER_WORDS=new Set(['a','an','the','you','your','i','my','we','our','just','really','actually','maybe','perhaps','ever','even','so','very','like','know','think','well','oh','um','uh','hey','but','and','or','if','then','have','has','had','do','does','did','should','could','would','can','will','been','being','gonna','gotta','wanna','dont','didnt','cant','wont','youre','youve','youll','ive','im','were','weve','thats','its','hes','shes','theyre','theyve']);
+  function findMatch(input) {
+    const n = normalize(input);
+    if (!n) return null;
+    const nNoFill = removeFillers(n);
+    let bestMatch = null, bestScore = 0;
 
-// Remove filler words from text
-function removeFillers(text){
-return text.split(' ').filter(w=>!FILLER_WORDS.has(w)).join(' ');
+    for (const t of TRIGGERS) {
+      for (const p of t.triggers) {
+        const pattern = normalize(p);
+        const patternNoFill = removeFillers(pattern);
+        if (n.includes(pattern)) return t;
+        if (nNoFill.includes(patternNoFill) && patternNoFill.length > 3) { if (0.95 > bestScore) { bestScore = 0.95; bestMatch = t; } continue; }
+        if (n.includes(patternNoFill) && patternNoFill.length > 3) { if (0.9 > bestScore) { bestScore = 0.9; bestMatch = t; } continue; }
+        const patternWords = patternNoFill.split(' ').filter(w => w.length > 2);
+        const inputWords = nNoFill.split(' ').filter(w => w.length > 2);
+        if (patternWords.length > 0) {
+          let wordMatches = 0;
+          for (const pw of patternWords) {
+            for (const iw of inputWords) {
+              if (pw === iw) { wordMatches++; break; }
+              if (pw.length > 3 && iw.length > 3 && similarity(pw, iw) > 0.7) { wordMatches += 0.8; break; }
+            }
+          }
+          const score = wordMatches / patternWords.length;
+          if (score > bestScore && score >= 0.5) { bestScore = score; bestMatch = t; }
+        }
+        const sim = similarity(nNoFill, patternNoFill);
+        if (sim > bestScore && sim >= 0.6) { bestScore = sim; bestMatch = t; }
+      }
+    }
+    return bestMatch;
+  }
+
+  function swapPerspective(text) {
+    if (perspective === 'i') {
+      return text.replace(/\{We're\}/g, "I'm").replace(/\{we're\}/g, "I'm").replace(/\{We've\}/g, "I've").replace(/\{we've\}/g, "I've").replace(/\{We'll\}/g, "I'll").replace(/\{we'll\}/g, "I'll").replace(/\{We'd\}/g, "I'd").replace(/\{we'd\}/g, "I'd").replace(/\{We\}/g, "I").replace(/\{we\}/g, "I").replace(/\{Our\}/g, "My").replace(/\{our\}/g, "my").replace(/\{us\}/g, "me").replace(/\{Us\}/g, "Me").replace(/\{I\}'m/g, "I'm").replace(/\{I\}'ve/g, "I've").replace(/\{I\}'ll/g, "I'll").replace(/\{I\}'d/g, "I'd").replace(/\{I\}/g, "I").replace(/\{I'm\}/g, "I'm").replace(/\{My\}/g, "My").replace(/\{my\}/g, "my").replace(/\{me\}/g, "me");
+    } else {
+      return text.replace(/\{We're\}/g, "We're").replace(/\{we're\}/g, "we're").replace(/\{We've\}/g, "We've").replace(/\{we've\}/g, "we've").replace(/\{We'll\}/g, "We'll").replace(/\{we'll\}/g, "we'll").replace(/\{We'd\}/g, "We'd").replace(/\{we'd\}/g, "we'd").replace(/\{We\}/g, "We").replace(/\{we\}/g, "we").replace(/\{Our\}/g, "Our").replace(/\{our\}/g, "our").replace(/\{us\}/g, "us").replace(/\{Us\}/g, "Us").replace(/\{I\}'m/g, "We're").replace(/\{I\}'ve/g, "We've").replace(/\{I\}'ll/g, "We'll").replace(/\{I\}'d/g, "We'd").replace(/\{I\}/g, "We").replace(/\{I'm\}/g, "We're").replace(/\{My\}/g, "Our").replace(/\{my\}/g, "our").replace(/\{me\}/g, "us");
+    }
+  }
+
+  function getResponseKey(trigger, tone, spiceLevel) { return `${trigger.triggers[0]}-${tone}-${spiceLevel}`; }
+
+  function getRandomResponse(variants, key) {
+    if (!usedResponses[key]) usedResponses[key] = [];
+    const available = variants.filter((_, i) => !usedResponses[key].includes(i));
+    if (available.length === 0) { usedResponses[key] = []; return variants[Math.floor(Math.random() * variants.length)]; }
+    const idx = variants.indexOf(available[Math.floor(Math.random() * available.length)]);
+    usedResponses[key].push(idx);
+    return variants[idx];
+  }
+
+  function setBackground(url) {
+    currentImageUrl = url;
+    const bg = document.getElementById('sceneBg');
+    bg.classList.remove('active');
+    const img = new Image();
+    img.onload = () => {
+      setTimeout(() => {
+        bg.style.backgroundImage = `url('${url}')`;
+        bg.classList.add('active');
+      }, 100);
+    };
+    img.src = url;
+  }
+
+  function generateScene(tone) {
+    const input = document.getElementById('triggerInput').value.trim();
+    if (!input) { document.getElementById('triggerInput').focus(); return; }
+    
+    currentTone = tone;
+    const match = findMatch(input);
+    currentMatchedTrigger = match;
+
+    if (match) {
+      currentSubtext = match.subtext;
+      const toneResponses = match.responses[tone];
+      const variants = toneResponses[spice] || toneResponses.medium;
+      const key = getResponseKey(match, tone, spice);
+      const rawResponse = Array.isArray(variants) ? getRandomResponse(variants, key) : variants;
+      currentResponse = swapPerspective(rawResponse);
+      setBackground(match.image);
+    } else {
+      currentSubtext = "A question that doesn't deserve this much thought.";
+      const fallbacks = ["Some questions don't deserve answers. This is one of them.", "Not every question deserves {our} energy.", "That one's not in {our} script. For good reason.", "{We} don't have a rehearsed response for that."];
+      currentResponse = swapPerspective(fallbacks[Math.floor(Math.random() * fallbacks.length)]);
+      setBackground('https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=1600&q=80');
+    }
+
+    currentTrigger = input;
+
+    // Update card
+    const card = document.getElementById('scriptCard');
+    
+    // Cycle card color
+    CARD_COLORS.forEach(c => card.classList.remove(c));
+    card.classList.add(CARD_COLORS[colorIndex]);
+    colorIndex = (colorIndex + 1) % CARD_COLORS.length;
+
+    document.getElementById('subtextDisplay').textContent = currentSubtext;
+    document.getElementById('triggerDisplay').textContent = input;
+    document.getElementById('scriptText').textContent = currentResponse;
+    document.getElementById('contextDisplay').textContent = CONTEXT_LABELS[context];
+    document.getElementById('spiceDisplay').textContent = SPICE_LABELS[spice];
+    document.getElementById('toneDisplay').textContent = TONE_LABELS[tone];
+
+    document.getElementById('placeholderCard').style.display = 'none';
+    card.classList.remove('active');
+    void card.offsetWidth;
+    card.classList.add('active');
+
+    document.getElementById('newTakeBtn').disabled = false;
+    document.getElementById('copyBtn').disabled = false;
+    document.getElementById('animateBtn').disabled = false;
+    document.getElementById('exportBtn').disabled = false;
+
+    if (window.innerWidth <= 900) {
+      document.getElementById('controlPanel').classList.add('hidden');
+      document.getElementById('displayPanel').classList.remove('hidden');
+      document.getElementById('backBtn').style.display = 'block';
+    }
+  }
+
+  // Toggle handlers
+  function setupToggles(groupId, callback) {
+    document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        callback(btn.dataset.context || btn.dataset.spice || btn.dataset.perspective);
+      });
+    });
+  }
+
+  setupToggles('contextGroup', v => { context = v; });
+  setupToggles('spiceGroup', v => { spice = v; });
+  setupToggles('perspectiveGroup', v => { perspective = v; });
+
+  // Chips
+  COMMON_TRIGGERS.forEach(t => {
+    const c = document.createElement('button');
+    c.className = 'trigger-chip';
+    c.textContent = t;
+    c.onclick = () => { document.getElementById('triggerInput').value = t; };
+    document.getElementById('triggersGrid').appendChild(c);
+  });
+
+  // Tone buttons
+  document.querySelectorAll('.tone-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      generateScene(btn.dataset.tone);
+    });
+  });
+
+  // Controls
+  document.getElementById('newTakeBtn').addEventListener('click', () => { if (currentTone) generateScene(currentTone); });
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    if (currentResponse) {
+      navigator.clipboard.writeText(currentResponse).then(() => showToast('COPIED'));
+    }
+  });
+
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    generateCaptions();
+    document.getElementById('exportOptions').classList.add('active');
+  });
+
+  document.getElementById('exportClose').addEventListener('click', () => document.getElementById('exportOptions').classList.remove('active'));
+  document.getElementById('exportOptions').addEventListener('click', e => { if (e.target === e.currentTarget) e.currentTarget.classList.remove('active'); });
+
+  // Animation
+  let animationTimeout = null;
+  let uiTimeout = null;
+
+  function playAnimation() {
+    if (animationTimeout) clearTimeout(animationTimeout);
+    if (uiTimeout) clearTimeout(uiTimeout);
+
+    const overlay = document.getElementById('animateOverlay');
+    overlay.classList.add('clean-mode');
+
+    // Set card color
+    const cardTop = document.getElementById('animCardTop');
+    const currentColor = document.getElementById('scriptCard').className.match(/color-\w+/);
+    if (currentColor) {
+      cardTop.style.background = getComputedStyle(document.documentElement).getPropertyValue(`--card-${currentColor[0].replace('color-', '')}`);
+    }
+
+    document.getElementById('animateBg').style.backgroundImage = `url('${currentImageUrl}')`;
+    document.getElementById('animContext').textContent = CONTEXT_LABELS[context];
+    document.getElementById('animSpice').textContent = SPICE_LABELS[spice];
+    document.getElementById('animTone').textContent = TONE_LABELS[currentTone];
+    document.getElementById('animSubtext').textContent = currentSubtext;
+    document.getElementById('animTrigger').textContent = currentTrigger;
+
+    const responseEl = document.getElementById('animResponse');
+    const words = currentResponse.split(' ');
+    const html = words.map(word => {
+      const chars = word.split('').map(c => `<span class="char">${c}</span>`).join('');
+      return `<span class="word">${chars}</span>`;
+    }).join(' ');
+    responseEl.innerHTML = html;
+
+    document.getElementById('animSubtext').classList.remove('show');
+    document.getElementById('animTrigger').classList.remove('show');
+    responseEl.querySelectorAll('.char').forEach(c => c.classList.remove('show'));
+
+    setTimeout(() => document.getElementById('animSubtext').classList.add('show'), 300);
+    setTimeout(() => document.getElementById('animTrigger').classList.add('show'), 900);
+
+    const chars = responseEl.querySelectorAll('.char');
+    chars.forEach((char, i) => {
+      animationTimeout = setTimeout(() => char.classList.add('show'), 1400 + i * 35);
+    });
+
+    const totalDuration = 1400 + (chars.length * 35) + 1500;
+    uiTimeout = setTimeout(() => { overlay.classList.remove('clean-mode'); }, totalDuration);
+  }
+
+  document.getElementById('animateBtn').addEventListener('click', () => {
+    document.getElementById('animateOverlay').classList.add('active');
+    playAnimation();
+  });
+
+  document.getElementById('replayBtn').addEventListener('click', playAnimation);
+
+  document.getElementById('animCloseBtn').addEventListener('click', () => {
+    document.getElementById('animateOverlay').classList.remove('active');
+    if (animationTimeout) clearTimeout(animationTimeout);
+    if (uiTimeout) clearTimeout(uiTimeout);
+    document.getElementById('animateOverlay').classList.remove('clean-mode');
+  });
+
+  // Surprise button
+  document.getElementById('surpriseBtn').addEventListener('click', () => {
+    const randomTrigger = TRIGGERS[Math.floor(Math.random() * TRIGGERS.length)];
+    const randomPhrase = randomTrigger.triggers[Math.floor(Math.random() * randomTrigger.triggers.length)];
+    document.getElementById('triggerInput').value = randomPhrase;
+
+    const contexts = ['stranger', 'family', 'colleague', 'medical'];
+    const randomContext = contexts[Math.floor(Math.random() * contexts.length)];
+    context = randomContext;
+    document.querySelectorAll('#contextGroup .toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.context === randomContext));
+
+    const spices = ['mild', 'medium', 'hot'];
+    const randomSpice = spices[Math.floor(Math.random() * spices.length)];
+    spice = randomSpice;
+    document.querySelectorAll('#spiceGroup .spice-btn').forEach(b => b.classList.toggle('active', b.dataset.spice === randomSpice));
+
+    const perspectives = ['i', 'we'];
+    const randomPerspective = perspectives[Math.floor(Math.random() * perspectives.length)];
+    perspective = randomPerspective;
+    document.querySelectorAll('#perspectiveGroup .toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.perspective === randomPerspective));
+
+    const tones = ['diplomat', 'critic', 'absurdist', 'realist'];
+    const randomTone = tones[Math.floor(Math.random() * tones.length)];
+    document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.tone-btn[data-tone="${randomTone}"]`).classList.add('active');
+    generateScene(randomTone);
+  });
+
+  // Captions
+  const CAPTIONS = [
+    "Things people actually say to us. Here's what we wish we'd said back.",
+    "Filed under: comments that don't help.",
+    "For everyone who's heard this one before.",
+    "Words we've been saving.",
+    "What I wanted to say vs. what I said: finally aligned.",
+    "This one's for the well-meaning but clueless.",
+    "Boundaries, but make it articulate.",
+    "The script I needed years ago.",
+    "Not all comments deserve a polite response.",
+    "Sharing because someone needs to hear this isn't okay."
+  ];
+
+  const CAPTIONS_EDUCATIONAL = [
+    "Sharing this to help people understand, not to call anyone out.",
+    "For those who want to support someone going through this—here's what actually helps.",
+    "Swipe to see why this comment hurts more than it helps.",
+    "Well-meaning doesn't always mean helpful. Here's what to know.",
+    "If you've said this, you're not alone. Here's how to do better."
+  ];
+
+  function generateCaptions() {
+    const isDual = document.getElementById('toggleDual').checked;
+    const captionPool = isDual ? [...CAPTIONS_EDUCATIONAL, ...CAPTIONS.slice(0, 3)] : CAPTIONS;
+    const shuffled = [...captionPool].sort(() => Math.random() - 0.5);
+    const selected = shuffled.slice(0, 3);
+
+    const container = document.getElementById('captionSuggestions');
+    container.innerHTML = selected.map((c, i) => `<div class="caption-item" data-caption-index="${i}">${c}</div>`).join('');
+    container.captionData = selected;
+
+    container.querySelectorAll('.caption-item').forEach((el, i) => {
+      el.addEventListener('click', () => {
+        const text = selected[i] + ' #matterhood';
+        navigator.clipboard.writeText(text).then(() => {
+          container.querySelectorAll('.caption-item').forEach(c => c.classList.remove('copied'));
+          el.classList.add('copied');
+          showToast('CAPTION COPIED');
+        });
+      });
+    });
+  }
+
+  document.getElementById('toggleDual').addEventListener('change', generateCaptions);
+
+  // Export
+  document.querySelectorAll('.export-format-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const format = btn.dataset.format;
+      const dims = { story: { w: 1080, h: 1920 }, square: { w: 1080, h: 1080 }, wide: { w: 1200, h: 675 } }[format];
+      await exportImage(dims.w, dims.h, format);
+      document.getElementById('exportOptions').classList.remove('active');
+    });
+  });
+
+  async function exportImage(w, h, format) {
+    const isLight = document.documentElement.dataset.theme !== 'dark';
+    const includeQR = document.getElementById('toggleQR').checked;
+    const includeDual = document.getElementById('toggleDual').checked;
+
+    // Get current card color
+    const cardMatch = document.getElementById('scriptCard').className.match(/color-(\w+)/);
+    const cardColorName = cardMatch ? cardMatch[1] : 'yellow';
+    const cardColors = {
+      yellow: '#FFE14D', pink: '#FF6B9D', blue: '#4ECDC4', orange: '#FF8C42',
+      purple: '#7B4FD3', red: '#E84855', green: '#5DBB63', mint: '#98DFAF'
+    };
+    const cardColor = cardColors[cardColorName] || '#FFE14D';
+    const cardTextColor = ['purple', 'red'].includes(cardColorName) ? '#FFFFFF' : '#0A0A0A';
+
+    const bgColor = isLight ? '#FFFFFF' : '#0A0A0A';
+    const frameBg = isLight ? '#F8F8F6' : '#141414';
+    const textColor = isLight ? '#0A0A0A' : '#F5F5F5';
+    const textDim = isLight ? '#6B6B6B' : '#999999';
+    const borderColor = isLight ? '#0A0A0A' : '#F5F5F5';
+    const borderLight = isLight ? '#E0E0E0' : '#333333';
+
+    const scale = w / 1080;
+    const padding = Math.round(50 * scale);
+    const qrSize = Math.round(70 * scale);
+
+    let qrDataUrl = null;
+    if (includeQR) {
+      const qrDiv = document.createElement('div');
+      document.body.appendChild(qrDiv);
+      new QRCode(qrDiv, { text: window.location.origin, width: qrSize * 3, height: qrSize * 3, colorDark: textColor, colorLight: 'transparent', correctLevel: QRCode.CorrectLevel.M });
+      await new Promise(r => setTimeout(r, 150));
+      const qrCanvas = qrDiv.querySelector('canvas');
+      if (qrCanvas) qrDataUrl = qrCanvas.toDataURL();
+      document.body.removeChild(qrDiv);
+    }
+
+    async function createBaseCanvas() {
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = bgColor; ctx.fillRect(0, 0, w, h);
+      if (currentImageUrl) {
+        try {
+          const img = new Image(); img.crossOrigin = 'anonymous';
+          await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = currentImageUrl; });
+          const imgScale = Math.max(w / img.width, h / img.height);
+          const sw = img.width * imgScale, sh = img.height * imgScale;
+          ctx.globalAlpha = isLight ? 0.1 : 0.2;
+          ctx.filter = 'grayscale(100%) contrast(1.1)';
+          ctx.drawImage(img, (w - sw) / 2, (h - sh) / 2, sw, sh);
+          ctx.globalAlpha = 1; ctx.filter = 'none';
+        } catch (e) {}
+      }
+      return { canvas, ctx };
+    }
+
+    async function drawResponseCard(ctx, areaW, areaH) {
+      const fontSize = {
+        stamp: Math.round(10 * scale),
+        meta: Math.round(12 * scale),
+        triggerLabel: Math.round(12 * scale),
+        trigger: Math.round(format === 'wide' ? 28 * scale : 34 * scale),
+        subtext: Math.round(14 * scale),
+        responseLabel: Math.round(12 * scale),
+        response: Math.round(format === 'wide' ? 26 * scale : 32 * scale),
+        footer: Math.round(12 * scale)
+      };
+
+      const textW = Math.round(format === 'wide' ? areaW * 0.6 : areaW * 0.7);
+
+      // Calculate heights
+      ctx.font = `italic ${fontSize.trigger}px 'Playfair Display', serif`;
+      const triggerLines = wrapText(ctx, currentTrigger, textW - padding);
+      
+      ctx.font = `${fontSize.subtext}px 'Space Mono', monospace`;
+      const subtextLines = wrapText(ctx, 'SUBTEXT: ' + currentSubtext, textW - padding);
+
+      ctx.font = `${fontSize.response}px 'Playfair Display', serif`;
+      const responseLines = wrapText(ctx, currentResponse, textW - padding);
+
+      const topH = padding + fontSize.meta + padding * 0.5 + fontSize.triggerLabel + padding * 0.2 + triggerLines.length * fontSize.trigger * 1.3 + padding * 0.5 + subtextLines.length * fontSize.subtext * 1.5 + padding * 0.5;
+      const bottomH = padding + fontSize.responseLabel + padding * 0.5 + responseLines.length * fontSize.response * 1.35 + padding + fontSize.footer + padding * 0.5;
+      
+      const frameW = textW + padding * 2;
+      const frameH = topH + bottomH + (includeQR ? qrSize + padding * 0.5 : 0);
+      const frameX = (areaW - frameW) / 2;
+      const frameY = (areaH - frameH) / 2;
+
+      // Draw border
+      ctx.strokeStyle = borderColor;
+      ctx.lineWidth = 6 * scale;
+      ctx.strokeRect(frameX, frameY, frameW, frameH);
+
+      // Draw top (colored)
+      ctx.fillStyle = cardColor;
+      ctx.fillRect(frameX + 3 * scale, frameY + 3 * scale, frameW - 6 * scale, topH - 3 * scale);
+
+      // Draw bottom (white/dark)
+      ctx.fillStyle = isLight ? '#FFFFFF' : '#141414';
+      ctx.fillRect(frameX + 3 * scale, frameY + topH, frameW - 6 * scale, frameH - topH - 3 * scale);
+
+      // Divider line
+      ctx.strokeStyle = borderColor;
+      ctx.lineWidth = 3 * scale;
+      ctx.beginPath();
+      ctx.moveTo(frameX, frameY + topH);
+      ctx.lineTo(frameX + frameW, frameY + topH);
+      ctx.stroke();
+
+      const contentX = frameX + padding;
+      const contentRight = frameX + frameW - padding;
+      let y = frameY + padding;
+
+      // STAMP
+      ctx.fillStyle = cardTextColor;
+      ctx.globalAlpha = 0.7;
+      ctx.font = `700 ${fontSize.stamp}px 'Space Mono', monospace`;
+      ctx.textAlign = 'right';
+      const stampText = 'MATTERHOOD';
+      const stampW = ctx.measureText(stampText).width + 16 * scale;
+      ctx.strokeStyle = cardTextColor;
+      ctx.lineWidth = 1.5 * scale;
+      ctx.strokeRect(contentRight - stampW, y - 4 * scale, stampW, fontSize.stamp + 8 * scale);
+      ctx.fillText(stampText, contentRight - 8 * scale, y + fontSize.stamp * 0.8);
+      ctx.globalAlpha = 1;
+
+      // META
+      y += fontSize.stamp + padding * 0.6;
+      ctx.font = `700 ${fontSize.meta}px 'Space Mono', monospace`;
+      ctx.textAlign = 'left';
+      ctx.fillStyle = cardTextColor;
+      ctx.globalAlpha = 0.7;
+      ctx.fillText(CONTEXT_LABELS[context], contentX, y);
+      ctx.globalAlpha = 1;
+      y += fontSize.meta + padding * 0.5;
+
+      // TRIGGER LABEL
+      ctx.fillStyle = cardTextColor;
+      ctx.globalAlpha = 0.6;
+      ctx.font = `700 ${fontSize.triggerLabel}px 'Space Mono', monospace`;
+      ctx.fillText('THEY SAID:', contentX, y);
+      ctx.globalAlpha = 1;
+      y += fontSize.triggerLabel + padding * 0.2;
+
+      // TRIGGER TEXT
+      ctx.fillStyle = cardTextColor;
+      ctx.font = `italic ${fontSize.trigger}px 'Playfair Display', serif`;
+      triggerLines.forEach(line => {
+        ctx.fillText(line, contentX, y + fontSize.trigger * 0.85);
+        y += fontSize.trigger * 1.3;
+      });
+      y += padding * 0.3;
+
+      // SUBTEXT
+      ctx.strokeStyle = cardTextColor;
+      ctx.globalAlpha = 0.15;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(contentX, y);
+      ctx.lineTo(contentRight - stampW - padding, y);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      y += padding * 0.4;
+
+      ctx.fillStyle = cardTextColor;
+      ctx.globalAlpha = 0.7;
+      ctx.font = `italic ${fontSize.subtext}px 'Space Mono', monospace`;
+      subtextLines.forEach(line => {
+        ctx.fillText(line, contentX, y + fontSize.subtext);
+        y += fontSize.subtext * 1.5;
+      });
+      ctx.globalAlpha = 1;
+
+      // BOTTOM SECTION
+      y = frameY + topH + padding;
+
+      // RESPONSE HEADER
+      ctx.fillStyle = textColor;
+      ctx.font = `700 ${fontSize.responseLabel}px 'Space Mono', monospace`;
+      ctx.textAlign = 'left';
+      ctx.fillText('RESPONSE', contentX, y);
+
+      // Tone badge
+      const toneText = TONE_LABELS[currentTone];
+      ctx.fillStyle = textColor;
+      ctx.fillRect(contentX + ctx.measureText('RESPONSE ').width + 8 * scale, y - fontSize.responseLabel * 0.7, ctx.measureText(toneText).width + 12 * scale, fontSize.responseLabel + 4 * scale);
+      ctx.fillStyle = isLight ? '#FFFFFF' : '#0A0A0A';
+      ctx.font = `700 ${fontSize.responseLabel * 0.85}px 'Space Mono', monospace`;
+      ctx.fillText(toneText, contentX + ctx.measureText('RESPONSE ').width + 14 * scale, y);
+
+      // Spice
+      ctx.textAlign = 'right';
+      ctx.font = `${Math.round(22 * scale)}px Arial`;
+      ctx.fillText(SPICE_LABELS[spice], contentRight, y);
+
+      y += fontSize.responseLabel + padding * 0.5;
+
+      // RESPONSE TEXT
+      ctx.textAlign = 'left';
+      ctx.fillStyle = textColor;
+      ctx.font = `${fontSize.response}px 'Playfair Display', serif`;
+      responseLines.forEach(line => {
+        ctx.fillText(line, contentX, y + fontSize.response * 0.85);
+        y += fontSize.response * 1.35;
+      });
+      y += padding * 0.5;
+
+      // QR
+      if (includeQR && qrDataUrl) {
+        const qrImg = new Image();
+        await new Promise(r => { qrImg.onload = r; qrImg.src = qrDataUrl; });
+        ctx.drawImage(qrImg, contentRight - qrSize, y, qrSize, qrSize);
+        y += qrSize + padding * 0.4;
+      }
+
+      // FOOTER
+      ctx.strokeStyle = borderLight;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(contentX, y);
+      ctx.lineTo(contentRight, y);
+      ctx.stroke();
+      y += padding * 0.4;
+
+      ctx.fillStyle = textDim;
+      ctx.font = `700 ${fontSize.footer}px 'Space Mono', monospace`;
+      ctx.textAlign = 'left';
+      ctx.fillText('THE PROTOCOL', contentX, y + fontSize.footer);
+      ctx.textAlign = 'right';
+      ctx.fillText('MATTERHOOD', contentRight, y + fontSize.footer);
+    }
+
+    const { canvas, ctx } = await createBaseCanvas();
+    await drawResponseCard(ctx, w, h);
+
+    const link = document.createElement('a');
+    link.download = `protocol-${format}-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('EXPORTED');
+  }
+
+  function wrapText(ctx, text, maxW) {
+    const words = text.split(' '), lines = [];
+    let line = '';
+    for (const word of words) {
+      const test = line ? line + ' ' + word : word;
+      if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = word; }
+      else { line = test; }
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  // Mobile back button
+  document.getElementById('backBtn').addEventListener('click', () => {
+    document.getElementById('controlPanel').classList.remove('hidden');
+    document.getElementById('displayPanel').classList.add('hidden');
+    document.getElementById('backBtn').style.display = 'none';
+  });
+
+  // Enter key
+  document.getElementById('triggerInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const activeTone = document.querySelector('.tone-btn.active');
+      if (activeTone) { generateScene(activeTone.dataset.tone); }
+      else { document.querySelector('.tone-btn[data-tone="diplomat"]').click(); }
+    }
+  });
 }
 
-// Calculate similarity between two strings (0-1)
-function similarity(a,b){
-if(a===b)return 1;
-if(a.length<2||b.length<2)return 0;
-
-// Bigram similarity
-const bigramsA=new Map();
-for(let i=0;i<a.length-1;i++){
-const bg=a.substring(i,i+2);
-bigramsA.set(bg,(bigramsA.get(bg)||0)+1);
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
-
-let matches=0;
-for(let i=0;i<b.length-1;i++){
-const bg=b.substring(i,i+2);
-if(bigramsA.get(bg)>0){
-matches++;
-bigramsA.set(bg,bigramsA.get(bg)-1);
-}
-}
-
-return (2*matches)/(a.length+b.length-2);
-}
-
-// Find best matching trigger
-function findMatch(input){
-const n=normalize(input);
-if(!n)return null;
-
-const nNoFill=removeFillers(n);
-
-let bestMatch=null;
-let bestScore=0;
-
-for(const t of TRIGGERS){
-for(const p of t.triggers){
-const pattern=normalize(p);
-const patternNoFill=removeFillers(pattern);
-
-// Strategy 1: Exact substring match (highest confidence)
-if(n.includes(pattern)){
-return t; // Exact match, return immediately
-}
-
-// Strategy 2: Input contains pattern without fillers
-if(nNoFill.includes(patternNoFill)&&patternNoFill.length>3){
-const score=0.95;
-if(score>bestScore){bestScore=score;bestMatch=t;}
-continue;
-}
-
-// Strategy 3: Pattern contained in input (user typed more)
-if(n.includes(patternNoFill)&&patternNoFill.length>3){
-const score=0.9;
-if(score>bestScore){bestScore=score;bestMatch=t;}
-continue;
-}
-
-// Strategy 4: Word overlap scoring
-const patternWords=patternNoFill.split(' ').filter(w=>w.length>2);
-const inputWords=nNoFill.split(' ').filter(w=>w.length>2);
-
-if(patternWords.length>0){
-let wordMatches=0;
-for(const pw of patternWords){
-for(const iw of inputWords){
-// Exact word match
-if(pw===iw){wordMatches++;break;}
-// Fuzzy word match (for typos)
-if(pw.length>3&&iw.length>3&&similarity(pw,iw)>0.7){
-wordMatches+=0.8;break;
-}
-}
-}
-const score=wordMatches/patternWords.length;
-if(score>bestScore&&score>=0.5){
-bestScore=score;
-bestMatch=t;
-}
-}
-
-// Strategy 5: Overall string similarity (catches typos)
-const sim=similarity(nNoFill,patternNoFill);
-if(sim>bestScore&&sim>=0.6){
-bestScore=sim;
-bestMatch=t;
-}
-}
-}
-
-return bestMatch;
-}
-
-// Perspective swap
-function swapPerspective(text){
-if(perspective==='i'){
-return text.replace(/\{We're\}/g,"I'm").replace(/\{we're\}/g,"I'm").replace(/\{We've\}/g,"I've").replace(/\{we've\}/g,"I've").replace(/\{We'll\}/g,"I'll").replace(/\{we'll\}/g,"I'll").replace(/\{We'd\}/g,"I'd").replace(/\{we'd\}/g,"I'd").replace(/\{We\}/g,"I").replace(/\{we\}/g,"I").replace(/\{Our\}/g,"My").replace(/\{our\}/g,"my").replace(/\{us\}/g,"me").replace(/\{Us\}/g,"Me").replace(/\{I\}'m/g,"I'm").replace(/\{I\}'ve/g,"I've").replace(/\{I\}'ll/g,"I'll").replace(/\{I\}'d/g,"I'd").replace(/\{I\}/g,"I").replace(/\{I'm\}/g,"I'm").replace(/\{My\}/g,"My").replace(/\{my\}/g,"my").replace(/\{me\}/g,"me");
-}else{
-return text.replace(/\{We're\}/g,"We're").replace(/\{we're\}/g,"we're").replace(/\{We've\}/g,"We've").replace(/\{we've\}/g,"we've").replace(/\{We'll\}/g,"We'll").replace(/\{we'll\}/g,"we'll").replace(/\{We'd\}/g,"We'd").replace(/\{we'd\}/g,"we'd").replace(/\{We\}/g,"We").replace(/\{we\}/g,"we").replace(/\{Our\}/g,"Our").replace(/\{our\}/g,"our").replace(/\{us\}/g,"us").replace(/\{Us\}/g,"Us").replace(/\{I\}'m/g,"We're").replace(/\{I\}'ve/g,"We've").replace(/\{I\}'ll/g,"We'll").replace(/\{I\}'d/g,"We'd").replace(/\{I\}/g,"We").replace(/\{I'm\}/g,"We're").replace(/\{My\}/g,"Our").replace(/\{my\}/g,"our").replace(/\{me\}/g,"us");
-}}
-
-// Get response key
-function getResponseKey(trigger,tone,spiceLevel){return `${trigger.triggers[0]}-${tone}-${spiceLevel}`;}
-
-// Get random response
-function getRandomResponse(variants,key){
-if(!usedResponses[key])usedResponses[key]=[];
-const available=variants.filter((_,i)=>!usedResponses[key].includes(i));
-if(available.length===0){usedResponses[key]=[];return variants[Math.floor(Math.random()*variants.length)];}
-const idx=variants.indexOf(available[Math.floor(Math.random()*available.length)]);
-usedResponses[key].push(idx);
-return variants[idx];
-}
-
-// Scene
-function setBackground(url){currentImageUrl=url;const bg=document.getElementById('sceneBg');bg.classList.remove('active');const img=new Image();img.onload=()=>{setTimeout(()=>{bg.style.backgroundImage=`url('${url}')`;bg.classList.add('active');},100);};img.src=url;}
-
-function generateScene(tone){
-const input=document.getElementById('triggerInput').value.trim();
-if(!input){document.getElementById('triggerInput').focus();return;}
-currentTone=tone;
-const match=findMatch(input);
-currentMatchedTrigger=match;
-if(match){
-currentSubtext=match.subtext;
-const toneResponses=match.responses[tone];
-const variants=toneResponses[spice]||toneResponses.medium;
-const key=getResponseKey(match,tone,spice);
-const rawResponse=Array.isArray(variants)?getRandomResponse(variants,key):variants;
-currentResponse=swapPerspective(rawResponse);
-setBackground(match.image);
-}else{
-currentSubtext="A question that doesn't deserve this much thought.";
-const fallbacks=["Some questions don't deserve answers. This is one of them.","Not every question deserves {our} energy.","That one's not in {our} script. For good reason.","{We} don't have a rehearsed response for that."];
-currentResponse=swapPerspective(fallbacks[Math.floor(Math.random()*fallbacks.length)]);
-setBackground('https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=1600&q=80');
-}
-currentTrigger=input;
-document.getElementById('subtextDisplay').textContent=currentSubtext;
-document.getElementById('triggerDisplay').textContent=input;
-document.getElementById('scriptText').textContent=currentResponse;
-document.getElementById('contextDisplay').textContent=CONTEXT_LABELS[context];
-document.getElementById('spiceDisplay').textContent=SPICE_LABELS[spice];
-document.getElementById('spiceDisplay').className='script-spice'+(spice==='hot'?' hot':'');
-document.getElementById('placeholderCard').style.display='none';
-const card=document.getElementById('scriptCard');card.classList.remove('active');void card.offsetWidth;card.classList.add('active');
-document.getElementById('newTakeBtn').disabled=false;
-document.getElementById('copyBtn').disabled=false;
-document.getElementById('animateBtn').disabled=false;
-document.getElementById('exportBtn').disabled=false;
-if(window.innerWidth<=900){document.getElementById('controlPanel').classList.add('hidden');document.getElementById('displayPanel').classList.remove('hidden');document.getElementById('backBtn').style.display='block';}}
-
-// Toggle handlers
-function setupToggles(groupId,callback){
-document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(btn=>{
-btn.addEventListener('click',()=>{
-document.querySelectorAll(`#${groupId} .toggle-btn, #${groupId} .spice-btn`).forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-callback(btn.dataset.context||btn.dataset.spice||btn.dataset.perspective);
-});});}
-setupToggles('contextGroup',v=>{context=v;});
-setupToggles('spiceGroup',v=>{spice=v;});
-setupToggles('perspectiveGroup',v=>{perspective=v;});
-
-// Chips
-COMMON_TRIGGERS.forEach(t=>{const c=document.createElement('button');c.className='trigger-chip';c.textContent=t;c.onclick=()=>{document.getElementById('triggerInput').value=t;};document.getElementById('triggersGrid').appendChild(c);});
-
-// Tone buttons
-document.querySelectorAll('.tone-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');generateScene(btn.dataset.tone);});});
-
-// Controls
-document.getElementById('newTakeBtn').addEventListener('click',()=>{if(currentTone)generateScene(currentTone);});
-document.getElementById('copyBtn').addEventListener('click',()=>{if(currentResponse){navigator.clipboard.writeText(currentResponse).then(()=>showToast('COPIED'));}});
-document.getElementById('exportBtn').addEventListener('click',()=>{
-generateCaptions();
-document.getElementById('exportOptions').classList.add('active');
-});
-document.getElementById('exportClose').addEventListener('click',()=>document.getElementById('exportOptions').classList.remove('active'));
-
-// Animation mode
-let animationTimeout = null;
-let uiTimeout = null;
-
-function playAnimation(){
-// Clear any running animation
-if(animationTimeout)clearTimeout(animationTimeout);
-if(uiTimeout)clearTimeout(uiTimeout);
-
-// Enter clean mode (hide UI)
-const overlay = document.getElementById('animateOverlay');
-overlay.classList.add('clean-mode');
-
-// Set up scene
-document.getElementById('animateBg').style.backgroundImage=`url('${currentImageUrl}')`;
-document.getElementById('animContext').textContent=CONTEXT_LABELS[context];
-document.getElementById('animSpice').textContent=SPICE_LABELS[spice];
-document.getElementById('animSubtext').textContent=currentSubtext; // Prefix handled by CSS
-document.getElementById('animTrigger').textContent=currentTrigger;
-
-// Wrap response in words, then character spans
-const responseEl = document.getElementById('animResponse');
-const words = currentResponse.split(' ');
-const html = words.map(word => {
-const chars = word.split('').map(c => `<span class="char">${c}</span>`).join('');
-return `<span class="word">${chars}</span>`;
-}).join(' ');
-
-responseEl.innerHTML = html;
-
-// Reset states
-document.getElementById('animSubtext').classList.remove('show');
-document.getElementById('animTrigger').classList.remove('show');
-responseEl.querySelectorAll('.char').forEach(c=>c.classList.remove('show'));
-
-// Animate sequence
-setTimeout(()=>document.getElementById('animSubtext').classList.add('show'),300);
-setTimeout(()=>document.getElementById('animTrigger').classList.add('show'),900);
-
-// Type out response
-const chars=responseEl.querySelectorAll('.char');
-chars.forEach((char,i)=>{
-animationTimeout=setTimeout(()=>char.classList.add('show'),1400+i*35);
-});
-
-// Exit clean mode after animation + buffer
-const totalDuration = 1400 + (chars.length * 35) + 1500;
-uiTimeout = setTimeout(() => {
-overlay.classList.remove('clean-mode');
-}, totalDuration);
-}
-
-document.getElementById('animateBtn').addEventListener('click',()=>{
-document.getElementById('animateOverlay').classList.add('active');
-playAnimation();
-});
-document.getElementById('replayBtn').addEventListener('click',playAnimation);
-document.getElementById('animCloseBtn').addEventListener('click',()=>{
-document.getElementById('animateOverlay').classList.remove('active');
-if(animationTimeout)clearTimeout(animationTimeout);
-if(uiTimeout)clearTimeout(uiTimeout);
-document.getElementById('animateOverlay').classList.remove('clean-mode');
-});
-document.getElementById('exportOptions').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('active');});
-
-// Surprise me button
-document.getElementById('surpriseBtn').addEventListener('click',()=>{
-const randomTrigger=TRIGGERS[Math.floor(Math.random()*TRIGGERS.length)];
-const randomPhrase=randomTrigger.triggers[Math.floor(Math.random()*randomTrigger.triggers.length)];
-document.getElementById('triggerInput').value=randomPhrase;
-
-// Randomize context
-const contexts=['stranger','family','colleague','medical'];
-const randomContext=contexts[Math.floor(Math.random()*contexts.length)];
-context=randomContext;
-document.querySelectorAll('#contextGroup .toggle-btn').forEach(b=>{
-b.classList.toggle('active',b.dataset.context===randomContext);
-});
-
-// Randomize spice
-const spices=['mild','medium','hot'];
-const randomSpice=spices[Math.floor(Math.random()*spices.length)];
-spice=randomSpice;
-document.querySelectorAll('#spiceGroup .spice-btn').forEach(b=>{
-b.classList.toggle('active',b.dataset.spice===randomSpice);
-});
-
-// Randomize perspective
-const perspectives=['i','we'];
-const randomPerspective=perspectives[Math.floor(Math.random()*perspectives.length)];
-perspective=randomPerspective;
-document.querySelectorAll('#perspectiveGroup .toggle-btn').forEach(b=>{
-b.classList.toggle('active',b.dataset.perspective===randomPerspective);
-});
-
-// Randomize tone and generate
-const tones=['diplomat','critic','absurdist','realist'];
-const randomTone=tones[Math.floor(Math.random()*tones.length)];
-document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));
-document.querySelector(`.tone-btn[data-tone="${randomTone}"]`).classList.add('active');
-generateScene(randomTone);
-});
-
-// Caption suggestions
-const CAPTIONS=[
-"Things people actually say to us. Here's what we wish we'd said back.",
-"Filed under: comments that don't help.",
-"For everyone who's heard this one before.",
-"Words we've been saving.",
-"What I wanted to say vs. what I said: finally aligned.",
-"This one's for the well-meaning but clueless.",
-"Boundaries, but make it articulate.",
-"The script I needed years ago.",
-"Not all comments deserve a polite response.",
-"Sharing because someone needs to hear this isn't okay."
-];
-
-const CAPTIONS_EDUCATIONAL=[
-"Sharing this to help people understand, not to call anyone out.",
-"For those who want to support someone going through this—here's what actually helps.",
-"Swipe to see why this comment hurts more than it helps.",
-"Well-meaning doesn't always mean helpful. Here's what to know.",
-"If you've said this, you're not alone. Here's how to do better."
-];
-
-function generateCaptions(){
-const isDual=document.getElementById('toggleDual').checked;
-const captionPool=isDual?[...CAPTIONS_EDUCATIONAL,...CAPTIONS.slice(0,3)]:CAPTIONS;
-
-// Pick 3 random captions
-const shuffled=[...captionPool].sort(()=>Math.random()-0.5);
-const selected=shuffled.slice(0,3);
-
-const container=document.getElementById('captionSuggestions');
-container.innerHTML=selected.map((c,i)=>`<div class="caption-item" data-caption-index="${i}">${c}</div>`).join('');
-
-// Store captions for copying
-container.captionData=selected;
-
-// Add click handlers
-container.querySelectorAll('.caption-item').forEach((el,i)=>{
-el.addEventListener('click',()=>{
-const text=selected[i]+' #matterhood';
-navigator.clipboard.writeText(text).then(()=>{
-container.querySelectorAll('.caption-item').forEach(c=>c.classList.remove('copied'));
-el.classList.add('copied');
-showToast('CAPTION COPIED');
-});
-});
-});
-}
-
-// Regenerate captions when dual toggle changes
-document.getElementById('toggleDual').addEventListener('change',generateCaptions);
-
-// Export formats
-document.querySelectorAll('.export-format-btn').forEach(btn=>{
-btn.addEventListener('click',async()=>{
-const format=btn.dataset.format;
-const dims={story:{w:1080,h:1920},square:{w:1080,h:1080},wide:{w:1200,h:675}}[format];
-await exportImage(dims.w,dims.h,format);
-document.getElementById('exportOptions').classList.remove('active');
-});});
-
-async function exportImage(w,h,format){
-const isLight=document.documentElement.dataset.theme==='light';
-const includeQR=document.getElementById('toggleQR').checked;
-const includeDual=document.getElementById('toggleDual').checked;
-
-const bgColor=isLight?'#FAFAF8':'#080808';
-const frameBg=isLight?'#F0EDE8':'#121212';
-const textColor=isLight?'#0A0A0A':'#F5F2ED';
-const textDim=isLight?'rgba(10,10,10,0.7)':'rgba(232,228,223,0.7)';
-const labelColor=isLight?'rgba(10,10,10,0.4)':'rgba(232,228,223,0.4)';
-const borderColor=isLight?'rgba(10,10,10,0.15)':'rgba(232,228,223,0.15)';
-const goldColor=isLight?'#7A6545':'#B8956A';
-const alertColor='#C41E1E';
-
-// Scale factor for different formats
-const baseScale=format==='story'?1:format==='square'?1:1.1;
-const scale=w/1080*baseScale;
-
-// Sizes matching website (converted from rem, ~16px base)
-const metaSize=Math.round(11*scale);      // .46rem = ~7.4px, scaled up for export
-const subtextSize=Math.round(12*scale);   // .5rem
-const triggerLabelSize=Math.round(11*scale);
-const triggerSize=Math.round(14*scale);   // .6rem
-const responseLabelSize=Math.round(11*scale);
-const responseSize=Math.round(format==='wide'?32*scale:38*scale);
-const footerSize=Math.round(11*scale);
-const padding=Math.round(50*scale);
-const qrSize=Math.round(80*scale);
-const textW=Math.round(format==='wide'?w*0.65:w*0.72);
-
-// Generate QR code if needed
-let qrDataUrl=null;
-if(includeQR){
-const qrDiv=document.createElement('div');
-document.body.appendChild(qrDiv);
-new QRCode(qrDiv,{text:window.location.origin,width:qrSize*3,height:qrSize*3,colorDark:isLight?'#0A0A0A':'#E8E4DF',colorLight:'transparent',correctLevel:QRCode.CorrectLevel.M});
-await new Promise(r=>setTimeout(r,150));
-const qrCanvas=qrDiv.querySelector('canvas');
-if(qrCanvas)qrDataUrl=qrCanvas.toDataURL();
-document.body.removeChild(qrDiv);
-}
-
-// Helper to create a canvas with background
-async function createBaseCanvas(){
-const canvas=document.createElement('canvas');
-canvas.width=w;canvas.height=h;
-const ctx=canvas.getContext('2d');
-ctx.fillStyle=bgColor;ctx.fillRect(0,0,w,h);
-if(currentImageUrl){
-try{
-const img=new Image();img.crossOrigin='anonymous';
-await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=currentImageUrl;});
-const imgScale=Math.max(w/img.width,h/img.height);
-const sw=img.width*imgScale,sh=img.height*imgScale;
-ctx.globalAlpha=isLight?0.12:0.25;
-ctx.filter='grayscale(100%) contrast(1.1)';
-ctx.drawImage(img,(w-sw)/2,(h-sh)/2,sw,sh);
-ctx.globalAlpha=1;ctx.filter='none';
-}catch(e){}
-}
-return {canvas,ctx};
-}
-
-// Helper to draw response card (matching website exactly)
-async function drawResponseCard(ctx,areaW,areaH){
-// Calculate content height first
-let contentH=0;
-
-// Meta row + border
-contentH+=metaSize+padding*0.5+padding*0.4; // meta + padding-bottom + margin-bottom equivalent
-
-// Subtext
-ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
-const subtextLines=wrapText(ctx,'SUBTEXT: '+currentSubtext,textW);
-contentH+=subtextLines.length*subtextSize*1.6+padding*0.6;
-
-// They said label + trigger
-contentH+=triggerLabelSize+padding*0.15;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-const triggerLines=wrapText(ctx,currentTrigger,textW);
-contentH+=triggerLines.length*triggerSize*1.6+padding*0.5;
-
-// You say label + response
-contentH+=responseLabelSize+padding*0.35;
-ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
-const responseLines=wrapText(ctx,currentResponse,textW);
-contentH+=responseLines.length*responseSize*1.35+padding*0.7;
-
-// QR code space (above footer line)
-if(includeQR)contentH+=qrSize+padding*0.4;
-
-// Footer (border-top + text)
-contentH+=padding*0.5+footerSize;
-
-const frameW=textW+padding*2;
-const frameH=contentH+padding*2;
-const frameX=(areaW-frameW)/2;
-const frameY=(areaH-frameH)/2;
-
-// Frame background
-ctx.fillStyle=frameBg;
-ctx.fillRect(frameX,frameY,frameW,frameH);
-
-// Frame border
-ctx.strokeStyle=borderColor;
-ctx.lineWidth=1;
-ctx.strokeRect(frameX,frameY,frameW,frameH);
-
-// Gold accent bar
-ctx.fillStyle=goldColor;
-ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
-
-const contentX=frameX+padding;
-const contentRight=frameX+frameW-padding;
-let y=frameY+padding;
-
-// === META ROW ===
-ctx.font=`${metaSize}px 'Space Mono', monospace`;
-ctx.textAlign='left';
-ctx.fillStyle=labelColor;
-ctx.fillText(CONTEXT_LABELS[context],contentX,y+metaSize);
-ctx.textAlign='right';
-ctx.fillStyle=spice==='hot'?alertColor:goldColor;
-ctx.fillText(SPICE_LABELS[spice],contentRight,y+metaSize);
-y+=metaSize+padding*0.5;
-
-// Meta border-bottom
-ctx.strokeStyle=borderColor;
-ctx.beginPath();
-ctx.moveTo(contentX,y);
-ctx.lineTo(contentRight,y);
-ctx.stroke();
-y+=padding*0.4;
-
-// === SUBTEXT ===
-ctx.textAlign='left';
-ctx.fillStyle=goldColor;
-ctx.font=`italic ${subtextSize}px 'Space Mono', monospace`;
-subtextLines.forEach((line,i)=>{
-// First line gets "SUBTEXT: " prefix styling
-ctx.fillText(line,contentX,y+subtextSize);
-y+=subtextSize*1.6;
-});
-y+=padding*0.6;
-
-// === THEY SAID ===
-ctx.fillStyle=labelColor;
-ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('THEY SAID:',contentX,y+triggerLabelSize);
-y+=triggerLabelSize+padding*0.15;
-
-ctx.fillStyle=textDim;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-triggerLines.forEach(line=>{
-ctx.fillText(line,contentX,y+triggerSize);
-y+=triggerSize*1.6;
-});
-y+=padding*0.5;
-
-// === YOU SAY ===
-ctx.fillStyle=goldColor;
-ctx.font=`${responseLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('YOU SAY:',contentX,y+responseLabelSize);
-y+=responseLabelSize+padding*0.35;
-
-ctx.fillStyle=textColor;
-ctx.font=`400 ${responseSize}px 'Playfair Display', serif`;
-responseLines.forEach(line=>{
-ctx.fillText(line,contentX,y+responseSize*0.85);
-y+=responseSize*1.35;
-});
-y+=padding*0.7;
-
-// === QR CODE (above footer line) ===
-if(includeQR&&qrDataUrl){
-const qrImg=new Image();
-await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
-const qrX=contentRight-qrSize;
-ctx.drawImage(qrImg,qrX,y,qrSize,qrSize);
-y+=qrSize+padding*0.4;
-}
-
-// === FOOTER ===
-// Border-top
-ctx.strokeStyle=borderColor;
-ctx.beginPath();
-ctx.moveTo(contentX,y);
-ctx.lineTo(contentRight,y);
-ctx.stroke();
-y+=padding*0.5;
-
-// Footer text
-ctx.fillStyle=labelColor;
-ctx.font=`${footerSize}px 'Space Mono', monospace`;
-ctx.textAlign='left';
-ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
-ctx.textAlign='right';
-ctx.fillText('MATTERHOOD',contentRight,y+footerSize);
-}
-
-// Helper to draw education card
-async function drawEducationCard(ctx,areaW,areaH){
-const whyText=currentMatchedTrigger?.why_it_hurts||"This comment, though well-meaning, can minimize the deep emotional weight of infertility and childlessness. It suggests a simple solution exists when the reality is far more complex.";
-const whatText=currentMatchedTrigger?.what_to_know||"People navigating fertility challenges often hear dozens of these comments. Each one, even from a place of love, can feel like their pain is being dismissed or misunderstood.";
-
-// Calculate content height
-let contentH=0;
-
-// Title
-const titleSize=Math.round(responseSize*0.75);
-contentH+=titleSize+padding*0.5;
-
-// When they say
-contentH+=triggerLabelSize+padding*0.15;
-contentH+=triggerSize+padding*0.4;
-
-// The impact
-contentH+=triggerLabelSize+padding*0.15;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-const whyLines=wrapText(ctx,whyText,textW);
-contentH+=whyLines.length*triggerSize*1.6+padding*0.4;
-
-// What helps
-contentH+=triggerLabelSize+padding*0.15;
-const whatLines=wrapText(ctx,whatText,textW);
-contentH+=whatLines.length*triggerSize*1.6+padding*0.7;
-
-// QR
-if(includeQR)contentH+=qrSize+padding*0.4;
-
-// Footer
-contentH+=padding*0.5+footerSize;
-
-const frameW=textW+padding*2;
-const frameH=contentH+padding*2;
-const frameX=(areaW-frameW)/2;
-const frameY=(areaH-frameH)/2;
-
-ctx.fillStyle=frameBg;
-ctx.fillRect(frameX,frameY,frameW,frameH);
-ctx.strokeStyle=borderColor;
-ctx.lineWidth=1;
-ctx.strokeRect(frameX,frameY,frameW,frameH);
-ctx.fillStyle=alertColor;
-ctx.fillRect(frameX,frameY,Math.round(40*scale),2);
-
-const contentX=frameX+padding;
-const contentRight=frameX+frameW-padding;
-let y=frameY+padding;
-
-// Title
-ctx.fillStyle=textColor;
-ctx.font=`400 ${titleSize}px 'Playfair Display', serif`;
-ctx.textAlign='left';
-ctx.fillText('Why this hurts.',contentX,y+titleSize*0.85);
-y+=titleSize+padding*0.5;
-
-// When they say
-ctx.fillStyle=labelColor;
-ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('WHEN THEY SAY:',contentX,y+triggerLabelSize);
-y+=triggerLabelSize+padding*0.15;
-ctx.fillStyle=textDim;
-ctx.font=`italic ${triggerSize}px 'Space Mono', monospace`;
-ctx.fillText('"'+currentTrigger+'"',contentX,y+triggerSize);
-y+=triggerSize+padding*0.4;
-
-// The impact
-ctx.fillStyle=goldColor;
-ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('THE IMPACT:',contentX,y+triggerLabelSize);
-y+=triggerLabelSize+padding*0.15;
-ctx.fillStyle=textDim;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-whyLines.forEach(line=>{
-ctx.fillText(line,contentX,y+triggerSize);
-y+=triggerSize*1.6;
-});
-y+=padding*0.4;
-
-// What helps
-ctx.fillStyle=goldColor;
-ctx.font=`${triggerLabelSize}px 'Space Mono', monospace`;
-ctx.fillText('WHAT HELPS INSTEAD:',contentX,y+triggerLabelSize);
-y+=triggerLabelSize+padding*0.15;
-ctx.fillStyle=textDim;
-ctx.font=`${triggerSize}px 'Space Mono', monospace`;
-whatLines.forEach(line=>{
-ctx.fillText(line,contentX,y+triggerSize);
-y+=triggerSize*1.6;
-});
-y+=padding*0.7;
-
-// QR
-if(includeQR&&qrDataUrl){
-const qrImg=new Image();
-await new Promise(r=>{qrImg.onload=r;qrImg.src=qrDataUrl;});
-ctx.drawImage(qrImg,contentRight-qrSize,y,qrSize,qrSize);
-y+=qrSize+padding*0.4;
-}
-
-// Footer
-ctx.strokeStyle=borderColor;
-ctx.beginPath();
-ctx.moveTo(contentX,y);
-ctx.lineTo(contentRight,y);
-ctx.stroke();
-y+=padding*0.5;
-ctx.fillStyle=labelColor;
-ctx.font=`${footerSize}px 'Space Mono', monospace`;
-ctx.textAlign='left';
-ctx.fillText('THE PROTOCOL',contentX,y+footerSize);
-ctx.textAlign='right';
-ctx.fillText('MATTERHOOD',contentRight,y+footerSize);
-}
-
-// Export response card
-const {canvas:canvas1,ctx:ctx1}=await createBaseCanvas();
-await drawResponseCard(ctx1,w,h);
-const link1=document.createElement('a');
-link1.download=`protocol-${format}-response-${Date.now()}.png`;
-link1.href=canvas1.toDataURL('image/png');
-link1.click();
-
-// Export education card if dual mode
-if(includeDual){
-await new Promise(r=>setTimeout(r,500)); // Delay between downloads
-const {canvas:canvas2,ctx:ctx2}=await createBaseCanvas();
-await drawEducationCard(ctx2,w,h);
-const link2=document.createElement('a');
-link2.download=`protocol-${format}-why-${Date.now()}.png`;
-link2.href=canvas2.toDataURL('image/png');
-link2.click();
-showToast('EXPORTED 2 IMAGES');
-}else{
-showToast('EXPORTED');
-}
-}
-
-function wrapText(ctx,text,maxW){const words=text.split(' '),lines=[];let line='';for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else{line=test;}}if(line)lines.push(line);return lines;}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
-
-// Mobile
-document.getElementById('backBtn').addEventListener('click',()=>{document.getElementById('controlPanel').classList.remove('hidden');document.getElementById('displayPanel').classList.add('hidden');document.getElementById('backBtn').style.display='none';});
 
 // Theme toggle
-const themeToggle=document.getElementById('themeToggle');
-function setTheme(theme){
-document.documentElement.dataset.theme=theme;
-themeToggle.textContent=theme==='light'?'☾':'☀';
-localStorage.setItem('protocol_theme',theme);
+const themeToggle = document.getElementById('themeToggle');
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeToggle.textContent = theme === 'dark' ? '☀' : '☾';
+  localStorage.setItem('protocol_theme', theme);
 }
-themeToggle.addEventListener('click',()=>{
-const current=document.documentElement.dataset.theme;
-setTheme(current==='light'?'dark':'light');
+
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.dataset.theme;
+  setTheme(current === 'dark' ? 'light' : 'dark');
 });
-const savedTheme=localStorage.getItem('protocol_theme')||'dark';
+
+const savedTheme = localStorage.getItem('protocol_theme') || 'light';
 setTheme(savedTheme);
 
-// Enter key
-document.getElementById('triggerInput').addEventListener('keydown',e=>{if(e.key==='Enter'){const activeTone=document.querySelector('.tone-btn.active');if(activeTone){generateScene(activeTone.dataset.tone);}else{document.querySelector('.tone-btn[data-tone="diplomat"]').click();}}});
-}
-
-// Start the app
+// Start
 loadTriggers();
 </script>
 </body>
+</html>
